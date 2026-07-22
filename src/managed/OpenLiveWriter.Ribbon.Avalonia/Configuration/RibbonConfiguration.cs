@@ -176,6 +176,11 @@ namespace OpenLiveWriter.Ribbon.Managed.Configuration
         /// Gets or sets the preferred size for this button.
         /// </summary>
         public RibbonGroupSize PreferredSize { get; set; } = RibbonGroupSize.Large;
+
+        /// <summary>
+        /// Gets or sets the label override for this button (overrides command label).
+        /// </summary>
+        public string Label { get; set; }
     }
 
     /// <summary>

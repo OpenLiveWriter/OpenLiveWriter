@@ -107,7 +107,8 @@ const OLWBridge = {
             foreColor: (document.queryCommandValue('foreColor') || '').toString(),
             backColor: (document.queryCommandValue('backColor') || document.queryCommandValue('hiliteColor') || '').toString(),
             inTable: ctx.inTable,
-            selectedElementType: ctx.selectedElementType
+            selectedElementType: ctx.selectedElementType,
+            image: ctx.image
         });
     },
 
@@ -149,14 +150,20 @@ const OLWBridge = {
     // recognized rich element (image, video embed, map embed, or tag anchor).
     // Drives the ribbon's contextual-tab activation. Returns a plain object.
     _selectionContext: function() {
-        var ctx = { inTable: false, selectedElementType: null };
+        var ctx = { inTable: false, selectedElementType: null, image: null };
         var sel = window.getSelection();
         if (!sel || sel.rangeCount === 0) return ctx;
+
+        var img = this._selectedImage();
+        if (img) {
+            ctx.selectedElementType = 'image';
+            ctx.image = this._imageState(img);
+        }
 
         var range = sel.getRangeAt(0);
 
         // An image selected as a unit: the range wraps a single IMG node.
-        if (!range.collapsed) {
+        if (!ctx.selectedElementType && !range.collapsed) {
             var frag = range.cloneContents();
             if (frag && frag.childNodes.length === 1 &&
                 frag.childNodes[0].nodeType === 1 && frag.childNodes[0].tagName === 'IMG') {
@@ -356,6 +363,181 @@ const OLWBridge = {
         return true;
     },
 
+    // ---- Image operations (operate on the <img> selected as a unit) ----
+
+    // Returns the IMG element currently selected as a unit (single-node
+    // selection, as produced by clicking an image), or null.
+    _selectedImage: function() {
+        var sel = window.getSelection();
+        if (!sel || sel.rangeCount === 0) return null;
+        var range = sel.getRangeAt(0);
+        if (range.startContainer === range.endContainer &&
+            range.endOffset === range.startOffset + 1 &&
+            range.startContainer.nodeType === 1) {
+            var node = range.startContainer.childNodes[range.startOffset];
+            if (node && node.nodeType === 1 && node.tagName === 'IMG') return node;
+        }
+        return null;
+    },
+
+    // Parses an integer pixel value from a CSS length ("12px" -> 12), else null.
+    _px: function(value) {
+        var m = /^(\d+(?:\.\d+)?)px$/.exec(value || '');
+        return m ? Math.round(parseFloat(m[1])) : null;
+    },
+
+    // Builds the attribute/style payload for the given image, consumed by the
+    // host's FormatState (ribbon spinners, properties dialog prefill).
+    _imageState: function(img) {
+        if (!img) return null;
+        var st = img.style;
+
+        var alignment = 'inline';
+        if (st.cssFloat === 'left' || st.cssFloat === 'right') alignment = st.cssFloat;
+        else if (st.display === 'block' && st.marginLeft === 'auto' && st.marginRight === 'auto')
+            alignment = 'center';
+
+        var mt = this._px(st.marginTop), mr = this._px(st.marginRight),
+            mb = this._px(st.marginBottom), ml = this._px(st.marginLeft);
+        var margin = (mt !== null && mt === mr && mr === mb && mb === ml) ? mt : null;
+
+        var rotation = 0;
+        var rm = /rotate\((-?\d+(?:\.\d+)?)deg\)/.exec(st.transform || '');
+        if (rm) rotation = Math.round(parseFloat(rm[1]));
+
+        var borderWidth = this._px(st.borderTopWidth);
+
+        var link = '';
+        var parent = img.parentNode;
+        if (parent && parent.tagName === 'A') link = parent.getAttribute('href') || '';
+
+        var rect = img.getBoundingClientRect();
+        return {
+            src: img.getAttribute('src') || '',
+            naturalWidth: img.naturalWidth || 0,
+            naturalHeight: img.naturalHeight || 0,
+            width: parseInt(img.getAttribute('width'), 10) || Math.round(rect.width) || img.naturalWidth || 0,
+            height: parseInt(img.getAttribute('height'), 10) || Math.round(rect.height) || img.naturalHeight || 0,
+            alt: img.getAttribute('alt') || '',
+            title: img.getAttribute('title') || '',
+            alignment: alignment,
+            margin: margin,
+            rotation: rotation,
+            borderWidth: borderWidth,
+            borderColor: borderWidth ? (st.borderTopColor || '') : null,
+            link: link
+        };
+    },
+
+    // Returns the selected image's attribute payload as JSON (null when none).
+    getSelectedImage: function() {
+        return JSON.stringify(this._imageState(this._selectedImage()));
+    },
+
+    // Applies attributes/styles to the selected image. Only keys present in
+    // attrs are touched. width/height: a number sets both the attribute and a
+    // matching inline style (the stylesheet's height:auto would otherwise
+    // override the height attribute), null clears back to natural size.
+    // margin: number sets a uniform px margin, 0/null clears. alignment:
+    // inline/left/right/center. borderWidth + borderColor set a solid border
+    // (0/null removes). rotation: degrees for a CSS transform (0 removes).
+    applyImageAttrs: function(attrs) {
+        if (!attrs) return false;
+        this.restoreSelection();
+        var img = this._selectedImage();
+        if (!img) return false;
+        var st = img.style;
+
+        if (attrs.width !== undefined) {
+            if (attrs.width === null) { img.removeAttribute('width'); st.width = ''; }
+            else { img.setAttribute('width', attrs.width); st.width = attrs.width + 'px'; }
+        }
+        if (attrs.height !== undefined) {
+            if (attrs.height === null) { img.removeAttribute('height'); st.height = ''; }
+            else { img.setAttribute('height', attrs.height); st.height = attrs.height + 'px'; }
+        }
+        if (attrs.alt !== undefined) {
+            if (attrs.alt) img.setAttribute('alt', attrs.alt); else img.removeAttribute('alt');
+        }
+        if (attrs.title !== undefined) {
+            if (attrs.title) img.setAttribute('title', attrs.title); else img.removeAttribute('title');
+        }
+        if (attrs.alignment !== undefined || attrs.margin !== undefined) {
+            var cur = this._imageState(img);
+            var align = attrs.alignment !== undefined ? attrs.alignment : cur.alignment;
+            var margin = attrs.margin !== undefined ? attrs.margin : cur.margin;
+            st.cssFloat = '';
+            st.display = '';
+            st.marginTop = st.marginRight = st.marginBottom = st.marginLeft = '';
+            if (align === 'left' || align === 'right') st.cssFloat = align;
+            else if (align === 'center') {
+                st.display = 'block';
+                st.marginLeft = 'auto';
+                st.marginRight = 'auto';
+            }
+            if (margin !== null && margin > 0) {
+                st.marginTop = margin + 'px';
+                st.marginBottom = margin + 'px';
+                if (align !== 'center') {
+                    st.marginLeft = margin + 'px';
+                    st.marginRight = margin + 'px';
+                }
+            }
+        }
+        if (attrs.borderWidth !== undefined) {
+            if (attrs.borderWidth === null || attrs.borderWidth <= 0) st.border = '';
+            else st.border = attrs.borderWidth + 'px solid ' + (attrs.borderColor || '#999999');
+        }
+        if (attrs.rotation !== undefined) {
+            if (!attrs.rotation) st.transform = '';
+            else st.transform = 'rotate(' + attrs.rotation + 'deg)';
+        }
+
+        this.saveSelection();
+        this.reportState();
+        postContentChanged();
+        return true;
+    },
+
+    // Wraps the selected image in (or retargets/removes) a link. A null/empty
+    // url removes any wrapping anchor.
+    setImageLink: function(url) {
+        this.restoreSelection();
+        var img = this._selectedImage();
+        if (!img) return false;
+        var parent = img.parentNode;
+        if (parent && parent.tagName === 'A') {
+            if (url) {
+                parent.setAttribute('href', url);
+            } else {
+                var grand = parent.parentNode;
+                grand.insertBefore(img, parent);
+                grand.removeChild(parent);
+            }
+        } else if (url) {
+            var a = document.createElement('a');
+            a.setAttribute('href', url);
+            img.parentNode.insertBefore(a, img);
+            a.appendChild(img);
+        }
+        this.saveSelection();
+        this.reportState();
+        postContentChanged();
+        return true;
+    },
+
+    // Rotates the selected image by delta degrees (CSS transform, normalized
+    // to 0-359). Unlike Windows Live Writer this does not bake pixels — the
+    // rotation survives publish as an inline style.
+    rotateImage: function(delta) {
+        this.restoreSelection();
+        var img = this._selectedImage();
+        if (!img) return false;
+        var cur = this._imageState(img).rotation || 0;
+        var next = ((cur + delta) % 360 + 360) % 360;
+        return this.applyImageAttrs({ rotation: next });
+    },
+
     // Find and highlight the next occurrence of query using the browser's
     // native find. Returns true when a match is selected.
     findNext: function(query, matchCase) {
@@ -525,6 +707,20 @@ document.addEventListener('DOMContentLoaded', function() {
         OLWBridge._handleTypographicKey(e);
     });
     document.body.addEventListener('input', postContentChanged);
+    // Clicking an image selects it as a unit (like Windows Live Writer's
+    // picture selection) so Picture Tools commands have a target; moving the
+    // caret away deselects it via the selectionchange listener above.
+    document.body.addEventListener('click', function(e) {
+        if (e.target && e.target.tagName === 'IMG') {
+            var range = document.createRange();
+            range.selectNode(e.target);
+            var sel = window.getSelection();
+            sel.removeAllRanges();
+            sel.addRange(range);
+            OLWBridge.saveSelection();
+            OLWBridge.reportState();
+        }
+    });
 });
 </script>
 </head>

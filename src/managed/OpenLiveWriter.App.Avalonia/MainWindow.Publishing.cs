@@ -40,6 +40,7 @@ namespace OpenLiveWriter.App.Avalonia
 
             RefreshBlogSelector();
             UpdateStatusBarExtras();
+            RefreshThemeToggleState();
         }
 
         // Fills the ribbon's blog-selector dropdown from the stored accounts and
@@ -74,6 +75,7 @@ namespace OpenLiveWriter.App.Avalonia
             UpdateBlogStatusLabel();
             UpdateStatus($"Current blog: {_accountService.CurrentAccount?.DisplayLabel}");
             UpdateStatusBarExtras();
+            RefreshThemeToggleState();
         }
 
         private async Task<bool> TryHandlePublishCommandAsync(CommandId commandId)
@@ -128,6 +130,7 @@ namespace OpenLiveWriter.App.Avalonia
         {
             await AccountManagerDialog.ShowAsync(this, _accountService);
             RefreshBlogSelector();
+            RefreshThemeToggleState();
             BlogAccount current = _accountService.CurrentAccount;
             UpdateStatus(current != null ? $"Current blog: {current.DisplayLabel}" : "No blog selected.");
         }
@@ -148,6 +151,7 @@ namespace OpenLiveWriter.App.Avalonia
 
             _accountService.SetCurrentAccount(id);
             RefreshBlogSelector();
+            RefreshThemeToggleState();
             UpdateStatus($"Current blog: {_accountService.CurrentAccount?.DisplayLabel}");
         }
 

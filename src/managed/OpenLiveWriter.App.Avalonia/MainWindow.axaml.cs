@@ -31,6 +31,7 @@ namespace OpenLiveWriter.App.Avalonia
             InitializeAccounts();
             InitializeSpelling();
             InitializePreferences();
+            InitializeTheming();
             InitializeWindowLayout();
             InitializeMenuBar();
             InitializeAutosave();
@@ -47,6 +48,12 @@ namespace OpenLiveWriter.App.Avalonia
 
             // Wire ribbon commands — the same entry point the macOS menu bar uses.
             ribbon.CommandExecuted += async (sender, commandId) => await ExecuteCommandAsync(commandId);
+
+            // Picture Tools width/height spinners apply to the selected image.
+            ribbon.SpinnerValueChanged += async (sender, args) => await OnImageSpinnerValueChangedAsync(args);
+
+            // Picture Tools defaults: aspect-ratio lock starts on (like Windows).
+            ribbon.SetToggleState(CommandId.FormatImageLockAspectRatio, true);
 
             ribbon.ComboSelectionChanged += async (sender, args) =>
             {
@@ -112,8 +119,16 @@ namespace OpenLiveWriter.App.Avalonia
             if (await TryHandlePublishCommandAsync(commandId))
                 return;
 
+            // Blog Account theme commands (Use Theme / Update Theme).
+            if (await TryHandleThemingCommandAsync(commandId))
+                return;
+
             // Insert-tab commands that need a dialog (table/video/emoticon/paste).
             if (await TryHandleInsertCommandAsync(commandId))
+                return;
+
+            // Picture Tools contextual-tab commands (size/properties/link/border).
+            if (await TryHandlePictureCommandAsync(commandId))
                 return;
 
             // Spelling status command.
@@ -455,6 +470,18 @@ namespace OpenLiveWriter.App.Avalonia
             // Show/hide the contextual ribbon tab (Table/Picture/Video/Map/Tag Tools)
             // that matches the caret's current selection context.
             _ribbon.ActivateContextualTabGroup(ContextualTabResolver.Resolve(state));
+
+            // Reflect the selected image's size/border on the Picture Tools tab.
+            _lastImageState = state.Image;
+            if (state.Image != null)
+            {
+                _ribbon.SetSpinnerValue(CommandId.FormatImageAdjustWidth,
+                    state.Image.Width > 0 ? (decimal?)state.Image.Width : null);
+                _ribbon.SetSpinnerValue(CommandId.FormatImageAdjustHeight,
+                    state.Image.Height > 0 ? (decimal?)state.Image.Height : null);
+                _ribbon.SetToggleState(CommandId.ImageBorderGallery,
+                    state.Image.BorderWidthPx.HasValue);
+            }
         }
 
         private FindReplaceDialog _findDialog;

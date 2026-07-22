@@ -70,6 +70,11 @@ namespace OpenLiveWriter.App.Avalonia
                 case CommandId.ViewPreview:
                     SetEditorView("preview");
                     return true;
+                case CommandId.ClosePreview:
+                    // Preview tab's Close Preview: on Windows this only switches the
+                    // editor back to the Edit view — same here.
+                    SetEditorView("edit");
+                    return true;
                 case CommandId.Print:
                     await PrintCurrentAsync();
                     return true;

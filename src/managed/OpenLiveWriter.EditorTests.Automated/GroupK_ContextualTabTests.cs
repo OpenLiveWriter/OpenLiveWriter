@@ -136,6 +136,24 @@ namespace OpenLiveWriter.EditorTests.Automated
         }
 
         [AvaloniaTest]
+        public void Ribbon_ActivatesAndDeactivatesPictureToolsTab()
+        {
+            var ribbon = new AvaloniaRibbonControl();
+            ribbon.LoadConfiguration(DefaultRibbonConfiguration.Create());
+
+            Assert.That(HasTab(ribbon, "Format"), Is.False, "Picture Tools tab should be hidden initially");
+
+            ribbon.ActivateContextualTabGroup(RibbonContextualTabGroup.ImageTools);
+            Assert.That(ribbon.ActiveContextualGroup, Is.EqualTo(RibbonContextualTabGroup.ImageTools));
+            Assert.That(HasTab(ribbon, "Format"), Is.True, "Picture Tools Format tab should appear");
+
+            // Deselecting the image (back to body text) hides the contextual tab.
+            ribbon.ActivateContextualTabGroup(RibbonContextualTabGroup.None);
+            Assert.That(HasTab(ribbon, "Format"), Is.False);
+            Assert.That(HasTab(ribbon, "Home"), Is.True);
+        }
+
+        [AvaloniaTest]
         public void Ribbon_ReactivatingSameGroupIsNoOp()
         {
             var ribbon = new AvaloniaRibbonControl();

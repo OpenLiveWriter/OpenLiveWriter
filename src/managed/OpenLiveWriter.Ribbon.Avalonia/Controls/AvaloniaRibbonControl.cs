@@ -38,14 +38,20 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
         private readonly Dictionary<CommandId, List<RibbonButtonControl>> _buttonsByCommand = new();
         // Host-populated compact dropdowns rendered for the active tab, keyed by command.
         private readonly Dictionary<CommandId, List<ComboBox>> _dropDownsByCommand = new();
+        // Spinners rendered for the active tab, keyed by command.
+        private readonly Dictionary<CommandId, List<NumericUpDown>> _spinnersByCommand = new();
         // Last-known toggle states, re-applied when the active tab changes.
         private readonly Dictionary<CommandId, bool> _toggleStates = new();
         // Last-known editor combo selections (font/size/style), re-applied on rebuild.
         private readonly Dictionary<CommandId, string> _comboSelections = new();
+        // Last-known spinner values (e.g. selected image width/height), re-applied on rebuild.
+        private readonly Dictionary<CommandId, decimal?> _spinnerValues = new();
         // Last-known dropdown item data, re-applied when the active tab changes.
         private readonly Dictionary<CommandId, (IReadOnlyList<RibbonGalleryItem> Items, string SelectedId)> _dropDownData = new();
         // Guards against re-entrant ComboSelectionChanged while we populate items.
         private bool _populatingDropDowns;
+        // Guards against re-entrant SpinnerValueChanged while we reflect editor state.
+        private bool _populatingSpinners;
 
         // When the ribbon host is narrow, groups rebuild with Small buttons and a
         // shorter content band so chrome does not dominate the editor.
@@ -118,6 +124,13 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
         /// </summary>
         public event EventHandler<RibbonComboSelectionEventArgs> ComboSelectionChanged;
 
+        /// <summary>
+        /// Event raised when a ribbon spinner value changes (e.g. Picture Tools
+        /// width/height). Programmatic <see cref="SetSpinnerValue"/> calls do not
+        /// raise this event.
+        /// </summary>
+        public event EventHandler<RibbonSpinnerValueEventArgs> SpinnerValueChanged;
+
         public AvaloniaRibbonControl()
         {
         }
@@ -181,6 +194,35 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
 
         private static bool Matches(string candidate, string value) =>
             candidate != null && string.Equals(candidate, value, StringComparison.OrdinalIgnoreCase);
+
+        /// <summary>
+        /// Reflects editor state in a ribbon spinner (e.g. the selected image's
+        /// width/height). The value is remembered so it survives tab switches.
+        /// Programmatic sets do not raise <see cref="SpinnerValueChanged"/>.
+        /// </summary>
+        public void SetSpinnerValue(CommandId commandId, decimal? value)
+        {
+            _spinnerValues[commandId] = value;
+            ApplySpinnerValue(commandId, value);
+        }
+
+        private void ApplySpinnerValue(CommandId commandId, decimal? value)
+        {
+            if (!_spinnersByCommand.TryGetValue(commandId, out var spinners))
+                return;
+
+            bool previous = _populatingSpinners;
+            _populatingSpinners = true;
+            try
+            {
+                foreach (var spinner in spinners)
+                    spinner.Value = value;
+            }
+            finally
+            {
+                _populatingSpinners = previous;
+            }
+        }
 
         private void ApplyDropDownData(CommandId commandId)
         {
@@ -375,6 +417,7 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
             _groupsPanel.Children.Clear();
             _buttonsByCommand.Clear();
             _dropDownsByCommand.Clear();
+            _spinnersByCommand.Clear();
 
             foreach (var group in tab.Groups)
             {
@@ -390,6 +433,13 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
                     if (_populatingDropDowns)
                         return;
                     ComboSelectionChanged?.Invoke(this, args);
+                };
+                groupPanel.SpinnerValueChanged += (s, args) =>
+                {
+                    // Ignore value changes raised while we programmatically reflect state.
+                    if (_populatingSpinners)
+                        return;
+                    SpinnerValueChanged?.Invoke(this, args);
                 };
                 _groupsPanel.Children.Add(groupPanel);
 
@@ -412,6 +462,16 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
                     }
                     comboList.Add(comboBox);
                 }
+
+                foreach (var (commandId, spinner) in groupPanel.Spinners)
+                {
+                    if (!_spinnersByCommand.TryGetValue(commandId, out var spinnerList))
+                    {
+                        spinnerList = new List<NumericUpDown>();
+                        _spinnersByCommand[commandId] = spinnerList;
+                    }
+                    spinnerList.Add(spinner);
+                }
             }
 
             // Re-apply any known toggle states to the freshly built buttons.
@@ -421,6 +481,10 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
             // Re-apply remembered editor combo selections (font/size/style).
             foreach (var kvp in _comboSelections)
                 ApplyComboSelection(kvp.Key, kvp.Value);
+
+            // Re-apply remembered spinner values (e.g. the selected image's size).
+            foreach (var kvp in _spinnerValues)
+                ApplySpinnerValue(kvp.Key, kvp.Value);
 
             // Re-apply any known dropdown item data to the freshly built dropdowns.
             foreach (var commandId in _dropDownData.Keys)

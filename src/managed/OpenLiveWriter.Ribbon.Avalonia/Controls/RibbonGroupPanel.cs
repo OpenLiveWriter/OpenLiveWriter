@@ -24,6 +24,7 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
         private readonly Func<CommandId, bool> _commandFilter;
         private readonly List<RibbonButtonControl> _buttons = new();
         private readonly List<(CommandId CommandId, ComboBox ComboBox)> _dropDowns = new();
+        private readonly List<(CommandId CommandId, NumericUpDown Spinner)> _spinners = new();
 
         /// <summary>
         /// Event raised when a command button within this group is clicked.
@@ -36,6 +37,13 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
         public event EventHandler<RibbonComboSelectionEventArgs> ComboSelectionChanged;
 
         /// <summary>
+        /// Event raised when a spinner (NumericUpDown) value changes within this
+        /// group. The ribbon control re-raises this so the shell can apply values
+        /// (e.g. Picture Tools width/height) to the editor.
+        /// </summary>
+        public event EventHandler<RibbonSpinnerValueEventArgs> SpinnerValueChanged;
+
+        /// <summary>
         /// All ribbon buttons created within this group, in creation order.
         /// Used by the ribbon control to sync toggle state from the editor.
         /// </summary>
@@ -46,6 +54,12 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
         /// group, keyed by command. The ribbon control fills these from application data.
         /// </summary>
         public IReadOnlyList<(CommandId CommandId, ComboBox ComboBox)> DropDowns => _dropDowns;
+
+        /// <summary>
+        /// Spinners created in this group, keyed by command. The ribbon control
+        /// reflects editor state into these (e.g. the selected image's size).
+        /// </summary>
+        public IReadOnlyList<(CommandId CommandId, NumericUpDown Spinner)> Spinners => _spinners;
 
         public RibbonGroupPanel(GroupConfig config, bool compact = false, Func<CommandId, bool> commandFilter = null)
         {
@@ -565,13 +579,16 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
             switch (config)
             {
                 case ButtonConfig button:
-                    var btn = new RibbonButtonControl(new ButtonConfig
+                    var buttonCopy = new ButtonConfig
                     {
                         CommandId = button.CommandId,
                         ButtonType = button.ButtonType,
                         PreferredSize = sizeOverride,
                         Label = button.Label
-                    });
+                    };
+                    foreach (MenuItemConfig menuItem in button.MenuItems)
+                        buttonCopy.MenuItems.Add(menuItem);
+                    var btn = new RibbonButtonControl(buttonCopy, _commandFilter);
                     btn.CommandExecuted += (s, cmd) => CommandExecuted?.Invoke(this, cmd);
                     control = btn;
                     break;
@@ -580,7 +597,8 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
                     var toggleBtn = new RibbonButtonControl(new ToggleButtonConfig
                     {
                         CommandId = toggle.CommandId,
-                        PreferredSize = sizeOverride
+                        PreferredSize = sizeOverride,
+                        Label = toggle.Label
                     });
                     toggleBtn.CommandExecuted += (s, cmd) => CommandExecuted?.Invoke(this, cmd);
                     control = toggleBtn;
@@ -610,16 +628,23 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
                     break;
 
                 case SpinnerConfig spinner:
-                    control = new NumericUpDown
+                    var numeric = new NumericUpDown
                     {
                         Minimum = spinner.MinValue,
                         Maximum = spinner.MaxValue,
                         Increment = spinner.Increment,
-                        Width = 80,
+                        // The Fluent template's spin buttons take a fixed ~68px on
+                        // the right; 112 leaves room for a 4-digit value.
+                        Width = 112,
                         Height = 26,
                         MinHeight = 24,
                         VerticalAlignment = VerticalAlignment.Center
                     };
+                    CommandId spinnerCommand = spinner.CommandId;
+                    numeric.ValueChanged += (s, e) =>
+                        SpinnerValueChanged?.Invoke(this, new RibbonSpinnerValueEventArgs(spinnerCommand, numeric.Value));
+                    _spinners.Add((spinner.CommandId, numeric));
+                    control = numeric;
                     break;
 
                 case ColorPickerConfig color:
@@ -933,6 +958,22 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
 
         public CommandId CommandId { get; }
         public string Value { get; }
+    }
+
+    /// <summary>
+    /// Carries a ribbon spinner (NumericUpDown) value change to the host. A null
+    /// <see cref="Value"/> means the spinner was cleared.
+    /// </summary>
+    public class RibbonSpinnerValueEventArgs : EventArgs
+    {
+        public RibbonSpinnerValueEventArgs(CommandId commandId, decimal? value)
+        {
+            CommandId = commandId;
+            Value = value;
+        }
+
+        public CommandId CommandId { get; }
+        public decimal? Value { get; }
     }
 
     /// <summary>

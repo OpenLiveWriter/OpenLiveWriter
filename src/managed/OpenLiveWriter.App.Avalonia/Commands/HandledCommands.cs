@@ -74,6 +74,11 @@ namespace OpenLiveWriter.App.Avalonia.Commands
                 CommandId.AddPlugin,
                 CommandId.ManagePlugins,
 
+                // Blog Account theme commands (MainWindow.Theming) + Preview close (MenuBar)
+                CommandId.ViewUseStyles,
+                CommandId.UpdateWeblogStyle,
+                CommandId.ClosePreview,
+
                 // Shell utilities (MainWindow.axaml.cs / MainWindow.MenuBar)
                 CommandId.WordCount,
                 CommandId.FindButton,
@@ -119,6 +124,27 @@ namespace OpenLiveWriter.App.Avalonia.Commands
                 CommandId.DeleteRow,
                 CommandId.DeleteColumn,
                 CommandId.DeleteTable,
+
+                // Picture Tools contextual tab (MainWindow.PictureTools + WebViewEditor
+                // image bridge). The two dropdown parents stay enabled so their menus
+                // open; dead menu items (SetCustomSizeDefaults) disable individually.
+                CommandId.ImageRotateCW,
+                CommandId.ImageRotateCCW,
+                CommandId.FormatImageAdjustWidth,
+                CommandId.FormatImageAdjustHeight,
+                CommandId.FormatImageLockAspectRatio,
+                CommandId.CustomSizeGallery,
+                CommandId.CustomSizeSmall,
+                CommandId.CustomSizeMedium,
+                CommandId.CustomSizeLarge,
+                CommandId.CustomSizeOriginal,
+                CommandId.ImageBorderGallery,
+                CommandId.FormatImageSelectLink,
+                CommandId.ImageLinkToSource,
+                CommandId.ImageLinkToUrl,
+                CommandId.ImageLinkToNone,
+                CommandId.FormatImageLinkOptions,
+                CommandId.FormatImageAltText,
 
                 // EditorPanel CommandBridge
                 CommandId.InsertLink,

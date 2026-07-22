@@ -16,6 +16,7 @@ using OpenLiveWriter.App.Avalonia.Editor;
 using OpenLiveWriter.App.Avalonia.Settings;
 using OpenLiveWriter.App.Avalonia.Spelling;
 using OpenLiveWriter.EditorTests.Automated.Infrastructure;
+using OpenLiveWriter.Localization;
 using OpenLiveWriter.Publishing;
 using OpenLiveWriter.Publishing.Accounts;
 using OpenLiveWriter.Publishing.Drafts;
@@ -91,6 +92,22 @@ namespace OpenLiveWriter.EditorTests.Automated
                     window, "Preview", $"tab-preview-{TabSizeTag}.png", outDir);
                 if (preview != null) written.Add(preview);
                 else skipped.Add("Preview");
+
+                // Picture Tools contextual tab: simulate the image-selected state by
+                // activating the ImageTools group, then capture its Format tab band
+                // with the size spinners reflecting a selected 640x360 picture.
+                ribbon.ActivateContextualTabGroup(RibbonContextualTabGroup.ImageTools);
+                ribbon.SetSpinnerValue(CommandId.FormatImageAdjustWidth, 640m);
+                ribbon.SetSpinnerValue(CommandId.FormatImageAdjustHeight, 360m);
+                UiReviewHarness.PumpLayout(window);
+                UiReviewHarness.PumpLayout(window);
+
+                string pictureTools = UiReviewHarness.CaptureRibbonTabBand(
+                    window, "Format", $"tab-picturetools-{TabSizeTag}.png", outDir);
+                if (pictureTools != null) written.Add(pictureTools);
+                else skipped.Add("Picture Tools (Format)");
+
+                ribbon.ActivateContextualTabGroup(RibbonContextualTabGroup.None);
             }
             finally
             {
@@ -137,6 +154,20 @@ namespace OpenLiveWriter.EditorTests.Automated
                 ("dialog-emoticon.png", () => new EmoticonDialog()),
                 ("dialog-findreplace.png", () => new FindReplaceDialog(
                     _ => Task.CompletedTask, _ => Task.CompletedTask)),
+                ("dialog-imageproperties.png", () => new ImagePropertiesDialog(new ImageFormatState
+                {
+                    Src = "https://openlivewriter.org/wp-content/uploads/screenshot.png",
+                    NaturalWidth = 1600,
+                    NaturalHeight = 900,
+                    Width = 640,
+                    Height = 360,
+                    Alt = "Open Live Writer editor screenshot",
+                    Title = "Editor screenshot",
+                    Alignment = "left",
+                    MarginPx = 8,
+                    BorderWidthPx = 1,
+                    BorderColor = "#999999"
+                })),
                 ("dialog-link.png", () => new LinkDialog("Open Live Writer")),
                 ("dialog-map.png", () => new MapDialog()),
                 ("dialog-message.png", () => new MessageDialog(

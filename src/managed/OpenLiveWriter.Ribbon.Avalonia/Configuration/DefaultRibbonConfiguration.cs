@@ -581,8 +581,8 @@ namespace OpenLiveWriter.Ribbon.Managed.Configuration
             // Size Group
             var sizeGroup = CreateGroup(CommandId.FormatImageSizeGroup, "Size", "S");
             sizeGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.ImageCrop, PreferredSize = RibbonGroupSize.Large });
-            sizeGroup.Controls.Add(new SpinnerConfig { CommandId = CommandId.FormatImageAdjustWidth });
-            sizeGroup.Controls.Add(new SpinnerConfig { CommandId = CommandId.FormatImageAdjustHeight });
+            sizeGroup.Controls.Add(new SpinnerConfig { CommandId = CommandId.FormatImageAdjustWidth, MinValue = 1, MaxValue = 9999 });
+            sizeGroup.Controls.Add(new SpinnerConfig { CommandId = CommandId.FormatImageAdjustHeight, MinValue = 1, MaxValue = 9999 });
             var customSizeButton = new ButtonConfig 
             { 
                 CommandId = CommandId.CustomSizeGallery, 
@@ -608,15 +608,15 @@ namespace OpenLiveWriter.Ribbon.Managed.Configuration
 
             // Styles Group
             var stylesGroup = CreateGroup(CommandId.FormatImageStyleGroup, "Picture styles", "ST");
-            stylesGroup.Controls.Add(new GalleryConfig 
-            { 
-                CommandId = CommandId.ImageBorderGallery, 
-                GalleryType = RibbonGalleryType.InRibbon,
-                TextPosition = RibbonTextPosition.Hide,
-                ItemWidth = 64,
-                ItemHeight = 48,
-                MaxColumns = 3,
-                MaxRows = 3
+            // Minimal border toggle (applies/removes a solid inline border; width
+            // and color are set in the Picture properties dialog). The full Windows
+            // border/style gallery stays out of scope with the other pixel-baking
+            // decorators (crop/effects/watermark).
+            stylesGroup.Controls.Add(new ToggleButtonConfig
+            {
+                CommandId = CommandId.ImageBorderGallery,
+                Label = "Border",
+                PreferredSize = RibbonGroupSize.Medium
             });
             var effectsButton = new ButtonConfig 
             { 

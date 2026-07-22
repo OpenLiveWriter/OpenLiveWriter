@@ -60,6 +60,14 @@ namespace OpenLiveWriter.Publishing.Accounts
         /// <summary>Whether the provider supports the extended-entry (more) break.</summary>
         public bool SupportsExtendedEntries { get; set; } = true;
 
+        /// <summary>
+        /// Per-account "Use Theme" toggle (Blog Account tab): when on, the Preview view
+        /// layers the blog's harvested theme stylesheets over the neutral article style.
+        /// The macOS counterpart to the Windows <c>EditUsingBlogStyles</c> edit setting —
+        /// scoped to Preview here, since the macOS editor has no Web Layout editing view.
+        /// </summary>
+        public bool UseThemeForPreview { get; set; }
+
         /// <summary>The default provider type.</summary>
         public const string DefaultProviderType = "MetaWeblog";
 
@@ -86,7 +94,8 @@ namespace OpenLiveWriter.Publishing.Accounts
             ProviderType = ProviderType,
             SupportsPages = SupportsPages,
             SupportsCategories = SupportsCategories,
-            SupportsExtendedEntries = SupportsExtendedEntries
+            SupportsExtendedEntries = SupportsExtendedEntries,
+            UseThemeForPreview = UseThemeForPreview
         };
     }
 }

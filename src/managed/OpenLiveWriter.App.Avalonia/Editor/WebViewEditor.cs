@@ -233,7 +233,43 @@ namespace OpenLiveWriter.App.Avalonia.Editor
                 ForeColor = NormalizeReportedColor(S("foreColor")),
                 HighlightColor = NormalizeReportedColor(S("backColor")),
                 InTable = B("inTable"),
-                SelectedElementType = NormalizeElementType(S("selectedElementType"))
+                SelectedElementType = NormalizeElementType(S("selectedElementType")),
+                Image = ParseImageState(el)
+            };
+        }
+
+        /// <summary>
+        /// Parses the optional <c>image</c> sub-object of <c>getState()</c> into an
+        /// <see cref="ImageFormatState"/>. Returns null when no image is selected
+        /// (property absent or JSON null).
+        /// </summary>
+        internal static ImageFormatState ParseImageState(JsonElement el)
+        {
+            if (!el.TryGetProperty("image", out var img) || img.ValueKind != JsonValueKind.Object)
+                return null;
+
+            int N(string name) => img.TryGetProperty(name, out var p) && p.ValueKind == JsonValueKind.Number &&
+                                  p.TryGetInt32(out int v) ? v : 0;
+            int? NN(string name) => img.TryGetProperty(name, out var p) && p.ValueKind == JsonValueKind.Number &&
+                                    p.TryGetInt32(out int v) ? v : null;
+            string S(string name) => img.TryGetProperty(name, out var p) && p.ValueKind == JsonValueKind.String
+                ? p.GetString() : null;
+
+            return new ImageFormatState
+            {
+                Src = S("src"),
+                NaturalWidth = N("naturalWidth"),
+                NaturalHeight = N("naturalHeight"),
+                Width = N("width"),
+                Height = N("height"),
+                Alt = S("alt"),
+                Title = S("title"),
+                Alignment = ImageEditBuilder.NormalizeAlignment(S("alignment")),
+                MarginPx = NN("margin"),
+                RotationDeg = N("rotation"),
+                BorderWidthPx = NN("borderWidth"),
+                BorderColor = NormalizeReportedColor(S("borderColor")),
+                LinkHref = string.IsNullOrEmpty(S("link")) ? null : S("link")
             };
         }
 
@@ -733,6 +769,48 @@ namespace OpenLiveWriter.App.Avalonia.Editor
         /// <summary>Inserts a clearing line break (clears floated content) at the caret.</summary>
         public Task InsertClearBreakAsync() => InsertHtmlAsync(EditorMarkup.ClearBreakHtml);
 
+        // ---- Picture Tools (operate on the image selected as a unit) ----
+
+        /// <summary>
+        /// Applies the given attribute/style changes to the selected image via the
+        /// bridge's <c>applyImageAttrs</c>. Only non-null members are touched.
+        /// </summary>
+        public async Task ApplyImageAttrsAsync(ImageAttributes attrs)
+        {
+            if (_webView == null || !_isReady || attrs == null) return;
+            _webView.Focus();
+            await Task.Delay(50);
+            await RunJS($"OLWBridge.applyImageAttrs({ImageEditBuilder.BuildAttrsJson(attrs)})");
+        }
+
+        /// <summary>
+        /// Rotates the selected image by <paramref name="deltaDeg"/> degrees via a
+        /// CSS transform (visual only — unlike Windows Live Writer this does not
+        /// bake pixels; the rotation survives publish as an inline style).
+        /// </summary>
+        public async Task RotateSelectedImageAsync(int deltaDeg)
+        {
+            if (_webView == null || !_isReady) return;
+            _webView.Focus();
+            await Task.Delay(50);
+            await RunJS($"OLWBridge.rotateImage({deltaDeg})");
+        }
+
+        /// <summary>
+        /// Wraps the selected image in a link to <paramref name="url"/>, retargets
+        /// an existing link, or (when null) removes the link.
+        /// </summary>
+        public async Task SetImageLinkAsync(string url)
+        {
+            if (_webView == null || !_isReady) return;
+            _webView.Focus();
+            await Task.Delay(50);
+            string js = string.IsNullOrEmpty(url)
+                ? "OLWBridge.setImageLink(null)"
+                : $"OLWBridge.setImageLink({EscapeJs(url)})";
+            await RunJS(js);
+        }
+
         /// <summary>
         /// Inserts the extended-entry ("more") break marker at the caret. The publish
         /// pipeline splits the post on this marker into main / extended contents.
@@ -886,6 +964,12 @@ namespace OpenLiveWriter.App.Avalonia.Editor
                 case CommandId.DeleteColumn: await DeleteTableColumnAsync(); return true;
                 case CommandId.DeleteTable: await DeleteTableAsync(); return true;
 
+                // Picture Tools (contextual) — rotate operates purely on the selected
+                // image; size/properties/link commands route through the shell, which
+                // holds the last-reported image state and the properties dialog.
+                case CommandId.ImageRotateCW: await RotateSelectedImageAsync(90); return true;
+                case CommandId.ImageRotateCCW: await RotateSelectedImageAsync(-90); return true;
+
                 default: return false;
             }
         }
@@ -975,6 +1059,63 @@ namespace OpenLiveWriter.App.Avalonia.Editor
         /// or null. Drives contextual-tab activation.
         /// </summary>
         public string SelectedElementType { get; set; }
+
+        /// <summary>
+        /// Attributes/styles of the image selected as a unit, or null when no image
+        /// is selected. Drives the Picture Tools spinners and properties dialog.
+        /// </summary>
+        public ImageFormatState Image { get; set; }
+    }
+
+    /// <summary>
+    /// A snapshot of the selected image's attributes and inline styles, as reported
+    /// by <c>getState()</c>. Sizes are in px; colors are normalized <c>#RRGGBB</c>.
+    /// </summary>
+    public class ImageFormatState
+    {
+        /// <summary>The image source (data URI for embedded pictures, URL for web pictures).</summary>
+        public string Src { get; set; }
+
+        /// <summary>Natural (file) pixel width; 0 when the image hasn't finished loading.</summary>
+        public int NaturalWidth { get; set; }
+
+        /// <summary>Natural (file) pixel height; 0 when the image hasn't finished loading.</summary>
+        public int NaturalHeight { get; set; }
+
+        /// <summary>Current display width in px (attribute or rendered).</summary>
+        public int Width { get; set; }
+
+        /// <summary>Current display height in px (attribute or rendered).</summary>
+        public int Height { get; set; }
+
+        /// <summary>Alt text, or null/empty when unset.</summary>
+        public string Alt { get; set; }
+
+        /// <summary>Title attribute, or null/empty when unset.</summary>
+        public string Title { get; set; }
+
+        /// <summary>Layout: inline/left/right/center.</summary>
+        public string Alignment { get; set; } = "inline";
+
+        /// <summary>Uniform margin in px, or null when no (or non-uniform) margin.</summary>
+        public int? MarginPx { get; set; }
+
+        /// <summary>CSS-transform rotation in degrees (0 = none).</summary>
+        public int RotationDeg { get; set; }
+
+        /// <summary>Solid border width in px, or null when borderless.</summary>
+        public int? BorderWidthPx { get; set; }
+
+        /// <summary>Border color as <c>#RRGGBB</c>, or null when borderless.</summary>
+        public string BorderColor { get; set; }
+
+        /// <summary>The wrapping anchor's href, or null when the image is not linked.</summary>
+        public string LinkHref { get; set; }
+
+        /// <summary>True when the source is a remote http(s) URL (not an embedded data URI).</summary>
+        public bool HasRemoteSource =>
+            Src != null && (Src.StartsWith("http://", StringComparison.OrdinalIgnoreCase) ||
+                            Src.StartsWith("https://", StringComparison.OrdinalIgnoreCase));
     }
 
     /// <summary>

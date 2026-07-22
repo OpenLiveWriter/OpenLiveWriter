@@ -18,7 +18,7 @@ namespace OpenLiveWriter.EditorTests.Automated
     /// Group Q — P0 trust breakers, dead-command disabling. Pins the
     /// <see cref="HandledCommands"/> registry against the ribbon configuration:
     /// every command the ribbon renders as a button resolves through the registry,
-    /// known-dead commands (Picture Tools, theme, Print, tag providers, Debug
+    /// known-dead commands (Picture Tools decorations, tag providers, Debug
     /// leftovers) report unhandled, and the ribbon control actually renders those
     /// buttons disabled with a "not yet available" tooltip.
     /// </summary>
@@ -95,17 +95,16 @@ namespace OpenLiveWriter.EditorTests.Automated
         }
 
         // Commands with no handler anywhere — must render disabled (P0-4).
+        // Picture Tools commands that stay dead pending the pixel-baking
+        // (SkiaSharp) pass: crop, tilt, effects galleries, contrast, watermark,
+        // and the per-image/per-default settings commands.
         [TestCase(CommandId.ImageCrop)]
-        [TestCase(CommandId.ImageRotateCW)]
-        [TestCase(CommandId.CustomSizeGallery)]
-        [TestCase(CommandId.ImageBorderGallery)]
+        [TestCase(CommandId.ImageTilt)]
+        [TestCase(CommandId.ImageEffectsGallery)]
+        [TestCase(CommandId.SetCustomSizeDefaults)]
         [TestCase(CommandId.Watermark)]
-        [TestCase(CommandId.FormatImageSelectLink)]
-        [TestCase(CommandId.FormatImageAltText)]
         [TestCase(CommandId.ImageSaveDefaults)]
         [TestCase(CommandId.FormatImageRevertSettings)]
-        [TestCase(CommandId.UpdateWeblogStyle)]
-        [TestCase(CommandId.ViewUseStyles)]
         [TestCase(CommandId.AddTagProvider)]
         [TestCase(CommandId.ManageTagProviders)]
         [TestCase(CommandId.MoveRowUp)]
@@ -117,11 +116,46 @@ namespace OpenLiveWriter.EditorTests.Automated
         [TestCase(CommandId.RaiseAssertion)]
         [TestCase(CommandId.InsertLoremIpsum)]
         [TestCase(CommandId.ValidateHtml)]
-        [TestCase(CommandId.ClosePreview)]
         public void Registry_DeadCommands_AreNotHandled(CommandId commandId)
         {
             Assert.That(HandledCommands.IsHandled(commandId), Is.False,
                 $"{commandId} has no handler and must render disabled");
+        }
+
+        // Blog Account theme commands + Preview close, wired in the P1-3 themed-preview
+        // pass (MainWindow.Theming / MainWindow.MenuBar) — must stay enabled.
+        [TestCase(CommandId.ViewUseStyles)]
+        [TestCase(CommandId.UpdateWeblogStyle)]
+        [TestCase(CommandId.ClosePreview)]
+        public void Registry_ThemeCommands_AreHandled(CommandId commandId)
+        {
+            Assert.That(HandledCommands.IsHandled(commandId), Is.True,
+                $"{commandId} is wired in the P1-3 pass and must not render disabled");
+        }
+
+        // Picture Tools commands implemented in the P1-2 pass (size, rotate,
+        // border toggle, properties/Link To) — must stay enabled.
+        [TestCase(CommandId.ImageRotateCW)]
+        [TestCase(CommandId.ImageRotateCCW)]
+        [TestCase(CommandId.FormatImageAdjustWidth)]
+        [TestCase(CommandId.FormatImageAdjustHeight)]
+        [TestCase(CommandId.FormatImageLockAspectRatio)]
+        [TestCase(CommandId.CustomSizeGallery)]
+        [TestCase(CommandId.CustomSizeSmall)]
+        [TestCase(CommandId.CustomSizeMedium)]
+        [TestCase(CommandId.CustomSizeLarge)]
+        [TestCase(CommandId.CustomSizeOriginal)]
+        [TestCase(CommandId.ImageBorderGallery)]
+        [TestCase(CommandId.FormatImageSelectLink)]
+        [TestCase(CommandId.ImageLinkToSource)]
+        [TestCase(CommandId.ImageLinkToUrl)]
+        [TestCase(CommandId.ImageLinkToNone)]
+        [TestCase(CommandId.FormatImageLinkOptions)]
+        [TestCase(CommandId.FormatImageAltText)]
+        public void Registry_PictureToolsCommands_AreHandled(CommandId commandId)
+        {
+            Assert.That(HandledCommands.IsHandled(commandId), Is.True,
+                $"{commandId} is wired in the P1-2 pass and must not render disabled");
         }
 
         [AvaloniaTest]

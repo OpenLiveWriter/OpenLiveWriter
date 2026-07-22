@@ -10,6 +10,7 @@ using System.IO;
 using System.Threading.Tasks;
 using OpenLiveWriter.App.Avalonia.Commands;
 using OpenLiveWriter.App.Avalonia.Dialogs;
+using OpenLiveWriter.App.Avalonia.Theming;
 using OpenLiveWriter.Localization;
 
 namespace OpenLiveWriter.App.Avalonia.Editor
@@ -64,6 +65,22 @@ namespace OpenLiveWriter.App.Avalonia.Editor
             if (PreviewViewButton != null)
                 PreviewViewButton.Click += (s, e) => SwitchView("preview");
         }
+
+        /// <summary>
+        /// The current editor surface ("edit", "source", or "preview") — read-only view
+        /// state for the shell (e.g. to re-compose the preview after a theme change).
+        /// </summary>
+        public string CurrentView => _currentView;
+
+        /// <summary>
+        /// Optional provider (set by the shell) that returns the blog theme to layer into
+        /// the Preview document, or null for the neutral article style. A provider that
+        /// throws is treated as null — a theme miss must never break Preview.
+        /// </summary>
+        public Func<Task<BlogThemeStyle>> PreviewThemeProvider { get; set; }
+
+        /// <summary>Optional post title surfaced in the preview heading (set by the host).</summary>
+        public string PreviewTitle { get; set; }
 
         /// <summary>
         /// Switches the editor surface ("edit", "source", or "preview") — the same
@@ -127,19 +144,35 @@ namespace OpenLiveWriter.App.Avalonia.Editor
 
         /// <summary>
         /// Renders the current editor body into the Preview host as it would look
-        /// published, using <see cref="PreviewRenderer"/> to compose a neutral article
-        /// document. The composition is pure/testable; the on-screen display uses a
-        /// lightweight read-only WebView (navigated to a temp file, mirroring the
-        /// editor's own file-load path). Failure to create/navigate the WebView is
-        /// non-fatal — the source composition is still available for tests.
+        /// published, using <see cref="PreviewRenderer"/> to compose the article
+        /// document. When the shell supplied a <see cref="PreviewThemeProvider"/> and
+        /// it returns a theme ("Use Theme" on for the current blog), the blog's
+        /// stylesheets are layered in; otherwise the preview stays neutral. The
+        /// composition is pure/testable; the on-screen display uses a lightweight
+        /// read-only WebView (navigated to a temp file, mirroring the editor's own
+        /// file-load path). Failure to create/navigate the WebView — or to fetch the
+        /// theme — is non-fatal: the neutral composition still renders.
         /// </summary>
         private async Task PopulatePreviewAsync(ContentControl previewHost)
         {
             if (previewHost == null || _webViewEditor == null)
                 return;
 
+            BlogThemeStyle theme = null;
+            if (PreviewThemeProvider != null)
+            {
+                try
+                {
+                    theme = await PreviewThemeProvider();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"[OLW-Preview] Theme provider failed: {ex.Message}");
+                }
+            }
+
             string body = await _webViewEditor.GetContentAsync() ?? string.Empty;
-            string document = PreviewRenderer.BuildPreviewDocument(body, PreviewTitle);
+            string document = PreviewRenderer.BuildPreviewDocument(body, PreviewTitle, theme: theme);
 
             try
             {
@@ -164,9 +197,6 @@ namespace OpenLiveWriter.App.Avalonia.Editor
                 Console.WriteLine($"[OLW-Preview] Render failed: {ex.Message}");
             }
         }
-
-        /// <summary>Optional post title surfaced in the preview heading (set by the host).</summary>
-        public string PreviewTitle { get; set; }
 
         /// <summary>
         /// Loads a standalone HTML document (e.g. the <see cref="PrintRenderer"/>

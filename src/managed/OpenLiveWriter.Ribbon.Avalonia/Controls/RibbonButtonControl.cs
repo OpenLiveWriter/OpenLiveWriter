@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
+using System.Collections.Generic;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Layout;
@@ -24,15 +25,49 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
         private readonly RibbonGroupSize _preferredSize;
         private readonly RibbonButtonType _buttonType;
         private readonly string _label;
+        // Pure dropdown buttons only open their flyout — the menu items carry the
+        // commands, so the parent's own CommandId is not raised on click.
+        private readonly bool _suppressOwnCommand;
 
-        public RibbonButtonControl(ButtonConfig config)
+        public RibbonButtonControl(ButtonConfig config, Func<CommandId, bool> commandFilter = null)
         {
             _commandId = config.CommandId;
             _preferredSize = config.PreferredSize;
             _buttonType = config.ButtonType;
             _label = config.Label ?? CommandLabelHelper.GetLabel(config.CommandId);
             Focusable = false; // Prevent stealing focus from WebView editor
+
+            if (config.ButtonType == RibbonButtonType.DropDownButton && config.MenuItems.Count > 0)
+            {
+                Flyout = BuildMenuFlyout(config.MenuItems, commandFilter);
+                _suppressOwnCommand = true;
+            }
+
             BuildContent();
+        }
+
+        // Builds the dropdown menu for a DropDownButton. Items whose command the
+        // host does not handle render disabled so the menu never offers dead commands.
+        private MenuFlyout BuildMenuFlyout(List<MenuItemConfig> items, Func<CommandId, bool> commandFilter)
+        {
+            var flyout = new MenuFlyout();
+            foreach (MenuItemConfig item in items)
+            {
+                if (item.IsSeparator)
+                {
+                    flyout.Items.Add(new Separator());
+                    continue;
+                }
+
+                CommandId itemCommand = item.CommandId;
+                var menuItem = new MenuItem { Header = CommandLabelHelper.GetLabel(itemCommand) };
+                menuItem.IsEnabled = commandFilter?.Invoke(itemCommand) ?? true;
+                if (!menuItem.IsEnabled)
+                    ToolTip.SetTip(menuItem, "Not yet available");
+                menuItem.Click += (s, e) => CommandExecuted?.Invoke(this, itemCommand);
+                flyout.Items.Add(menuItem);
+            }
+            return flyout;
         }
 
         public RibbonButtonControl(ToggleButtonConfig config)
@@ -40,7 +75,7 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
             _commandId = config.CommandId;
             _preferredSize = config.PreferredSize;
             _buttonType = RibbonButtonType.ToggleButton;
-            _label = CommandLabelHelper.GetLabel(config.CommandId);
+            _label = config.Label ?? CommandLabelHelper.GetLabel(config.CommandId);
             Focusable = false;
             BuildContent();
         }
@@ -122,7 +157,11 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
                 BuildSmallButton(hasDropdown);
             }
 
-            Click += (s, e) => CommandExecuted?.Invoke(this, _commandId);
+            Click += (s, e) =>
+            {
+                if (!_suppressOwnCommand)
+                    CommandExecuted?.Invoke(this, _commandId);
+            };
         }
 
         private void BuildLargeButton(bool hasDropdown)
