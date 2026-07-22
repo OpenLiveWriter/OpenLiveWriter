@@ -20,12 +20,34 @@
 > `dateCreated` on post+page structs), Print / Print Preview (print-styled
 > document → native WKWebView print panel, temp-PDF/browser handoffs), and
 > Picture from the Web (remote `<img>`, no base64).
+> **Status addendum 3 (2026-07-22, same branch):** the HTML/CSS-honest subset
+> of P1-2 is **addressed**: click-to-select images activate the Picture Tools
+> contextual tab; size spinners with aspect lock + Small/Medium/Large/Original
+> presets, rotate CW/CCW (CSS transform, not baked pixels), border toggle, and
+> a Picture Properties dialog (alt/title, Link To none/source/URL, alignment,
+> margins, border width/color). Crop/effects/contrast/watermark/tilt stay
+> disabled pending a pixel-baking (SkiaSharp) pass.
+> **Status addendum 4 (2026-07-22, same branch):** the pragmatic slice of P1-3
+> is **addressed**: the Blog Account tab's "Use Theme" (per-account persisted
+> toggle) and "Update Theme" (forced re-harvest) buttons are live, and Preview
+> renders with the blog's real stylesheets. A `ThemeStyleCache` (HTTP behind an
+> injectable `IThemeHtmlFetcher` seam, proxy-aware, timeout-bounded, memory +
+> app-data disk cache) harvests `<link rel="stylesheet">` URLs + inline
+> `<style>` blocks from the account homepage; `PreviewRenderer` layers them
+> after the neutral article style. **Honest limitation:** this is NOT the
+> Windows `BlogEditingTemplateDetector` — the preview keeps its neutral article
+> wrapper (plus an `olw-theme` body class), so theme rules scoped to the blog's
+> real post containers (e.g. `.entry-content`) do not apply; typography/colors
+> carry through, template layout does not. Fetch failure degrades to the
+> neutral preview with a status message. The Preview tab's dead Close Preview
+> button is also wired (back to Edit view, as on Windows).
 >
-> Suite: **630 passed / 0 failed** (+259 since this assessment). Still open:
-> P1-2 (picture editing — resize/border/alt/link), P1-3 (theme-based WYSIWYG /
-> themed preview), P1-6 remainder (Blogger OAuth, AtomPub, other providers),
-> P1-9 remainder (slug, excerpt, ping/trackback), and the §4 long tail
-> (plug-in host, glossary, real icons, localization).
+> Suite: **703 passed / 0 failed** (+332 since this assessment). Still open:
+> P1-2 remainder (pixel-baked crop/effects/watermark/tilt), P1-3 remainder
+> (real template detection / Web Layout WYSIWYG — the themed preview is the
+> homepage-stylesheet slice), P1-6 remainder (Blogger OAuth, AtomPub, other
+> providers), P1-9 remainder (slug, excerpt, ping/trackback), and the §4 long
+> tail (plug-in host, glossary, real icons, localization).
 
 **Date:** 2026-07-20 · **Branch:** `milestone4/webview-wysiwyg` · **Audience:** engineering
 
@@ -85,8 +107,8 @@ These cause data loss or make core workflows unreachable.
 | # | Gap | Windows counterpart |
 | --- | --- | --- |
 | P1-1 | **Categories picker is unreachable** — fully implemented (`ShowCategoryPopup` handler + `CategoryDialog`) but no ribbon/menu entry point. | Categories in post properties band + Home tab |
-| P1-2 | **Picture Tools contextual tab is decorative** — crop/rotate/resize/effects/borders/watermark/alt-text/link-to all render but do nothing. Image handling is base64-in-HTML only; no sizing, no "link to original", no defaults. This was one of Windows Live Writer's signature features. | `PostHtmlEditing/ImageEditing/` decorator pipeline |
-| P1-3 | **No theme-based WYSIWYG or themed preview.** Preview is a generic article render; "Use Theme"/"Update Theme" buttons on the Blog Account tab are dead. | `BlogEditingTemplateDetector`, Web Layout view |
+| P1-2 | **Picture Tools mostly landed** (addendum 3) — click-to-select activates the contextual tab; resize spinners + presets + aspect lock, rotate (CSS transform), border toggle, alt/link/alignment/margin properties all work as inline attrs/styles. Remaining: crop/effects/watermark/tilt (pixel baking) and picture-styles gallery. | `PostHtmlEditing/ImageEditing/` decorator pipeline |
+| P1-3 | **Themed preview landed** (addendum 4) — "Use Theme" (per-account toggle) / "Update Theme" (forced re-harvest) are live; Preview layers the blog homepage's real stylesheets over the neutral article style, degrading to neutral on fetch failure. Remaining: true template detection (post-region extraction, theme body classes) and a Web Layout editing view. | `BlogEditingTemplateDetector`, Web Layout view |
 | P1-4 | **Can't open/edit posts from the server** — no `metaWeblog.getRecentPosts`/`getPost`; "Open Post" only lists local drafts. Editing an already-published post (a core OLW workflow) is impossible unless published from this machine. | `RecentPostSynchronizer`, Open Post dialog |
 | P1-5 | **Pages don't actually publish as pages** — `NewPage`/`IsPage` exist but the client only sends post structs (no `wp.newPage`/`editPage`). | `CommandNewPage` (Ctrl+G) |
 | P1-6 | **MetaWeblog only.** `BlogClientFactory` throws for WordPress API, Blogger, AtomPub, MovableType, LiveJournal, SharePoint, static sites. | `OpenLiveWriter.BlogClient/Clients/` (9+ clients) |

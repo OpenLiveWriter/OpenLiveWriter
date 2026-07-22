@@ -7,7 +7,7 @@ parity with Open Live Writer for Windows.** Update this file as work lands.
 > user-facing gap review. This file tracks what has *landed*; the assessment
 > tracks what a Windows switcher would actually hit (P0 trust breakers first).
 
-Branch: `milestone4/webview-wysiwyg` · Runtime: .NET 10 / Avalonia · Last verified: 2026-07 (**Server/publishing band:** Open from Blog — `metaWeblog.getRecentPosts`/`getPost` + `wp.getPages` into `OpenFromBlogDialog` (Posts/Pages, 10/25/50) so server content opens editable and re-publish edits in place; pages publish as pages via `wp.newPage`/`wp.editPage`; **WordPress provider** + detection heuristics (`/xmlrpc.php` probe, engine-aware RSD); publish date via Post Properties (F2) → `dateCreated` on post+page structs; **spelling band:** Hunspell engine (`WeCantSpell.Hunspell` + embedded en-US dictionaries), F7 spelling dialog (suggestions, ignore/add-to-dictionary, change/change-all), check-before-publish gate; **content band:** Picture from the Web (remote `<img>`, no base64), Print / Print Preview (print-styled doc → native WKWebView print panel, temp-PDF/browser handoffs); **Shell trust band:** macOS NativeMenu menu bar (File/Edit/View/Help + accelerators, Set Categories reachable), unsaved-changes close prompt, draft autosave (AutoRecover), handled-command registry with dead commands visibly disabled, Debug tab hidden unless `OLW_DEBUG_RIBBON=1`, real Cut/Copy/Paste routing; **Editor-bridge band:** debounced payload-free content sync, JSON-based JS escaping, px font sizes + caret reflection, find previous / "n of m" count / single-replace; **Publish band:** fully async XML-RPC transport (no UI freeze), view-post/close-window after publish, preferences dialog shows only enforced options, Account dialog Test Connection; on top of the Options/Preferences band: **JSON `FileSettingsPersister`**, tabbed **Preferences** dialog, **Options** command; Publishing-completion band: **image upload-on-publish** via `newMediaObject`, **blog categories** fetch + picker, **RSD endpoint auto-detection**, **re-publish → `editPost`**; Insert-tab band: Preview render, Insert Table + table-tools ops, web-video embeds, emoticons, paste-special/clean paste, clear-break/extended-entry, caret font/size/color/block reflection)
+Branch: `milestone4/webview-wysiwyg` · Runtime: .NET 10 / Avalonia · Last verified: 2026-07 (**Theme band (P1-3):** Blog Account tab's "Use Theme" (per-account persisted toggle) + "Update Theme" (forced re-harvest) are live — Preview layers the blog homepage's harvested stylesheets over the neutral article style via a proxy-aware `ThemeStyleCache`, degrading to neutral on fetch failure; Preview tab's Close Preview wired; **Picture Tools band (P1-2):** click-to-select images → Picture Tools contextual tab; size spinners + aspect lock + Small/Medium/Large/Original presets, rotate CW/CCW via CSS transform, border toggle, Picture Properties dialog (alt/title, Link To none/source/URL, alignment, margins, border) — applied as inline attrs/styles on the selected `<img>`; crop/effects/watermark/tilt stay disabled pending a pixel-baking pass (see §12); **Server/publishing band:** Open from Blog — `metaWeblog.getRecentPosts`/`getPost` + `wp.getPages` into `OpenFromBlogDialog` (Posts/Pages, 10/25/50) so server content opens editable and re-publish edits in place; pages publish as pages via `wp.newPage`/`wp.editPage`; **WordPress provider** + detection heuristics (`/xmlrpc.php` probe, engine-aware RSD); publish date via Post Properties (F2) → `dateCreated` on post+page structs; **spelling band:** Hunspell engine (`WeCantSpell.Hunspell` + embedded en-US dictionaries), F7 spelling dialog (suggestions, ignore/add-to-dictionary, change/change-all), check-before-publish gate; **content band:** Picture from the Web (remote `<img>`, no base64), Print / Print Preview (print-styled doc → native WKWebView print panel, temp-PDF/browser handoffs); **Shell trust band:** macOS NativeMenu menu bar (File/Edit/View/Help + accelerators, Set Categories reachable), unsaved-changes close prompt, draft autosave (AutoRecover), handled-command registry with dead commands visibly disabled, Debug tab hidden unless `OLW_DEBUG_RIBBON=1`, real Cut/Copy/Paste routing; **Editor-bridge band:** debounced payload-free content sync, JSON-based JS escaping, px font sizes + caret reflection, find previous / "n of m" count / single-replace; **Publish band:** fully async XML-RPC transport (no UI freeze), view-post/close-window after publish, preferences dialog shows only enforced options, Account dialog Test Connection; on top of the Options/Preferences band: **JSON `FileSettingsPersister`**, tabbed **Preferences** dialog, **Options** command; Publishing-completion band: **image upload-on-publish** via `newMediaObject`, **blog categories** fetch + picker, **RSD endpoint auto-detection**, **re-publish → `editPost`**; Insert-tab band: Preview render, Insert Table + table-tools ops, web-video embeds, emoticons, paste-special/clean paste, clear-break/extended-entry, caret font/size/color/block reflection)
 
 ## Official milestone plan
 
@@ -76,7 +76,9 @@ path fix, thread-safety/caching fixes) — assessed in §7.2.
 - **View toggle:** Edit / Source / Preview. Source shows formatted HTML round-tripped
   from the WebView; **Preview now renders** the post body as it would look published
   (a neutral "article" layout composed by `PreviewRenderer` and shown in a read-only
-  WebView, extended-entry marker joined).
+  WebView, extended-entry marker joined). With the Blog Account tab's **Use Theme**
+  toggle on for the current blog, Preview layers the blog's harvested homepage
+  stylesheets over the neutral style (see §13).
 - **Insert tab:** Insert Table (rows×columns + header row + width via `TableBuilder`)
   with basic Table Tools row/column insert-delete + delete-table bridge ops; Insert
   Video as a modern responsive `<iframe>` web embed (YouTube/Vimeo/generic URL or
@@ -98,6 +100,12 @@ path fix, thread-safety/caching fixes) — assessed in §7.2.
   - Color: text color (`foreColor`) + highlight (`hiliteColor`, backColor fallback)
     via ribbon color-swatch flyouts (standard + highlight palettes)
   - Insert: image from file — file picker → inline base64 data-URI `<img>`
+  - **Picture Tools (P1-2):** clicking an image selects it as a unit → the
+    Picture Tools > Format contextual tab activates; width/height spinners with
+    aspect-ratio lock, Small/Medium/Large/Original size presets, rotate CW/CCW
+    (CSS transform), border toggle, and a Picture Properties dialog (alt/title,
+    Link To none/source/URL, alignment, uniform margin, border width+color).
+    See §12.
   - Editing: Word Count (statistics dialog) + Find (in-editor bar) / Find & Replace
     (dialog fallback for Replace All; native in-page highlight + HTML-aware Replace All)
 - **Format-state reporting:** `OLWBridge.getState()` reports bold/italic/underline/
@@ -228,7 +236,11 @@ editor to feature parity). P3 packaging/distribution is the **M5** track. Publis
     **Remaining visual/usability debt:** real Fluent/SVG ribbon icons; Find match-count
     readout; print UI; Fluent-level overflow gallery (More lists commands today).
 12. ✅ **Tables, video, emoticons, preview, paste-special, breaks, maps, tags, spellcheck UI, contextual tabs.** Done across recent bands.
-    **Remaining:** print; full plug-in host (stub dialog only). *(M4)*
+    **Theme band (P1-3, this pass):** the Blog Account tab's **Use Theme** /
+    **Update Theme** buttons are live and Preview can render with the blog's real
+    stylesheets — see §13. Honest limitation vs Windows: no template region
+    detection, so theme rules scoped to the blog's post containers don't apply.
+    **Remaining:** full plug-in host (stub dialog only). *(M4)*
 13. **M5 packaging:** `.app` bundle foundation (`build-mac.sh` + `mac-build.yml` CI
     artifact), code signing / notarization (`xcrun notarytool`), DMG, App Store
     submission. *Started:* self-contained `osx-arm64` publish + `CFBundleName`
@@ -298,7 +310,7 @@ Run:
   `scripts/validate-live-blog.sh` or
   `dotnet test ... --filter "Category=LiveBlog" -- NUnit.Explicit=true`
 
-Default run status: **630 passed / 0 failed** (includes **Group P** layout harness + UiReview captures, **Group Q** shell/menu/autosave/close-prompt/handled-commands, **Group R** editor bridge, **Group S** async transport + connection verifier, **Group T** server posts/pages/WordPress, **Group U** web-image/print/publish-date, **Group N** spelling flow —
+Default run status: **703 passed / 0 failed** (includes **Group P** layout harness + UiReview captures, **Group Q** shell/menu/autosave/close-prompt/handled-commands, **Group R** editor bridge, **Group S** async transport + connection verifier, **Group T** server posts/pages/WordPress, **Group U** web-image/print/publish-date, **Group V** Picture Tools, **Group W** themed preview, **Group N** spelling flow —
 15 cases across 800×600…1920×1080). WebView-category, `PublishTdd`, and
 `LiveBlog` tests are `[Explicit]` (excluded from the default run) so the headless gate
 stays green. Layout quality docs: `docs/UI-LAYOUT-QA.md`.
@@ -321,6 +333,22 @@ stays green. Layout quality docs: `docs/UI-LAYOUT-QA.md`.
   (success, no-link, fetch-failure). A live detection test is `[Explicit]`.
 - **Re-publish (Group J):** `GroupJ_RepublishTests` — `PublishOrEdit` new-vs-edit and the
   `BlogAccountService` republish-edits-same-post (no duplicate `NewPost`) flow.
+- **Picture Tools (Group V):** `GroupV_PictureToolsTests` — `getState()` image-payload
+  parsing (attrs/styles/link normalization), `ImageEditBuilder` applyImageAttrs JSON
+  (set-members only, ClearSize nulls, border pair), aspect-ratio math + preset sanity,
+  alignment normalization, Picture-properties link-choice mapping, rotate command
+  routing, and headless ribbon wiring (width/height spinner events + reflection,
+  size-preset and Link To dropdown flyouts with dead items disabled). JS-side
+  selection/apply/rotate/link tests are `[Explicit]` WebView cases.
+- **Themed preview (Group W):** `GroupW_ThemingTests` — `ThemeStyleExtractor`
+  (relative/absolute/protocol-relative hrefs, rel-token variants, non-stylesheet
+  links ignored, dedup, inline `<style>` blocks, no-stylesheet/empty input),
+  `ThemeStyleCache` (memory + disk round-trip, force refresh, homepage-change
+  invalidation, failed refresh never poisons, throwing fetcher → null, corrupt
+  disk file → miss), themed `PreviewRenderer` composition (styles present iff a
+  theme is supplied, attribute escaping), and headless shell wiring (Use Theme
+  toggle persists per-account, Update Theme status reporting, graceful
+  no-account/fetch-failure messages, Close Preview returns to Edit view).
 
 Earlier, the Insert-tab + preview + selection-state band lifted the count 160 → 235
 with pure/headless coverage:
@@ -740,3 +768,136 @@ unset when blank, `PublishingHttpClientFactory`/`WebProxyMapper`, and
 (end-to-end through the real XML-RPC transport over a fake `HttpMessageHandler`),
 the button enable rule, the view-after-publish / close-on-publish preference mapping,
 and the `BrowserLauncher` seam; the live verification test is `[Explicit]`.
+
+---
+
+## 12. Picture Tools band (macOS) — P1-2
+
+Picture editing was Windows Live Writer's signature feature. This pass makes the
+previously decorative Picture Tools contextual tab real for everything that can
+be done honestly with HTML/CSS (no pixel baking).
+
+### 12.1 Selection + contextual tab
+
+Clicking an `<img>` in the editor selects it as a unit (the bridge's click
+handler wraps it in a single-node selection, like Windows' picture selection);
+moving the caret away deselects. `getState()` reports `selectedElementType:
+"image"` plus an `image` payload (src, natural/display size, alt/title,
+alignment, uniform margin, rotation, border width/color, wrapping link href)
+which `WebViewEditor.ParseFormatState` surfaces as `FormatState.Image`
+(`ImageFormatState`). The existing contextual-tab pipeline
+(`FormatStateChanged` → `ContextualTabResolver` →
+`AvaloniaRibbonControl.ActivateContextualTabGroup`) shows Picture Tools >
+Format while an image is selected and hides it otherwise.
+
+### 12.2 What is live
+
+- **Size:** width/height spinners (new ribbon `SpinnerValueChanged` → shell
+  pipeline; spinner values reflect the selection via `SetSpinnerValue`) with an
+  aspect-ratio lock toggle (on by default; computed from the natural
+  dimensions), and the Custom size dropdown — Small 160 / Medium 320 / Large
+  640 px presets (Windows' presets are user-configurable; these are the fixed
+  mac defaults until a defaults dialog is ported) and Original (clears
+  width/height back to natural size). Both the HTML attributes and matching
+  inline styles are set — the editor stylesheet's `img { height: auto }` would
+  otherwise override the height attribute.
+- **Rotate:** CW/CCW rotate the image in 90° steps via a CSS `transform`.
+  **Deviation from Windows:** Windows bakes rotation into the pixels; here it
+  survives publish as an inline style. Honest and revertible, but consumers
+  that strip inline styles lose it.
+- **Border:** a Border toggle applies/removes a solid inline border (default
+  1px `#999999`, or the last-used color); width and color are editable in the
+  Picture Properties dialog.
+- **Properties:** the Picture Properties dialog (patterned after `LinkDialog`)
+  edits alt text, title, Link To (no link / source picture / web address —
+  "source picture" is only meaningful for remote web pictures; embedded
+  data-URI pictures have no source URL), alignment (inline / float left /
+  float right / centered block), a uniform margin in px, and border
+  width/color. All applied via `OLWBridge.applyImageAttrs` /
+  `OLWBridge.setImageLink`, which mark the draft dirty (debounced
+  `contentChanged`) and re-report state.
+- **Dropdown buttons now open menus:** `RibbonButtonControl` builds a flyout
+  from a `DropDownButton`'s `MenuItems` (previously the items were dropped, so
+  the size presets and Link To choices were unreachable). Items whose command
+  has no handler render disabled.
+
+### 12.3 Still dead (documented, disabled in the ribbon)
+
+Crop, tilt, recolor/sharpen/blur/emboss effects, contrast, watermark, the
+picture-styles gallery, Set custom size defaults, and Save/Revert settings —
+these need the Windows decorator pipeline's pixel baking (a future SkiaSharp
+pass) or a defaults/settings store. They stay unhandled in
+`HandledCommands` and render disabled with the "not yet available" tooltip;
+`GroupQ_HandledCommandsTests` pins both the live and the dead sets.
+
+### 12.4 Tests
+
+`GroupV_PictureToolsTests` (default suite): state-payload parsing,
+`ImageEditBuilder` payload/aspect/alignment logic, dialog link mapping, rotate
+routing, and headless ribbon wiring (spinner events/reflection, dropdown
+flyouts). `GroupV_PictureToolsWebViewTests` ([Explicit], live WKWebView):
+selection reporting, applyImageAttrs, rotate wrap-around, link wrap/unwrap.
+`GroupK` covers Picture Tools tab activation; `GroupQ` pins the handled/dead
+registry; `GroupP_UiReviewDeepCaptureTests` captures the dialog and the
+Picture Tools ribbon band (`tab-picturetools-1280x800.png`,
+`dialog-imageproperties.png`).
+
+---
+
+## 13. Theme band (macOS) — P1-3 themed preview
+
+Windows detects the blog's editing template (`BlogEditingTemplateDetector`:
+downloads the homepage + a sample post, locates the post region, and reuses the
+real theme HTML/CSS for the Web Layout editing view and Preview). That pipeline
+is MSHTML-heavy and deliberately not ported. This band ships the honest
+cross-platform slice: Preview with the blog's real stylesheets, driven by the
+previously dead Blog Account tab buttons.
+
+### 13.1 What is live
+
+- **Theme harvest (`App.Avalonia/Theming`):** `ThemeStyleCache` fetches the
+  current account's homepage through the shell's proxy-aware `HttpClient` (the
+  same `PublishingHttpClientFactory` path as publishing) behind an injectable
+  `IThemeHtmlFetcher` seam (15s timeout, redirects followed by the client).
+  `ThemeStyleExtractor` (pure, regex-based like the RSD parser) pulls the
+  absolute URLs of every `<link rel="stylesheet">` (relative, root-relative,
+  and protocol-relative hrefs resolved; duplicates removed) plus the contents
+  of inline `<style>` blocks.
+- **Per-account cache:** memory + JSON disk cache under the platform app-data
+  `Themes/` folder, keyed by account id and stamped with the fetch time. A
+  cached entry is reused only while the account's homepage URL still matches;
+  **Update Theme** passes `forceRefresh` to re-harvest. A failed refresh
+  returns null and leaves the previous cache entry untouched (the cache is
+  never poisoned by a network hiccup).
+- **Themed preview:** when **Use Theme** is on for the current blog,
+  `PreviewRenderer` emits the theme's stylesheet links + inline styles after
+  the neutral article style (so the blog's typography/colors win at equal
+  specificity) and tags the body with an `olw-theme` class hook. `EditorPanel`
+  gets the theme from a shell-provided `PreviewThemeProvider`; a provider
+  failure yields the neutral document — Preview never breaks on a theme miss.
+- **Use Theme toggle:** persisted per account (`BlogAccount.UseThemeForPreview`,
+  the counterpart to Windows' `EditUsingBlogStyles` — scoped to Preview here
+  since the macOS editor has no Web Layout view); the ribbon toggle reflects
+  the current account's stored value and toggling re-composes an open preview.
+- **Update Theme:** forced re-harvest with status-bar progress + result
+  ("N stylesheet(s), M inline style block(s)"). Both commands need a current
+  account with a homepage URL and say so on the status bar otherwise.
+- **Close Preview:** the Preview tab's previously dead button now switches the
+  editor back to the Edit view — all it does on Windows.
+
+### 13.2 Honest limitation vs Windows
+
+The preview keeps its neutral `<article>` wrapper; the theme stylesheets are
+layered raw on top. Rules the theme scopes to its real post containers (e.g.
+`.entry-content p`, `.post` layout, sidebar/masthead chrome) do not apply, so
+the preview shows the blog's **typography and colors**, not its page layout.
+Full template-region detection and a Web Layout editing view remain open
+(P1-3 remainder).
+
+### 13.3 Tests
+
+`GroupW_ThemingTests` (default suite, 27 cases): pure extraction fixtures,
+cache behavior over a fake fetcher + temp disk dir, themed/neutral
+`PreviewRenderer` composition, and headless shell wiring (toggle persistence,
+status messages, Close Preview). No live network — the only networked path is
+the production `HttpThemeHtmlFetcher`, exercised manually against a real blog.
