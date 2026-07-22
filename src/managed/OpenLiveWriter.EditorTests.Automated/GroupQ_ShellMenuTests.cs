@@ -65,6 +65,7 @@ namespace OpenLiveWriter.EditorTests.Automated
         [TestCase(CommandId.PasteSpecial, "Cmd+Shift+V")]
         [TestCase(CommandId.SelectAll, "Cmd+A")]
         [TestCase(CommandId.FindButton, "Cmd+F")]
+        [TestCase(CommandId.CheckSpelling, "F7")]
         public void EditMenu_MapsCommandsAndGestures(CommandId commandId, string gesture)
         {
             ShellMenuItem item = Item(Menu("Edit"), commandId);

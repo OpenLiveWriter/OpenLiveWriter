@@ -95,6 +95,9 @@ namespace OpenLiveWriter.Publishing
             if (!post.IsPage && Options.SupportsKeywords && !string.IsNullOrEmpty(post.Keywords))
                 members.Add(new XmlRpcMember("mt_keywords", new XmlRpcString(post.Keywords)));
 
+            if (post.DateCreatedUtc.HasValue)
+                members.Add(new XmlRpcMember("dateCreated", new XmlRpcDateTime(post.DateCreatedUtc.Value)));
+
             return new XmlRpcStruct(members.ToArray());
         }
 
@@ -325,6 +328,259 @@ namespace OpenLiveWriter.Publishing
         {
             var response = new XmlRpcMethodResponse(responseXml);
             return ParseCategories(response.Response);
+        }
+
+        // -----------------------------------------------------------------------
+        // Server fetch — reading posts/pages back from the blog.
+        // -----------------------------------------------------------------------
+
+        /// <summary>
+        /// Lists the most recent posts via <c>metaWeblog.getRecentPosts</c>. Faithful to
+        /// the Windows <c>RecentPostSynchronizer</c> fetch: the returned structs carry the
+        /// full body, so opening a listed post needs no second round-trip.
+        /// </summary>
+        public async Task<IReadOnlyList<ServerPost>> GetRecentPostsAsync(string blogId, int count)
+        {
+            XmlRpcMethodResponse response = await CallMethodAsync("metaWeblog.getRecentPosts",
+                CancellationToken.None,
+                new XmlRpcString(blogId),
+                new XmlRpcString(_username),
+                new XmlRpcString(_password, true),
+                new XmlRpcInt(count)).ConfigureAwait(false);
+
+            return ParseServerPosts(response.Response, isPage: false);
+        }
+
+        /// <summary>Fetches a single post in full via <c>metaWeblog.getPost</c>.</summary>
+        public async Task<ServerPost> GetPostAsync(string postId)
+        {
+            XmlRpcMethodResponse response = await CallMethodAsync("metaWeblog.getPost",
+                CancellationToken.None,
+                new XmlRpcString(postId),
+                new XmlRpcString(_username),
+                new XmlRpcString(_password, true)).ConfigureAwait(false);
+
+            return ParseServerPostStruct(response.Response?.SelectSingleNode("struct"), isPage: false);
+        }
+
+        /// <summary>
+        /// Lists the blog's pages via <c>wp.getPages</c>. WordPress page structs carry the
+        /// same members as post structs with page-flavored names (page_id / page_title /
+        /// page_status); entries are marked <see cref="ServerPostInfo.IsPage"/>.
+        /// </summary>
+        public async Task<IReadOnlyList<ServerPost>> GetPagesAsync(string blogId)
+        {
+            XmlRpcMethodResponse response = await CallMethodAsync("wp.getPages",
+                CancellationToken.None,
+                new XmlRpcString(blogId),
+                new XmlRpcString(_username),
+                new XmlRpcString(_password, true)).ConfigureAwait(false);
+
+            return ParseServerPosts(response.Response, isPage: true);
+        }
+
+        /// <summary>
+        /// Parses a <c>metaWeblog.getRecentPosts</c>/<c>wp.getPages</c> XML-RPC
+        /// method-response document string into posts. Pure/offline for fixture tests.
+        /// </summary>
+        public static IReadOnlyList<ServerPost> ParseServerPostsResponse(string responseXml, bool isPage = false)
+        {
+            var response = new XmlRpcMethodResponse(responseXml);
+            return ParseServerPosts(response.Response, isPage);
+        }
+
+        /// <summary>
+        /// Parses a <c>metaWeblog.getPost</c> XML-RPC method-response document string into
+        /// a single post. Pure/offline for fixture tests.
+        /// </summary>
+        public static ServerPost ParseGetPostResponse(string responseXml)
+        {
+            var response = new XmlRpcMethodResponse(responseXml);
+            return ParseServerPostStruct(response.Response?.SelectSingleNode("struct"), isPage: false);
+        }
+
+        /// <summary>
+        /// Parses the array-of-structs value returned by getRecentPosts/getPages.
+        /// Tolerant like <see cref="ParseCategories"/>: missing/unknown members degrade
+        /// to defaults rather than failing the whole list.
+        /// </summary>
+        private static IReadOnlyList<ServerPost> ParseServerPosts(XmlNode responseValue, bool isPage)
+        {
+            var posts = new List<ServerPost>();
+            XmlNodeList structNodes = responseValue?.SelectNodes("array/data/value/struct");
+            if (structNodes == null)
+                return posts;
+
+            foreach (XmlNode node in structNodes)
+                posts.Add(ParseServerPostStruct(node, isPage));
+
+            return posts;
+        }
+
+        /// <summary>
+        /// Parses one post/page struct. Post member names (postid/title/post_status) and
+        /// page member names (page_id/page_title/page_status) are both accepted so the
+        /// same parser serves getRecentPosts, getPost, and wp.getPages.
+        /// </summary>
+        private static ServerPost ParseServerPostStruct(XmlNode structNode, bool isPage)
+        {
+            var post = new ServerPost { IsPage = isPage };
+            if (structNode == null)
+                return post;
+
+            post.PostId = GetNodeValue(structNode, "member[name='postid']/value")
+                ?? GetNodeValue(structNode, "member[name='page_id']/value")
+                ?? string.Empty;
+            post.Title = GetNodeValue(structNode, "member[name='title']/value")
+                ?? GetNodeValue(structNode, "member[name='page_title']/value")
+                ?? string.Empty;
+            post.Description = GetNodeValue(structNode, "member[name='description']/value") ?? string.Empty;
+            post.TextMore = GetNodeValue(structNode, "member[name='mt_text_more']/value") ?? string.Empty;
+            post.Keywords = GetNodeValue(structNode, "member[name='mt_keywords']/value") ?? string.Empty;
+            post.Permalink = GetNodeValue(structNode, "member[name='permalink']/value") ?? string.Empty;
+            post.Status = GetNodeValue(structNode, "member[name='post_status']/value")
+                ?? GetNodeValue(structNode, "member[name='page_status']/value")
+                ?? string.Empty;
+            post.Categories = ParseInlineCategories(structNode);
+
+            string dateCreated = GetNodeValue(structNode, "member[name='dateCreated']/value");
+            post.DateCreatedUtc = ParseIso8601Date(dateCreated);
+
+            return post;
+        }
+
+        private static IReadOnlyList<string> ParseInlineCategories(XmlNode structNode)
+        {
+            var categories = new List<string>();
+            XmlNodeList values = structNode.SelectNodes(
+                "member[name='categories']/value/array/data/value");
+            if (values != null)
+            {
+                foreach (XmlNode value in values)
+                {
+                    string name = value.InnerText?.Trim();
+                    if (!string.IsNullOrEmpty(name))
+                        categories.Add(name);
+                }
+            }
+            return categories;
+        }
+
+        /// <summary>
+        /// Parses the XML-RPC <c>dateTime.iso8601</c> format (e.g. 20240310T14:22:31),
+        /// tolerating the trailing-Z/offset variants some servers emit. Returns null when
+        /// the value is missing or unparseable — a bad date must not fail the fetch.
+        /// </summary>
+        private static DateTime? ParseIso8601Date(string value)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+                return null;
+
+            string[] formats =
+            {
+                "yyyyMMdd'T'HH:mm:ss",
+                "yyyyMMdd'T'HH:mm:ss'Z'",
+                "yyyyMMdd'T'HH:mm:sszzz"
+            };
+            if (DateTime.TryParseExact(value.Trim(), formats,
+                    System.Globalization.CultureInfo.InvariantCulture,
+                    System.Globalization.DateTimeStyles.AssumeUniversal |
+                    System.Globalization.DateTimeStyles.AdjustToUniversal,
+                    out DateTime parsed))
+            {
+                return parsed;
+            }
+
+            if (DateTime.TryParse(value.Trim(),
+                    System.Globalization.CultureInfo.InvariantCulture,
+                    System.Globalization.DateTimeStyles.AssumeUniversal |
+                    System.Globalization.DateTimeStyles.AdjustToUniversal,
+                    out parsed))
+            {
+                return parsed;
+            }
+
+            return null;
+        }
+
+        // -----------------------------------------------------------------------
+        // Pages — wp.newPage / wp.editPage.
+        // -----------------------------------------------------------------------
+
+        /// <summary>
+        /// Builds the WordPress page struct: title + description/mt_text_more. Unlike
+        /// posts, pages carry no categories/keywords; the publish flag travels as the
+        /// trailing method parameter rather than a struct member.
+        /// </summary>
+        public XmlRpcStruct GeneratePageStruct(BlogPost post)
+        {
+            if (post == null) throw new ArgumentNullException(nameof(post));
+
+            var members = new List<XmlRpcMember>
+            {
+                new XmlRpcMember("title", new XmlRpcString(post.Title ?? string.Empty)),
+                new XmlRpcMember("description", new XmlRpcString(post.MainContents)),
+                new XmlRpcMember("mt_text_more", new XmlRpcString(post.ExtendedContents)),
+            };
+
+            if (post.DateCreatedUtc.HasValue)
+                members.Add(new XmlRpcMember("dateCreated", new XmlRpcDateTime(post.DateCreatedUtc.Value)));
+
+            return new XmlRpcStruct(members.ToArray());
+        }
+
+        /// <summary>Builds the full <c>wp.newPage</c> method-call XML (no network).</summary>
+        public string BuildNewPageXml(string blogId, BlogPost post, bool publish)
+        {
+            return BuildMethodCallXml("wp.newPage",
+                new XmlRpcString(blogId),
+                new XmlRpcString(_username),
+                new XmlRpcString(_password, true),
+                GeneratePageStruct(post),
+                new XmlRpcBoolean(publish));
+        }
+
+        /// <summary>Builds the full <c>wp.editPage</c> method-call XML (no network).</summary>
+        public string BuildEditPageXml(string blogId, BlogPost post, bool publish)
+        {
+            return BuildMethodCallXml("wp.editPage",
+                new XmlRpcString(blogId),
+                new XmlRpcString(post.Id),
+                new XmlRpcString(_username),
+                new XmlRpcString(_password, true),
+                GeneratePageStruct(post),
+                new XmlRpcBoolean(publish));
+        }
+
+        /// <summary>
+        /// Creates a page via <c>wp.newPage</c> and returns the server-assigned page id.
+        /// </summary>
+        public async Task<string> NewPageAsync(string blogId, BlogPost post, bool publish)
+        {
+            XmlRpcMethodResponse response = await CallMethodAsync("wp.newPage",
+                CancellationToken.None,
+                new XmlRpcString(blogId),
+                new XmlRpcString(_username),
+                new XmlRpcString(_password, true),
+                GeneratePageStruct(post),
+                new XmlRpcBoolean(publish)).ConfigureAwait(false);
+
+            string pageId = response.Response?.InnerText ?? string.Empty;
+            post.Id = pageId;
+            return pageId;
+        }
+
+        /// <summary>Edits an existing page via <c>wp.editPage</c>.</summary>
+        public Task EditPageAsync(string blogId, BlogPost post, bool publish)
+        {
+            return CallMethodAsync("wp.editPage",
+                CancellationToken.None,
+                new XmlRpcString(blogId),
+                new XmlRpcString(post.Id),
+                new XmlRpcString(_username),
+                new XmlRpcString(_password, true),
+                GeneratePageStruct(post),
+                new XmlRpcBoolean(publish));
         }
 
         private static string GetNodeValue(XmlNode node, string xpath)

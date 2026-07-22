@@ -43,6 +43,30 @@ namespace OpenLiveWriter.Publishing
         /// exposes no categories.
         /// </summary>
         Task<IReadOnlyList<BlogPostCategory>> GetCategoriesAsync(string blogId);
+
+        /// <summary>
+        /// Lists the most recent posts on the blog (<c>metaWeblog.getRecentPosts</c>),
+        /// newest first, up to <paramref name="count"/>. The returned structs carry the
+        /// full body (description + mt_text_more) like the Windows client relies on, so
+        /// opening a listed post needs no second round-trip.
+        /// </summary>
+        Task<IReadOnlyList<ServerPost>> GetRecentPostsAsync(string blogId, int count);
+
+        /// <summary>Fetches a single post in full (<c>metaWeblog.getPost</c>).</summary>
+        Task<ServerPost> GetPostAsync(string postId);
+
+        /// <summary>
+        /// Lists the blog's pages (<c>wp.getPages</c>). Pages are returned as
+        /// <see cref="ServerPost"/> entries with <see cref="ServerPostInfo.IsPage"/> set;
+        /// WordPress page structs carry the same body members as posts.
+        /// </summary>
+        Task<IReadOnlyList<ServerPost>> GetPagesAsync(string blogId);
+
+        /// <summary>Creates a new page (<c>wp.newPage</c>) and returns the server page id.</summary>
+        Task<string> NewPageAsync(string blogId, BlogPost post, bool publish);
+
+        /// <summary>Edits an existing page (<c>wp.editPage</c>, identified by <see cref="BlogPost.Id"/>).</summary>
+        Task EditPageAsync(string blogId, BlogPost post, bool publish);
     }
 
     /// <summary>

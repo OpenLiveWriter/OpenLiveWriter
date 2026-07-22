@@ -14,6 +14,7 @@ using NUnit.Framework;
 using OpenLiveWriter.App.Avalonia.Dialogs;
 using OpenLiveWriter.App.Avalonia.Editor;
 using OpenLiveWriter.App.Avalonia.Settings;
+using OpenLiveWriter.App.Avalonia.Spelling;
 using OpenLiveWriter.EditorTests.Automated.Infrastructure;
 using OpenLiveWriter.Publishing;
 using OpenLiveWriter.Publishing.Accounts;
@@ -140,11 +141,49 @@ namespace OpenLiveWriter.EditorTests.Automated
                 ("dialog-map.png", () => new MapDialog()),
                 ("dialog-message.png", () => new MessageDialog(
                     "Publish", "Your post \u201cMilestone 4 status update\u201d was published successfully.")),
+                ("dialog-openfromblog.png", () => new OpenFromBlogDialog(
+                    (pages, count) => Task.FromResult<IReadOnlyList<ServerPost>>(
+                        new List<ServerPost>
+                        {
+                            new ServerPost
+                            {
+                                PostId = "412",
+                                Title = "Milestone 4 status update",
+                                Description = "<p>WebView WYSIWYG landed.</p>",
+                                Status = "publish",
+                                DateCreatedUtc = DateTime.UtcNow.AddHours(-5)
+                            },
+                            new ServerPost
+                            {
+                                PostId = "408",
+                                Title = "Avalonia ribbon notes",
+                                Description = "<p>Ribbon layout on macOS.</p>",
+                                Status = "publish",
+                                DateCreatedUtc = DateTime.UtcNow.AddDays(-2)
+                            },
+                            new ServerPost
+                            {
+                                PostId = "399",
+                                Title = "",
+                                Description = "<p>Scratch notes.</p>",
+                                Status = "draft",
+                                DateCreatedUtc = DateTime.UtcNow.AddDays(-4)
+                            },
+                        }),
+                    supportsPages: true)),
+                ("dialog-postproperties.png", () => new PostPropertiesDialog(
+                    DateTime.UtcNow.AddDays(3))),
                 ("dialog-selectblog.png", () => new SelectBlogDialog(
                     BuildSampleAccountService().ListAccounts(), "acct-1")),
+                ("dialog-spelling.png", () => new SpellingDialog(
+                    "<p>Open Live Writter is a blog authoring tool.</p>" +
+                    "<p>This build runs on macOS with Avalonia.</p>",
+                    BuildSampleSpellEngine())),
                 ("dialog-table.png", () => new TableDialog()),
                 ("dialog-tag.png", () => new TagDialog(new[] { "macOS", "Avalonia", "Open Live Writer" })),
                 ("dialog-video.png", () => new VideoDialog()),
+                ("dialog-webimage.png", () => new WebImageDialog(
+                    "https://openlivewriter.org/wp-content/uploads/screenshot.png")),
                 ("dialog-wordcount.png", () => new WordCountDialog(new WordCounter(
                     "<p>Open Live Writer is a blog authoring tool.</p>" +
                     "<p>This build runs on macOS with Avalonia.</p>"))),
@@ -283,8 +322,22 @@ namespace OpenLiveWriter.EditorTests.Automated
                 BlogId = "1"
             };
 
-        private static BlogAccountService BuildSampleAccountService()
+        /// <summary>
+        /// Small in-memory dictionary for the sample Spelling dialog: every word in the
+        /// sample post except the deliberate misspelling ("Writter"), with suggestions.
+        /// </summary>
+        private static ISpellCheckEngine BuildSampleSpellEngine()
         {
+            var engine = new InMemorySpellCheckEngine(new[]
+            {
+                "Open", "Live", "Writer", "is", "a", "blog", "authoring", "tool",
+                "This", "build", "runs", "on", "macOS", "with", "Avalonia"
+            });
+            engine.Suggestions["Writter"] = new[] { "Writer", "Written", "Writes" };
+            return engine;
+        }
+
+        private static BlogAccountService BuildSampleAccountService()        {
             var service = new BlogAccountService(new InMemoryAccountStore(), new InMemoryCredentialStore());
             service.SaveAccount(SampleAccount("acct-1", "My WordPress Blog", "doug", "https://doug.wordpress.com"), "sample-password");
             service.SaveAccount(SampleAccount("acct-2", "Test MetaWeblog", "tester", "https://test.example.com"), "sample-password");

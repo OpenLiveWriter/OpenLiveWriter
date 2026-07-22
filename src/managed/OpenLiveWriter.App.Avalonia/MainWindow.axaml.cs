@@ -294,11 +294,20 @@ namespace OpenLiveWriter.App.Avalonia
                 return;
 
             var drafts = _draftSession.ListDrafts();
-            string id = await DraftPickerDialog.ShowAsync(this, drafts);
-            if (string.IsNullOrEmpty(id))
+            var dialog = new DraftPickerDialog(drafts);
+            await dialog.ShowDialog<string>(this);
+
+            // The user can pivot from the draft list to fetching a server post.
+            if (dialog.RequestedOpenFromBlog)
+            {
+                await OpenFromBlogAsync();
+                return;
+            }
+
+            if (string.IsNullOrEmpty(dialog.SelectedDraftId))
                 return;
 
-            await OpenByIdAsync(id);
+            await OpenByIdAsync(dialog.SelectedDraftId);
         }
 
         private async Task OpenDraftMruAsync(int index)

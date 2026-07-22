@@ -56,7 +56,9 @@ namespace OpenLiveWriter.App.Avalonia.Editor
         /// </summary>
         /// <param name="bodyHtml">The editor body HTML (may be null/empty).</param>
         /// <param name="title">Optional post title rendered as a leading heading.</param>
-        public static string BuildPreviewDocument(string bodyHtml, string title = null)
+        /// <param name="additionalStyle">Optional extra stylesheet appended after
+        /// <see cref="PreviewStyle"/> (used by the print composition for @media rules).</param>
+        public static string BuildPreviewDocument(string bodyHtml, string title = null, string additionalStyle = null)
         {
             string body = StripMoreMarker(bodyHtml ?? string.Empty);
 
@@ -66,6 +68,8 @@ namespace OpenLiveWriter.App.Avalonia.Editor
             sb.Append("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n");
             sb.Append("<title>").Append(EscapeTitle(title)).Append("</title>\n");
             sb.Append("<style>").Append(PreviewStyle).Append("</style>\n");
+            if (!string.IsNullOrEmpty(additionalStyle))
+                sb.Append("<style>").Append(additionalStyle).Append("</style>\n");
             sb.Append("</head>\n<body>\n<article>");
 
             if (!string.IsNullOrWhiteSpace(title))

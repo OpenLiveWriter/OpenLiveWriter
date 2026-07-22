@@ -45,8 +45,9 @@ namespace OpenLiveWriter.Publishing.Accounts
         public string Username { get; set; } = string.Empty;
 
         /// <summary>
-        /// Provider type. Only <c>MetaWeblog</c> is implemented on macOS today;
-        /// Atom/WordPress/Blogger require the fuller BlogClient port.
+        /// Provider type. <see cref="DefaultProviderType"/> (MetaWeblog) and
+        /// <see cref="WordPressProviderType"/> are implemented on macOS;
+        /// Atom/Blogger require the fuller BlogClient port.
         /// </summary>
         public string ProviderType { get; set; } = DefaultProviderType;
 
@@ -59,8 +60,11 @@ namespace OpenLiveWriter.Publishing.Accounts
         /// <summary>Whether the provider supports the extended-entry (more) break.</summary>
         public bool SupportsExtendedEntries { get; set; } = true;
 
-        /// <summary>The default (and currently only implemented) provider type.</summary>
+        /// <summary>The default provider type.</summary>
         public const string DefaultProviderType = "MetaWeblog";
+
+        /// <summary>The WordPress provider type (MetaWeblog-compatible + wp.* extensions).</summary>
+        public const string WordPressProviderType = "WordPress";
 
         /// <summary>Display label preferring the friendly name, falling back to the URL.</summary>
         [JsonIgnore]

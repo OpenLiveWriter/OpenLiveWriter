@@ -38,6 +38,8 @@
     
     <!-- Spell checking -->
     <PackageVersion Include="PlatformSpellCheck" Version="1.0.0" />
+    <!-- Pure-managed Hunspell for the macOS Avalonia spell engine (no native deps) -->
+    <PackageVersion Include="WeCantSpell.Hunspell" Version="7.0.1" />
     
     <!-- WebView2 - Modern Chromium-based HTML editor control -->
     <PackageVersion Include="Microsoft.Web.WebView2" Version="1.0.2903.40" />

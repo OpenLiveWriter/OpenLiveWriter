@@ -52,6 +52,14 @@ namespace OpenLiveWriter.Publishing.Accounts
         public string BlogId { get; set; } = string.Empty;
         public string EngineName { get; set; } = string.Empty;
         public string RsdUrl { get; set; } = string.Empty;
+
+        /// <summary>
+        /// The provider the account should record. WordPress when the RSD engine or API
+        /// list says so (or when the endpoint came from the /xmlrpc.php probe);
+        /// otherwise the MetaWeblog default.
+        /// </summary>
+        public string ProviderType { get; set; } = BlogAccount.DefaultProviderType;
+
         public RsdServiceDescription ServiceDescription { get; set; }
     }
 
@@ -236,6 +244,29 @@ namespace OpenLiveWriter.Publishing.Accounts
         }
 
         /// <summary>
+        /// Picks the provider type from a parsed RSD description: WordPress when the
+        /// engine name says so or the RSD advertises a "WordPress" API (WordPress RSD
+        /// lists both WordPress and MetaWeblog APIs over the same xmlrpc.php endpoint);
+        /// otherwise the MetaWeblog default.
+        /// </summary>
+        public static string DetectProviderType(RsdServiceDescription description)
+        {
+            if (description == null)
+                return BlogAccount.DefaultProviderType;
+
+            if (description.EngineName != null &&
+                description.EngineName.IndexOf("wordpress", StringComparison.OrdinalIgnoreCase) >= 0)
+            {
+                return BlogAccount.WordPressProviderType;
+            }
+
+            if (description.ScanForApi(BlogAccount.WordPressProviderType) != null)
+                return BlogAccount.WordPressProviderType;
+
+            return BlogAccount.DefaultProviderType;
+        }
+
+        /// <summary>
         /// Full auto-detection: fetch the homepage, find the RSD link, fetch the RSD, parse
         /// it, and resolve the MetaWeblog endpoint. Returns a result whose
         /// <see cref="RsdDetectionResult.Found"/> is false when detection could not
@@ -255,7 +286,11 @@ namespace OpenLiveWriter.Publishing.Accounts
 
             string rsdUrl = FindRsdUrl(homepageHtml, homepageUrl);
             if (string.IsNullOrEmpty(rsdUrl))
-                return result;
+            {
+                // No RSD advertised: WordPress answers at {homepage}/xmlrpc.php by
+                // convention, so probe it before giving up.
+                return ProbeWordPressXmlRpc(homepageUrl, fetcher, result);
+            }
 
             result.RsdUrl = rsdUrl;
 
@@ -269,6 +304,7 @@ namespace OpenLiveWriter.Publishing.Accounts
 
             result.ServiceDescription = description;
             result.EngineName = description.EngineName;
+            result.ProviderType = DetectProviderType(description);
 
             RsdApi api = SelectMetaWeblogApi(description);
             if (api != null)
@@ -278,6 +314,39 @@ namespace OpenLiveWriter.Publishing.Accounts
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// WordPress fallback when the homepage advertises no RSD link: GET
+        /// {homepage}/xmlrpc.php and accept it as the endpoint when the response looks
+        /// like an XML-RPC server (WordPress answers "XML-RPC server accepts POST
+        /// requests only."). Marks the provider WordPress — the /xmlrpc.php convention
+        /// is WordPress-specific.
+        /// </summary>
+        private static RsdDetectionResult ProbeWordPressXmlRpc(
+            string homepageUrl, IRsdHttpFetcher fetcher, RsdDetectionResult result)
+        {
+            string endpoint = homepageUrl.TrimEnd('/') + "/xmlrpc.php";
+            string body = SafeFetch(fetcher, endpoint);
+            if (!LooksLikeXmlRpcEndpoint(body))
+                return result;
+
+            result.EndpointUrl = endpoint;
+            result.ProviderType = BlogAccount.WordPressProviderType;
+            return result;
+        }
+
+        /// <summary>
+        /// True when a GET response body looks like a live XML-RPC endpoint: the
+        /// WordPress "accepts POST requests only" banner or an XML-RPC methodResponse.
+        /// </summary>
+        public static bool LooksLikeXmlRpcEndpoint(string body)
+        {
+            if (string.IsNullOrEmpty(body))
+                return false;
+            return body.IndexOf("XML-RPC server accepts POST requests only",
+                       StringComparison.OrdinalIgnoreCase) >= 0
+                || body.IndexOf("<methodResponse", StringComparison.OrdinalIgnoreCase) >= 0;
         }
 
         private static string SafeFetch(IRsdHttpFetcher fetcher, string url)

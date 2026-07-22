@@ -47,7 +47,10 @@ namespace OpenLiveWriter.App.Avalonia
             NativeMenu.SetMenu(this, menu);
         }
 
-        // Menu-only commands that have no ribbon entry point.
+        // Menu-bar commands routed here: About / Close Window / view switching, plus
+        // Print / Print Preview (MainWindow.Print) and Post Properties (publish date).
+        // Print and Post Properties also have ribbon entry points (ribbon File menu);
+        // both surfaces share this single handler chain.
         private async Task<bool> TryHandleMenuCommandAsync(CommandId commandId)
         {
             switch (commandId)
@@ -67,6 +70,15 @@ namespace OpenLiveWriter.App.Avalonia
                 case CommandId.ViewPreview:
                     SetEditorView("preview");
                     return true;
+                case CommandId.Print:
+                    await PrintCurrentAsync();
+                    return true;
+                case CommandId.PrintPreview:
+                    await PrintPreviewCurrentAsync();
+                    return true;
+                case CommandId.PostProperties:
+                    await ShowPostPropertiesAsync();
+                    return true;
                 default:
                     return false;
             }
@@ -74,6 +86,25 @@ namespace OpenLiveWriter.App.Avalonia
 
         private void SetEditorView(string view) =>
             this.FindControl<EditorPanel>("EditorPanel")?.SetView(view);
+
+        // Post Properties (F2): publish date only on macOS — kept minimal by design.
+        // The value is stored on the draft and sent as dateCreated on publish.
+        private async Task ShowPostPropertiesAsync()
+        {
+            if (_draftSession == null)
+                return;
+
+            PostPropertiesDialogResult result = await PostPropertiesDialog.ShowAsync(
+                this, _draftSession.Current.PublishDateUtc);
+            if (result == null)
+                return;
+
+            _draftSession.Current.PublishDateUtc = result.PublishDateUtc;
+            _draftSession.Current.IsDirty = true;
+            UpdateStatus(result.PublishDateUtc.HasValue
+                ? $"Publish date: {result.PublishDateUtc.Value.ToLocalTime():f}"
+                : "Publish date cleared — the post publishes immediately.");
+        }
 
         private async Task ShowAboutAsync()
         {

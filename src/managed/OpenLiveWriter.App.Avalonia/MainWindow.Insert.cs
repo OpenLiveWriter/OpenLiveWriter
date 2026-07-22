@@ -42,6 +42,9 @@ namespace OpenLiveWriter.App.Avalonia
                 case CommandId.EditTags:
                     await ShowInsertTagsAsync();
                     return true;
+                case CommandId.WebImage:
+                    await ShowInsertWebImageAsync();
+                    return true;
                 case CommandId.Paste:
                     await PasteAsync();
                     return true;
@@ -125,6 +128,22 @@ namespace OpenLiveWriter.App.Avalonia
 
             await editor.InsertHtmlAsync(html);
             UpdateStatus("Inserted map.");
+        }
+
+        // Insert Picture → From the Web: inserts a remote <img> (URL kept remote —
+        // no base64 embedding) at the caret via the insertHtml bridge.
+        private async Task ShowInsertWebImageAsync()
+        {
+            var editor = GetEditor();
+            if (editor == null)
+                return;
+
+            WebImageDialogResult result = await WebImageDialog.ShowAsync(this);
+            if (result == null || !WebImageDialog.IsValidHttpUrl(result.Url))
+                return;
+
+            await editor.InsertWebImageAsync(result.Url, result.AltText, result.WidthPx);
+            UpdateStatus($"Inserted picture: {result.Url}");
         }
 
         // Insert Tags / keywords: manage the post's tag list, optionally inserting

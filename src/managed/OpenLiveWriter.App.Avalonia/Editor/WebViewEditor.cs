@@ -553,6 +553,17 @@ namespace OpenLiveWriter.App.Avalonia.Editor
             InsertHtmlAsync(BuildImageHtml(src, altText));
 
         /// <summary>
+        /// Inserts a picture from the web at the caret. The remote URL is kept as-is
+        /// (no download/base64 embedding), so the publish pipeline's ImagePublisher —
+        /// which only rewrites inline data-URIs — leaves it alone.
+        /// </summary>
+        public Task InsertWebImageAsync(string url, string altText = null, int? widthPx = null)
+        {
+            if (string.IsNullOrWhiteSpace(url)) return Task.CompletedTask;
+            return InsertHtmlAsync(BuildImageHtml(url.Trim(), altText, widthPx));
+        }
+
+        /// <summary>
         /// Reads an image file and builds a self-contained <c>&lt;img&gt;</c> whose
         /// <c>src</c> is an inline base64 data URI. Pure enough to unit-test against
         /// a known file without a live WebView. Alt text defaults to the file name.
@@ -567,12 +578,21 @@ namespace OpenLiveWriter.App.Avalonia.Editor
         }
 
         /// <summary>Builds a well-formed, attribute-escaped <c>&lt;img&gt;</c> element.</summary>
-        internal static string BuildImageHtml(string src, string altText)
+        internal static string BuildImageHtml(string src, string altText) =>
+            BuildImageHtml(src, altText, widthPx: null);
+
+        /// <summary>
+        /// Builds a well-formed, attribute-escaped <c>&lt;img&gt;</c> element, adding a
+        /// <c>width</c> attribute when <paramref name="widthPx"/> is supplied.
+        /// </summary>
+        internal static string BuildImageHtml(string src, string altText, int? widthPx)
         {
             var sb = new System.Text.StringBuilder();
             sb.Append("<img src=\"").Append(EscapeHtmlAttr(src)).Append('"');
             if (!string.IsNullOrEmpty(altText))
                 sb.Append(" alt=\"").Append(EscapeHtmlAttr(altText)).Append('"');
+            if (widthPx.HasValue && widthPx.Value > 0)
+                sb.Append(" width=\"").Append(widthPx.Value).Append('"');
             sb.Append(" />");
             return sb.ToString();
         }

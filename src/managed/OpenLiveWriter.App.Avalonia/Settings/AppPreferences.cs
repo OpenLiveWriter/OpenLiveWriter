@@ -39,6 +39,7 @@ namespace OpenLiveWriter.App.Avalonia.Settings
 
         // ---- Spelling tab ----
         public bool SpellcheckEnabled { get; set; } = true;
+        public bool CheckSpellingBeforePublishing { get; set; }
 
         // ---- Web Proxy tab ----
         public bool ProxyEnabled { get; set; }
@@ -69,6 +70,7 @@ namespace OpenLiveWriter.App.Avalonia.Settings
             ReplaceEmoticons = ReplaceEmoticons,
             UseParagraphTags = UseParagraphTags,
             SpellcheckEnabled = SpellcheckEnabled,
+            CheckSpellingBeforePublishing = CheckSpellingBeforePublishing,
             ProxyEnabled = ProxyEnabled,
             ProxyHostname = ProxyHostname,
             ProxyPort = ProxyPort,

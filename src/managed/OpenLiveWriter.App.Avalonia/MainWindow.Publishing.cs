@@ -93,6 +93,9 @@ namespace OpenLiveWriter.App.Avalonia
                 case CommandId.SelectBlog:
                     await SelectBlogAsync();
                     return true;
+                case CommandId.OpenRecentPosts:
+                    await OpenFromBlogAsync();
+                    return true;
                 case CommandId.ShowCategoryPopup:
                     await ChooseCategoriesAsync();
                     return true;
@@ -146,6 +149,78 @@ namespace OpenLiveWriter.App.Avalonia
             _accountService.SetCurrentAccount(id);
             RefreshBlogSelector();
             UpdateStatus($"Current blog: {_accountService.CurrentAccount?.DisplayLabel}");
+        }
+
+        // Open from Blog: lists recent posts/pages on the current blog and opens the
+        // chosen one as a published document, so re-publish routes through the edit
+        // path (metaWeblog.editPost / wp.editPage) instead of creating a duplicate.
+        private async Task OpenFromBlogAsync()
+        {
+            if (_draftSession == null)
+                return;
+
+            if (_accountService == null)
+            {
+                UpdateStatus("Open from blog is unavailable: no account service.");
+                return;
+            }
+
+            BlogAccount account = _accountService.CurrentAccount;
+            if (account == null)
+            {
+                string message = _accountService.HasAccounts
+                    ? "No blog is selected. Choose a blog from the blog selector first."
+                    : "No blog account is configured. Add a blog account from the Blog Account tab first.";
+                await MessageDialog.ShowAsync(this, "Open from Blog", message);
+                return;
+            }
+
+            if (string.IsNullOrEmpty(_accountService.GetPassword(account.Id)))
+            {
+                await MessageDialog.ShowAsync(this, "Open from Blog",
+                    $"No stored password for \u201c{account.DisplayLabel}\u201d. Re-open the account settings and re-enter it.");
+                return;
+            }
+
+            if (!await ConfirmDiscardIfDirtyAsync())
+                return;
+
+            IBlogClient client;
+            try
+            {
+                client = _accountService.CreateClient(account);
+            }
+            catch (Exception ex)
+            {
+                await MessageDialog.ShowAsync(this, "Open from Blog",
+                    $"Could not create a client for \u201c{account.DisplayLabel}\u201d:\n\n{ex.Message}");
+                return;
+            }
+
+            ServerPost selected = await OpenFromBlogDialog.ShowAsync(
+                this, client, account.BlogId, account.SupportsPages);
+            if (selected == null)
+                return;
+
+            try
+            {
+                // The getRecentPosts/wp.getPages structs carry the full body; fall back
+                // to metaWeblog.getPost only when a provider returned a header-only list.
+                ServerPost post = selected;
+                if (!selected.IsPage && !selected.HasBody && !string.IsNullOrEmpty(selected.PostId))
+                    post = await client.GetPostAsync(selected.PostId) ?? selected;
+
+                PostDocument doc = PostDocument.FromServerPost(post, account.BlogId);
+                _draftSession.OpenDocument(doc);
+                await LoadCurrentIntoEditorAsync();
+                UpdateStatus($"Opened from {account.DisplayLabel}: {DisplayTitle()}");
+            }
+            catch (Exception ex)
+            {
+                UpdateStatus($"Open from blog failed: {ex.Message}");
+                await MessageDialog.ShowAsync(this, "Open from Blog Failed",
+                    $"Could not open the post from \u201c{account.DisplayLabel}\u201d:\n\n{ex.Message}");
+            }
         }
 
         // Fetches the current blog's categories (degrading gracefully to manual entry if
@@ -226,6 +301,15 @@ namespace OpenLiveWriter.App.Avalonia
             if (!await ConfirmPublishRemindersAsync(title, categories))
                 return;
 
+            // Pull the body once so the spelling gate and the publish below share it.
+            string html = await editor.GetContentAsync() ?? string.Empty;
+
+            // "Check spelling before publishing" preference (Spelling tab): confirm
+            // when the body still has possible misspellings. Publish-only, matching
+            // the Windows preference; server drafts skip the gate.
+            if (publish && !await ConfirmSpellingGateAsync(html))
+                return;
+
             // Re-publishing an already-published document (same blog) edits the same server
             // post rather than creating a duplicate.
             string existingPostId = null;
@@ -244,8 +328,12 @@ namespace OpenLiveWriter.App.Avalonia
             try
             {
                 IBlogClient client = _accountService.CreateClient(account);
-                string postId = await editor.PublishAsync(
-                    client, account.BlogId, existingPostId, title, publish, categories, keywords);
+                // Pages go through wp.newPage/wp.editPage so they stay pages on the
+                // server; posts use metaWeblog.newPost/editPost (PublishOrEdit decides).
+                string postId = await EditorContentPublisher.PublishOrEditAsync(
+                    client, account.BlogId, existingPostId, title, html, publish, categories, keywords,
+                    isPage: _draftSession?.Current.IsPage == true,
+                    publishDateUtc: _draftSession?.Current.PublishDateUtc);
 
                 if (_draftSession != null)
                 {

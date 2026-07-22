@@ -67,6 +67,14 @@ namespace OpenLiveWriter.Publishing
         /// <summary>UTC last-modified time; refreshed on every save.</summary>
         public DateTime DateModifiedUtc { get; set; }
 
+        /// <summary>
+        /// Optional publish date set via Post Properties (F2). When set it is sent as
+        /// the MetaWeblog <c>dateCreated</c> member on publish — a future date
+        /// schedules the post on servers that honor it. Null means publish
+        /// immediately (the server stamps its own time).
+        /// </summary>
+        public DateTime? PublishDateUtc { get; set; }
+
         /// <summary>True once the document has been saved at least once (has an id).</summary>
         [JsonIgnore]
         public bool IsSaved => !string.IsNullOrEmpty(Id);
@@ -91,6 +99,7 @@ namespace OpenLiveWriter.Publishing
                 Title = Title ?? string.Empty,
                 IsPage = IsPage,
                 IsPublished = IsPublished,
+                DateCreatedUtc = PublishDateUtc,
                 Contents = BodyHtml ?? string.Empty
             };
 
@@ -158,6 +167,44 @@ namespace OpenLiveWriter.Publishing
 
             foreach (string c in post.Categories)
                 doc.Categories.Add(c);
+
+            doc.Keywords = SplitKeywords(post.Keywords);
+
+            return doc;
+        }
+
+        /// <summary>
+        /// Creates a document from a post fetched from the blog (Open from Blog). The
+        /// document is marked published-to-<paramref name="blogId"/> with the server post
+        /// id recorded, so a subsequent publish routes through the edit path
+        /// (<c>metaWeblog.editPost</c> / <c>wp.editPage</c>) instead of creating a
+        /// duplicate. The local draft id stays empty so a save creates a new local draft.
+        /// </summary>
+        public static PostDocument FromServerPost(ServerPost post, string blogId)
+        {
+            if (post == null) throw new ArgumentNullException(nameof(post));
+
+            var doc = new PostDocument
+            {
+                BlogId = blogId ?? string.Empty,
+                PublishedPostId = post.PostId ?? string.Empty,
+                Title = post.Title ?? string.Empty,
+                BodyHtml = post.BodyHtml,
+                IsPage = post.IsPage,
+                // Only a server-side draft should stay unpublished on republish;
+                // publish/pending/private entries are treated as published content.
+                IsPublished = !string.Equals(post.Status, "draft", StringComparison.OrdinalIgnoreCase),
+                DateCreatedUtc = post.DateCreatedUtc ?? default
+            };
+
+            if (post.Categories != null)
+            {
+                foreach (string c in post.Categories)
+                {
+                    if (!string.IsNullOrEmpty(c))
+                        doc.Categories.Add(c);
+                }
+            }
 
             doc.Keywords = SplitKeywords(post.Keywords);
 

@@ -27,10 +27,13 @@
     <PackageReference Include="Avalonia.Fonts.Inter" />
     <PackageReference Include="System.Drawing.Common" />
     <PackageReference Include="Avalonia.Controls.WebView" />
+    <PackageReference Include="WeCantSpell.Hunspell" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Editor\Resources\editor.html" />
+    <EmbeddedResource Include="Spelling\Dictionaries\en_US.dic" />
+    <EmbeddedResource Include="Spelling\Dictionaries\en_US.aff" />
   </ItemGroup>
 
   <ItemGroup>

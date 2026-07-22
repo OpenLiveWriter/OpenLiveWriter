@@ -55,6 +55,25 @@ namespace OpenLiveWriter.EditorTests.Automated.Publish
         public int GetCategoriesCount { get; private set; }
         public string LastGetCategoriesBlogId { get; private set; }
 
+        /// <summary>Posts the fake returns from <see cref="GetRecentPostsAsync"/>.</summary>
+        public List<ServerPost> RecentPosts { get; } = new List<ServerPost>();
+        public int GetRecentPostsCount { get; private set; }
+        public string LastGetRecentPostsBlogId { get; private set; }
+        public int LastGetRecentPostsRequestedCount { get; private set; }
+
+        /// <summary>Pages the fake returns from <see cref="GetPagesAsync"/>.</summary>
+        public List<ServerPost> Pages { get; } = new List<ServerPost>();
+        public int GetPagesCount { get; private set; }
+        public string LastGetPagesBlogId { get; private set; }
+
+        /// <summary>The post <see cref="GetPostAsync"/> returns (set by the test).</summary>
+        public ServerPost NextGetPost { get; set; }
+        public int GetPostCount { get; private set; }
+        public string LastGetPostId { get; private set; }
+
+        public int NewPageCount { get; private set; }
+        public int EditPageCount { get; private set; }
+
         /// <summary>
         /// When set, <see cref="NewMediaObjectAsync"/> throws for the matching file name so
         /// tests can exercise the upload-failure path.
@@ -102,6 +121,46 @@ namespace OpenLiveWriter.EditorTests.Automated.Publish
             GetCategoriesCount++;
             LastGetCategoriesBlogId = blogId;
             return Task.FromResult<IReadOnlyList<BlogPostCategory>>(AvailableCategories.AsReadOnly());
+        }
+
+        public Task<IReadOnlyList<ServerPost>> GetRecentPostsAsync(string blogId, int count)
+        {
+            GetRecentPostsCount++;
+            LastGetRecentPostsBlogId = blogId;
+            LastGetRecentPostsRequestedCount = count;
+            // Honor the requested count like a real server would.
+            int take = count < 0 ? RecentPosts.Count : Math.Min(count, RecentPosts.Count);
+            return Task.FromResult<IReadOnlyList<ServerPost>>(RecentPosts.GetRange(0, take).AsReadOnly());
+        }
+
+        public Task<ServerPost> GetPostAsync(string postId)
+        {
+            GetPostCount++;
+            LastGetPostId = postId;
+            return Task.FromResult(NextGetPost);
+        }
+
+        public Task<IReadOnlyList<ServerPost>> GetPagesAsync(string blogId)
+        {
+            GetPagesCount++;
+            LastGetPagesBlogId = blogId;
+            return Task.FromResult<IReadOnlyList<ServerPost>>(Pages.AsReadOnly());
+        }
+
+        public Task<string> NewPageAsync(string blogId, BlogPost post, bool publish)
+        {
+            NewPageCount++;
+            Capture(blogId, post, publish);
+            if (string.IsNullOrEmpty(post.Id))
+                post.Id = "fake-page-1";
+            return Task.FromResult(post.Id);
+        }
+
+        public Task EditPageAsync(string blogId, BlogPost post, bool publish)
+        {
+            EditPageCount++;
+            Capture(blogId, post, publish);
+            return Task.CompletedTask;
         }
 
         private void Capture(string blogId, BlogPost post, bool publish)

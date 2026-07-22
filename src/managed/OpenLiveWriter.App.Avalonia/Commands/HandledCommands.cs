@@ -38,6 +38,7 @@ namespace OpenLiveWriter.App.Avalonia.Commands
                 CommandId.SavePost,
                 CommandId.OpenDrafts,
                 CommandId.OpenPost,
+                CommandId.OpenRecentPosts,
                 CommandId.DeleteDraft,
 
                 // Accounts / publishing (MainWindow.Publishing)
@@ -61,6 +62,7 @@ namespace OpenLiveWriter.App.Avalonia.Commands
                 CommandId.InsertMap,
                 CommandId.InsertTags,
                 CommandId.EditTags,
+                CommandId.WebImage,
                 CommandId.Paste,
                 CommandId.PasteSpecial,
 
@@ -81,6 +83,9 @@ namespace OpenLiveWriter.App.Avalonia.Commands
                 CommandId.ViewNormal,
                 CommandId.ViewSource,
                 CommandId.ViewPreview,
+                CommandId.Print,
+                CommandId.PrintPreview,
+                CommandId.PostProperties,
 
                 // Editor bridge (WebViewEditor.HandleCommandAsync)
                 CommandId.Bold,

@@ -63,10 +63,15 @@ namespace OpenLiveWriter.App.Avalonia
                 ShellMenuItem.Command("New Post", CommandId.NewPost, "Cmd+N"),
                 ShellMenuItem.Command("New Page", CommandId.NewPage, "Cmd+Shift+N"),
                 ShellMenuItem.Command("Open Draft\u2026", CommandId.OpenDrafts, "Cmd+O"),
+                ShellMenuItem.Command("Open from Blog\u2026", CommandId.OpenRecentPosts, "Cmd+Shift+O"),
                 ShellMenuItem.Command("Save Draft", CommandId.SavePost, "Cmd+S"),
                 ShellMenuItem.Command("Delete Draft", CommandId.DeleteDraft),
                 ShellMenuItem.Separator(),
                 ShellMenuItem.Command("Set Categories\u2026", CommandId.ShowCategoryPopup),
+                ShellMenuItem.Command("Post Properties\u2026", CommandId.PostProperties, "F2"),
+                ShellMenuItem.Separator(),
+                ShellMenuItem.Command("Print Preview\u2026", CommandId.PrintPreview),
+                ShellMenuItem.Command("Print\u2026", CommandId.Print, "Cmd+P"),
                 ShellMenuItem.Separator(),
                 ShellMenuItem.Command("Preferences\u2026", CommandId.Options, "Cmd+,"),
                 ShellMenuItem.Command("About Open Live Writer", CommandId.About),
@@ -85,6 +90,7 @@ namespace OpenLiveWriter.App.Avalonia
                 ShellMenuItem.Command("Select All", CommandId.SelectAll, "Cmd+A"),
                 ShellMenuItem.Separator(),
                 ShellMenuItem.Command("Find\u2026", CommandId.FindButton, "Cmd+F"),
+                ShellMenuItem.Command("Spelling\u2026", CommandId.CheckSpelling, "F7"),
             });
 
             var view = new ShellMenu("View", new[]

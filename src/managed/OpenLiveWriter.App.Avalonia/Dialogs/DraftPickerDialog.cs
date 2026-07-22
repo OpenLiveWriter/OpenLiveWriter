@@ -13,7 +13,9 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
 {
     /// <summary>
     /// Modal list of saved drafts (most-recent first) for the Open Drafts command.
-    /// Double-click or Open returns the selected draft id; Cancel returns null.
+    /// Double-click or Open returns the selected draft id; Cancel returns null. An
+    /// "Open from Blog…" button lets the user pivot to fetching a post from the
+    /// server instead (signaled via <see cref="RequestedOpenFromBlog"/>).
     /// </summary>
     public class DraftPickerDialog : Window
     {
@@ -22,6 +24,12 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
 
         /// <summary>The id of the draft the user chose, or null if cancelled.</summary>
         public string SelectedDraftId { get; private set; }
+
+        /// <summary>
+        /// True when the user chose "Open from Blog…" rather than a local draft —
+        /// the caller should route to the open-from-blog flow instead.
+        /// </summary>
+        public bool RequestedOpenFromBlog { get; private set; }
 
         public DraftPickerDialog(IReadOnlyList<DraftInfo> drafts)
         {
@@ -45,10 +53,16 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
 
             _openButton = new Button { Content = "Open", IsDefault = true, MinWidth = 80, IsEnabled = false };
             var cancelButton = new Button { Content = "Cancel", IsCancel = true, MinWidth = 80 };
+            var fromBlogButton = new Button { Content = "Open from Blog\u2026", MinWidth = 120 };
 
             _list.SelectionChanged += (s, e) => _openButton.IsEnabled = _list.SelectedItem != null;
             _list.DoubleTapped += (s, e) => { if (_list.SelectedItem != null) Confirm(); };
             _openButton.Click += (s, e) => Confirm();
+            fromBlogButton.Click += (s, e) =>
+            {
+                RequestedOpenFromBlog = true;
+                Close(null);
+            };
             cancelButton.Click += (s, e) => Close(null);
 
             var buttonRow = new StackPanel
@@ -57,6 +71,7 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
                 HorizontalAlignment = HorizontalAlignment.Right,
                 Spacing = 8
             };
+            buttonRow.Children.Add(fromBlogButton);
             buttonRow.Children.Add(cancelButton);
             buttonRow.Children.Add(_openButton);
 

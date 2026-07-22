@@ -100,6 +100,21 @@ namespace OpenLiveWriter.Publishing.Xml
         }
     }
 
+    public class XmlRpcDateTime : XmlRpcValue
+    {
+        public XmlRpcDateTime(DateTime value)
+            : base(value)
+        {
+        }
+
+        protected override void WriteValue(XmlWriter writer, object value)
+        {
+            // Same wire format as the Windows XmlRpcFormatTime (yyyyMMddTHH:mm:ss).
+            using (new WriteXmlElement(writer, "dateTime.iso8601"))
+                writer.WriteString(((DateTime)value).ToString("yyyyMMdd'T'HH':'mm':'ss", CultureInfo.InvariantCulture));
+        }
+    }
+
     public class XmlRpcBase64 : XmlRpcValue
     {
         public XmlRpcBase64(byte[] bytes)

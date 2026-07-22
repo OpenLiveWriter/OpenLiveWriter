@@ -96,8 +96,9 @@ namespace OpenLiveWriter.EditorTests.Automated
             var provider = new MacSpellCheckProvider();
             Assert.Multiple(() =>
             {
-                // Stub treats words as correct and exposes no suggestions/availability
-                // until the NSSpellChecker integration lands; must not throw.
+                // Superseded stub (the real engine is HunspellSpellCheckEngine in
+                // App.Avalonia): treats words as correct, exposes no
+                // suggestions/availability, and must not throw.
                 Assert.That(provider.IsWordCorrect("anyword", "en"), Is.True);
                 Assert.That(provider.GetSuggestions("anyword", "en"), Is.Empty);
                 Assert.That(provider.IsAvailable("en"), Is.False);

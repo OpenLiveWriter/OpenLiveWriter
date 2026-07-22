@@ -99,6 +99,14 @@ namespace OpenLiveWriter.Publishing
 
         public bool IsPublished { get; set; } = true;
 
+        /// <summary>
+        /// Optional publish date, sent as the MetaWeblog <c>dateCreated</c> member
+        /// (<c>dateTime.iso8601</c>) when set. Null means "publish immediately" —
+        /// the member is omitted and the server stamps its own time. A future date
+        /// schedules the post on servers that honor dateCreated (WordPress does).
+        /// </summary>
+        public DateTime? DateCreatedUtc { get; set; }
+
         /// <summary>Sets the main and extended contents of the post directly.</summary>
         public void SetContents(string mainContents, string extendedContents)
         {

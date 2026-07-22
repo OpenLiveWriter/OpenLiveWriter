@@ -84,6 +84,10 @@ namespace OpenLiveWriter.EditorTests.Automated
         [TestCase(CommandId.CheckSpelling)]
         [TestCase(CommandId.WordCount)]
         [TestCase(CommandId.SelectBlog)]
+        [TestCase(CommandId.WebImage)]
+        [TestCase(CommandId.Print)]
+        [TestCase(CommandId.PrintPreview)]
+        [TestCase(CommandId.PostProperties)]
         public void Registry_CoreCommands_AreHandled(CommandId commandId)
         {
             Assert.That(HandledCommands.IsHandled(commandId), Is.True,
@@ -100,8 +104,6 @@ namespace OpenLiveWriter.EditorTests.Automated
         [TestCase(CommandId.FormatImageAltText)]
         [TestCase(CommandId.ImageSaveDefaults)]
         [TestCase(CommandId.FormatImageRevertSettings)]
-        [TestCase(CommandId.Print)]
-        [TestCase(CommandId.PrintPreview)]
         [TestCase(CommandId.UpdateWeblogStyle)]
         [TestCase(CommandId.ViewUseStyles)]
         [TestCase(CommandId.AddTagProvider)]

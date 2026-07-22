@@ -65,16 +65,23 @@ namespace OpenLiveWriter.Publishing
         /// existing server post. Returns the server post id (the existing id on an edit).
         /// This is the single entry point the shell uses so a re-publish of an
         /// already-published document targets the same post via <c>metaWeblog.editPost</c>.
+        /// When <paramref name="isPage"/> is true the page methods
+        /// (<c>wp.newPage</c>/<c>wp.editPage</c>) are used instead, so pages stay pages.
+        /// When <paramref name="publishDateUtc"/> is set it is sent as
+        /// <c>dateCreated</c> (scheduled/backdated posts); null omits the member so the
+        /// server stamps its own time.
         /// </summary>
         public static async Task<string> PublishOrEditAsync(IBlogClient client, string blogId, string existingPostId,
             string title, string editorHtml, bool publish, IEnumerable<string> categories,
-            string keywords = null)
+            string keywords = null, bool isPage = false, System.DateTime? publishDateUtc = null)
         {
             string hosted = await ImagePublisher.RewriteInlineImagesAsync(
                 client, blogId, editorHtml ?? string.Empty).ConfigureAwait(false);
             string[] categoryArray = categories?.Where(c => !string.IsNullOrEmpty(c)).ToArray()
                 ?? System.Array.Empty<string>();
             BlogPost post = BuildPost(title, hosted, publish, categoryArray);
+            post.IsPage = isPage;
+            post.DateCreatedUtc = publishDateUtc;
 
             if (!string.IsNullOrEmpty(keywords))
                 post.Keywords = keywords;
@@ -82,11 +89,16 @@ namespace OpenLiveWriter.Publishing
             if (!string.IsNullOrEmpty(existingPostId))
             {
                 post.Id = existingPostId;
-                await client.EditPostAsync(blogId, post, publish).ConfigureAwait(false);
+                if (post.IsPage)
+                    await client.EditPageAsync(blogId, post, publish).ConfigureAwait(false);
+                else
+                    await client.EditPostAsync(blogId, post, publish).ConfigureAwait(false);
                 return existingPostId;
             }
 
-            return await client.NewPostAsync(blogId, post, publish).ConfigureAwait(false);
+            return post.IsPage
+                ? await client.NewPageAsync(blogId, post, publish).ConfigureAwait(false)
+                : await client.NewPostAsync(blogId, post, publish).ConfigureAwait(false);
         }
 
         /// <summary>

@@ -103,6 +103,17 @@ namespace OpenLiveWriter.App.Avalonia.Editor
                 NewPost(Current.IsPage);
         }
 
+        /// <summary>
+        /// Adopts an externally-built document as the current one without involving the
+        /// draft store — used when opening a post fetched from the blog, which is not a
+        /// local draft (a later save persists it as one).
+        /// </summary>
+        public void OpenDocument(PostDocument document)
+        {
+            Current = document ?? throw new ArgumentNullException(nameof(document));
+            CurrentChanged?.Invoke(this, EventArgs.Empty);
+        }
+
         /// <summary>Lists saved drafts, most-recently-modified first.</summary>
         public IReadOnlyList<DraftInfo> ListDrafts() => _store.List();
     }

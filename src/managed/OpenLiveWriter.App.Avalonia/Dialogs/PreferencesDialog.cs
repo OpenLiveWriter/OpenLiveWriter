@@ -42,6 +42,8 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
 
         // Spelling
         private CheckBox _spellcheck;
+        private CheckBox _checkBeforePublish;
+        private ComboBox _dictionaryLanguage;
 
         // Proxy
         private CheckBox _proxyEnabled;
@@ -136,6 +138,8 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
             _replaceEmoticons.IsChecked = _working.ReplaceEmoticons;
 
             _spellcheck.IsChecked = _working.SpellcheckEnabled;
+            _checkBeforePublish.IsChecked = _working.CheckSpellingBeforePublishing;
+            _dictionaryLanguage.SelectedIndex = 0;
 
             _proxyEnabled.IsChecked = _working.ProxyEnabled;
             _proxyHost.Text = _working.ProxyHostname ?? string.Empty;
@@ -164,6 +168,7 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
             _working.ReplaceEmoticons = _replaceEmoticons.IsChecked == true;
 
             _working.SpellcheckEnabled = _spellcheck.IsChecked == true;
+            _working.CheckSpellingBeforePublishing = _checkBeforePublish.IsChecked == true;
 
             _working.ProxyEnabled = _proxyEnabled.IsChecked == true;
             _working.ProxyHostname = _proxyHost.Text?.Trim();
@@ -234,10 +239,25 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
             {
                 Content = "Check spelling as you type (underline misspelled words)"
             };
+            _checkBeforePublish = new CheckBox
+            {
+                Content = "Check spelling before publishing"
+            };
+
+            // Single-language for now (parity stub): the Hunspell engine ships the
+            // en-US dictionary; the combo is the anchor for future dictionaries.
+            _dictionaryLanguage = new ComboBox
+            {
+                Items = { "English (US)" },
+                SelectedIndex = 0,
+                MinWidth = 180
+            };
 
             var note = new TextBlock
             {
-                Text = "Spell-check uses the macOS system dictionary in the editor.",
+                Text = "The Spelling dialog (F7) and check-before-publish use the built-in " +
+                       "Hunspell English (US) dictionary. As-you-type underlines use the " +
+                       "macOS system spell-checker in the editor.",
                 TextWrapping = TextWrapping.Wrap,
                 Foreground = new SolidColorBrush(Color.FromRgb(0x66, 0x66, 0x66)),
                 Margin = new global::Avalonia.Thickness(0, 8, 0, 0)
@@ -246,7 +266,12 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
             return Scroll(new StackPanel
             {
                 Spacing = 4,
-                Children = { Group("Spelling", _spellcheck), note }
+                Children =
+                {
+                    Group("Spelling", _spellcheck, _checkBeforePublish),
+                    Labeled("Dictionary language:", _dictionaryLanguage),
+                    note
+                }
             });
         }
 

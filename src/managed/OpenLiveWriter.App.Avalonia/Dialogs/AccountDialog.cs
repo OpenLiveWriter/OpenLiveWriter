@@ -42,10 +42,12 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
         private readonly Button _detectButton;
         private readonly Button _testButton;
         private readonly TextBlock _detectStatus;
+        private readonly TextBlock _providerLabel;
         private readonly IRsdHttpFetcher _fetcher;
         private readonly IBlogConnectionVerifier _verifier;
         private readonly string _existingId;
         private readonly bool _isEdit;
+        private string _providerType;
         private CancellationTokenSource _testCts;
 
         public AccountDialogResult Result { get; private set; }
@@ -57,6 +59,7 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
             _verifier = verifier ?? new MetaWeblogConnectionVerifier();
             _isEdit = existing != null;
             _existingId = existing?.Id ?? string.Empty;
+            _providerType = existing?.ProviderType ?? BlogAccount.DefaultProviderType;
 
             Title = _isEdit ? "Blog Account Settings" : "Add a Blog Account";
             Width = 480;
@@ -120,7 +123,7 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
                         ApiEndpointUrl = _endpointBox.Text?.Trim() ?? string.Empty,
                         BlogId = _blogIdBox.Text?.Trim() ?? string.Empty,
                         Username = _usernameBox.Text?.Trim() ?? string.Empty,
-                        ProviderType = existing?.ProviderType ?? BlogAccount.DefaultProviderType,
+                        ProviderType = _providerType ?? BlogAccount.DefaultProviderType,
                         SupportsPages = existing?.SupportsPages ?? true,
                         SupportsCategories = existing?.SupportsCategories ?? true,
                         SupportsExtendedEntries = existing?.SupportsExtendedEntries ?? true
@@ -150,7 +153,7 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
             var grid = new Grid
             {
                 Margin = new global::Avalonia.Thickness(16),
-                RowDefinitions = new RowDefinitions("Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"),
+                RowDefinitions = new RowDefinitions("Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"),
                 ColumnDefinitions = new ColumnDefinitions("Auto,*")
             };
 
@@ -160,6 +163,15 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
             AddRow(grid, 3, "Blog ID:", _blogIdBox);
             AddRow(grid, 4, "Username:", _usernameBox);
             AddRow(grid, 5, "Password:", _passwordBox);
+
+            // Provider is set by RSD detection (WordPress when the engine says so);
+            // read-only here — the transport picks the matching client from it.
+            _providerLabel = new TextBlock
+            {
+                Text = _providerType,
+                VerticalAlignment = VerticalAlignment.Center
+            };
+            AddRow(grid, 6, "Provider:", _providerLabel);
 
             // Detect/Test row: pull the endpoint/blog id from the Blog URL via RSD
             // discovery, or verify the entered endpoint + credentials live.
@@ -172,7 +184,7 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
             detectRow.Children.Add(_detectButton);
             detectRow.Children.Add(_testButton);
             detectRow.Children.Add(_detectStatus);
-            Grid.SetRow(detectRow, 6);
+            Grid.SetRow(detectRow, 7);
             Grid.SetColumn(detectRow, 0);
             Grid.SetColumnSpan(detectRow, 2);
             grid.Children.Add(detectRow);
@@ -187,7 +199,7 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
                     global::Avalonia.Media.Color.FromRgb(0x66, 0x66, 0x66)),
                 Margin = new global::Avalonia.Thickness(0, 8, 0, 0)
             };
-            Grid.SetRow(hint, 7);
+            Grid.SetRow(hint, 8);
             Grid.SetColumn(hint, 0);
             Grid.SetColumnSpan(hint, 2);
             grid.Children.Add(hint);
@@ -201,7 +213,7 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
             };
             buttonRow.Children.Add(cancelButton);
             buttonRow.Children.Add(_saveButton);
-            Grid.SetRow(buttonRow, 8);
+            Grid.SetRow(buttonRow, 9);
             Grid.SetColumn(buttonRow, 0);
             Grid.SetColumnSpan(buttonRow, 2);
             grid.Children.Add(buttonRow);
@@ -234,6 +246,10 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
                     _endpointBox.Text = result.EndpointUrl;
                     if (!string.IsNullOrEmpty(result.BlogId) && string.IsNullOrWhiteSpace(_blogIdBox.Text))
                         _blogIdBox.Text = result.BlogId;
+                    _providerType = string.IsNullOrEmpty(result.ProviderType)
+                        ? BlogAccount.DefaultProviderType
+                        : result.ProviderType;
+                    _providerLabel.Text = _providerType;
                     _detectStatus.Text = string.IsNullOrEmpty(result.EngineName)
                         ? "Found the API endpoint."
                         : $"Detected {result.EngineName}.";

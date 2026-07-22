@@ -168,6 +168,57 @@ namespace OpenLiveWriter.App.Avalonia.Editor
         /// <summary>Optional post title surfaced in the preview heading (set by the host).</summary>
         public string PreviewTitle { get; set; }
 
+        /// <summary>
+        /// Loads a standalone HTML document (e.g. the <see cref="PrintRenderer"/>
+        /// composition) into the preview WebView and returns it once navigation
+        /// completes, so the shell can invoke print/PDF APIs on the rendered page.
+        /// Returns null when the WebView backend is unavailable or navigation times
+        /// out (headless) — callers degrade to a file handoff in that case.
+        /// </summary>
+        public async Task<NativeWebView> LoadPreviewDocumentAsync(string document)
+        {
+            var previewHost = this.FindControl<ContentControl>("PreviewHost");
+            if (previewHost == null || document == null)
+                return null;
+
+            try
+            {
+                if (_previewWebView == null)
+                {
+                    _previewWebView = new NativeWebView
+                    {
+                        HorizontalAlignment = global::Avalonia.Layout.HorizontalAlignment.Stretch,
+                        VerticalAlignment = global::Avalonia.Layout.VerticalAlignment.Stretch
+                    };
+                    previewHost.Content = _previewWebView;
+                }
+
+                string tempDir = Path.Combine(Path.GetTempPath(), "OpenLiveWriter", "print");
+                Directory.CreateDirectory(tempDir);
+                string tempFile = Path.Combine(tempDir, "print-document.html");
+                await File.WriteAllTextAsync(tempFile, document);
+
+                var navigated = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
+                void OnNavigationCompleted(object sender, EventArgs e) => navigated.TrySetResult(true);
+                _previewWebView.NavigationCompleted += OnNavigationCompleted;
+                try
+                {
+                    _previewWebView.Navigate(new Uri("file://" + tempFile));
+                    Task completed = await Task.WhenAny(navigated.Task, Task.Delay(5000));
+                    return completed == navigated.Task ? _previewWebView : null;
+                }
+                finally
+                {
+                    _previewWebView.NavigationCompleted -= OnNavigationCompleted;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[OLW-Print] Document load failed: {ex.Message}");
+                return null;
+            }
+        }
+
         internal static string FormatHtml(string html)
         {
             // Basic HTML formatting for readability in source view

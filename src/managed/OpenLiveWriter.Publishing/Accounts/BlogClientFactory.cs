@@ -8,8 +8,9 @@ namespace OpenLiveWriter.Publishing.Accounts
 {
     /// <summary>
     /// Constructs an <see cref="IBlogClient"/> transport from a <see cref="BlogAccount"/>
-    /// plus its (separately-stored) password. Today only the MetaWeblog XML-RPC client is
-    /// produced; other providers (Atom/WordPress/Blogger) require the fuller BlogClient port.
+    /// plus its (separately-stored) password. The MetaWeblog and WordPress XML-RPC
+    /// providers are supported; other providers (Atom/Blogger) require the fuller
+    /// BlogClient port.
     /// </summary>
     public static class BlogClientFactory
     {
@@ -24,25 +25,36 @@ namespace OpenLiveWriter.Publishing.Accounts
         {
             if (account == null) throw new ArgumentNullException(nameof(account));
 
-            string provider = account.ProviderType ?? BlogAccount.DefaultProviderType;
-            if (!string.Equals(provider, BlogAccount.DefaultProviderType, StringComparison.OrdinalIgnoreCase))
-            {
-                throw new NotSupportedException(
-                    $"Provider '{provider}' is not supported on macOS yet. Only '{BlogAccount.DefaultProviderType}' is implemented.");
-            }
-
             var options = new BlogClientOptions
             {
                 SupportsExtendedEntries = account.SupportsExtendedEntries,
                 SupportsCategoriesInline = account.SupportsCategories
             };
 
-            return new MetaWeblogXmlRpcClient(
-                endpointUrl: account.ApiEndpointUrl ?? string.Empty,
-                username: account.Username ?? string.Empty,
-                password: password ?? string.Empty,
-                options: options,
-                httpClient: httpClient);
+            string provider = account.ProviderType ?? BlogAccount.DefaultProviderType;
+            if (string.Equals(provider, BlogAccount.WordPressProviderType, StringComparison.OrdinalIgnoreCase))
+            {
+                return new WordPressXmlRpcClient(
+                    endpointUrl: account.ApiEndpointUrl ?? string.Empty,
+                    username: account.Username ?? string.Empty,
+                    password: password ?? string.Empty,
+                    options: options,
+                    httpClient: httpClient);
+            }
+
+            if (string.Equals(provider, BlogAccount.DefaultProviderType, StringComparison.OrdinalIgnoreCase))
+            {
+                return new MetaWeblogXmlRpcClient(
+                    endpointUrl: account.ApiEndpointUrl ?? string.Empty,
+                    username: account.Username ?? string.Empty,
+                    password: password ?? string.Empty,
+                    options: options,
+                    httpClient: httpClient);
+            }
+
+            throw new NotSupportedException(
+                $"Provider '{provider}' is not supported on macOS yet. " +
+                $"Only '{BlogAccount.DefaultProviderType}' and '{BlogAccount.WordPressProviderType}' are implemented.");
         }
     }
 }

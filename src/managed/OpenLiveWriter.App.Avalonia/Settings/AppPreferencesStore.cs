@@ -76,6 +76,8 @@ namespace OpenLiveWriter.App.Avalonia.Settings
             using ISettingsPersister spelling = root.GetSubSettings("Spelling");
             prefs.SpellcheckEnabled = (bool)spelling.Get(
                 "SpellcheckEnabled", typeof(bool), prefs.SpellcheckEnabled);
+            prefs.CheckSpellingBeforePublishing = (bool)spelling.Get(
+                "CheckSpellingBeforePublishing", typeof(bool), prefs.CheckSpellingBeforePublishing);
 
             using ISettingsPersister proxy = root.GetSubSettings("WebProxy");
             prefs.ProxyEnabled = (bool)proxy.Get("Enabled", typeof(bool), prefs.ProxyEnabled);
@@ -118,6 +120,7 @@ namespace OpenLiveWriter.App.Avalonia.Settings
 
                 using ISettingsPersister spelling = root.GetSubSettings("Spelling");
                 spelling.Set("SpellcheckEnabled", prefs.SpellcheckEnabled);
+                spelling.Set("CheckSpellingBeforePublishing", prefs.CheckSpellingBeforePublishing);
 
                 using ISettingsPersister proxy = root.GetSubSettings("WebProxy");
                 proxy.Set("Enabled", prefs.ProxyEnabled);

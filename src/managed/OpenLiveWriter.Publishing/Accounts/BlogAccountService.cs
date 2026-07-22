@@ -172,7 +172,8 @@ namespace OpenLiveWriter.Publishing.Accounts
 
             string postId = await EditorContentPublisher.PublishOrEditAsync(
                 client, account.BlogId, existingPostId, document.Title ?? string.Empty,
-                editorHtml ?? string.Empty, publish, categories).ConfigureAwait(false);
+                editorHtml ?? string.Empty, publish, categories,
+                isPage: document.IsPage).ConfigureAwait(false);
 
             document.BlogId = account.BlogId;
             document.PublishedPostId = postId;
