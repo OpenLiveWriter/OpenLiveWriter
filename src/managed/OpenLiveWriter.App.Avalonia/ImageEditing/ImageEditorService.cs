@@ -16,14 +16,42 @@ namespace OpenLiveWriter.App.Avalonia.ImageEditing
         CounterClockwise
     }
 
-    /// <summary>Color effect for <see cref="ImageEditorService.ApplyEffect"/>.</summary>
+    /// <summary>Pixel effect for <see cref="ImageEditorService.ApplyEffect"/>.</summary>
     public enum ImageEffect
     {
         /// <summary>Black &amp; white (luminance grayscale).</summary>
         Grayscale,
 
         /// <summary>Warm brown monochrome tint.</summary>
-        Sepia
+        Sepia,
+
+        /// <summary>Unsharp 3x3 convolution (Windows kernel: 0/-2/11, factor 3).</summary>
+        Sharpen,
+
+        /// <summary>Soft 3x3 blur convolution (Windows kernel: 1/2/6, factor 18).</summary>
+        Blur,
+
+        /// <summary>Edge-relief 3x3 convolution with a mid-gray bias (Windows kernel).</summary>
+        Emboss
+    }
+
+    /// <summary>Anchor for <see cref="ImageEditorService.AddTextWatermark"/>.</summary>
+    public enum WatermarkPosition
+    {
+        /// <summary>Top-left corner.</summary>
+        TopLeft,
+
+        /// <summary>Top-right corner.</summary>
+        TopRight,
+
+        /// <summary>Bottom-left corner.</summary>
+        BottomLeft,
+
+        /// <summary>Bottom-right corner (Windows default).</summary>
+        BottomRight,
+
+        /// <summary>Horizontally and vertically centered.</summary>
+        Center
     }
 
     /// <summary>
@@ -46,7 +74,9 @@ namespace OpenLiveWriter.App.Avalonia.ImageEditing
 
     /// <summary>
     /// Pure, headless pixel operations for Picture Tools: baked 90-degree
-    /// rotation, crop, resize, and the Black &amp; White / Sepia effects. Input
+    /// rotation, crop, resize, the Black &amp; White / Sepia color effects,
+    /// contrast adjustment, the Sharpen / Blur / Emboss convolutions, and text
+    /// watermarks. Input
     /// is encoded image bytes (any format Skia decodes: PNG/JPEG/GIF/BMP/WebP);
     /// output is always PNG bytes — the honest lossless-safe default, and the
     /// publish pipeline (data-URI newMediaObject upload) accepts PNG as-is.
@@ -141,12 +171,33 @@ namespace OpenLiveWriter.App.Avalonia.ImageEditing
         /// <summary>Sepia-tone conversion, baked into the pixels.</summary>
         public static byte[] Sepia(byte[] imageBytes) => ApplyEffect(imageBytes, ImageEffect.Sepia);
 
+        /// <summary>Sharpening convolution, baked into the pixels.</summary>
+        public static byte[] Sharpen(byte[] imageBytes) => ApplyEffect(imageBytes, ImageEffect.Sharpen);
+
+        /// <summary>Soft blur convolution, baked into the pixels.</summary>
+        public static byte[] Blur(byte[] imageBytes) => ApplyEffect(imageBytes, ImageEffect.Blur);
+
+        /// <summary>Emboss (edge relief) convolution, baked into the pixels.</summary>
+        public static byte[] Emboss(byte[] imageBytes) => ApplyEffect(imageBytes, ImageEffect.Emboss);
+
         /// <summary>
-        /// Applies a color-matrix effect (alpha preserved). Undecodable input
+        /// Applies a pixel effect (alpha preserved). Grayscale/Sepia run as color
+        /// matrices; Sharpen/Blur/Emboss run as 3x3 matrix convolutions with the
+        /// same kernels Windows Live Writer's decorators used. Undecodable input
         /// throws <see cref="ArgumentException"/>.
         /// </summary>
         public static byte[] ApplyEffect(byte[] imageBytes, ImageEffect effect)
         {
+            switch (effect)
+            {
+                case ImageEffect.Sharpen:
+                    return ApplyConvolution(imageBytes, SharpenKernel, 1f / 3f, 0f);
+                case ImageEffect.Blur:
+                    return ApplyConvolution(imageBytes, BlurKernel, 1f / 18f, 0f);
+                case ImageEffect.Emboss:
+                    return ApplyConvolution(imageBytes, EmbossKernel, 1f, 127f);
+            }
+
             using SKBitmap source = Decode(imageBytes);
             var result = new SKBitmap(source.Width, source.Height);
             using (var canvas = new SKCanvas(result))
@@ -155,6 +206,96 @@ namespace OpenLiveWriter.App.Avalonia.ImageEditing
                 paint.ColorFilter = SKColorFilter.CreateColorMatrix(
                     effect == ImageEffect.Sepia ? SepiaMatrix : GrayscaleMatrix);
                 canvas.DrawBitmap(source, 0, 0, paint);
+            }
+            return EncodePng(result);
+        }
+
+        /// <summary>
+        /// Adjusts contrast by <paramref name="percent"/> (-100..100; 0 is the
+        /// identity), baked into the pixels. Uses the classic
+        /// 259(c+255)/255(259-c) factor around a 128 midpoint, so mid-gray is
+        /// invariant and each application compounds on the current pixels.
+        /// </summary>
+        public static byte[] AdjustContrast(byte[] imageBytes, int percent)
+        {
+            if (percent < -100 || percent > 100)
+                throw new ArgumentOutOfRangeException(nameof(percent),
+                    "Contrast must be between -100 and 100 percent.");
+
+            using SKBitmap source = Decode(imageBytes);
+            double c = percent * 255.0 / 100.0;
+            float factor = (float)((259.0 * (c + 255.0)) / (255.0 * (259.0 - c)));
+            // Skia color matrices operate on normalized (0..1) channels, so the
+            // 0..255-space translation is scaled down.
+            float t = (128f - factor * 128f) / 255f;
+            float[] matrix =
+            {
+                factor, 0, 0, 0, t,
+                0, factor, 0, 0, t,
+                0, 0, factor, 0, t,
+                0, 0, 0,      1, 0
+            };
+
+            var result = new SKBitmap(source.Width, source.Height);
+            using (var canvas = new SKCanvas(result))
+            using (var paint = new SKPaint())
+            {
+                paint.ColorFilter = SKColorFilter.CreateColorMatrix(matrix);
+                canvas.DrawBitmap(source, 0, 0, paint);
+            }
+            return EncodePng(result);
+        }
+
+        /// <summary>
+        /// Draws a text watermark into the pixels: white text with a 1px dark
+        /// drop-shadow below-right (Windows Live Writer's legibility style), at
+        /// the chosen anchor with a small margin. <paramref name="opacity01"/>
+        /// (0..1) is the text alpha; <paramref name="sizePx"/> is the font size
+        /// in image pixels. Empty text or undecodable input throws
+        /// <see cref="ArgumentException"/>.
+        /// </summary>
+        public static byte[] AddTextWatermark(byte[] imageBytes, string text, float sizePx,
+            float opacity01, WatermarkPosition position)
+        {
+            if (string.IsNullOrWhiteSpace(text))
+                throw new ArgumentException("Watermark text must not be empty.", nameof(text));
+            if (sizePx <= 0)
+                throw new ArgumentOutOfRangeException(nameof(sizePx), "Watermark size must be positive.");
+
+            byte alpha = (byte)(Math.Clamp(opacity01, 0f, 1f) * 255f);
+            using SKBitmap source = Decode(imageBytes);
+            var result = new SKBitmap(source.Width, source.Height);
+            using (var canvas = new SKCanvas(result))
+            {
+                canvas.DrawBitmap(source, 0, 0);
+
+                using var font = new SKFont(SKTypeface.Default, sizePx)
+                {
+                    Edging = SKFontEdging.Antialias
+                };
+                using var paint = new SKPaint();
+                float textWidth = font.MeasureText(text, paint);
+                font.GetFontMetrics(out SKFontMetrics metrics);
+                float margin = Math.Max(4f, sizePx * 0.25f);
+
+                float x = position == WatermarkPosition.TopLeft || position == WatermarkPosition.BottomLeft
+                    ? margin
+                    : position == WatermarkPosition.Center
+                        ? (source.Width - textWidth) / 2f
+                        : source.Width - textWidth - margin;
+                // Baseline: the ascent sits above it, the descent below.
+                float baseline = position == WatermarkPosition.TopLeft || position == WatermarkPosition.TopRight
+                    ? margin - metrics.Ascent
+                    : position == WatermarkPosition.Center
+                        ? (source.Height - metrics.Ascent - metrics.Descent) / 2f
+                        : source.Height - margin - metrics.Descent;
+                x = Math.Max(0, x);
+                baseline = Math.Max(-metrics.Ascent, baseline);
+
+                paint.Color = new SKColor(0, 0, 0, alpha);
+                canvas.DrawText(text, x + 1, baseline + 1, SKTextAlign.Left, font, paint);
+                paint.Color = new SKColor(255, 255, 255, alpha);
+                canvas.DrawText(text, x, baseline, SKTextAlign.Left, font, paint);
             }
             return EncodePng(result);
         }
@@ -203,6 +344,70 @@ namespace OpenLiveWriter.App.Avalonia.ImageEditing
             0.272f, 0.534f, 0.131f, 0, 0,
             0,      0,      0,      1, 0
         };
+
+        // The 3x3 kernels Windows Live Writer's sharpen/blur/emboss decorators
+        // used (TransformMatrix corner/edge/middle + factor, applied above as
+        // the convolution gain; emboss adds a mid-gray bias).
+        private static readonly float[] SharpenKernel =
+        {
+             0, -2,  0,
+            -2, 11, -2,
+             0, -2,  0
+        };
+
+        private static readonly float[] BlurKernel =
+        {
+            1, 2, 1,
+            2, 6, 2,
+            1, 2, 1
+        };
+
+        private static readonly float[] EmbossKernel =
+        {
+            -1, -1, -1,
+            -1,  8, -1,
+            -1, -1, -1
+        };
+
+        // Runs a 3x3 matrix convolution (alpha passes through unconvolved).
+        // Skia's convolution filter samples out-of-bounds pixels as transparent
+        // black, so the image is first padded with a 1px duplicate border —
+        // Windows Conv3x3's edge convention — and cropped back afterwards.
+        private static byte[] ApplyConvolution(byte[] imageBytes, float[] kernel, float gain, float bias)
+        {
+            using SKBitmap source = Decode(imageBytes);
+            int w = source.Width, h = source.Height;
+
+            var padded = new SKBitmap(w + 2, h + 2);
+            using (var canvas = new SKCanvas(padded))
+            {
+                canvas.DrawBitmap(source, 1, 1);
+                DrawStrip(canvas, source, new SKRect(0, 0, w, 1), new SKRect(1, 0, w + 1, 1));
+                DrawStrip(canvas, source, new SKRect(0, h - 1, w, h), new SKRect(1, h + 1, w + 1, h + 2));
+                DrawStrip(canvas, source, new SKRect(0, 0, 1, h), new SKRect(0, 1, 1, h + 1));
+                DrawStrip(canvas, source, new SKRect(w - 1, 0, w, h), new SKRect(w + 1, 1, w + 2, h + 1));
+                DrawStrip(canvas, source, new SKRect(0, 0, 1, 1), new SKRect(0, 0, 1, 1));
+                DrawStrip(canvas, source, new SKRect(w - 1, 0, w, 1), new SKRect(w + 1, 0, w + 2, 1));
+                DrawStrip(canvas, source, new SKRect(0, h - 1, 1, h), new SKRect(0, h + 1, 1, h + 2));
+                DrawStrip(canvas, source, new SKRect(w - 1, h - 1, w, h), new SKRect(w + 1, h + 1, w + 2, h + 2));
+            }
+
+            using SKImage image = SKImage.FromBitmap(padded);
+            using SKImageFilter filter = SKImageFilter.CreateMatrixConvolution(
+                new SKSizeI(3, 3), kernel, gain, bias, new SKPointI(1, 1),
+                SKShaderTileMode.Clamp, false, null);
+            var info = new SKImageInfo(w + 2, h + 2);
+            using SKSurface surface = SKSurface.Create(info);
+            using (var paint = new SKPaint { ImageFilter = filter })
+                surface.Canvas.DrawImage(image, 0, 0, paint);
+            surface.Canvas.Flush();
+            using SKImage cropped = surface.Snapshot(new SKRectI(1, 1, w + 1, h + 1));
+            using SKData data = cropped.Encode(SKEncodedImageFormat.Png, 100);
+            return data.ToArray();
+        }
+
+        private static void DrawStrip(SKCanvas canvas, SKBitmap source, SKRect src, SKRect dest) =>
+            canvas.DrawBitmap(source, src, dest);
 
         private static SKBitmap Decode(byte[] imageBytes)
         {

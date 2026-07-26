@@ -127,10 +127,10 @@ namespace OpenLiveWriter.App.Avalonia.Commands
 
                 // Picture Tools contextual tab (MainWindow.PictureTools + WebViewEditor
                 // image bridge). The two dropdown parents stay enabled so their menus
-                // open; dead menu items (SetCustomSizeDefaults, the recolor/sharpen/
-                // blur/emboss galleries) disable individually. Crop, rotate and the
-                // Black & White / Sepia effects bake pixels via ImageEditorService;
-                // tilt, watermark, contrast and recolor stay unimplemented.
+                // open; dead menu items (SetCustomSizeDefaults, the recolor gallery)
+                // disable individually. Crop, rotate, the Black & White / Sepia /
+                // Sharpen / Blur / Emboss effects, contrast and watermark bake pixels
+                // via ImageEditorService; tilt and recolor stay unimplemented.
                 CommandId.ImageCrop,
                 CommandId.ImageRotateCW,
                 CommandId.ImageRotateCCW,
@@ -146,6 +146,11 @@ namespace OpenLiveWriter.App.Avalonia.Commands
                 CommandId.ImageEffectsGallery,
                 CommandId.ImageEffectBlackAndWhite,
                 CommandId.ImageEffectSepiaTone,
+                CommandId.ImageEffectSharpen,
+                CommandId.ImageEffectGaussianBlur,
+                CommandId.ImageEffectEmboss,
+                CommandId.ImageContrast,
+                CommandId.Watermark,
                 CommandId.FormatImageSelectLink,
                 CommandId.ImageLinkToSource,
                 CommandId.ImageLinkToUrl,

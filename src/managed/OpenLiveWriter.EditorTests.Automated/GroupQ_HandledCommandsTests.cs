@@ -95,18 +95,15 @@ namespace OpenLiveWriter.EditorTests.Automated
         }
 
         // Commands with no handler anywhere — must render disabled (P0-4).
-        // Picture Tools commands that stay dead after the pixel-baking
-        // (SkiaSharp) pass: tilt, the recolor/sharpen/blur/emboss effects
-        // galleries, contrast, watermark, and the per-image/per-default
-        // settings commands.
+        // Picture Tools commands that stay dead after the second pixel-baking
+        // (SkiaSharp) pass: tilt, the recolor gallery, and the per-image/
+        // per-default settings commands.
         [TestCase(CommandId.ImageTilt)]
         [TestCase(CommandId.ImageEffectsRecolorGallery)]
         [TestCase(CommandId.ImageEffectsSharpenGallery)]
         [TestCase(CommandId.ImageEffectsBlurGallery)]
         [TestCase(CommandId.ImageEffectsEmbossGallery)]
-        [TestCase(CommandId.ImageContrast)]
         [TestCase(CommandId.SetCustomSizeDefaults)]
-        [TestCase(CommandId.Watermark)]
         [TestCase(CommandId.ImageSaveDefaults)]
         [TestCase(CommandId.FormatImageRevertSettings)]
         [TestCase(CommandId.AddTagProvider)]
@@ -138,8 +135,9 @@ namespace OpenLiveWriter.EditorTests.Automated
         }
 
         // Picture Tools commands implemented in the P1-2 pass (size, border
-        // toggle, properties/Link To) plus the pixel-baking pass (crop, baked
-        // rotate, Black & White / Sepia) — must stay enabled.
+        // toggle, properties/Link To) plus the pixel-baking passes (crop, baked
+        // rotate, Black & White / Sepia / Sharpen / Blur / Emboss, contrast,
+        // watermark) — must stay enabled.
         [TestCase(CommandId.ImageCrop)]
         [TestCase(CommandId.ImageRotateCW)]
         [TestCase(CommandId.ImageRotateCCW)]
@@ -155,6 +153,11 @@ namespace OpenLiveWriter.EditorTests.Automated
         [TestCase(CommandId.ImageEffectsGallery)]
         [TestCase(CommandId.ImageEffectBlackAndWhite)]
         [TestCase(CommandId.ImageEffectSepiaTone)]
+        [TestCase(CommandId.ImageEffectSharpen)]
+        [TestCase(CommandId.ImageEffectGaussianBlur)]
+        [TestCase(CommandId.ImageEffectEmboss)]
+        [TestCase(CommandId.ImageContrast)]
+        [TestCase(CommandId.Watermark)]
         [TestCase(CommandId.FormatImageSelectLink)]
         [TestCase(CommandId.ImageLinkToSource)]
         [TestCase(CommandId.ImageLinkToUrl)]

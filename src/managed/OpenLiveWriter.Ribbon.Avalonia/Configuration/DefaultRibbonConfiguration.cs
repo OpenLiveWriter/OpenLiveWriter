@@ -624,17 +624,18 @@ namespace OpenLiveWriter.Ribbon.Managed.Configuration
                 ButtonType = RibbonButtonType.DropDownButton,
                 PreferredSize = RibbonGroupSize.Medium
             };
-            // Baked pixel effects (Black & White / Sepia) are real; the recolor/
-            // sharpen/blur/emboss galleries stay disabled until implemented.
+            // Baked pixel effects (Black & White / Sepia / Sharpen / Blur /
+            // Emboss) are real; the recolor gallery stays disabled until the
+            // temperature/tint UX is ported.
             effectsButton.MenuItems.Add(new MenuItemConfig { CommandId = CommandId.ImageEffectBlackAndWhite });
             effectsButton.MenuItems.Add(new MenuItemConfig { CommandId = CommandId.ImageEffectSepiaTone });
             effectsButton.MenuItems.Add(new MenuItemConfig { IsSeparator = true });
             effectsButton.MenuItems.Add(new MenuItemConfig { CommandId = CommandId.ImageEffectsRecolorGallery });
-            effectsButton.MenuItems.Add(new MenuItemConfig { CommandId = CommandId.ImageEffectsSharpenGallery });
-            effectsButton.MenuItems.Add(new MenuItemConfig { CommandId = CommandId.ImageEffectsBlurGallery });
-            effectsButton.MenuItems.Add(new MenuItemConfig { CommandId = CommandId.ImageEffectsEmbossGallery });
+            effectsButton.MenuItems.Add(new MenuItemConfig { CommandId = CommandId.ImageEffectSharpen });
+            effectsButton.MenuItems.Add(new MenuItemConfig { CommandId = CommandId.ImageEffectGaussianBlur });
+            effectsButton.MenuItems.Add(new MenuItemConfig { CommandId = CommandId.ImageEffectEmboss });
             stylesGroup.Controls.Add(effectsButton);
-            stylesGroup.Controls.Add(new SpinnerConfig { CommandId = CommandId.ImageContrast });
+            stylesGroup.Controls.Add(new SpinnerConfig { CommandId = CommandId.ImageContrast, MinValue = -100, MaxValue = 100 });
             stylesGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.Watermark, PreferredSize = RibbonGroupSize.Medium });
             formatTab.Groups.Add(stylesGroup);
 

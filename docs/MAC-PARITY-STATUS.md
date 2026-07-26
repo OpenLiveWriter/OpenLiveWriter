@@ -7,7 +7,7 @@ parity with Open Live Writer for Windows.** Update this file as work lands.
 > user-facing gap review. This file tracks what has *landed*; the assessment
 > tracks what a Windows switcher would actually hit (P0 trust breakers first).
 
-Branch: `milestone4/webview-wysiwyg` · Runtime: .NET 10 / Avalonia · Last verified: 2026-07 (**Theme band (P1-3):** Blog Account tab's "Use Theme" (per-account persisted toggle) + "Update Theme" (forced re-harvest) are live — Preview layers the blog homepage's harvested stylesheets over the neutral article style via a proxy-aware `ThemeStyleCache`, degrading to neutral on fetch failure; Preview tab's Close Preview wired; **Picture Tools band (P1-2):** click-to-select images → Picture Tools contextual tab; size spinners + aspect lock + Small/Medium/Large/Original presets, rotate CW/CCW baked into pixels (SkiaSharp), numeric crop dialog, baked Black & White / Sepia effects, border toggle, Picture Properties dialog (alt/title, Link To none/source/URL, alignment, margins, border) — applied as inline attrs/styles on the selected `<img>` with baked ops re-embedded as PNG data-URIs; tilt/watermark/contrast/recolor stay disabled (see §12); **Server/publishing band:** Open from Blog — `metaWeblog.getRecentPosts`/`getPost` + `wp.getPages` into `OpenFromBlogDialog` (Posts/Pages, 10/25/50) so server content opens editable and re-publish edits in place; pages publish as pages via `wp.newPage`/`wp.editPage`; **WordPress provider** + detection heuristics (`/xmlrpc.php` probe, engine-aware RSD); publish date via Post Properties (F2) → `dateCreated` on post+page structs; **spelling band:** Hunspell engine (`WeCantSpell.Hunspell` + embedded en-US dictionaries), F7 spelling dialog (suggestions, ignore/add-to-dictionary, change/change-all), check-before-publish gate; **content band:** Picture from the Web (remote `<img>`, no base64), Print / Print Preview (print-styled doc → native WKWebView print panel, temp-PDF/browser handoffs); **Shell trust band:** macOS NativeMenu menu bar (File/Edit/View/Help + accelerators, Set Categories reachable), unsaved-changes close prompt, draft autosave (AutoRecover), handled-command registry with dead commands visibly disabled, Debug tab hidden unless `OLW_DEBUG_RIBBON=1`, real Cut/Copy/Paste routing; **Editor-bridge band:** debounced payload-free content sync, JSON-based JS escaping, px font sizes + caret reflection, find previous / "n of m" count / single-replace; **Publish band:** fully async XML-RPC transport (no UI freeze), view-post/close-window after publish, preferences dialog shows only enforced options, Account dialog Test Connection; on top of the Options/Preferences band: **JSON `FileSettingsPersister`**, tabbed **Preferences** dialog, **Options** command; Publishing-completion band: **image upload-on-publish** via `newMediaObject`, **blog categories** fetch + picker, **RSD endpoint auto-detection**, **re-publish → `editPost`**; Insert-tab band: Preview render, Insert Table + table-tools ops, web-video embeds, emoticons, paste-special/clean paste, clear-break/extended-entry, caret font/size/color/block reflection)
+Branch: `milestone4/webview-wysiwyg` · Runtime: .NET 10 / Avalonia · Last verified: 2026-07 (**Theme band (P1-3):** Blog Account tab's "Use Theme" (per-account persisted toggle) + "Update Theme" (forced re-harvest) are live — Preview layers the blog homepage's harvested stylesheets over the neutral article style via a proxy-aware `ThemeStyleCache`, degrading to neutral on fetch failure; Preview tab's Close Preview wired; **Picture Tools band (P1-2):** click-to-select images → Picture Tools contextual tab; size spinners + aspect lock + Small/Medium/Large/Original presets, rotate CW/CCW baked into pixels (SkiaSharp), numeric crop dialog, baked Black & White / Sepia / Sharpen / Blur / Emboss effects, debounced contrast, text watermark dialog, border toggle, Picture Properties dialog (alt/title, Link To none/source/URL, alignment, margins, border) — applied as inline attrs/styles on the selected `<img>` with baked ops re-embedded as PNG data-URIs; only tilt/recolor stay disabled (see §12); **Server/publishing band:** Open from Blog — `metaWeblog.getRecentPosts`/`getPost` + `wp.getPages` into `OpenFromBlogDialog` (Posts/Pages, 10/25/50) so server content opens editable and re-publish edits in place; pages publish as pages via `wp.newPage`/`wp.editPage`; **WordPress provider** + detection heuristics (`/xmlrpc.php` probe, engine-aware RSD); publish date via Post Properties (F2) → `dateCreated` on post+page structs; **spelling band:** Hunspell engine (`WeCantSpell.Hunspell` + embedded en-US dictionaries), F7 spelling dialog (suggestions, ignore/add-to-dictionary, change/change-all), check-before-publish gate; **content band:** Picture from the Web (remote `<img>`, no base64), Print / Print Preview (print-styled doc → native WKWebView print panel, temp-PDF/browser handoffs); **Shell trust band:** macOS NativeMenu menu bar (File/Edit/View/Help + accelerators, Set Categories reachable), unsaved-changes close prompt, draft autosave (AutoRecover), handled-command registry with dead commands visibly disabled, Debug tab hidden unless `OLW_DEBUG_RIBBON=1`, real Cut/Copy/Paste routing; **Editor-bridge band:** debounced payload-free content sync, JSON-based JS escaping, px font sizes + caret reflection, find previous / "n of m" count / single-replace; **Publish band:** fully async XML-RPC transport (no UI freeze), view-post/close-window after publish, preferences dialog shows only enforced options, Account dialog Test Connection; on top of the Options/Preferences band: **JSON `FileSettingsPersister`**, tabbed **Preferences** dialog, **Options** command; Publishing-completion band: **image upload-on-publish** via `newMediaObject`, **blog categories** fetch + picker, **RSD endpoint auto-detection**, **re-publish → `editPost`**; Insert-tab band: Preview render, Insert Table + table-tools ops, web-video embeds, emoticons, paste-special/clean paste, clear-break/extended-entry, caret font/size/color/block reflection)
 
 ## Official milestone plan
 
@@ -311,7 +311,7 @@ Run:
   `scripts/validate-live-blog.sh` or
   `dotnet test ... --filter "Category=LiveBlog" -- NUnit.Explicit=true`
 
-Default run status: **703 passed / 0 failed** (includes **Group P** layout harness + UiReview captures, **Group Q** shell/menu/autosave/close-prompt/handled-commands, **Group R** editor bridge, **Group S** async transport + connection verifier, **Group T** server posts/pages/WordPress, **Group U** web-image/print/publish-date, **Group V** Picture Tools, **Group W** themed preview, **Group N** spelling flow —
+Default run status: **784 passed / 0 failed** (includes **Group P** layout harness + UiReview captures, **Group Q** shell/menu/autosave/close-prompt/handled-commands, **Group R** editor bridge, **Group S** async transport + connection verifier, **Group T** server posts/pages/WordPress, **Group U** web-image/print/publish-date, **Group V** Picture Tools, **Group W** themed preview, **Group N** spelling flow, **Group Y/Z** pixel baking —
 15 cases across 800×600…1920×1080). WebView-category, `PublishTdd`, and
 `LiveBlog` tests are `[Explicit]` (excluded from the default run) so the headless gate
 stays green. Layout quality docs: `docs/UI-LAYOUT-QA.md`.
@@ -339,10 +339,15 @@ stays green. Layout quality docs: `docs/UI-LAYOUT-QA.md`.
   (set-members only, ClearSize nulls, border pair), aspect-ratio math + preset sanity,
   alignment normalization, Picture-properties link-choice mapping, and headless
   ribbon wiring (width/height spinner events + reflection, size-preset and
-  Link To dropdown flyouts with dead items disabled). **Pixel baking (Group Y):**
+  Link To dropdown flyouts with dead items disabled). **Pixel baking (Groups Y/Z):**
   `GroupY_ImageEditingTests` — SkiaSharp op correctness (rotate/crop/resize/
   grayscale/sepia with pixel spot-checks), data-URI round-trip, selected-image
-  JSON parsing, command registration, and the effects dropdown flyout. JS-side
+  JSON parsing, command registration, and the effects dropdown flyout;
+  `GroupZ_ImageEffectsTests` — watermark (quadrant placement, zero-opacity
+  identity, validation), contrast (identity at 0, mid-gray invariance, extreme
+  push/pull, range checks), sharpen/blur/emboss convolutions (flat invariance,
+  edge contrast, variance reduction, mid-gray bias), and the new command
+  registration. JS-side
   selection/apply/baked-replacement/link tests are `[Explicit]` WebView cases.
 - **Themed preview (Group W):** `GroupW_ThemingTests` — `ThemeStyleExtractor`
   (relative/absolute/protocol-relative hrefs, rel-token variants, non-stylesheet
@@ -779,8 +784,9 @@ and the `BrowserLauncher` seam; the live verification test is `[Explicit]`.
 
 Picture editing was Windows Live Writer's signature feature. The first pass
 made the previously decorative Picture Tools contextual tab real for everything
-that can be done honestly with HTML/CSS; the pixel-baking pass (SkiaSharp)
-then made crop, baked rotate, and the Black & White / Sepia effects real too.
+that can be done honestly with HTML/CSS; the pixel-baking passes (SkiaSharp)
+then made crop, baked rotate, the Black & White / Sepia / Sharpen / Blur /
+Emboss effects, contrast, and text watermarks real too.
 
 ### 12.1 Selection + contextual tab
 
@@ -825,6 +831,11 @@ Format while an image is selected and hides it otherwise.
   width/color. All applied via `OLWBridge.applyImageAttrs` /
   `OLWBridge.setImageLink`, which mark the draft dirty (debounced
   `contentChanged`) and re-report state.
+- **Effects / contrast / watermark:** the Effects dropdown bakes Black & White,
+  Sepia, Sharpen, Blur and Emboss (Windows' exact convolution kernels) into the
+  pixels; the contrast spinner (-100..100) bakes a debounced cumulative
+  adjustment; Watermark opens a dialog (text, px size, opacity, five anchor
+  positions, preview) and bakes white text with a dark drop-shadow. See §12.3a.
 - **Dropdown buttons now open menus:** `RibbonButtonControl` builds a flyout
   from a `DropDownButton`'s `MenuItems` (previously the items were dropped, so
   the size presets and Link To choices were unreachable). Items whose command
@@ -832,32 +843,46 @@ Format while an image is selected and hides it otherwise.
 
 ### 12.3 Still dead (documented, disabled in the ribbon)
 
-Tilt, recolor/sharpen/blur/emboss effects, contrast, watermark, the
-picture-styles gallery, Set custom size defaults, and Save/Revert settings —
-these need more of the Windows decorator pipeline (arbitrary-angle tilt,
-recolor galleries, watermark composition) or a defaults/settings store. They
-stay unhandled in `HandledCommands` and render disabled with the "not yet
+Tilt, the recolor gallery, the picture-styles gallery, Set custom size
+defaults, and Save/Revert settings. Tilt is an arbitrary-angle perspective
+transform — high implementation cost for a rarely used novelty. Recolor needs
+Windows' temperature/tint gallery UX (a live-preview slider pair over the
+decorator pipeline), not just a pixel op; the single-command slice has no
+honest one-click behavior. The rest need a defaults/settings store. They stay
+unhandled in `HandledCommands` and render disabled with the "not yet
 available" tooltip; `GroupQ_HandledCommandsTests` pins both the live and the
 dead sets.
 
-### 12.3a Pixel baking (crop / baked rotate / B&W / sepia)
+### 12.3a Pixel baking (crop / baked rotate / effects / contrast / watermark)
 
 `ImageEditing/ImageEditorService` (SkiaSharp, pure/headless) bakes pixels:
 `Rotate90` (CW/CCW, dimensions swap), `Crop` (pixel rect, clamped to bounds),
 `Resize` (cubic sampling — kept for flows that must rewrite pixels; the size
-presets/spinners intentionally stay non-destructive attribute edits), and
-`Grayscale`/`Sepia` (color-matrix filters). Input is any Skia-decodable image;
-output is always PNG. The shell pipeline (`MainWindow.PictureTools`) decodes
-the selected image's data-URI `src` inline or downloads web pictures
-proxy-aware (`HttpImageFetcher` over `PublishingHttpClientFactory`), bakes, and
-re-embeds via `OLWBridge.replaceSelectedImageSrc` (size modes: keep / swap /
-set; clears CSS rotation; fires debounced `contentChanged` + `stateChanged`).
-The crop UX is a numeric X/Y/width/height dialog (`CropImageDialog`) with the
-image's pixel dimensions and a preview — an interactive rubber-band crop
-inside the WebView is out of scope. The Effects dropdown wires Black & White
-and Sepia only. Publish is untouched: baked images stay data-URIs, which
-`ImagePublisher` uploads as before. WebView undo does not cover the bridge
-rewrite (best-effort, documented).
+presets/spinners intentionally stay non-destructive attribute edits),
+`Grayscale`/`Sepia` (color-matrix filters), `AdjustContrast` (-100..100 around
+a mid-gray-invariant pivot), `Sharpen`/`Blur`/`Emboss` (3x3 matrix
+convolutions with the exact kernels Windows' decorators used, edges padded
+with a duplicate border like Windows' `Conv3x3`), and `AddTextWatermark`
+(white text + 1px dark drop-shadow, five anchor positions). Input is any
+Skia-decodable image; output is always PNG. The shell pipeline
+(`MainWindow.PictureTools`) decodes the selected image's data-URI `src` inline
+or downloads web pictures proxy-aware (`HttpImageFetcher` over
+`PublishingHttpClientFactory`), bakes, and re-embeds via
+`OLWBridge.replaceSelectedImageSrc` (size modes: keep / swap / set; clears CSS
+rotation; fires debounced `contentChanged` + `stateChanged`). The crop UX is a
+numeric X/Y/width/height dialog (`CropImageDialog`) and the watermark UX a
+text/size/opacity/position dialog (`WatermarkDialog`), both with a preview —
+an interactive rubber-band crop inside the WebView is out of scope. The
+Effects dropdown wires Black & White, Sepia, Sharpen, Blur and Emboss (recolor
+stays disabled). The contrast spinner (-100..100) is **debounced and
+cumulative**: spinner changes coalesce into a single bake applied to the
+*current* pixels (each committed value is a delta, like clicking a "more
+contrast" button repeatedly), then the spinner resets to 0 (neutral) so it
+never claims an absolute level the pixels no longer reflect — this keeps
+repeated spinner ticks from baking dozens of compounding passes. Publish is
+untouched: baked images stay data-URIs, which `ImagePublisher` uploads as
+before. WebView undo does not cover the bridge rewrite (best-effort,
+documented).
 
 ### 12.4 Tests
 
@@ -867,13 +892,17 @@ headless ribbon wiring (spinner events/reflection, dropdown flyouts).
 `GroupY_ImageEditingTests` (default suite): pixel-op correctness (dimensions,
 pixel spot-checks, aspect handling, invalid input), data-URI decode/re-embed
 round-trip, selected-image JSON parsing, command registration, and the effects
-dropdown flyout. `GroupV_PictureToolsWebViewTests` ([Explicit], live
+dropdown flyout. `GroupZ_ImageEffectsTests` (default suite): the second wave —
+watermark quadrant/opacity/validation, contrast identity/mid-gray
+invariance/extremes, sharpen edge contrast, blur variance reduction, emboss
+mid-gray/relief, and the new command registration.
+`GroupV_PictureToolsWebViewTests` ([Explicit], live
 WKWebView): selection reporting, applyImageAttrs, baked-replacement size
 swap/set, link wrap/unwrap. `GroupK` covers Picture Tools tab activation;
 `GroupQ` pins the handled/dead registry; `GroupP_UiReviewDeepCaptureTests`
 captures the dialogs and the Picture Tools ribbon band
 (`tab-picturetools-1280x800.png`, `dialog-imageproperties.png`,
-`dialog-crop.png`).
+`dialog-crop.png`, `dialog-watermark.png`).
 
 ---
 

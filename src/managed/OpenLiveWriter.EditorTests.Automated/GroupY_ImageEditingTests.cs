@@ -338,6 +338,11 @@ namespace OpenLiveWriter.EditorTests.Automated
                     "the effects dropdown parent stays enabled so its menu opens");
                 Assert.That(HandledCommands.IsHandled(CommandId.ImageEffectBlackAndWhite), Is.True);
                 Assert.That(HandledCommands.IsHandled(CommandId.ImageEffectSepiaTone), Is.True);
+                Assert.That(HandledCommands.IsHandled(CommandId.ImageEffectSharpen), Is.True);
+                Assert.That(HandledCommands.IsHandled(CommandId.ImageEffectGaussianBlur), Is.True);
+                Assert.That(HandledCommands.IsHandled(CommandId.ImageEffectEmboss), Is.True);
+                Assert.That(HandledCommands.IsHandled(CommandId.ImageContrast), Is.True);
+                Assert.That(HandledCommands.IsHandled(CommandId.Watermark), Is.True);
             });
         }
 
@@ -347,12 +352,7 @@ namespace OpenLiveWriter.EditorTests.Automated
             Assert.Multiple(() =>
             {
                 Assert.That(HandledCommands.IsHandled(CommandId.ImageTilt), Is.False);
-                Assert.That(HandledCommands.IsHandled(CommandId.Watermark), Is.False);
-                Assert.That(HandledCommands.IsHandled(CommandId.ImageContrast), Is.False);
                 Assert.That(HandledCommands.IsHandled(CommandId.ImageEffectsRecolorGallery), Is.False);
-                Assert.That(HandledCommands.IsHandled(CommandId.ImageEffectsSharpenGallery), Is.False);
-                Assert.That(HandledCommands.IsHandled(CommandId.ImageEffectsBlurGallery), Is.False);
-                Assert.That(HandledCommands.IsHandled(CommandId.ImageEffectsEmbossGallery), Is.False);
             });
         }
 
@@ -372,24 +372,28 @@ namespace OpenLiveWriter.EditorTests.Automated
 
             var menuItems = ((MenuFlyout)button.Flyout).Items.OfType<MenuItem>().ToList();
             Assert.That(menuItems.Count, Is.EqualTo(6),
-                "Black & White + Sepia plus the four still-disabled galleries (separator excluded)");
+                "five baked effects plus the still-disabled recolor gallery (separator excluded)");
 
             var fired = new List<CommandId>();
             ribbon.CommandExecuted += (s, id) => fired.Add(id);
 
-            Assert.That(menuItems[0].IsEnabled, Is.True, "Black & White is baked and enabled");
-            menuItems[0].RaiseEvent(new RoutedEventArgs(MenuItem.ClickEvent));
-            Assert.That(fired, Is.EqualTo(new[] { CommandId.ImageEffectBlackAndWhite }));
+            for (int i = 0; i < menuItems.Count; i++)
+            {
+                if (i == 2)
+                    continue; // the recolor gallery stays disabled and cannot fire
+                Assert.That(menuItems[i].IsEnabled, Is.True, $"menu item {i} is baked and enabled");
+                menuItems[i].RaiseEvent(new RoutedEventArgs(MenuItem.ClickEvent));
+            }
 
-            Assert.That(menuItems[1].IsEnabled, Is.True, "Sepia is baked and enabled");
-            menuItems[1].RaiseEvent(new RoutedEventArgs(MenuItem.ClickEvent));
+            Assert.That(menuItems[2].IsEnabled, Is.False, "recolor stays disabled");
             Assert.That(fired, Is.EqualTo(new[]
             {
-                CommandId.ImageEffectBlackAndWhite, CommandId.ImageEffectSepiaTone
+                CommandId.ImageEffectBlackAndWhite,
+                CommandId.ImageEffectSepiaTone,
+                CommandId.ImageEffectSharpen,
+                CommandId.ImageEffectGaussianBlur,
+                CommandId.ImageEffectEmboss
             }));
-
-            Assert.That(menuItems.Skip(2), Has.All.Property(nameof(MenuItem.IsEnabled)).False,
-                "recolor/sharpen/blur/emboss galleries stay disabled");
         }
     }
 }

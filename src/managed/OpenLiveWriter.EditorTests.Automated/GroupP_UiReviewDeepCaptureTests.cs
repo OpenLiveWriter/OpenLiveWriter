@@ -217,6 +217,8 @@ namespace OpenLiveWriter.EditorTests.Automated
                 ("dialog-table.png", () => new TableDialog()),
                 ("dialog-tag.png", () => new TagDialog(new[] { "macOS", "Avalonia", "Open Live Writer" })),
                 ("dialog-video.png", () => new VideoDialog()),
+                ("dialog-watermark.png", () => new WatermarkDialog(
+                    CreateSampleCropPng(), "© Open Live Writer")),
                 ("dialog-webimage.png", () => new WebImageDialog(
                     "https://openlivewriter.org/wp-content/uploads/screenshot.png")),
                 ("dialog-wordcount.png", () => new WordCountDialog(new WordCounter(

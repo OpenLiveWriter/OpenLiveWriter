@@ -3,6 +3,7 @@
 
 using System;
 using System.Threading.Tasks;
+using global::Avalonia.Threading;
 using OpenLiveWriter.App.Avalonia.Dialogs;
 using OpenLiveWriter.App.Avalonia.Editor;
 using OpenLiveWriter.App.Avalonia.ImageEditing;
@@ -16,7 +17,8 @@ namespace OpenLiveWriter.App.Avalonia
     /// width/height spinners with aspect-ratio lock, the Picture properties
     /// dialog (alt text, Link To, alignment, margins, border), the border
     /// toggle, and the pixel-baking commands (crop, baked 90-degree rotate,
-    /// Black &amp; White / Sepia effects). All operations apply to the image
+    /// Black &amp; White / Sepia / Sharpen / Blur / Emboss effects, debounced
+    /// contrast, text watermark). All operations apply to the image
     /// currently selected in the editor, whose last-reported state is cached
     /// in <see cref="_lastImageState"/>.
     /// </summary>
@@ -79,6 +81,18 @@ namespace OpenLiveWriter.App.Avalonia
                 case CommandId.ImageEffectSepiaTone:
                     await ApplyImageEffectAsync(ImageEffect.Sepia, "Sepia");
                     return true;
+                case CommandId.ImageEffectSharpen:
+                    await ApplyImageEffectAsync(ImageEffect.Sharpen, "Sharpen");
+                    return true;
+                case CommandId.ImageEffectGaussianBlur:
+                    await ApplyImageEffectAsync(ImageEffect.Blur, "Blur");
+                    return true;
+                case CommandId.ImageEffectEmboss:
+                    await ApplyImageEffectAsync(ImageEffect.Emboss, "Emboss");
+                    return true;
+                case CommandId.Watermark:
+                    await WatermarkImageAsync();
+                    return true;
                 default:
                     return false;
             }
@@ -89,7 +103,16 @@ namespace OpenLiveWriter.App.Avalonia
         {
             var editor = GetEditor();
             var img = _lastImageState;
-            if (editor == null || img == null || args.Value == null || args.Value < 1)
+            if (editor == null || img == null || args.Value == null)
+                return;
+
+            if (args.CommandId == CommandId.ImageContrast)
+            {
+                QueueContrastBake((int)args.Value);
+                return;
+            }
+
+            if (args.Value < 1)
                 return;
 
             int value = (int)args.Value;
@@ -362,6 +385,76 @@ namespace OpenLiveWriter.App.Avalonia
                 raw => ImageEditorService.Crop(raw, result.X, result.Y, result.Width, result.Height),
                 BakedImageSizeMode.Set, result.Width, result.Height,
                 $"Cropped picture to {result.Width} × {result.Height} px.");
+        }
+
+        // Watermark: dialog for text/size/opacity/position (with a preview),
+        // then bake the text into the pixels. Display size is untouched.
+        private async Task WatermarkImageAsync()
+        {
+            var editor = GetEditor();
+            if (editor == null || _lastImageState == null)
+            {
+                UpdateStatus("Select a picture first.");
+                return;
+            }
+
+            byte[] bytes = await GetSelectedImageBytesAsync();
+            if (bytes == null)
+                return;
+
+            WatermarkDialogResult result = await WatermarkDialog.ShowAsync(this, bytes);
+            if (result == null || string.IsNullOrWhiteSpace(result.Text))
+                return;
+
+            await BakeSelectedImageAsync(
+                raw => ImageEditorService.AddTextWatermark(raw, result.Text, result.SizePx,
+                    result.OpacityPercent / 100f, result.Position),
+                BakedImageSizeMode.Keep, 0, 0,
+                "Applied watermark.");
+        }
+
+        // ---- Contrast spinner (debounced, cumulative) ----
+
+        // Contrast bakes into the pixels, so it cannot fire per spinner tick:
+        // spinner changes are debounced into a single bake, applied to the
+        // *current* pixels (each committed value is a delta, like clicking a
+        // "more contrast" button), and the spinner then resets to 0 (neutral)
+        // so it never claims an absolute level the pixels no longer reflect.
+        private DispatcherTimer _contrastDebounce;
+        private int _pendingContrastPercent;
+
+        private void QueueContrastBake(int percent)
+        {
+            _pendingContrastPercent = percent;
+            if (_contrastDebounce == null)
+            {
+                _contrastDebounce = new DispatcherTimer
+                {
+                    Interval = TimeSpan.FromMilliseconds(600)
+                };
+                _contrastDebounce.Tick += async (s, e) =>
+                {
+                    _contrastDebounce.Stop();
+                    await BakePendingContrastAsync();
+                };
+            }
+
+            _contrastDebounce.Stop();
+            _contrastDebounce.Start();
+        }
+
+        private async Task BakePendingContrastAsync()
+        {
+            int percent = Math.Clamp(_pendingContrastPercent, -100, 100);
+            _pendingContrastPercent = 0;
+            if (percent == 0)
+                return;
+
+            await BakeSelectedImageAsync(
+                bytes => ImageEditorService.AdjustContrast(bytes, percent),
+                BakedImageSizeMode.Keep, 0, 0,
+                $"Applied {(percent > 0 ? "+" : string.Empty)}{percent}% contrast.");
+            _ribbon.SetSpinnerValue(CommandId.ImageContrast, 0);
         }
     }
 }

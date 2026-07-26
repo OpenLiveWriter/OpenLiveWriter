@@ -35,6 +35,16 @@
 > bakes, and re-embeds as a PNG data-URI via the bridge's
 > `replaceSelectedImageSrc` (size keep/swap/set, CSS transform cleared).
 > Tilt/watermark/contrast/recolor galleries stay disabled by design.
+> **Status addendum 6 (2026-07-26, same branch):** the rest of the feasible
+> P1-2 pixel surface is **addressed**: text watermark (dialog: text, px size,
+> opacity, five anchor positions — baked as white text + 1px dark drop-shadow,
+> Windows style), contrast (spinner -100..100, debounced into a single bake
+> applied to the current pixels, then reset to neutral — cumulative-delta UX
+> documented in §12.3a of the parity doc), and Sharpen / Blur / Emboss as
+> one-click Effects-dropdown items using Windows' exact 3x3 convolution
+> kernels (duplicate-border edge convention included). Tilt (perspective
+> transform, little value) and the recolor gallery (needs the temperature/tint
+> slider UX) stay disabled deliberately.
 > **Status addendum 4 (2026-07-22, same branch):** the pragmatic slice of P1-3
 > is **addressed**: the Blog Account tab's "Use Theme" (per-account persisted
 > toggle) and "Update Theme" (forced re-harvest) buttons are live, and Preview
@@ -50,8 +60,8 @@
 > neutral preview with a status message. The Preview tab's dead Close Preview
 > button is also wired (back to Edit view, as on Windows).
 >
-> Suite: **763 passed / 0 failed** (+392 since this assessment). Still open:
-> P1-2 remainder (tilt, recolor galleries, contrast, watermark), P1-3 remainder
+> Suite: **784 passed / 0 failed** (+413 since this assessment). Still open:
+> P1-2 remainder (tilt, recolor gallery), P1-3 remainder
 > (real template detection / Web Layout WYSIWYG — the themed preview is the
 > homepage-stylesheet slice), P1-6 remainder (Blogger OAuth, AtomPub, other
 > providers), P1-9 remainder (slug, excerpt, ping/trackback), and the §4 long
