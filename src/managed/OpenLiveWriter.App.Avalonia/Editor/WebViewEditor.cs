@@ -247,9 +247,15 @@ namespace OpenLiveWriter.App.Avalonia.Editor
         {
             if (!el.TryGetProperty("image", out var img) || img.ValueKind != JsonValueKind.Object)
                 return null;
+            return ParseImageObject(img);
+        }
 
+        // Parses a getState() "image" sub-object (also the getSelectedImage()
+        // payload shape) into an ImageFormatState.
+        private static ImageFormatState ParseImageObject(JsonElement img)
+        {
             int N(string name) => img.TryGetProperty(name, out var p) && p.ValueKind == JsonValueKind.Number &&
-                                  p.TryGetInt32(out int v) ? v : 0;
+                                      p.TryGetInt32(out int v) ? v : 0;
             int? NN(string name) => img.TryGetProperty(name, out var p) && p.ValueKind == JsonValueKind.Number &&
                                     p.TryGetInt32(out int v) ? v : null;
             string S(string name) => img.TryGetProperty(name, out var p) && p.ValueKind == JsonValueKind.String
@@ -271,6 +277,21 @@ namespace OpenLiveWriter.App.Avalonia.Editor
                 BorderColor = NormalizeReportedColor(S("borderColor")),
                 LinkHref = string.IsNullOrEmpty(S("link")) ? null : S("link")
             };
+        }
+
+        /// <summary>
+        /// Parses the <c>getSelectedImage()</c> JSON payload (the image object
+        /// itself, or "null" when no image is selected) into an
+        /// <see cref="ImageFormatState"/>. Pure/deterministic for headless tests.
+        /// </summary>
+        internal static ImageFormatState ParseSelectedImageJson(string json)
+        {
+            if (string.IsNullOrWhiteSpace(json) || json.Trim() == "null")
+                return null;
+            using var doc = JsonDocument.Parse(json);
+            return doc.RootElement.ValueKind == JsonValueKind.Object
+                ? ParseImageObject(doc.RootElement)
+                : null;
         }
 
         /// <summary>
@@ -784,16 +805,42 @@ namespace OpenLiveWriter.App.Avalonia.Editor
         }
 
         /// <summary>
-        /// Rotates the selected image by <paramref name="deltaDeg"/> degrees via a
-        /// CSS transform (visual only — unlike Windows Live Writer this does not
-        /// bake pixels; the rotation survives publish as an inline style).
+        /// Pulls the selected image's current attribute payload fresh from the
+        /// bridge (<c>getSelectedImage()</c>), or null when no image is selected
+        /// or the editor is not ready. The pixel-baking commands use this so they
+        /// never act on a stale cached state.
         /// </summary>
-        public async Task RotateSelectedImageAsync(int deltaDeg)
+        public async Task<ImageFormatState> GetSelectedImageAsync()
         {
-            if (_webView == null || !_isReady) return;
+            if (_webView == null || !_isReady) return null;
+            string json = await RunJSReturn("OLWBridge.getSelectedImage()");
+            return ParseSelectedImageJson(json);
+        }
+
+        /// <summary>
+        /// Replaces the selected image's pixels with a baked (re-encoded) source
+        /// — typically a PNG data URI produced by
+        /// <see cref="ImageEditing.ImageEditorService"/>. <paramref name="sizeMode"/>
+        /// controls the display size: keep as-is (color effects), swap explicit
+        /// width/height (90-degree rotation), or set explicit px dimensions
+        /// (crop/resize). Any CSS rotation is cleared because the rotation is now
+        /// baked into the pixels. The bridge fires the debounced contentChanged
+        /// (dirty) and stateChanged notifications itself. Note: WebView undo does
+        /// not cover this bridge rewrite (documented limitation — best-effort).
+        /// </summary>
+        public async Task ReplaceSelectedImageSrcAsync(string newSrc,
+            ImageEditing.BakedImageSizeMode sizeMode, int width = 0, int height = 0)
+        {
+            if (_webView == null || !_isReady || string.IsNullOrEmpty(newSrc)) return;
             _webView.Focus();
             await Task.Delay(50);
-            await RunJS($"OLWBridge.rotateImage({deltaDeg})");
+            string mode = sizeMode switch
+            {
+                ImageEditing.BakedImageSizeMode.Swap => "swap",
+                ImageEditing.BakedImageSizeMode.Set => "set",
+                _ => "keep"
+            };
+            await RunJS($"OLWBridge.replaceSelectedImageSrc({EscapeJs(newSrc)}, {EscapeJs(mode)}, {width}, {height})");
         }
 
         /// <summary>
@@ -963,12 +1010,6 @@ namespace OpenLiveWriter.App.Avalonia.Editor
                 case CommandId.DeleteRow: await DeleteTableRowAsync(); return true;
                 case CommandId.DeleteColumn: await DeleteTableColumnAsync(); return true;
                 case CommandId.DeleteTable: await DeleteTableAsync(); return true;
-
-                // Picture Tools (contextual) — rotate operates purely on the selected
-                // image; size/properties/link commands route through the shell, which
-                // holds the last-reported image state and the properties dialog.
-                case CommandId.ImageRotateCW: await RotateSelectedImageAsync(90); return true;
-                case CommandId.ImageRotateCCW: await RotateSelectedImageAsync(-90); return true;
 
                 default: return false;
             }

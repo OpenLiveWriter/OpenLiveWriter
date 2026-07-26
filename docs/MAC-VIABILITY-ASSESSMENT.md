@@ -27,6 +27,14 @@
 > a Picture Properties dialog (alt/title, Link To none/source/URL, alignment,
 > margins, border width/color). Crop/effects/contrast/watermark/tilt stay
 > disabled pending a pixel-baking (SkiaSharp) pass.
+> **Status addendum 5 (2026-07-26, same branch):** the pixel-baking slice of
+> P1-2 is **addressed**: `ImageEditorService` (SkiaSharp, pure/headless) bakes
+> 90° rotate (CW/CCW), crop (numeric X/Y/W/H dialog with preview), and the
+> Black & White / Sepia color-matrix effects into the pixels; the shell
+> decodes the selected image's data-URI (or fetches web pictures proxy-aware),
+> bakes, and re-embeds as a PNG data-URI via the bridge's
+> `replaceSelectedImageSrc` (size keep/swap/set, CSS transform cleared).
+> Tilt/watermark/contrast/recolor galleries stay disabled by design.
 > **Status addendum 4 (2026-07-22, same branch):** the pragmatic slice of P1-3
 > is **addressed**: the Blog Account tab's "Use Theme" (per-account persisted
 > toggle) and "Update Theme" (forced re-harvest) buttons are live, and Preview
@@ -42,8 +50,8 @@
 > neutral preview with a status message. The Preview tab's dead Close Preview
 > button is also wired (back to Edit view, as on Windows).
 >
-> Suite: **703 passed / 0 failed** (+332 since this assessment). Still open:
-> P1-2 remainder (pixel-baked crop/effects/watermark/tilt), P1-3 remainder
+> Suite: **763 passed / 0 failed** (+392 since this assessment). Still open:
+> P1-2 remainder (tilt, recolor galleries, contrast, watermark), P1-3 remainder
 > (real template detection / Web Layout WYSIWYG — the themed preview is the
 > homepage-stylesheet slice), P1-6 remainder (Blogger OAuth, AtomPub, other
 > providers), P1-9 remainder (slug, excerpt, ping/trackback), and the §4 long
@@ -107,7 +115,7 @@ These cause data loss or make core workflows unreachable.
 | # | Gap | Windows counterpart |
 | --- | --- | --- |
 | P1-1 | **Categories picker is unreachable** — fully implemented (`ShowCategoryPopup` handler + `CategoryDialog`) but no ribbon/menu entry point. | Categories in post properties band + Home tab |
-| P1-2 | **Picture Tools mostly landed** (addendum 3) — click-to-select activates the contextual tab; resize spinners + presets + aspect lock, rotate (CSS transform), border toggle, alt/link/alignment/margin properties all work as inline attrs/styles. Remaining: crop/effects/watermark/tilt (pixel baking) and picture-styles gallery. | `PostHtmlEditing/ImageEditing/` decorator pipeline |
+| P1-2 | **Picture Tools landed** (addenda 3+5) — click-to-select activates the contextual tab; resize spinners + presets + aspect lock, rotate CW/CCW (baked pixels), numeric crop, Black & White / Sepia (baked), border toggle, alt/link/alignment/margin properties. Remaining: tilt/recolor/contrast/watermark and picture-styles gallery. | `PostHtmlEditing/ImageEditing/` decorator pipeline |
 | P1-3 | **Themed preview landed** (addendum 4) — "Use Theme" (per-account toggle) / "Update Theme" (forced re-harvest) are live; Preview layers the blog homepage's real stylesheets over the neutral article style, degrading to neutral on fetch failure. Remaining: true template detection (post-region extraction, theme body classes) and a Web Layout editing view. | `BlogEditingTemplateDetector`, Web Layout view |
 | P1-4 | **Can't open/edit posts from the server** — no `metaWeblog.getRecentPosts`/`getPost`; "Open Post" only lists local drafts. Editing an already-published post (a core OLW workflow) is impossible unless published from this machine. | `RecentPostSynchronizer`, Open Post dialog |
 | P1-5 | **Pages don't actually publish as pages** — `NewPage`/`IsPage` exist but the client only sends post structs (no `wp.newPage`/`editPage`). | `CommandNewPage` (Ctrl+G) |

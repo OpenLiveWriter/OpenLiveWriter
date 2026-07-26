@@ -55,6 +55,11 @@
     <!-- Security fix: Override vulnerable transitive dependency -->
     <PackageVersion Include="System.Data.SqlClient" Version="4.8.6" />
 
+    <!-- SkiaSharp - pixel baking for Picture Tools (crop/rotate/effects). Version
+         pinned to the SkiaSharp that Avalonia.Skia 12.0.1 already resolves
+         transitively, so no second native runtime lands in the app. -->
+    <PackageVersion Include="SkiaSharp" Version="3.119.3-preview.1.1" />
+
     <!-- Avalonia UI - Cross-platform UI framework -->
     <PackageVersion Include="Avalonia" Version="12.0.1" />
     <PackageVersion Include="Avalonia.Desktop" Version="12.0.1" />

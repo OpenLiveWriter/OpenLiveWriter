@@ -27,6 +27,8 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
             { CommandId.InsertClearBreak, "Clear Break" },
             { CommandId.InsertExtendedEntry, "Split Post" },
             { CommandId.InsertTable, "Table" },
+            { CommandId.ImageEffectBlackAndWhite, "Black and White" },
+            { CommandId.ImageEffectSepiaTone, "Sepia" },
             { CommandId.InsertMap, "Map" },
             { CommandId.InsertTags, "Tags" },
             { CommandId.InsertEmoticon, "Emoticon" },

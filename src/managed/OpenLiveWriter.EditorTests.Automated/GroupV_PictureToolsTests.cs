@@ -261,17 +261,20 @@ namespace OpenLiveWriter.EditorTests.Automated
             });
         }
 
-        // ---- Rotate routes through the editor bridge ----
+        // ---- Rotate/effects route through the shell (pixel baking), not the editor ----
 
         [AvaloniaTest]
-        public async Task HandleCommand_Rotate_IsHandled()
+        public async Task HandleCommand_Rotate_NoLongerEditorHandled()
         {
+            // Baked rotation needs the shell (image bytes, proxy-aware fetch), so
+            // WebViewEditor.HandleCommandAsync no longer claims the rotate commands;
+            // MainWindow.TryHandlePictureCommandAsync handles them instead.
             WebViewEditor.UseLayoutPlaceholder = true;
             try
             {
                 var editor = new WebViewEditor();
-                Assert.That(await editor.HandleCommandAsync(CommandId.ImageRotateCW), Is.True);
-                Assert.That(await editor.HandleCommandAsync(CommandId.ImageRotateCCW), Is.True);
+                Assert.That(await editor.HandleCommandAsync(CommandId.ImageRotateCW), Is.False);
+                Assert.That(await editor.HandleCommandAsync(CommandId.ImageRotateCCW), Is.False);
             }
             finally
             {
@@ -359,7 +362,8 @@ namespace OpenLiveWriter.EditorTests.Automated
 
     /// <summary>
     /// Group V (WebView) — live JS-side coverage for the image bridge: selection
-    /// awareness in <c>getState()</c>, applyImageAttrs, rotate, and setImageLink.
+    /// awareness in <c>getState()</c>, applyImageAttrs, the baked-replacement
+    /// bridge (<c>replaceSelectedImageSrc</c>), and setImageLink.
     /// Requires a live WKWebView backend.
     /// </summary>
     [TestFixture]
@@ -427,22 +431,43 @@ namespace OpenLiveWriter.EditorTests.Automated
         }
 
         [Test]
-        public async Task RotateSelectedImage_SetsTransform()
+        public async Task ReplaceSelectedImageSrc_SwapsSizeAndClearsRotation()
         {
             await using var harness = await EditorTestHarness.CreateAsync();
             await harness.SetContentAsync($"<img src=\"{TinyPng}\" />");
             await harness.Editor.WebView.InvokeScript(SelectFirstImageScript);
 
-            await harness.Editor.RotateSelectedImageAsync(90);
+            // Explicit 40x20 display size + a legacy CSS rotation, then a baked
+            // 90-degree rotation replacement: size swaps and the transform clears.
+            await harness.Editor.ApplyImageAttrsAsync(new ImageAttributes
+            {
+                Width = 40, Height = 20, RotationDeg = 90
+            });
+            await harness.Editor.ReplaceSelectedImageSrcAsync(
+                TinyPng, OpenLiveWriter.App.Avalonia.ImageEditing.BakedImageSizeMode.Swap);
+
             string json = await harness.Editor.WebView.InvokeScript("OLWBridge.getSelectedImage()");
             using (var doc = JsonDocument.Parse(json))
-                Assert.That(doc.RootElement.GetProperty("rotation").GetInt32(), Is.EqualTo(90));
+            {
+                Assert.Multiple(() =>
+                {
+                    Assert.That(doc.RootElement.GetProperty("width").GetInt32(), Is.EqualTo(20),
+                        "explicit display size swaps after a baked 90-degree rotation");
+                    Assert.That(doc.RootElement.GetProperty("height").GetInt32(), Is.EqualTo(40));
+                    Assert.That(doc.RootElement.GetProperty("rotation").GetInt32(), Is.EqualTo(0),
+                        "CSS rotation is cleared once the rotation is baked into the pixels");
+                });
+            }
 
-            // Wraps around at 360.
-            await harness.Editor.RotateSelectedImageAsync(-180);
+            // 'set' mode applies explicit dimensions (crop/resize target size).
+            await harness.Editor.ReplaceSelectedImageSrcAsync(
+                TinyPng, OpenLiveWriter.App.Avalonia.ImageEditing.BakedImageSizeMode.Set, 10, 5);
             json = await harness.Editor.WebView.InvokeScript("OLWBridge.getSelectedImage()");
             using (var doc = JsonDocument.Parse(json))
-                Assert.That(doc.RootElement.GetProperty("rotation").GetInt32(), Is.EqualTo(270));
+            {
+                Assert.That(doc.RootElement.GetProperty("width").GetInt32(), Is.EqualTo(10));
+                Assert.That(doc.RootElement.GetProperty("height").GetInt32(), Is.EqualTo(5));
+            }
         }
 
         [Test]

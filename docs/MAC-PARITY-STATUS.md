@@ -7,7 +7,7 @@ parity with Open Live Writer for Windows.** Update this file as work lands.
 > user-facing gap review. This file tracks what has *landed*; the assessment
 > tracks what a Windows switcher would actually hit (P0 trust breakers first).
 
-Branch: `milestone4/webview-wysiwyg` · Runtime: .NET 10 / Avalonia · Last verified: 2026-07 (**Theme band (P1-3):** Blog Account tab's "Use Theme" (per-account persisted toggle) + "Update Theme" (forced re-harvest) are live — Preview layers the blog homepage's harvested stylesheets over the neutral article style via a proxy-aware `ThemeStyleCache`, degrading to neutral on fetch failure; Preview tab's Close Preview wired; **Picture Tools band (P1-2):** click-to-select images → Picture Tools contextual tab; size spinners + aspect lock + Small/Medium/Large/Original presets, rotate CW/CCW via CSS transform, border toggle, Picture Properties dialog (alt/title, Link To none/source/URL, alignment, margins, border) — applied as inline attrs/styles on the selected `<img>`; crop/effects/watermark/tilt stay disabled pending a pixel-baking pass (see §12); **Server/publishing band:** Open from Blog — `metaWeblog.getRecentPosts`/`getPost` + `wp.getPages` into `OpenFromBlogDialog` (Posts/Pages, 10/25/50) so server content opens editable and re-publish edits in place; pages publish as pages via `wp.newPage`/`wp.editPage`; **WordPress provider** + detection heuristics (`/xmlrpc.php` probe, engine-aware RSD); publish date via Post Properties (F2) → `dateCreated` on post+page structs; **spelling band:** Hunspell engine (`WeCantSpell.Hunspell` + embedded en-US dictionaries), F7 spelling dialog (suggestions, ignore/add-to-dictionary, change/change-all), check-before-publish gate; **content band:** Picture from the Web (remote `<img>`, no base64), Print / Print Preview (print-styled doc → native WKWebView print panel, temp-PDF/browser handoffs); **Shell trust band:** macOS NativeMenu menu bar (File/Edit/View/Help + accelerators, Set Categories reachable), unsaved-changes close prompt, draft autosave (AutoRecover), handled-command registry with dead commands visibly disabled, Debug tab hidden unless `OLW_DEBUG_RIBBON=1`, real Cut/Copy/Paste routing; **Editor-bridge band:** debounced payload-free content sync, JSON-based JS escaping, px font sizes + caret reflection, find previous / "n of m" count / single-replace; **Publish band:** fully async XML-RPC transport (no UI freeze), view-post/close-window after publish, preferences dialog shows only enforced options, Account dialog Test Connection; on top of the Options/Preferences band: **JSON `FileSettingsPersister`**, tabbed **Preferences** dialog, **Options** command; Publishing-completion band: **image upload-on-publish** via `newMediaObject`, **blog categories** fetch + picker, **RSD endpoint auto-detection**, **re-publish → `editPost`**; Insert-tab band: Preview render, Insert Table + table-tools ops, web-video embeds, emoticons, paste-special/clean paste, clear-break/extended-entry, caret font/size/color/block reflection)
+Branch: `milestone4/webview-wysiwyg` · Runtime: .NET 10 / Avalonia · Last verified: 2026-07 (**Theme band (P1-3):** Blog Account tab's "Use Theme" (per-account persisted toggle) + "Update Theme" (forced re-harvest) are live — Preview layers the blog homepage's harvested stylesheets over the neutral article style via a proxy-aware `ThemeStyleCache`, degrading to neutral on fetch failure; Preview tab's Close Preview wired; **Picture Tools band (P1-2):** click-to-select images → Picture Tools contextual tab; size spinners + aspect lock + Small/Medium/Large/Original presets, rotate CW/CCW baked into pixels (SkiaSharp), numeric crop dialog, baked Black & White / Sepia effects, border toggle, Picture Properties dialog (alt/title, Link To none/source/URL, alignment, margins, border) — applied as inline attrs/styles on the selected `<img>` with baked ops re-embedded as PNG data-URIs; tilt/watermark/contrast/recolor stay disabled (see §12); **Server/publishing band:** Open from Blog — `metaWeblog.getRecentPosts`/`getPost` + `wp.getPages` into `OpenFromBlogDialog` (Posts/Pages, 10/25/50) so server content opens editable and re-publish edits in place; pages publish as pages via `wp.newPage`/`wp.editPage`; **WordPress provider** + detection heuristics (`/xmlrpc.php` probe, engine-aware RSD); publish date via Post Properties (F2) → `dateCreated` on post+page structs; **spelling band:** Hunspell engine (`WeCantSpell.Hunspell` + embedded en-US dictionaries), F7 spelling dialog (suggestions, ignore/add-to-dictionary, change/change-all), check-before-publish gate; **content band:** Picture from the Web (remote `<img>`, no base64), Print / Print Preview (print-styled doc → native WKWebView print panel, temp-PDF/browser handoffs); **Shell trust band:** macOS NativeMenu menu bar (File/Edit/View/Help + accelerators, Set Categories reachable), unsaved-changes close prompt, draft autosave (AutoRecover), handled-command registry with dead commands visibly disabled, Debug tab hidden unless `OLW_DEBUG_RIBBON=1`, real Cut/Copy/Paste routing; **Editor-bridge band:** debounced payload-free content sync, JSON-based JS escaping, px font sizes + caret reflection, find previous / "n of m" count / single-replace; **Publish band:** fully async XML-RPC transport (no UI freeze), view-post/close-window after publish, preferences dialog shows only enforced options, Account dialog Test Connection; on top of the Options/Preferences band: **JSON `FileSettingsPersister`**, tabbed **Preferences** dialog, **Options** command; Publishing-completion band: **image upload-on-publish** via `newMediaObject`, **blog categories** fetch + picker, **RSD endpoint auto-detection**, **re-publish → `editPost`**; Insert-tab band: Preview render, Insert Table + table-tools ops, web-video embeds, emoticons, paste-special/clean paste, clear-break/extended-entry, caret font/size/color/block reflection)
 
 ## Official milestone plan
 
@@ -103,9 +103,10 @@ path fix, thread-safety/caching fixes) — assessed in §7.2.
   - **Picture Tools (P1-2):** clicking an image selects it as a unit → the
     Picture Tools > Format contextual tab activates; width/height spinners with
     aspect-ratio lock, Small/Medium/Large/Original size presets, rotate CW/CCW
-    (CSS transform), border toggle, and a Picture Properties dialog (alt/title,
-    Link To none/source/URL, alignment, uniform margin, border width+color).
-    See §12.
+    (baked into pixels via SkiaSharp), numeric crop dialog, Black & White /
+    Sepia effects (baked), border toggle, and a Picture Properties dialog
+    (alt/title, Link To none/source/URL, alignment, uniform margin, border
+    width+color). See §12.
   - Editing: Word Count (statistics dialog) + Find (in-editor bar) / Find & Replace
     (dialog fallback for Replace All; native in-page highlight + HTML-aware Replace All)
 - **Format-state reporting:** `OLWBridge.getState()` reports bold/italic/underline/
@@ -336,10 +337,13 @@ stays green. Layout quality docs: `docs/UI-LAYOUT-QA.md`.
 - **Picture Tools (Group V):** `GroupV_PictureToolsTests` — `getState()` image-payload
   parsing (attrs/styles/link normalization), `ImageEditBuilder` applyImageAttrs JSON
   (set-members only, ClearSize nulls, border pair), aspect-ratio math + preset sanity,
-  alignment normalization, Picture-properties link-choice mapping, rotate command
-  routing, and headless ribbon wiring (width/height spinner events + reflection,
-  size-preset and Link To dropdown flyouts with dead items disabled). JS-side
-  selection/apply/rotate/link tests are `[Explicit]` WebView cases.
+  alignment normalization, Picture-properties link-choice mapping, and headless
+  ribbon wiring (width/height spinner events + reflection, size-preset and
+  Link To dropdown flyouts with dead items disabled). **Pixel baking (Group Y):**
+  `GroupY_ImageEditingTests` — SkiaSharp op correctness (rotate/crop/resize/
+  grayscale/sepia with pixel spot-checks), data-URI round-trip, selected-image
+  JSON parsing, command registration, and the effects dropdown flyout. JS-side
+  selection/apply/baked-replacement/link tests are `[Explicit]` WebView cases.
 - **Themed preview (Group W):** `GroupW_ThemingTests` — `ThemeStyleExtractor`
   (relative/absolute/protocol-relative hrefs, rel-token variants, non-stylesheet
   links ignored, dedup, inline `<style>` blocks, no-stylesheet/empty input),
@@ -773,9 +777,10 @@ and the `BrowserLauncher` seam; the live verification test is `[Explicit]`.
 
 ## 12. Picture Tools band (macOS) — P1-2
 
-Picture editing was Windows Live Writer's signature feature. This pass makes the
-previously decorative Picture Tools contextual tab real for everything that can
-be done honestly with HTML/CSS (no pixel baking).
+Picture editing was Windows Live Writer's signature feature. The first pass
+made the previously decorative Picture Tools contextual tab real for everything
+that can be done honestly with HTML/CSS; the pixel-baking pass (SkiaSharp)
+then made crop, baked rotate, and the Black & White / Sepia effects real too.
 
 ### 12.1 Selection + contextual tab
 
@@ -801,10 +806,14 @@ Format while an image is selected and hides it otherwise.
   width/height back to natural size). Both the HTML attributes and matching
   inline styles are set — the editor stylesheet's `img { height: auto }` would
   otherwise override the height attribute.
-- **Rotate:** CW/CCW rotate the image in 90° steps via a CSS `transform`.
-  **Deviation from Windows:** Windows bakes rotation into the pixels; here it
-  survives publish as an inline style. Honest and revertible, but consumers
-  that strip inline styles lose it.
+- **Rotate:** CW/CCW rotate the image in 90° steps, **baked into the pixels**
+  by `ImageEditorService.Rotate90` (SkiaSharp): the selected image's bytes are
+  pulled from its data-URI `src` (or downloaded proxy-aware for web pictures),
+  rotated, and re-embedded as a new PNG data URI via
+  `OLWBridge.replaceSelectedImageSrc`, which also swaps any explicit display
+  width/height and clears legacy CSS transforms. This matches Windows (CSS
+  `transform` rotate was fragile for publishing). WebView undo does not cover
+  the bridge rewrite (best-effort, documented).
 - **Border:** a Border toggle applies/removes a solid inline border (default
   1px `#999999`, or the last-used color); width and color are editable in the
   Picture Properties dialog.
@@ -823,24 +832,48 @@ Format while an image is selected and hides it otherwise.
 
 ### 12.3 Still dead (documented, disabled in the ribbon)
 
-Crop, tilt, recolor/sharpen/blur/emboss effects, contrast, watermark, the
+Tilt, recolor/sharpen/blur/emboss effects, contrast, watermark, the
 picture-styles gallery, Set custom size defaults, and Save/Revert settings —
-these need the Windows decorator pipeline's pixel baking (a future SkiaSharp
-pass) or a defaults/settings store. They stay unhandled in
-`HandledCommands` and render disabled with the "not yet available" tooltip;
-`GroupQ_HandledCommandsTests` pins both the live and the dead sets.
+these need more of the Windows decorator pipeline (arbitrary-angle tilt,
+recolor galleries, watermark composition) or a defaults/settings store. They
+stay unhandled in `HandledCommands` and render disabled with the "not yet
+available" tooltip; `GroupQ_HandledCommandsTests` pins both the live and the
+dead sets.
+
+### 12.3a Pixel baking (crop / baked rotate / B&W / sepia)
+
+`ImageEditing/ImageEditorService` (SkiaSharp, pure/headless) bakes pixels:
+`Rotate90` (CW/CCW, dimensions swap), `Crop` (pixel rect, clamped to bounds),
+`Resize` (cubic sampling — kept for flows that must rewrite pixels; the size
+presets/spinners intentionally stay non-destructive attribute edits), and
+`Grayscale`/`Sepia` (color-matrix filters). Input is any Skia-decodable image;
+output is always PNG. The shell pipeline (`MainWindow.PictureTools`) decodes
+the selected image's data-URI `src` inline or downloads web pictures
+proxy-aware (`HttpImageFetcher` over `PublishingHttpClientFactory`), bakes, and
+re-embeds via `OLWBridge.replaceSelectedImageSrc` (size modes: keep / swap /
+set; clears CSS rotation; fires debounced `contentChanged` + `stateChanged`).
+The crop UX is a numeric X/Y/width/height dialog (`CropImageDialog`) with the
+image's pixel dimensions and a preview — an interactive rubber-band crop
+inside the WebView is out of scope. The Effects dropdown wires Black & White
+and Sepia only. Publish is untouched: baked images stay data-URIs, which
+`ImagePublisher` uploads as before. WebView undo does not cover the bridge
+rewrite (best-effort, documented).
 
 ### 12.4 Tests
 
 `GroupV_PictureToolsTests` (default suite): state-payload parsing,
-`ImageEditBuilder` payload/aspect/alignment logic, dialog link mapping, rotate
-routing, and headless ribbon wiring (spinner events/reflection, dropdown
-flyouts). `GroupV_PictureToolsWebViewTests` ([Explicit], live WKWebView):
-selection reporting, applyImageAttrs, rotate wrap-around, link wrap/unwrap.
-`GroupK` covers Picture Tools tab activation; `GroupQ` pins the handled/dead
-registry; `GroupP_UiReviewDeepCaptureTests` captures the dialog and the
-Picture Tools ribbon band (`tab-picturetools-1280x800.png`,
-`dialog-imageproperties.png`).
+`ImageEditBuilder` payload/aspect/alignment logic, dialog link mapping, and
+headless ribbon wiring (spinner events/reflection, dropdown flyouts).
+`GroupY_ImageEditingTests` (default suite): pixel-op correctness (dimensions,
+pixel spot-checks, aspect handling, invalid input), data-URI decode/re-embed
+round-trip, selected-image JSON parsing, command registration, and the effects
+dropdown flyout. `GroupV_PictureToolsWebViewTests` ([Explicit], live
+WKWebView): selection reporting, applyImageAttrs, baked-replacement size
+swap/set, link wrap/unwrap. `GroupK` covers Picture Tools tab activation;
+`GroupQ` pins the handled/dead registry; `GroupP_UiReviewDeepCaptureTests`
+captures the dialogs and the Picture Tools ribbon band
+(`tab-picturetools-1280x800.png`, `dialog-imageproperties.png`,
+`dialog-crop.png`).
 
 ---
 

@@ -1,9 +1,11 @@
 // Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
+using System;
 using System.Threading.Tasks;
 using OpenLiveWriter.App.Avalonia.Dialogs;
 using OpenLiveWriter.App.Avalonia.Editor;
+using OpenLiveWriter.App.Avalonia.ImageEditing;
 using OpenLiveWriter.Localization;
 using OpenLiveWriter.Ribbon.Avalonia.Controls;
 
@@ -11,11 +13,12 @@ namespace OpenLiveWriter.App.Avalonia
 {
     /// <summary>
     /// Picture Tools (contextual tab) behavior for the shell: size presets and
-    /// width/height spinners with aspect-ratio lock, rotate is handled directly by
-    /// <see cref="WebViewEditor.HandleCommandAsync"/>, the Picture properties
-    /// dialog (alt text, Link To, alignment, margins, border), and the border
-    /// toggle. All operations apply to the image currently selected in the editor,
-    /// whose last-reported state is cached in <see cref="_lastImageState"/>.
+    /// width/height spinners with aspect-ratio lock, the Picture properties
+    /// dialog (alt text, Link To, alignment, margins, border), the border
+    /// toggle, and the pixel-baking commands (crop, baked 90-degree rotate,
+    /// Black &amp; White / Sepia effects). All operations apply to the image
+    /// currently selected in the editor, whose last-reported state is cached
+    /// in <see cref="_lastImageState"/>.
     /// </summary>
     public partial class MainWindow
     {
@@ -60,6 +63,21 @@ namespace OpenLiveWriter.App.Avalonia
                     return true;
                 case CommandId.ImageBorderGallery:
                     await ToggleImageBorderAsync();
+                    return true;
+                case CommandId.ImageCrop:
+                    await CropImageAsync();
+                    return true;
+                case CommandId.ImageRotateCW:
+                    await RotateImageBakedAsync(ImageRotation.Clockwise);
+                    return true;
+                case CommandId.ImageRotateCCW:
+                    await RotateImageBakedAsync(ImageRotation.CounterClockwise);
+                    return true;
+                case CommandId.ImageEffectBlackAndWhite:
+                    await ApplyImageEffectAsync(ImageEffect.Grayscale, "Black & White");
+                    return true;
+                case CommandId.ImageEffectSepiaTone:
+                    await ApplyImageEffectAsync(ImageEffect.Sepia, "Sepia");
                     return true;
                 default:
                     return false;
@@ -227,6 +245,123 @@ namespace OpenLiveWriter.App.Avalonia
             }
 
             UpdateStatus("Updated picture properties.");
+        }
+
+        // ---- Pixel baking (crop / baked rotate / B&W / sepia) ----
+
+        // The shared pipeline: pull the selected image's bytes (data-URI decode
+        // or proxy-aware fetch for web pictures), bake the pixels with
+        // ImageEditorService, and re-embed the result as a new PNG data URI.
+        // Failures degrade to a status-bar message; nothing is modified.
+        private async Task BakeSelectedImageAsync(Func<byte[], byte[]> bake,
+            BakedImageSizeMode sizeMode, int width, int height, string statusMessage)
+        {
+            var editor = GetEditor();
+            if (editor == null || _lastImageState == null)
+            {
+                UpdateStatus("Select a picture first.");
+                return;
+            }
+
+            byte[] bytes = await GetSelectedImageBytesAsync();
+            if (bytes == null)
+                return;
+
+            byte[] baked;
+            try
+            {
+                baked = bake(bytes);
+            }
+            catch (ArgumentException)
+            {
+                UpdateStatus("Could not edit this picture (unrecognized image data).");
+                return;
+            }
+
+            await editor.ReplaceSelectedImageSrcAsync(
+                ImageDataUri.BuildPng(baked), sizeMode, width, height);
+            UpdateStatus(statusMessage);
+        }
+
+        // Extracts the selected image's encoded bytes: decoded inline for
+        // embedded (data-URI) pictures, downloaded for web pictures. Returns
+        // null (after a status message) when the bytes are unavailable.
+        private async Task<byte[]> GetSelectedImageBytesAsync()
+        {
+            var img = _lastImageState;
+            if (img == null || string.IsNullOrEmpty(img.Src))
+            {
+                UpdateStatus("Select a picture first.");
+                return null;
+            }
+
+            if (ImageDataUri.TryDecode(img.Src, out byte[] bytes))
+                return bytes;
+
+            if (img.HasRemoteSource)
+            {
+                UpdateStatus("Downloading picture...");
+                var fetcher = new HttpImageFetcher(CreatePublishingHttpClient());
+                bytes = await fetcher.FetchAsync(img.Src);
+                if (bytes == null)
+                    UpdateStatus("Could not download the picture for editing.");
+                return bytes;
+            }
+
+            UpdateStatus("This picture source cannot be edited.");
+            return null;
+        }
+
+        // Baked rotation: the transform is rewritten into the pixels (the old
+        // CSS-transform rotate was fragile for publishing). Explicit display
+        // width/height are swapped by the bridge.
+        private async Task RotateImageBakedAsync(ImageRotation direction)
+        {
+            await BakeSelectedImageAsync(
+                bytes => ImageEditorService.Rotate90(bytes, direction),
+                BakedImageSizeMode.Swap, 0, 0,
+                direction == ImageRotation.Clockwise ? "Rotated right." : "Rotated left.");
+        }
+
+        // Color effects keep the display size untouched.
+        private async Task ApplyImageEffectAsync(ImageEffect effect, string effectName)
+        {
+            await BakeSelectedImageAsync(
+                bytes => ImageEditorService.ApplyEffect(bytes, effect),
+                BakedImageSizeMode.Keep, 0, 0,
+                $"Applied {effectName} effect.");
+        }
+
+        // Crop: numeric pixel dialog prefilled with the full image, then bake
+        // and re-embed at the cropped size.
+        private async Task CropImageAsync()
+        {
+            var editor = GetEditor();
+            if (editor == null || _lastImageState == null)
+            {
+                UpdateStatus("Select a picture first.");
+                return;
+            }
+
+            byte[] bytes = await GetSelectedImageBytesAsync();
+            if (bytes == null)
+                return;
+
+            if (!ImageEditorService.TryGetDimensions(bytes, out int imageWidth, out int imageHeight))
+            {
+                UpdateStatus("Could not edit this picture (unrecognized image data).");
+                return;
+            }
+
+            CropImageDialogResult result =
+                await CropImageDialog.ShowAsync(this, bytes, imageWidth, imageHeight);
+            if (result == null)
+                return;
+
+            await BakeSelectedImageAsync(
+                raw => ImageEditorService.Crop(raw, result.X, result.Y, result.Width, result.Height),
+                BakedImageSizeMode.Set, result.Width, result.Height,
+                $"Cropped picture to {result.Width} × {result.Height} px.");
         }
     }
 }

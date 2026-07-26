@@ -624,6 +624,11 @@ namespace OpenLiveWriter.Ribbon.Managed.Configuration
                 ButtonType = RibbonButtonType.DropDownButton,
                 PreferredSize = RibbonGroupSize.Medium
             };
+            // Baked pixel effects (Black & White / Sepia) are real; the recolor/
+            // sharpen/blur/emboss galleries stay disabled until implemented.
+            effectsButton.MenuItems.Add(new MenuItemConfig { CommandId = CommandId.ImageEffectBlackAndWhite });
+            effectsButton.MenuItems.Add(new MenuItemConfig { CommandId = CommandId.ImageEffectSepiaTone });
+            effectsButton.MenuItems.Add(new MenuItemConfig { IsSeparator = true });
             effectsButton.MenuItems.Add(new MenuItemConfig { CommandId = CommandId.ImageEffectsRecolorGallery });
             effectsButton.MenuItems.Add(new MenuItemConfig { CommandId = CommandId.ImageEffectsSharpenGallery });
             effectsButton.MenuItems.Add(new MenuItemConfig { CommandId = CommandId.ImageEffectsBlurGallery });

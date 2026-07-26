@@ -145,6 +145,7 @@ namespace OpenLiveWriter.EditorTests.Automated
                     },
                     new[] { "macOS", "Open Live Writer" })),
                 ("dialog-confirm.png", CreateConfirmDialog),
+                ("dialog-crop.png", () => new CropImageDialog(CreateSampleCropPng(), 96, 64)),
                 ("dialog-draftpicker.png", () => new DraftPickerDialog(new List<DraftInfo>
                 {
                     new DraftInfo("d-3", "Milestone 4 status update", DateTime.UtcNow.AddHours(-2)),
@@ -203,7 +204,10 @@ namespace OpenLiveWriter.EditorTests.Automated
                         }),
                     supportsPages: true)),
                 ("dialog-postproperties.png", () => new PostPropertiesDialog(
-                    DateTime.UtcNow.AddDays(3))),
+                    DateTime.UtcNow.AddDays(3),
+                    slug: "milestone-4-status-update",
+                    excerpt: "WebView WYSIWYG editing, themed preview and picture tools land on macOS.",
+                    pingUrls: new[] { "https://openlivewriter.org/trackback/status-update" })),
                 ("dialog-selectblog.png", () => new SelectBlogDialog(
                     BuildSampleAccountService().ListAccounts(), "acct-1")),
                 ("dialog-spelling.png", () => new SpellingDialog(
@@ -340,6 +344,28 @@ namespace OpenLiveWriter.EditorTests.Automated
                 "You have unsaved changes to \u201cMilestone 4 status update\u201d. Do you want to save them?",
                 buttons
             });
+        }
+
+        /// <summary>
+        /// A small two-tone sample PNG for the Crop dialog preview, generated in
+        /// memory with SkiaSharp (left half orange, right half teal, white stripe).
+        /// </summary>
+        private static byte[] CreateSampleCropPng()
+        {
+            using var bitmap = new SkiaSharp.SKBitmap(96, 64);
+            for (int y = 0; y < 64; y++)
+            {
+                for (int x = 0; x < 96; x++)
+                {
+                    bitmap.SetPixel(x, y, y >= 28 && y < 36
+                        ? new SkiaSharp.SKColor(245, 245, 245)
+                        : x < 48
+                            ? new SkiaSharp.SKColor(232, 126, 4)
+                            : new SkiaSharp.SKColor(22, 122, 110));
+                }
+            }
+            using SkiaSharp.SKData data = bitmap.Encode(SkiaSharp.SKEncodedImageFormat.Png, 100);
+            return data.ToArray();
         }
 
         private static BlogAccount SampleAccount(string id, string name, string username, string homepage) =>

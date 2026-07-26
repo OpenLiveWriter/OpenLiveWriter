@@ -28,6 +28,7 @@
     <PackageReference Include="System.Drawing.Common" />
     <PackageReference Include="Avalonia.Controls.WebView" />
     <PackageReference Include="WeCantSpell.Hunspell" />
+    <PackageReference Include="SkiaSharp" />
   </ItemGroup>
 
   <ItemGroup>

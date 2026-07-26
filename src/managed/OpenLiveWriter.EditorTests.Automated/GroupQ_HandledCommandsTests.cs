@@ -95,12 +95,16 @@ namespace OpenLiveWriter.EditorTests.Automated
         }
 
         // Commands with no handler anywhere — must render disabled (P0-4).
-        // Picture Tools commands that stay dead pending the pixel-baking
-        // (SkiaSharp) pass: crop, tilt, effects galleries, contrast, watermark,
-        // and the per-image/per-default settings commands.
-        [TestCase(CommandId.ImageCrop)]
+        // Picture Tools commands that stay dead after the pixel-baking
+        // (SkiaSharp) pass: tilt, the recolor/sharpen/blur/emboss effects
+        // galleries, contrast, watermark, and the per-image/per-default
+        // settings commands.
         [TestCase(CommandId.ImageTilt)]
-        [TestCase(CommandId.ImageEffectsGallery)]
+        [TestCase(CommandId.ImageEffectsRecolorGallery)]
+        [TestCase(CommandId.ImageEffectsSharpenGallery)]
+        [TestCase(CommandId.ImageEffectsBlurGallery)]
+        [TestCase(CommandId.ImageEffectsEmbossGallery)]
+        [TestCase(CommandId.ImageContrast)]
         [TestCase(CommandId.SetCustomSizeDefaults)]
         [TestCase(CommandId.Watermark)]
         [TestCase(CommandId.ImageSaveDefaults)]
@@ -133,8 +137,10 @@ namespace OpenLiveWriter.EditorTests.Automated
                 $"{commandId} is wired in the P1-3 pass and must not render disabled");
         }
 
-        // Picture Tools commands implemented in the P1-2 pass (size, rotate,
-        // border toggle, properties/Link To) — must stay enabled.
+        // Picture Tools commands implemented in the P1-2 pass (size, border
+        // toggle, properties/Link To) plus the pixel-baking pass (crop, baked
+        // rotate, Black & White / Sepia) — must stay enabled.
+        [TestCase(CommandId.ImageCrop)]
         [TestCase(CommandId.ImageRotateCW)]
         [TestCase(CommandId.ImageRotateCCW)]
         [TestCase(CommandId.FormatImageAdjustWidth)]
@@ -146,6 +152,9 @@ namespace OpenLiveWriter.EditorTests.Automated
         [TestCase(CommandId.CustomSizeLarge)]
         [TestCase(CommandId.CustomSizeOriginal)]
         [TestCase(CommandId.ImageBorderGallery)]
+        [TestCase(CommandId.ImageEffectsGallery)]
+        [TestCase(CommandId.ImageEffectBlackAndWhite)]
+        [TestCase(CommandId.ImageEffectSepiaTone)]
         [TestCase(CommandId.FormatImageSelectLink)]
         [TestCase(CommandId.ImageLinkToSource)]
         [TestCase(CommandId.ImageLinkToUrl)]
@@ -172,12 +181,18 @@ namespace OpenLiveWriter.EditorTests.Automated
             Assert.That(bold, Is.Not.Null);
             Assert.That(bold.IsEnabled, Is.True, "Bold is handled and must stay enabled");
 
-            // Picture Tools contextual tab: decorative commands render disabled.
+            // Picture Tools contextual tab: crop is wired now (pixel-baking
+            // pass) and stays enabled; tilt still has no handler and renders
+            // disabled.
             ribbon.ActivateContextualTabGroup(RibbonContextualTabGroup.ImageTools);
             RibbonButtonControl crop = FindButton(ribbon, CommandId.ImageCrop);
             Assert.That(crop, Is.Not.Null, "Image Tools tab should render an ImageCrop button");
-            Assert.That(crop.IsEnabled, Is.False, "ImageCrop has no handler and must be disabled");
-            Assert.That(Avalonia.Controls.ToolTip.GetTip(crop) as string,
+            Assert.That(crop.IsEnabled, Is.True, "ImageCrop bakes pixels and must be enabled");
+
+            RibbonButtonControl tilt = FindButton(ribbon, CommandId.ImageTilt);
+            Assert.That(tilt, Is.Not.Null, "Image Tools tab should render an ImageTilt button");
+            Assert.That(tilt.IsEnabled, Is.False, "ImageTilt has no handler and must be disabled");
+            Assert.That(Avalonia.Controls.ToolTip.GetTip(tilt) as string,
                 Does.Contain("not yet available"));
 
             // Table Tools contextual tab: bridge-backed commands stay enabled.

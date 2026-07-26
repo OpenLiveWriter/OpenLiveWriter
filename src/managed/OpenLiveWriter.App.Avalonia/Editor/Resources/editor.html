@@ -526,16 +526,44 @@ const OLWBridge = {
         return true;
     },
 
-    // Rotates the selected image by delta degrees (CSS transform, normalized
-    // to 0-359). Unlike Windows Live Writer this does not bake pixels — the
-    // rotation survives publish as an inline style.
-    rotateImage: function(delta) {
+    // Replaces the selected image's pixels with a baked (re-encoded) source —
+    // the host bakes crop/rotate/effects into PNG bytes and hands back a data
+    // URI. sizeMode: 'keep' leaves the display size alone (color effects),
+    // 'swap' swaps explicit width/height (90-degree rotation; when only one
+    // dimension is explicit both are cleared so the baked natural size shows),
+    // 'set' applies the given px width/height (crop/resize). Any CSS rotation
+    // is cleared because the rotation is now baked into the pixels.
+    // Note: WebView undo does not cover this bridge rewrite (documented,
+    // best-effort limitation).
+    replaceSelectedImageSrc: function(src, sizeMode, width, height) {
         this.restoreSelection();
         var img = this._selectedImage();
         if (!img) return false;
-        var cur = this._imageState(img).rotation || 0;
-        var next = ((cur + delta) % 360 + 360) % 360;
-        return this.applyImageAttrs({ rotation: next });
+        img.setAttribute('src', src);
+        img.style.transform = '';
+        if (sizeMode === 'swap') {
+            var w = img.getAttribute('width'), h = img.getAttribute('height');
+            if (w !== null && h !== null) {
+                img.setAttribute('width', parseInt(h, 10));
+                img.setAttribute('height', parseInt(w, 10));
+                img.style.width = parseInt(h, 10) + 'px';
+                img.style.height = parseInt(w, 10) + 'px';
+            } else {
+                img.removeAttribute('width');
+                img.removeAttribute('height');
+                img.style.width = '';
+                img.style.height = '';
+            }
+        } else if (sizeMode === 'set' && width > 0 && height > 0) {
+            img.setAttribute('width', width);
+            img.setAttribute('height', height);
+            img.style.width = width + 'px';
+            img.style.height = height + 'px';
+        }
+        this.saveSelection();
+        this.reportState();
+        postContentChanged();
+        return true;
     },
 
     // Find and highlight the next occurrence of query using the browser's
