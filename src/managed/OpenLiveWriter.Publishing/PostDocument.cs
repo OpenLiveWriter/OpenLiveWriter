@@ -75,6 +75,24 @@ namespace OpenLiveWriter.Publishing
         /// </summary>
         public DateTime? PublishDateUtc { get; set; }
 
+        /// <summary>
+        /// URL slug set via Post Properties (F2); carried to the blog as
+        /// <c>wp_slug</c>. Persisted with the draft.
+        /// </summary>
+        public string Slug { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Post excerpt set via Post Properties (F2); carried to the blog as
+        /// <c>mt_excerpt</c>. Persisted with the draft.
+        /// </summary>
+        public string Excerpt { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Trackback/ping URLs set via Post Properties (F2); carried to the blog as
+        /// the <c>mt_tb_ping_urls</c> array (posts only). Persisted with the draft.
+        /// </summary>
+        public List<string> PingUrls { get; set; } = new List<string>();
+
         /// <summary>True once the document has been saved at least once (has an id).</summary>
         [JsonIgnore]
         public bool IsSaved => !string.IsNullOrEmpty(Id);
@@ -100,7 +118,9 @@ namespace OpenLiveWriter.Publishing
                 IsPage = IsPage,
                 IsPublished = IsPublished,
                 DateCreatedUtc = PublishDateUtc,
-                Contents = BodyHtml ?? string.Empty
+                Contents = BodyHtml ?? string.Empty,
+                Slug = Slug ?? string.Empty,
+                Excerpt = Excerpt ?? string.Empty
             };
 
             if (Categories != null)
@@ -113,8 +133,40 @@ namespace OpenLiveWriter.Publishing
             }
 
             post.Keywords = JoinKeywords(Keywords);
+            AddPingUrls(post.PingUrls, PingUrls);
 
             return post;
+        }
+
+        /// <summary>Copies non-empty ping URLs into <paramref name="target"/>.</summary>
+        private static void AddPingUrls(IList<string> target, IEnumerable<string> source)
+        {
+            if (source == null)
+                return;
+            foreach (string url in source)
+            {
+                string t = url?.Trim();
+                if (!string.IsNullOrEmpty(t))
+                    target.Add(t);
+            }
+        }
+
+        /// <summary>
+        /// Splits a multi-line ping-URL text (one URL per line, as edited in Post
+        /// Properties) into trimmed tokens; blank lines are dropped.
+        /// </summary>
+        public static List<string> SplitPingUrls(string pingUrlsText)
+        {
+            var result = new List<string>();
+            if (string.IsNullOrWhiteSpace(pingUrlsText))
+                return result;
+            foreach (string line in pingUrlsText.Replace("\r\n", "\n").Split('\n'))
+            {
+                string t = line.Trim();
+                if (t.Length > 0)
+                    result.Add(t);
+            }
+            return result;
         }
 
         /// <summary>Joins keyword tokens into the comma-separated <c>mt_keywords</c> string.</summary>
@@ -162,13 +214,20 @@ namespace OpenLiveWriter.Publishing
                 Title = post.Title,
                 BodyHtml = post.Contents,
                 IsPage = post.IsPage,
-                IsPublished = post.IsPublished
+                IsPublished = post.IsPublished,
+                Slug = post.Slug ?? string.Empty,
+                Excerpt = post.Excerpt ?? string.Empty
             };
 
             foreach (string c in post.Categories)
                 doc.Categories.Add(c);
 
             doc.Keywords = SplitKeywords(post.Keywords);
+            foreach (string url in post.PingUrls)
+            {
+                if (!string.IsNullOrEmpty(url))
+                    doc.PingUrls.Add(url);
+            }
 
             return doc;
         }
@@ -194,7 +253,9 @@ namespace OpenLiveWriter.Publishing
                 // Only a server-side draft should stay unpublished on republish;
                 // publish/pending/private entries are treated as published content.
                 IsPublished = !string.Equals(post.Status, "draft", StringComparison.OrdinalIgnoreCase),
-                DateCreatedUtc = post.DateCreatedUtc ?? default
+                DateCreatedUtc = post.DateCreatedUtc ?? default,
+                Slug = post.Slug ?? string.Empty,
+                Excerpt = post.Excerpt ?? string.Empty
             };
 
             if (post.Categories != null)
@@ -207,6 +268,15 @@ namespace OpenLiveWriter.Publishing
             }
 
             doc.Keywords = SplitKeywords(post.Keywords);
+
+            if (post.PingUrls != null)
+            {
+                foreach (string url in post.PingUrls)
+                {
+                    if (!string.IsNullOrEmpty(url))
+                        doc.PingUrls.Add(url);
+                }
+            }
 
             return doc;
         }

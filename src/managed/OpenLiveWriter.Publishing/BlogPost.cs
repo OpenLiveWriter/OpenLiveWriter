@@ -97,6 +97,36 @@ namespace OpenLiveWriter.Publishing
             set => _keywords = XmlCharacterHelper.RemoveInvalidXmlChars(value) ?? string.Empty;
         }
 
+        private string _slug = string.Empty;
+
+        /// <summary>
+        /// URL slug for the post (sent as the WordPress <c>wp_slug</c> member).
+        /// Scrubbed of invalid XML characters like the title/contents.
+        /// </summary>
+        public string Slug
+        {
+            get => _slug;
+            set => _slug = XmlCharacterHelper.RemoveInvalidXmlChars(value) ?? string.Empty;
+        }
+
+        private string _excerpt = string.Empty;
+
+        /// <summary>
+        /// Post excerpt (sent as the MetaWeblog <c>mt_excerpt</c> member).
+        /// Scrubbed of invalid XML characters like the title/contents.
+        /// </summary>
+        public string Excerpt
+        {
+            get => _excerpt;
+            set => _excerpt = XmlCharacterHelper.RemoveInvalidXmlChars(value) ?? string.Empty;
+        }
+
+        /// <summary>
+        /// Trackback/ping URLs for the post (sent as the MetaWeblog
+        /// <c>mt_tb_ping_urls</c> array; posts only — pages do not ping).
+        /// </summary>
+        public IList<string> PingUrls { get; } = new List<string>();
+
         public bool IsPublished { get; set; } = true;
 
         /// <summary>

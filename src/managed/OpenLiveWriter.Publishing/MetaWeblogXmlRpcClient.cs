@@ -98,7 +98,35 @@ namespace OpenLiveWriter.Publishing
             if (post.DateCreatedUtc.HasValue)
                 members.Add(new XmlRpcMember("dateCreated", new XmlRpcDateTime(post.DateCreatedUtc.Value)));
 
+            if (!string.IsNullOrEmpty(post.Slug))
+                members.Add(new XmlRpcMember("wp_slug", new XmlRpcString(post.Slug)));
+
+            if (!string.IsNullOrEmpty(post.Excerpt))
+                members.Add(new XmlRpcMember("mt_excerpt", new XmlRpcString(post.Excerpt)));
+
+            if (!post.IsPage)
+            {
+                XmlRpcArray pingUrls = GeneratePingUrlsForPost(post);
+                if (pingUrls != null)
+                    members.Add(new XmlRpcMember("mt_tb_ping_urls", pingUrls));
+            }
+
             return new XmlRpcStruct(members.ToArray());
+        }
+
+        private static XmlRpcArray GeneratePingUrlsForPost(BlogPost post)
+        {
+            if (post.PingUrls == null || post.PingUrls.Count == 0)
+                return null;
+
+            var values = new List<XmlRpcValue>();
+            foreach (string url in post.PingUrls)
+            {
+                if (!string.IsNullOrEmpty(url))
+                    values.Add(new XmlRpcString(url));
+            }
+
+            return values.Count > 0 ? new XmlRpcArray(values.ToArray()) : null;
         }
 
         private static XmlRpcArray GenerateCategoriesForPost(BlogPost post)
@@ -442,6 +470,9 @@ namespace OpenLiveWriter.Publishing
                 ?? GetNodeValue(structNode, "member[name='page_status']/value")
                 ?? string.Empty;
             post.Categories = ParseInlineCategories(structNode);
+            post.Slug = GetNodeValue(structNode, "member[name='wp_slug']/value") ?? string.Empty;
+            post.Excerpt = GetNodeValue(structNode, "member[name='mt_excerpt']/value") ?? string.Empty;
+            post.PingUrls = ParseStringArrayMember(structNode, "mt_tb_ping_urls");
 
             string dateCreated = GetNodeValue(structNode, "member[name='dateCreated']/value");
             post.DateCreatedUtc = ParseIso8601Date(dateCreated);
@@ -451,19 +482,28 @@ namespace OpenLiveWriter.Publishing
 
         private static IReadOnlyList<string> ParseInlineCategories(XmlNode structNode)
         {
-            var categories = new List<string>();
+            return ParseStringArrayMember(structNode, "categories");
+        }
+
+        /// <summary>
+        /// Parses an array-of-strings struct member (e.g. categories, mt_tb_ping_urls).
+        /// A missing member degrades to an empty list like the other optional members.
+        /// </summary>
+        private static IReadOnlyList<string> ParseStringArrayMember(XmlNode structNode, string memberName)
+        {
+            var strings = new List<string>();
             XmlNodeList values = structNode.SelectNodes(
-                "member[name='categories']/value/array/data/value");
+                $"member[name='{memberName}']/value/array/data/value");
             if (values != null)
             {
                 foreach (XmlNode value in values)
                 {
-                    string name = value.InnerText?.Trim();
-                    if (!string.IsNullOrEmpty(name))
-                        categories.Add(name);
+                    string text = value.InnerText?.Trim();
+                    if (!string.IsNullOrEmpty(text))
+                        strings.Add(text);
                 }
             }
-            return categories;
+            return strings;
         }
 
         /// <summary>
@@ -509,8 +549,8 @@ namespace OpenLiveWriter.Publishing
 
         /// <summary>
         /// Builds the WordPress page struct: title + description/mt_text_more. Unlike
-        /// posts, pages carry no categories/keywords; the publish flag travels as the
-        /// trailing method parameter rather than a struct member.
+        /// posts, pages carry no categories/keywords/ping URLs; the publish flag
+        /// travels as the trailing method parameter rather than a struct member.
         /// </summary>
         public XmlRpcStruct GeneratePageStruct(BlogPost post)
         {
@@ -525,6 +565,12 @@ namespace OpenLiveWriter.Publishing
 
             if (post.DateCreatedUtc.HasValue)
                 members.Add(new XmlRpcMember("dateCreated", new XmlRpcDateTime(post.DateCreatedUtc.Value)));
+
+            if (!string.IsNullOrEmpty(post.Slug))
+                members.Add(new XmlRpcMember("wp_slug", new XmlRpcString(post.Slug)));
+
+            if (!string.IsNullOrEmpty(post.Excerpt))
+                members.Add(new XmlRpcMember("mt_excerpt", new XmlRpcString(post.Excerpt)));
 
             return new XmlRpcStruct(members.ToArray());
         }

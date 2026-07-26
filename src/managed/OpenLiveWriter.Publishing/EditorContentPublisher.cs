@@ -69,11 +69,15 @@ namespace OpenLiveWriter.Publishing
         /// (<c>wp.newPage</c>/<c>wp.editPage</c>) are used instead, so pages stay pages.
         /// When <paramref name="publishDateUtc"/> is set it is sent as
         /// <c>dateCreated</c> (scheduled/backdated posts); null omits the member so the
-        /// server stamps its own time.
+        /// server stamps its own time. <paramref name="slug"/> and
+        /// <paramref name="excerpt"/> are sent as <c>wp_slug</c>/<c>mt_excerpt</c>
+        /// (posts and pages); <paramref name="pingUrls"/> is sent as
+        /// <c>mt_tb_ping_urls</c> (posts only). Empty values omit the members.
         /// </summary>
         public static async Task<string> PublishOrEditAsync(IBlogClient client, string blogId, string existingPostId,
             string title, string editorHtml, bool publish, IEnumerable<string> categories,
-            string keywords = null, bool isPage = false, System.DateTime? publishDateUtc = null)
+            string keywords = null, bool isPage = false, System.DateTime? publishDateUtc = null,
+            string slug = null, string excerpt = null, IEnumerable<string> pingUrls = null)
         {
             string hosted = await ImagePublisher.RewriteInlineImagesAsync(
                 client, blogId, editorHtml ?? string.Empty).ConfigureAwait(false);
@@ -82,9 +86,21 @@ namespace OpenLiveWriter.Publishing
             BlogPost post = BuildPost(title, hosted, publish, categoryArray);
             post.IsPage = isPage;
             post.DateCreatedUtc = publishDateUtc;
+            post.Slug = slug ?? string.Empty;
+            post.Excerpt = excerpt ?? string.Empty;
 
             if (!string.IsNullOrEmpty(keywords))
                 post.Keywords = keywords;
+
+            if (pingUrls != null)
+            {
+                foreach (string url in pingUrls)
+                {
+                    string t = url?.Trim();
+                    if (!string.IsNullOrEmpty(t))
+                        post.PingUrls.Add(t);
+                }
+            }
 
             if (!string.IsNullOrEmpty(existingPostId))
             {

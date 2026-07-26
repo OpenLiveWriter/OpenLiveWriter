@@ -1,6 +1,7 @@
 // Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
+using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
 using global::Avalonia.Controls;
@@ -92,19 +93,25 @@ namespace OpenLiveWriter.App.Avalonia
         private void SetEditorView(string view) =>
             this.FindControl<EditorPanel>("EditorPanel")?.SetView(view);
 
-        // Post Properties (F2): publish date only on macOS — kept minimal by design.
-        // The value is stored on the draft and sent as dateCreated on publish.
+        // Post Properties (F2): publish date plus slug/excerpt/ping URLs. The values
+        // are stored on the draft and sent as dateCreated / wp_slug / mt_excerpt /
+        // mt_tb_ping_urls on publish.
         private async Task ShowPostPropertiesAsync()
         {
             if (_draftSession == null)
                 return;
 
             PostPropertiesDialogResult result = await PostPropertiesDialog.ShowAsync(
-                this, _draftSession.Current.PublishDateUtc);
+                this, _draftSession.Current.PublishDateUtc,
+                _draftSession.Current.Slug, _draftSession.Current.Excerpt,
+                _draftSession.Current.PingUrls);
             if (result == null)
                 return;
 
             _draftSession.Current.PublishDateUtc = result.PublishDateUtc;
+            _draftSession.Current.Slug = result.Slug ?? string.Empty;
+            _draftSession.Current.Excerpt = result.Excerpt ?? string.Empty;
+            _draftSession.Current.PingUrls = result.PingUrls ?? new List<string>();
             _draftSession.Current.IsDirty = true;
             UpdateStatus(result.PublishDateUtc.HasValue
                 ? $"Publish date: {result.PublishDateUtc.Value.ToLocalTime():f}"

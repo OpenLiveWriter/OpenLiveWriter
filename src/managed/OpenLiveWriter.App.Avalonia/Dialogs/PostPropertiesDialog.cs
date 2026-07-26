@@ -2,29 +2,41 @@
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Threading.Tasks;
 using global::Avalonia.Controls;
 using global::Avalonia.Layout;
+using OpenLiveWriter.Publishing;
 
 namespace OpenLiveWriter.App.Avalonia.Dialogs
 {
     /// <summary>
     /// Result returned from <see cref="PostPropertiesDialog"/>. A null
     /// <see cref="PublishDateUtc"/> means "publish immediately" — no dateCreated is
-    /// sent and the server stamps its own time.
+    /// sent and the server stamps its own time. <see cref="Slug"/>,
+    /// <see cref="Excerpt"/> and <see cref="PingUrls"/> carry the WordPress
+    /// <c>wp_slug</c>, MetaWeblog <c>mt_excerpt</c> and <c>mt_tb_ping_urls</c>
+    /// values (empty = member omitted on publish).
     /// </summary>
     public class PostPropertiesDialogResult
     {
         public DateTime? PublishDateUtc { get; set; }
+        public string Slug { get; set; } = string.Empty;
+        public string Excerpt { get; set; } = string.Empty;
+        public List<string> PingUrls { get; set; } = new List<string>();
     }
 
     /// <summary>
-    /// A minimal "Post Properties" dialog (F2): publish date only, matching the
-    /// macOS port's P1-9-lite scope. The default is "publish immediately"; choosing
-    /// "set publish date" enables a local date + 24-hour time pair that is converted
-    /// to UTC and sent as MetaWeblog <c>dateCreated</c> on publish (a future date
-    /// schedules the post on servers that honor it, e.g. WordPress).
+    /// The "Post Properties" dialog (F2): publish date plus the P1-9 slug, excerpt
+    /// and ping/trackback URL fields, mirroring the Windows PostPropertiesForm
+    /// (app-wide ping services are out of scope — only per-post ping URLs). The
+    /// default is "publish immediately"; choosing "set publish date" enables a
+    /// local date + 24-hour time pair that is converted to UTC and sent as
+    /// MetaWeblog <c>dateCreated</c> on publish (a future date schedules the post
+    /// on servers that honor it, e.g. WordPress). Slug/excerpt publish as
+    /// <c>wp_slug</c>/<c>mt_excerpt</c>; ping URLs (one per line) publish as the
+    /// <c>mt_tb_ping_urls</c> array on posts.
     /// </summary>
     public class PostPropertiesDialog : Window
     {
@@ -32,11 +44,18 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
         private readonly RadioButton _scheduleRadio;
         private readonly DatePicker _datePicker;
         private readonly TextBox _timeBox;
+        private readonly TextBox _slugBox;
+        private readonly TextBox _excerptBox;
+        private readonly TextBox _pingUrlsBox;
         private readonly Button _okButton;
 
         public PostPropertiesDialogResult Result { get; private set; }
 
-        public PostPropertiesDialog(DateTime? currentPublishDateUtc = null)
+        public PostPropertiesDialog(
+            DateTime? currentPublishDateUtc = null,
+            string slug = null,
+            string excerpt = null,
+            IEnumerable<string> pingUrls = null)
         {
             Title = "Post Properties";
             Width = 420;
@@ -59,17 +78,31 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
             _datePicker = new DatePicker { SelectedDate = local.Date };
             _timeBox = new TextBox { Text = local.ToString("HH:mm", CultureInfo.InvariantCulture), Width = 70 };
 
+            _slugBox = new TextBox { Name = "SlugBox", Text = slug ?? string.Empty };
+            _excerptBox = new TextBox
+            {
+                Name = "ExcerptBox",
+                Text = excerpt ?? string.Empty,
+                AcceptsReturn = true,
+                TextWrapping = global::Avalonia.Media.TextWrapping.Wrap,
+                Height = 60
+            };
+            _pingUrlsBox = new TextBox
+            {
+                Name = "PingUrlsBox",
+                Text = pingUrls == null ? string.Empty : string.Join("\n", pingUrls),
+                AcceptsReturn = true,
+                TextWrapping = global::Avalonia.Media.TextWrapping.Wrap,
+                Height = 60,
+                PlaceholderText = "One URL per line"
+            };
+
             _okButton = new Button { Content = "OK", IsDefault = true, MinWidth = 80 };
             var cancelButton = new Button { Content = "Cancel", IsCancel = true, MinWidth = 80 };
 
             _okButton.Click += (s, e) =>
             {
-                Result = new PostPropertiesDialogResult
-                {
-                    PublishDateUtc = _scheduleRadio.IsChecked == true
-                        ? CombineToUtc(_datePicker.SelectedDate, _timeBox.Text)
-                        : null
-                };
+                Result = BuildResult();
                 Close(Result);
             };
             cancelButton.Click += (s, e) => Close(null);
@@ -84,7 +117,7 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
             var grid = new Grid
             {
                 Margin = new global::Avalonia.Thickness(16),
-                RowDefinitions = new RowDefinitions("Auto,Auto,Auto,Auto,Auto"),
+                RowDefinitions = new RowDefinitions("Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"),
                 ColumnDefinitions = new ColumnDefinitions("Auto,Auto,*")
             };
 
@@ -118,6 +151,12 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
             Grid.SetColumn(timeHint, 2);
             grid.Children.Add(timeHint);
 
+            // Slug / excerpt / ping URLs (label above field, like the Windows form).
+            int row = 4;
+            AddFieldRow(grid, "Slug:", _slugBox, ref row);
+            AddFieldRow(grid, "Excerpt:", _excerptBox, ref row);
+            AddFieldRow(grid, "Ping/trackback URLs:", _pingUrlsBox, ref row);
+
             var buttonRow = new StackPanel
             {
                 Orientation = Orientation.Horizontal,
@@ -127,12 +166,49 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
             };
             buttonRow.Children.Add(cancelButton);
             buttonRow.Children.Add(_okButton);
-            Grid.SetRow(buttonRow, 4);
+            Grid.SetRow(buttonRow, row);
             Grid.SetColumnSpan(buttonRow, 3);
             grid.Children.Add(buttonRow);
 
             Content = grid;
             UpdateFieldState();
+        }
+
+        // Adds a label row + field row spanning all three columns and advances the row.
+        private static void AddFieldRow(Grid grid, string label, Control field, ref int row)
+        {
+            var labelBlock = new TextBlock
+            {
+                Text = label,
+                Margin = new global::Avalonia.Thickness(0, 10, 0, 2)
+            };
+            Grid.SetRow(labelBlock, row);
+            Grid.SetColumnSpan(labelBlock, 3);
+            grid.Children.Add(labelBlock);
+            row++;
+
+            Grid.SetRow(field, row);
+            Grid.SetColumnSpan(field, 3);
+            grid.Children.Add(field);
+            row++;
+        }
+
+        /// <summary>
+        /// Builds the dialog result from the current field values. Split out of the
+        /// OK handler so headless tests can verify the save-back mapping without
+        /// showing the window.
+        /// </summary>
+        internal PostPropertiesDialogResult BuildResult()
+        {
+            return new PostPropertiesDialogResult
+            {
+                PublishDateUtc = _scheduleRadio.IsChecked == true
+                    ? CombineToUtc(_datePicker.SelectedDate, _timeBox.Text)
+                    : null,
+                Slug = _slugBox.Text?.Trim() ?? string.Empty,
+                Excerpt = _excerptBox.Text?.Trim() ?? string.Empty,
+                PingUrls = PostDocument.SplitPingUrls(_pingUrlsBox.Text)
+            };
         }
 
         // The date/time fields and OK button track the schedule radio: fields are
@@ -186,9 +262,14 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
         /// Shows the dialog modally over <paramref name="owner"/> and returns the
         /// user's input, or null if cancelled.
         /// </summary>
-        public static async Task<PostPropertiesDialogResult> ShowAsync(Window owner, DateTime? currentPublishDateUtc = null)
+        public static async Task<PostPropertiesDialogResult> ShowAsync(
+            Window owner,
+            DateTime? currentPublishDateUtc = null,
+            string slug = null,
+            string excerpt = null,
+            IEnumerable<string> pingUrls = null)
         {
-            var dialog = new PostPropertiesDialog(currentPublishDateUtc);
+            var dialog = new PostPropertiesDialog(currentPublishDateUtc, slug, excerpt, pingUrls);
             if (owner != null)
                 return await dialog.ShowDialog<PostPropertiesDialogResult>(owner);
 

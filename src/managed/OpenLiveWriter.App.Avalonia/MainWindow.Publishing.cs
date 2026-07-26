@@ -337,7 +337,10 @@ namespace OpenLiveWriter.App.Avalonia
                 string postId = await EditorContentPublisher.PublishOrEditAsync(
                     client, account.BlogId, existingPostId, title, html, publish, categories, keywords,
                     isPage: _draftSession?.Current.IsPage == true,
-                    publishDateUtc: _draftSession?.Current.PublishDateUtc);
+                    publishDateUtc: _draftSession?.Current.PublishDateUtc,
+                    slug: _draftSession?.Current.Slug,
+                    excerpt: _draftSession?.Current.Excerpt,
+                    pingUrls: _draftSession?.Current.PingUrls);
 
                 if (_draftSession != null)
                 {

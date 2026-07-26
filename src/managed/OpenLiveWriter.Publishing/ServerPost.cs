@@ -55,6 +55,15 @@ namespace OpenLiveWriter.Publishing
         /// <summary>Comma-separated keywords/tags (<c>mt_keywords</c>).</summary>
         public string Keywords { get; set; } = string.Empty;
 
+        /// <summary>URL slug (<c>wp_slug</c>), when the server reports one.</summary>
+        public string Slug { get; set; } = string.Empty;
+
+        /// <summary>Post excerpt (<c>mt_excerpt</c>), when the server reports one.</summary>
+        public string Excerpt { get; set; } = string.Empty;
+
+        /// <summary>Trackback/ping URLs (<c>mt_tb_ping_urls</c>), when present.</summary>
+        public IReadOnlyList<string> PingUrls { get; set; } = Array.Empty<string>();
+
         /// <summary>True when the struct carried a body (so opening needs no getPost call).</summary>
         public bool HasBody =>
             !string.IsNullOrEmpty(Description) || !string.IsNullOrEmpty(TextMore);
