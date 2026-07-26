@@ -240,10 +240,62 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
             Content = stack;
         }
 
+        protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
+        {
+            base.OnPropertyChanged(change);
+            if (change.Property == IsEnabledProperty)
+                UpdateDisabledVisual();
+        }
+
+        // Disabled buttons dim their icon (the Fluent button template's disabled
+        // opacity does not reach into our custom content panel).
+        private void UpdateDisabledVisual()
+        {
+            if (_iconVisual != null)
+                _iconVisual.Opacity = IsEnabled ? 1.0 : 0.35;
+        }
+
+        // The PathIcon shown for this command, when one is mapped. Kept so the
+        // disabled state can dim it.
+        private PathIcon _iconVisual;
+
         /// <summary>
-        /// Readable glyph (styled letter or unicode) instead of a flat gray square.
+        /// Fluent icon for mapped commands; otherwise a readable glyph (styled
+        /// letter or unicode) instead of a flat gray square.
         /// </summary>
         private Control CreateGlyphVisual(bool large)
+        {
+            if (CommandIconProvider.HasIcon(_commandId))
+                return CreateIconVisual(large);
+            return CreateTextGlyphVisual(large);
+        }
+
+        private Control CreateIconVisual(bool large)
+        {
+            var icon = new PathIcon
+            {
+                Data = CommandIconProvider.GetIcon(_commandId),
+                Width = large ? 22 : 16,
+                Height = large ? 22 : 16,
+                Foreground = new SolidColorBrush(Color.FromRgb(0x2B, 0x2B, 0x2B)),
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center
+            };
+            _iconVisual = icon;
+            UpdateDisabledVisual();
+
+            // Fixed slot so icon buttons keep the same rhythm as glyph buttons.
+            return new Border
+            {
+                Width = large ? 32 : 22,
+                Height = large ? 32 : 22,
+                Background = Brushes.Transparent,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                Child = icon
+            };
+        }
+
+        private Control CreateTextGlyphVisual(bool large)
         {
             var (glyph, fontWeight, fontStyle, decorations) = GetGlyphStyle();
             bool multiChar = glyph != null && glyph.Length > 1;
