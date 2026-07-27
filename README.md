@@ -6,6 +6,13 @@ For more information see http://www.OpenLiveWriter.com/.
 You can install the latest version of Open Live Writer alongside an [older version of Windows Live Writer](http://windows.microsoft.com/en-us/windows-live/essentials). Visit
 http://www.OpenLiveWriter.com to download and install the latest release.
 
+### macOS (alpha)
+Open Live Writer is coming to macOS! An early alpha build (Apple Silicon) is available from the
+[Releases page](https://github.com/OpenLiveWriter/OpenLiveWriter/releases/tag/v0.1.1). It's a preview:
+the core editor, publishing, drafts, and account management work, but it is unsigned (right-click → Open
+the first time) and not yet feature-complete. Feedback welcome via
+[GitHub issues](https://github.com/OpenLiveWriter/OpenLiveWriter/issues).
+
 ### Latest News
 The current version of Open Live Writer is our first open source version.
 For a [list of known issues see GitHub](https://github.com/OpenLiveWriter/OpenLiveWriter/issues) or take a
