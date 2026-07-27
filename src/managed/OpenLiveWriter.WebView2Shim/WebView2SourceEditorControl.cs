@@ -216,7 +216,7 @@ namespace OpenLiveWriter.WebView2Shim
         /// <summary>
         /// Simple HTML formatter - adds line breaks after block elements for readability
         /// </summary>
-        private static string FormatHtmlForDisplay(string html)
+        internal static string FormatHtmlForDisplay(string html)
         {
             if (string.IsNullOrEmpty(html)) return html;
             

@@ -103,6 +103,14 @@ namespace OpenLiveWriter.WebView2Shim
         /// Fired when the editor has finished loading and is ready for editing.
         /// </summary>
         public event EventHandler ReadyForEditing;
+
+        /// <summary>
+        /// The error that prevented WebView2 initialization, or null when
+        /// initialization succeeded or is still in progress. Surfaced for
+        /// diagnostics and tests; initialization errors are otherwise only
+        /// written to the debug log.
+        /// </summary>
+        internal Exception InitializationError { get; private set; }
         
         protected override void Dispose(bool disposing)
         {
@@ -319,6 +327,7 @@ namespace OpenLiveWriter.WebView2Shim
             }
             catch (Exception ex)
             {
+                InitializationError = ex;
                 System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] WebView2HtmlEditorControl init error: {ex.Message}");
             }
         }
