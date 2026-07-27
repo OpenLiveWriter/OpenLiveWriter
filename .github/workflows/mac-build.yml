@@ -60,6 +60,13 @@ jobs:
           OLW_CREATE_DMG: '1'
           OLW_BUILD_NUMBER: ${{ github.run_number }}
 
+      - name: Zip app bundle for upload
+        # .app is a directory; zip preserves the executable bit + symlinks
+        # through artifact upload/download better than a raw folder upload.
+        run: |
+          cd artifacts/mac-arm64
+          ditto -c -k --keepParent "Open Live Writer.app" "Open Live Writer.zip"
+
       - name: Compute release version
         id: ver
         run: echo "version=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
@@ -75,13 +82,6 @@ jobs:
             --prerelease \
             "artifacts/mac-arm64/Open Live Writer.zip" \
             "artifacts/mac-arm64/Open Live Writer.dmg"
-
-      - name: Zip app bundle for upload
-        # .app is a directory; zip preserves the executable bit + symlinks
-        # through artifact upload/download better than a raw folder upload.
-        run: |
-          cd artifacts/mac-arm64
-          ditto -c -k --keepParent "Open Live Writer.app" "Open Live Writer.zip"
 
       - name: Upload macOS artifacts
         uses: actions/upload-artifact@v4
