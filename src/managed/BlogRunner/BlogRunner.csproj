@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <TargetFramework>net10.0-windows</TargetFramework>
     <AssemblyName>BlogRunner</AssemblyName>
     <RootNamespace>BlogRunner</RootNamespace>
     <ProjectGuid>{BA726BEA-9A29-4E53-95DF-E478D86D0926}</ProjectGuid>

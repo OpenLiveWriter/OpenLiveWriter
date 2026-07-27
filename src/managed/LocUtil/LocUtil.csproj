@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <TargetFramework>net10.0-windows</TargetFramework>
     <AssemblyName>locutil</AssemblyName>
     <RootNamespace>LocUtil</RootNamespace>
     <ProjectGuid>{E256F137-5DE7-45AA-B51C-62616728401E}</ProjectGuid>
