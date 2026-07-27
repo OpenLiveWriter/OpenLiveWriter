@@ -87,11 +87,11 @@ public class HeadlessTestRunner
             const int testWidth = 1200;
             const int testHeight = 800;
 
-            // Wait for apps to fully settle (Squirrel updates, window restoration, etc.)
+            // Wait for apps to fully settle (Velopack updates, window restoration, etc.)
             await Task.Delay(2000);
 
             // Refresh process info to get the latest window handles
-            // (OLW may spawn new windows during startup, e.g., Squirrel update)
+            // (OLW may spawn new windows during startup, e.g., Velopack update)
             launcher.InstalledProcess?.Refresh();
             launcher.DevProcess?.Refresh();
 

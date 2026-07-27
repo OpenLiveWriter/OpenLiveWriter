@@ -30,7 +30,8 @@ jobs:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
       - name: Install Velopack CLI
-        run: dotnet tool install -g vpk
+        # vpk version must match the Velopack NuGet package (Directory.Packages.props)
+        run: dotnet tool install -g vpk --version 0.0.1251
 
       - name: Install SignClient
         run: nuget install SignClient -Version 0.9.0 -SolutionDir ${{ github.workspace }} -Verbosity quiet -ExcludeVersion

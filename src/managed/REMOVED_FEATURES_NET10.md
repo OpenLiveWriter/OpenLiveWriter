@@ -6,10 +6,15 @@ This document lists features, files, and functionality that were removed or disa
 
 ## Disabled Features
 
+_(None currently outstanding.)_
+
+---
+
+## Restored Features
+
 ### Auto-Update System
-**Status:** Disabled  
-**Reason:** Squirrel.Windows doesn't support .NET 10  
-**Recommendation:** Migrate to [Velopack](https://github.com/velopack/velopack)
+**Status:** Restored via [Velopack](https://github.com/velopack/velopack)  
+**History:** Squirrel.Windows doesn't support .NET 10, so auto-update was disabled during the migration. Velopack (its modern successor for .NET 6+) now provides the install/update lifecycle: `VelopackApp.Build().Run()` handles install/update/uninstall hooks in `ApplicationMain`, and `PostEditor/Updates/UpdateManager.cs` checks for updates with `Velopack.UpdateManager` + `SimpleWebSource`. Installers are produced with the `vpk` CLI (see `PostBuild.CreateInstaller/createinstaller.cmd`).
 
 ---
 

@@ -26,7 +26,7 @@ namespace OpenLiveWriter.CoreServices
         public static string TaskbarApplicationId = "Open Live Writer - {3DDDAFC5-5C01-4BCF-B81A-A4976A0999E9}";
 
         private const string DefaultProductName = "Open Live Writer";
-        private const string AppDataFolderName = "OpenLiveWriter";              // Squirrel installs the app to the folder that matches nuspec's ID.
+        private const string AppDataFolderName = "OpenLiveWriter";              // Velopack installs the app to the folder that matches the packId.
         private const string DefaultSettingsRootKeyName = @"Software\\OpenLiveWriter";
 
         public static void Initialize()

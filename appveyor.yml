@@ -29,7 +29,7 @@ install:
       Start-Process -FilePath dotnet-sdk.exe -ArgumentList "/install", "/quiet", "/norestart" -Wait
       $env:PATH = "C:\Program Files\dotnet;$env:PATH"
       dotnet --version
-  - cmd: dotnet tool install -g vpk
+  - cmd: dotnet tool install -g vpk --version 0.0.1251
   - cmd: nuget install SignClient -Version 0.9.0 -SolutionDir %APPVEYOR_BUILD_FOLDER% -Verbosity quiet -ExcludeVersion
 build_script:
   - cmd: rmdir C:\Tools\vcpkg /q /s 

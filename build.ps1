@@ -57,13 +57,15 @@ if (-Not ($sdks -match "10\.")) {
 =======================================================
 "@
 
-# Install vpk global tool if not already installed
-$vpkInstalled = & dotnet tool list -g 2>&1 | Select-String "vpk"
+# Install vpk global tool if not already installed.
+# The vpk CLI version must match the Velopack NuGet package (see src/managed/Directory.Packages.props).
+$vpkVersion = "0.0.1251"
+$vpkInstalled = & dotnet tool list -g 2>&1 | Select-String "vpk\s+$vpkVersion"
 if (-Not $vpkInstalled) {
-    "Installing vpk (Velopack CLI) as a global .NET tool..."
-    & dotnet tool install -g vpk
+    "Installing vpk (Velopack CLI) $vpkVersion as a global .NET tool..."
+    & dotnet tool install -g vpk --version $vpkVersion
 } else {
-    "vpk (Velopack CLI) is already installed."
+    "vpk (Velopack CLI) $vpkVersion is already installed."
 }
 
 @"
