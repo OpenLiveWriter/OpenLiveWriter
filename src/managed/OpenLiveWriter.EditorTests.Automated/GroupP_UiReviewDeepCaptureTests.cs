@@ -125,6 +125,50 @@ namespace OpenLiveWriter.EditorTests.Automated
                 Assert.That(new FileInfo(f).Length, Is.GreaterThan(5000), $"{f} looks blank");
         }
 
+        /// <summary>
+        /// Captures the Source view (AvaloniaEdit: Menlo, line numbers, HTML syntax
+        /// highlighting) with representative sample markup, including an elided
+        /// embedded-image token.
+        /// </summary>
+        [AvaloniaTest]
+        public void Capture_SourceView_WritesPng()
+        {
+            string outDir = UiReviewHarness.ResolveOutputDirectory();
+            var window = UiReviewHarness.CreateLaidOutWindow(1280, 800);
+            try
+            {
+                var panel = window.FindControl<EditorPanel>("EditorPanel");
+                var sourceEditor = panel.FindControl<global::AvaloniaEdit.TextEditor>("SourceEditor");
+                Assert.That(sourceEditor, Is.Not.Null, "SourceEditor (AvaloniaEdit) must exist");
+
+                sourceEditor.Text =
+                    "<h2>Source view</h2>\n" +
+                    "<p>Body text with a <a href=\"https://example.com/\" title=\"link\">hyperlink</a> and\n" +
+                    "an embedded image:</p>\n" +
+                    "<img src=\"data-olw-img:0\" alt=\"sample photo\" width=\"640\" />\n" +
+                    "<blockquote>Quoted block</blockquote>\n" +
+                    "<!-- a comment -->\n" +
+                    "<ul><li>one</li><li>two</li></ul>";
+
+                // Show the source surface without needing a live WebView round-trip.
+                panel.FindControl<ContentControl>("EditorHost").IsVisible = false;
+                sourceEditor.IsVisible = true;
+                UiReviewHarness.PumpLayout(window);
+                UiReviewHarness.PumpLayout(window);
+
+                string path = Path.Combine(outDir, $"main-source-{TabSizeTag}.png");
+                Assert.That(UiReviewHarness.SaveWindowScreenshot(window, path), Is.True);
+                Assert.That(new FileInfo(path).Length, Is.GreaterThan(5000), "source capture looks blank");
+                TestContext.WriteLine($"wrote {Path.GetFileName(path)} ({new FileInfo(path).Length} bytes)");
+            }
+            finally
+            {
+                window.Close();
+            }
+
+            UiReviewHarness.WriteIndex(outDir);
+        }
+
         [AvaloniaTest]
         public void Capture_Dialogs_AllShellDialogs_WritePngs()
         {

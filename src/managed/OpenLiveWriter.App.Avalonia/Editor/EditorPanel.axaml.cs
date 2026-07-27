@@ -33,8 +33,11 @@ namespace OpenLiveWriter.App.Avalonia.Editor
         {
             InitializeComponent();
             _commandBridge = new CommandBridge();
+
+            // Syntax highlighting for the Source view (HTML spans -> dark palette).
+            var sourceEditor = this.FindControl<global::AvaloniaEdit.TextEditor>("SourceEditor");
+            sourceEditor?.TextArea.TextView.LineTransformers.Add(new HtmlSyntaxColorizer());
             InitializeWebViewEditor();
-            SetupViewToggle();
             SetupFindBar();
             SetupKeyboardShortcuts();
             RegisterCommandBridgeHandlers();
@@ -56,21 +59,14 @@ namespace OpenLiveWriter.App.Avalonia.Editor
             }
         }
 
-        private void SetupViewToggle()
-        {
-            if (EditViewButton != null)
-                EditViewButton.Click += (s, e) => SwitchView("edit");
-            if (SourceViewButton != null)
-                SourceViewButton.Click += (s, e) => SwitchView("source");
-            if (PreviewViewButton != null)
-                PreviewViewButton.Click += (s, e) => SwitchView("preview");
-        }
-
         /// <summary>
         /// The current editor surface ("edit", "source", or "preview") — read-only view
         /// state for the shell (e.g. to re-compose the preview after a theme change).
         /// </summary>
         public string CurrentView => _currentView;
+
+        /// <summary>Raised after the editor surface changes (any switch path).</summary>
+        public event EventHandler ViewChanged;
 
         /// <summary>
         /// Optional provider (set by the shell) that returns the blog theme to layer into
@@ -91,20 +87,32 @@ namespace OpenLiveWriter.App.Avalonia.Editor
         {
             if (view != "edit" && view != "source" && view != "preview")
                 return;
-            SwitchView(view);
+            _ = SwitchView(view);
         }
 
-        private async void SwitchView(string view)
+        /// <summary>Awaitable form of <see cref="SetView"/> for callers that must
+        /// complete the swap before continuing (e.g. insert commands).</summary>
+        public Task SetViewAsync(string view)
         {
+            if (view != "edit" && view != "source" && view != "preview")
+                return Task.CompletedTask;
+            return SwitchView(view);
+        }
+
+        // Ensures editor-targeted commands (inserts, formatting) run against the
+        // visible editor: in Source/Preview view the WebView is hidden, so a command
+        // would silently apply to an invisible surface (Windows simply switches to
+        // the Edit view in this case too).
+        private Task EnsureEditViewAsync() =>
+            _currentView == "edit" ? Task.CompletedTask : SwitchView("edit");
+
+        private async Task SwitchView(string view)
+        {
+            var previousView = _currentView;
             _currentView = view;
 
-            // Update toggle states
-            if (EditViewButton != null) EditViewButton.IsChecked = (view == "edit");
-            if (SourceViewButton != null) SourceViewButton.IsChecked = (view == "source");
-            if (PreviewViewButton != null) PreviewViewButton.IsChecked = (view == "preview");
-
             var editorHost = this.FindControl<ContentControl>("EditorHost");
-            var sourceEditor = this.FindControl<TextBox>("SourceEditor");
+            var sourceEditor = this.FindControl<global::AvaloniaEdit.TextEditor>("SourceEditor");
             var previewHost = this.FindControl<ContentControl>("PreviewHost");
 
             if (editorHost != null) editorHost.IsVisible = (view == "edit");
@@ -113,22 +121,35 @@ namespace OpenLiveWriter.App.Avalonia.Editor
 
             if (view == "source")
             {
-                // Get HTML from WebView and show in source editor
+                // Get HTML from WebView and show in source editor. Long base64
+                // data-URIs (embedded images) are elided to short tokens — a
+                // multi-MB single line stalls text layout and the pane renders
+                // blank; tokens are re-expanded on the way back to Edit.
                 if (_webViewEditor != null)
                 {
                     var html = await _webViewEditor.GetContentAsync();
                     if (sourceEditor != null)
-                        sourceEditor.Text = FormatHtml(html ?? "");
+                    {
+                        string display = SourceViewSanitizer.ElideDataUris(html ?? "", _sourceDataUris);
+                        sourceEditor.Text = FormatHtml(display);
+                    }
                 }
                 StatusChanged?.Invoke(this, "Source view");
             }
             else if (view == "edit")
             {
-                // If coming from source view, push HTML back to WebView
-                var source = this.FindControl<TextBox>("SourceEditor");
-                if (source != null && !string.IsNullOrEmpty(source.Text) && _webViewEditor != null)
+                // Coming from Source view: push the (possibly hand-edited) HTML back
+                // into the WebView. ONLY from source — the SourceEditor holds a stale
+                // snapshot after any further editing, so pushing it on a Preview->Edit
+                // switch would wipe real content (including inserted images).
+                if (previousView == "source")
                 {
-                    await _webViewEditor.SetContentAsync(source.Text);
+                    var source = this.FindControl<global::AvaloniaEdit.TextEditor>("SourceEditor");
+                    if (source != null && !string.IsNullOrEmpty(source.Text) && _webViewEditor != null)
+                    {
+                        string restored = SourceViewSanitizer.RestoreDataUris(source.Text, _sourceDataUris);
+                        await _webViewEditor.SetContentAsync(restored);
+                    }
                 }
                 StatusChanged?.Invoke(this, "Edit view");
             }
@@ -137,10 +158,16 @@ namespace OpenLiveWriter.App.Avalonia.Editor
                 await PopulatePreviewAsync(previewHost);
                 StatusChanged?.Invoke(this, "Preview view");
             }
+
+            ViewChanged?.Invoke(this, EventArgs.Empty);
         }
 
         // Lazily created read-only WebView used to render the Preview surface.
         private NativeWebView _previewWebView;
+
+        // Full data-URI values elided from the Source view (token order), restored
+        // when the user pushes edited source back into the editor.
+        private readonly List<string> _sourceDataUris = new();
 
         /// <summary>
         /// Renders the current editor body into the Preview host as it would look
@@ -228,19 +255,31 @@ namespace OpenLiveWriter.App.Avalonia.Editor
                 string tempFile = Path.Combine(tempDir, "print-document.html");
                 await File.WriteAllTextAsync(tempFile, document);
 
-                var navigated = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
-                void OnNavigationCompleted(object sender, EventArgs e) => navigated.TrySetResult(true);
-                _previewWebView.NavigationCompleted += OnNavigationCompleted;
-                try
+                _previewWebView.Navigate(new Uri("file://" + tempFile));
+
+                // NavigationCompleted is unreliable in the macOS backend (the page
+                // reaches readyState 'complete' but the event may never fire), so
+                // poll the DOM: ready when OUR document is loaded, not about:blank.
+                for (int i = 0; i < 20; i++)
                 {
-                    _previewWebView.Navigate(new Uri("file://" + tempFile));
-                    Task completed = await Task.WhenAny(navigated.Task, Task.Delay(5000));
-                    return completed == navigated.Task ? _previewWebView : null;
+                    await Task.Delay(250);
+                    try
+                    {
+                        string probe = await _previewWebView.InvokeScript(
+                            "document.readyState + '|' + location.href");
+                        if (probe != null &&
+                            probe.StartsWith("complete|") &&
+                            probe.Contains("print-document.html"))
+                        {
+                            return _previewWebView;
+                        }
+                    }
+                    catch
+                    {
+                        // navigation still in flight — keep polling
+                    }
                 }
-                finally
-                {
-                    _previewWebView.NavigationCompleted -= OnNavigationCompleted;
-                }
+                return null;
             }
             catch (Exception ex)
             {
@@ -453,6 +492,7 @@ namespace OpenLiveWriter.App.Avalonia.Editor
         private async Task ShowInsertLinkDialogAsync()
         {
             if (_webViewEditor == null) return;
+            await EnsureEditViewAsync();
 
             var owner = TopLevel.GetTopLevel(this) as Window;
             var result = await LinkDialog.ShowAsync(owner);
@@ -473,11 +513,13 @@ namespace OpenLiveWriter.App.Avalonia.Editor
 
         /// <summary>
         /// Opens a file picker (via the Avalonia storage provider) to choose an
-        /// image and inserts it into the editor as an inline data-URI <c>&lt;img&gt;</c>.
+        /// image and inserts it into the editor; the file is copied into the current
+        /// document's media folder and referenced by a <c>file://</c> src.
         /// </summary>
         private async Task ShowInsertImageDialogAsync()
         {
             if (_webViewEditor == null) return;
+            await EnsureEditViewAsync();
 
             var topLevel = TopLevel.GetTopLevel(this);
             if (topLevel?.StorageProvider == null)
@@ -519,6 +561,7 @@ namespace OpenLiveWriter.App.Avalonia.Editor
         private async Task ExecuteFormatCommandAsync(string format)
         {
             if (_webViewEditor == null) return;
+            await EnsureEditViewAsync();
 
             switch (format)
             {

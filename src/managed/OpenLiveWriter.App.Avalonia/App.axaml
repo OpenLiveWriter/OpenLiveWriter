@@ -5,6 +5,8 @@
              RequestedThemeVariant="Light">
     <Application.Styles>
         <FluentTheme />
+        <!-- AvaloniaEdit (Source view code editor) theme -->
+        <StyleInclude Source="avares://AvaloniaEdit/Themes/Fluent/AvaloniaEdit.xaml" />
         <!-- Shared macOS-style control styling (see AppStyles.axaml; also loaded
              by the headless test app so UiReview captures match production). -->
         <StyleInclude Source="avares://OpenLiveWriter.App.Avalonia/AppStyles.axaml" />

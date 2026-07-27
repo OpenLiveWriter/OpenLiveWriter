@@ -68,7 +68,9 @@
     <PackageVersion Include="Avalonia.Fonts.Inter" Version="12.0.1" />
 
     <!-- Avalonia WebView - native browser embedding (WKWebView on macOS, WebView2 on Windows) -->
-    <PackageVersion Include="Avalonia.Controls.WebView" Version="12.0.0" />
+    <PackageVersion Include="Avalonia.Controls.WebView" Version="12.0.1" />
+    <!-- AvaloniaEdit - code editor control for the Source view (syntax highlighting) -->
+    <PackageVersion Include="Avalonia.AvaloniaEdit" Version="12.0.0" />
 
     <!-- Avalonia headless test platform for driving controls without a display -->
     <PackageVersion Include="Avalonia.Headless.NUnit" Version="12.0.1" />

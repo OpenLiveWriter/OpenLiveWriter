@@ -41,6 +41,10 @@ namespace OpenLiveWriter.EditorTests.Automated.Infrastructure
             Styles.Add(new FluentTheme());
             Styles.Add(new global::Avalonia.Markup.Xaml.Styling.StyleInclude((System.Uri)null)
             {
+                Source = new System.Uri("avares://AvaloniaEdit/Themes/Fluent/AvaloniaEdit.xaml")
+            });
+            Styles.Add(new global::Avalonia.Markup.Xaml.Styling.StyleInclude((System.Uri)null)
+            {
                 Source = new System.Uri("avares://OpenLiveWriter.App.Avalonia/AppStyles.axaml")
             });
         }

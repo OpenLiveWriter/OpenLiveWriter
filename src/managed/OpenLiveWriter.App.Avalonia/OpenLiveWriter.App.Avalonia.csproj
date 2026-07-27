@@ -27,6 +27,7 @@
     <PackageReference Include="Avalonia.Fonts.Inter" />
     <PackageReference Include="System.Drawing.Common" />
     <PackageReference Include="Avalonia.Controls.WebView" />
+    <PackageReference Include="Avalonia.AvaloniaEdit" />
     <PackageReference Include="WeCantSpell.Hunspell" />
     <PackageReference Include="SkiaSharp" />
   </ItemGroup>

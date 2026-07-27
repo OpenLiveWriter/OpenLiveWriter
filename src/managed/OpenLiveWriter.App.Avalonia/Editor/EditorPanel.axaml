@@ -1,5 +1,6 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:avaloniaEdit="clr-namespace:AvaloniaEdit;assembly=AvaloniaEdit"
              x:Class="OpenLiveWriter.App.Avalonia.Editor.EditorPanel"
              HorizontalAlignment="Stretch"
              VerticalAlignment="Stretch">
@@ -108,19 +109,19 @@
                             HorizontalContentAlignment="Stretch"
                             VerticalContentAlignment="Stretch" />
 
-            <!-- Source HTML view -->
-            <TextBox x:Name="SourceEditor"
+            <!-- Source HTML view: developer font, line numbers, syntax highlighting -->
+            <avaloniaEdit:TextEditor x:Name="SourceEditor"
                      IsVisible="False"
-                     AcceptsReturn="True"
-                     AcceptsTab="True"
-                     TextWrapping="Wrap"
+                     ShowLineNumbers="True"
+                     WordWrap="False"
                      FontSize="13"
-                     FontFamily="Menlo, Monaco, Consolas, monospace"
-                     Padding="12"
+                     FontFamily="Menlo, Monaco, 'Courier New', monospace"
+                     Padding="8"
                      BorderThickness="0"
                      Background="#1E1E1E"
                      Foreground="#D4D4D4"
-                     VerticalContentAlignment="Top"
+                     HorizontalScrollBarVisibility="Auto"
+                     VerticalScrollBarVisibility="Auto"
                      HorizontalAlignment="Stretch"
                      VerticalAlignment="Stretch" />
 
