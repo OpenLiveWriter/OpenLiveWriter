@@ -9,8 +9,11 @@ on:
   pull_request:
     branches:
       - master
-      - milestone4/**
+      - develop/**
   workflow_dispatch:
+
+permissions:
+  contents: read
 
 env:
   OLW_CONFIG: Release
@@ -18,8 +21,10 @@ env:
 
 jobs:
   mac-build:
-    name: Build and test (macOS)
-    runs-on: macos-latest
+    name: Test, bundle, and package (macOS arm64)
+    # Pin to an Apple Silicon runner for the osx-arm64 target (macos-latest
+    # floats; keep the build deterministic).
+    runs-on: macos-14
 
     steps:
       - name: Checkout repository
@@ -30,21 +35,77 @@ jobs:
         with:
           dotnet-version: '10.0.x'
 
-      - name: Restore dependencies
-        run: dotnet restore src/managed/OpenLiveWriter.App.Avalonia/OpenLiveWriter.App.Avalonia.csproj
+      - name: Cache NuGet packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.nuget/packages
+          key: nuget-${{ runner.os }}-${{ hashFiles('src/managed/Directory.Packages.props') }}
+          restore-keys: |
+            nuget-${{ runner.os }}-
 
       - name: Headless test suite
-        run: dotnet test src/managed/OpenLiveWriter.EditorTests.Automated --no-restore
+        # 800+ NUnit tests (Avalonia.Headless, AngleSharp, publishing logic).
+        # Gates the bundle: no artifacts ship from a red suite.
+        run: dotnet test src/managed/OpenLiveWriter.EditorTests.Automated --nologo -v minimal
 
-      - name: Publish macOS app bundle
+      - name: Publish macOS app bundle (+ DMG)
         run: bash build-mac.sh
+        env:
+          OLW_CREATE_DMG: '1'
 
-      # TODO(M5): Import signing certificate and run codesign on the .app bundle.
-      # TODO(M5): Submit to Apple notarization via xcrun notarytool and staple the ticket.
+      - name: Zip app bundle for upload
+        # .app is a directory; zip preserves the executable bit + symlinks
+        # through artifact upload/download better than a raw folder upload.
+        run: |
+          cd artifacts/mac-arm64
+          ditto -c -k --keepParent "Open Live Writer.app" "Open Live Writer.zip"
 
-      - name: Upload macOS artifact
+      - name: Upload macOS artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: OpenLiveWriter-macOS-${{ github.run_number }}
-          path: artifacts/mac-arm64/Open Live Writer.app
+          name: OpenLiveWriter-macOS-arm64-${{ github.run_number }}
+          path: |
+            artifacts/mac-arm64/Open Live Writer.zip
+            artifacts/mac-arm64/Open Live Writer.dmg
           if-no-files-found: error
+          retention-days: 30
+
+      # --- Optional signing / notarization -------------------------------=
+      # These run only when the repo secrets are configured. Set:
+      #   OLW_CODESIGN_IDENTITY  - "Developer ID Application: Name (TEAMID)"
+      #   OLW_NOTARY_PROFILE     - notarytool keychain profile name
+      #   OLW_P12_BASE64 / OLW_P12_PASSWORD - signing certificate
+      #   OLW_KEYCHAIN_PASSWORD  - password for the temporary CI keychain
+      - name: Import signing certificate (if configured)
+        if: env.OLW_P12_BASE64 != ''
+        env:
+          OLW_P12_BASE64: ${{ secrets.OLW_P12_BASE64 }}
+          OLW_P12_PASSWORD: ${{ secrets.OLW_P12_PASSWORD }}
+          OLW_KEYCHAIN_PASSWORD: ${{ secrets.OLW_KEYCHAIN_PASSWORD }}
+        run: |
+          echo "$OLW_P12_BASE64" | base64 --decode > signing.p12
+          security create-keychain -p "$OLW_KEYCHAIN_PASSWORD" build.keychain
+          security default-keychain -s build.keychain
+          security unlock-keychain -p "$OLW_KEYCHAIN_PASSWORD" build.keychain
+          security import signing.p12 -k build.keychain -P "$OLW_P12_PASSWORD" -T /usr/bin/codesign
+          security set-key-partition-list -S apple-tool:,apple: -s -k "$OLW_KEYCHAIN_PASSWORD" build.keychain
+          rm signing.p12
+
+      - name: Sign app bundle (if configured)
+        if: env.OLW_CODESIGN_IDENTITY != ''
+        env:
+          OLW_CODESIGN_IDENTITY: ${{ secrets.OLW_CODESIGN_IDENTITY }}
+        run: |
+          codesign --deep --force --options runtime --sign "$OLW_CODESIGN_IDENTITY" \
+            "artifacts/mac-arm64/Open Live Writer.app"
+          ditto -c -k --keepParent "artifacts/mac-arm64/Open Live Writer.app" \
+            "artifacts/mac-arm64/Open Live Writer.zip"
+
+      - name: Notarize and staple (if configured)
+        if: env.OLW_NOTARY_PROFILE != ''
+        env:
+          OLW_NOTARY_PROFILE: ${{ secrets.OLW_NOTARY_PROFILE }}
+        run: |
+          xcrun notarytool submit "artifacts/mac-arm64/Open Live Writer.zip" \
+            --keychain-profile "$OLW_NOTARY_PROFILE" --wait
+          xcrun stapler staple "artifacts/mac-arm64/Open Live Writer.app"
