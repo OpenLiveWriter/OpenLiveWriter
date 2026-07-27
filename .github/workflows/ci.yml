@@ -40,10 +40,12 @@ jobs:
 
       - name: Generate Markets.xml
         # CoreServices embeds Marketization/Markets.xml (gitignored, generated
-        # from intl/markets by MarketXmlGenerator). Generate it before build.
+        # from intl/markets by MarketXmlGenerator) and Marketization/Master.xml
+        # (gitignored, copied from intl/markets). Produce both before build.
         run: |
           dotnet build src/managed/MarketXmlGenerator/MarketXmlGenerator.csproj -c Release --nologo -v minimal
           dotnet run --project src/managed/MarketXmlGenerator/MarketXmlGenerator.csproj -c Release --no-build -- intl/markets src/managed/OpenLiveWriter.CoreServices/Marketization/Markets.xml
+          Copy-Item intl/markets/Master.xml src/managed/OpenLiveWriter.CoreServices/Marketization/Master.xml
 
       - name: Restore NuGet packages
         run: dotnet restore ${{ env.SOLUTION_PATH }}
@@ -91,10 +93,12 @@ jobs:
 
       - name: Generate Markets.xml
         # CoreServices embeds Marketization/Markets.xml (gitignored, generated
-        # from intl/markets by MarketXmlGenerator). Generate it before build.
+        # from intl/markets by MarketXmlGenerator) and Marketization/Master.xml
+        # (gitignored, copied from intl/markets). Produce both before build.
         run: |
           dotnet build src/managed/MarketXmlGenerator/MarketXmlGenerator.csproj -c Release --nologo -v minimal
           dotnet run --project src/managed/MarketXmlGenerator/MarketXmlGenerator.csproj -c Release --no-build -- intl/markets src/managed/OpenLiveWriter.CoreServices/Marketization/Markets.xml
+          Copy-Item intl/markets/Master.xml src/managed/OpenLiveWriter.CoreServices/Marketization/Master.xml
 
       - name: Restore NuGet packages
         run: dotnet restore ${{ env.SOLUTION_PATH }}
