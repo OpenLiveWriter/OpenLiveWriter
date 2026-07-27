@@ -30,8 +30,13 @@ jobs:
 
       - name: Generate version info
         # GlobalAssemblyVersionInfo.cs is generated, not committed — the build
-        # fails without it on a fresh checkout.
-        run: ./getversion.cmd
+        # fails without it on a fresh checkout. getversion.cmd is a dead
+        # truncated stub, so generate the file directly from version.txt.
+        run: |
+          $v = (Get-Content version.txt -Raw).Trim()
+          Set-Content src/managed/GlobalAssemblyVersionInfo.cs `
+            "[assembly: System.Reflection.AssemblyVersion(`"$v`")]", `
+            "[assembly: System.Reflection.AssemblyFileVersion(`"$v`")]"
 
       - name: Restore NuGet packages
         run: dotnet restore ${{ env.SOLUTION_PATH }}
@@ -69,8 +74,13 @@ jobs:
 
       - name: Generate version info
         # GlobalAssemblyVersionInfo.cs is generated, not committed — the build
-        # fails without it on a fresh checkout.
-        run: ./getversion.cmd
+        # fails without it on a fresh checkout. getversion.cmd is a dead
+        # truncated stub, so generate the file directly from version.txt.
+        run: |
+          $v = (Get-Content version.txt -Raw).Trim()
+          Set-Content src/managed/GlobalAssemblyVersionInfo.cs `
+            "[assembly: System.Reflection.AssemblyVersion(`"$v`")]", `
+            "[assembly: System.Reflection.AssemblyFileVersion(`"$v`")]"
 
       - name: Restore NuGet packages
         run: dotnet restore ${{ env.SOLUTION_PATH }}
