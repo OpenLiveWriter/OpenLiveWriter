@@ -38,6 +38,13 @@ jobs:
             "[assembly: System.Reflection.AssemblyVersion(`"$v`")]", `
             "[assembly: System.Reflection.AssemblyFileVersion(`"$v`")]"
 
+      - name: Generate Markets.xml
+        # CoreServices embeds Marketization/Markets.xml (gitignored, generated
+        # from intl/markets by MarketXmlGenerator). Generate it before build.
+        run: |
+          dotnet build src/managed/MarketXmlGenerator/MarketXmlGenerator.csproj -c Release --nologo -v minimal
+          dotnet run --project src/managed/MarketXmlGenerator/MarketXmlGenerator.csproj --no-build -- intl/markets src/managed/OpenLiveWriter.CoreServices/Marketization/Markets.xml
+
       - name: Restore NuGet packages
         run: dotnet restore ${{ env.SOLUTION_PATH }}
 
@@ -81,6 +88,13 @@ jobs:
           Set-Content src/managed/GlobalAssemblyVersionInfo.cs `
             "[assembly: System.Reflection.AssemblyVersion(`"$v`")]", `
             "[assembly: System.Reflection.AssemblyFileVersion(`"$v`")]"
+
+      - name: Generate Markets.xml
+        # CoreServices embeds Marketization/Markets.xml (gitignored, generated
+        # from intl/markets by MarketXmlGenerator). Generate it before build.
+        run: |
+          dotnet build src/managed/MarketXmlGenerator/MarketXmlGenerator.csproj -c Release --nologo -v minimal
+          dotnet run --project src/managed/MarketXmlGenerator/MarketXmlGenerator.csproj --no-build -- intl/markets src/managed/OpenLiveWriter.CoreServices/Marketization/Markets.xml
 
       - name: Restore NuGet packages
         run: dotnet restore ${{ env.SOLUTION_PATH }}
