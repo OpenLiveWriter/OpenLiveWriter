@@ -62,6 +62,8 @@ namespace OpenLiveWriter.UnitTest.CoreServices
         /// Tests SendRequestAsync with GET method.
         /// </summary>
         [Test]
+        [Category("Network")]
+        [Explicit("Requires a live external service (httpbin.org), which can be unreachable or return 503")]
         public void TestSendRequestAsyncGet()
         {
             // This test requires network access to a known working URL
@@ -86,6 +88,8 @@ namespace OpenLiveWriter.UnitTest.CoreServices
         /// Tests SendRequestAsync with POST method and content.
         /// </summary>
         [Test]
+        [Category("Network")]
+        [Explicit("Requires a live external service (httpbin.org), which can be unreachable or return 503")]
         public void TestSendRequestAsyncPost()
         {
             try
@@ -136,6 +140,8 @@ namespace OpenLiveWriter.UnitTest.CoreServices
         /// Tests GetResponseStream with valid URL.
         /// </summary>
         [Test]
+        [Category("Network")]
+        [Explicit("Requires a live external service (httpbin.org), which can be unreachable or return 503")]
         public void TestGetResponseStreamValid()
         {
             try
@@ -160,6 +166,8 @@ namespace OpenLiveWriter.UnitTest.CoreServices
         /// Tests PostForm with valid data.
         /// </summary>
         [Test]
+        [Category("Network")]
+        [Explicit("Requires a live external service (httpbin.org), which can be unreachable or return 503")]
         public void TestPostFormValid()
         {
             try
@@ -184,6 +192,8 @@ namespace OpenLiveWriter.UnitTest.CoreServices
         /// Tests PostFormStream returns stream and URI.
         /// </summary>
         [Test]
+        [Category("Network")]
+        [Explicit("Requires a live external service (httpbin.org), which can be unreachable or return 503")]
         public void TestPostFormStreamValid()
         {
             try

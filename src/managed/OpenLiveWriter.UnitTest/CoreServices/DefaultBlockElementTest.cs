@@ -1,4 +1,4 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
+// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using NUnit.Framework;
@@ -42,6 +42,8 @@ line 7";
             string html = TextHelper.GetHTMLFromText(plainText, false, paragraphDefaultBlockElement);
 
             // Note: .NET 10 uses &nbsp; for empty block elements to prevent collapse
+            // GetHTMLFromText emits Environment.NewLine between block elements;
+            // normalize both sides so the test is platform/checkout independent.
             Assert.AreEqual(
 @"<p>line 1<br />
 line 2</p>
@@ -55,7 +57,7 @@ line 4</p>
 line 6</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
-<p>line 7</p>", html);
+<p>line 7</p>".Replace("\r\n", "\n"), html.Replace("\r\n", "\n"));
         }
 
         [Test]
@@ -90,6 +92,8 @@ line 7";
             string html = TextHelper.GetHTMLFromText(plainText, false, divDefaultBlockElement);
 
             // Note: .NET 10 uses &nbsp; for empty block elements to prevent collapse
+            // GetHTMLFromText emits Environment.NewLine between block elements;
+            // normalize both sides so the test is platform/checkout independent.
             Assert.AreEqual(
 @"<div>line 1</div>
 <div>line 2</div>
@@ -112,7 +116,7 @@ line 7";
 <div>&nbsp;</div>
 <div>&nbsp;</div>
 <div>&nbsp;</div>
-<div>line 7</div>", html);
+<div>line 7</div>".Replace("\r\n", "\n"), html.Replace("\r\n", "\n"));
         }
     }
 }
