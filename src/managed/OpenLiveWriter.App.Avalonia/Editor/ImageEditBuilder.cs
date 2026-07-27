@@ -121,6 +121,25 @@ namespace OpenLiveWriter.App.Avalonia.Editor
         }
 
         /// <summary>
+        /// Maps the Picture properties dialog's size fields (blank = natural) to
+        /// an <see cref="ImageAttributes"/> size payload. Both blank resets to
+        /// natural size (<see cref="ImageAttributes.ClearSize"/>); exactly one
+        /// blank dimension is computed from the natural aspect ratio when the
+        /// natural dims are known, otherwise left unchanged.
+        /// </summary>
+        public static ImageAttributes BuildSizeAttributes(
+            int? width, int? height, int naturalWidth, int naturalHeight)
+        {
+            if (!width.HasValue && !height.HasValue)
+                return new ImageAttributes { ClearSize = true };
+            if (width.HasValue && !height.HasValue)
+                height = HeightForWidth(naturalWidth, naturalHeight, width.Value);
+            else if (height.HasValue && !width.HasValue)
+                width = WidthForHeight(naturalWidth, naturalHeight, height.Value);
+            return new ImageAttributes { Width = width, Height = height };
+        }
+
+        /// <summary>
         /// Normalizes a free-text alignment token to inline/left/right/center;
         /// anything else maps to inline.
         /// </summary>

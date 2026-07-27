@@ -261,6 +261,132 @@ namespace OpenLiveWriter.EditorTests.Automated
             });
         }
 
+        // ---- Picture properties dialog size mapping ----
+
+        [Test]
+        public void BuildSizeAttributes_BothBlank_ResetsToNatural()
+        {
+            ImageAttributes attrs = ImageEditBuilder.BuildSizeAttributes(null, null, 1600, 900);
+            Assert.Multiple(() =>
+            {
+                Assert.That(attrs.ClearSize, Is.True);
+                Assert.That(attrs.Width, Is.Null);
+                Assert.That(attrs.Height, Is.Null);
+            });
+        }
+
+        [Test]
+        public void BuildSizeAttributes_OneBlank_ComputesFromNaturalAspect()
+        {
+            ImageAttributes byWidth = ImageEditBuilder.BuildSizeAttributes(320, null, 1600, 900);
+            Assert.Multiple(() =>
+            {
+                Assert.That(byWidth.Width, Is.EqualTo(320));
+                Assert.That(byWidth.Height, Is.EqualTo(180));
+            });
+
+            ImageAttributes byHeight = ImageEditBuilder.BuildSizeAttributes(null, 180, 1600, 900);
+            Assert.Multiple(() =>
+            {
+                Assert.That(byHeight.Width, Is.EqualTo(320));
+                Assert.That(byHeight.Height, Is.EqualTo(180));
+            });
+        }
+
+        [Test]
+        public void BuildSizeAttributes_OneBlank_UnknownNatural_LeavesOtherUnset()
+        {
+            ImageAttributes attrs = ImageEditBuilder.BuildSizeAttributes(320, null, 0, 0);
+            Assert.Multiple(() =>
+            {
+                Assert.That(attrs.Width, Is.EqualTo(320));
+                Assert.That(attrs.Height, Is.Null, "no natural dims — browser scales proportionally");
+                Assert.That(attrs.ClearSize, Is.False);
+            });
+        }
+
+        [Test]
+        public void BuildSizeAttributes_BothSet_PassesThrough()
+        {
+            ImageAttributes attrs = ImageEditBuilder.BuildSizeAttributes(400, 200, 1600, 900);
+            Assert.Multiple(() =>
+            {
+                Assert.That(attrs.Width, Is.EqualTo(400));
+                Assert.That(attrs.Height, Is.EqualTo(200));
+                Assert.That(attrs.ClearSize, Is.False);
+            });
+        }
+
+        [AvaloniaTest]
+        public void ImagePropertiesDialog_PrefillsSizeAndLocksAspect()
+        {
+            var dialog = new ImagePropertiesDialog(new ImageFormatState
+            {
+                NaturalWidth = 1600,
+                NaturalHeight = 900,
+                Width = 640,
+                Height = 360
+            });
+
+            var width = dialog.GetLogicalDescendants().OfType<NumericUpDown>()
+                .FirstOrDefault(n => n.Name == "ImageWidthSpinner");
+            var height = dialog.GetLogicalDescendants().OfType<NumericUpDown>()
+                .FirstOrDefault(n => n.Name == "ImageHeightSpinner");
+            var lockCheck = dialog.GetLogicalDescendants().OfType<CheckBox>()
+                .FirstOrDefault(c => c.Name == "ImageLockAspectCheck");
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(width, Is.Not.Null, "dialog renders a width field");
+                Assert.That(height, Is.Not.Null, "dialog renders a height field");
+                Assert.That(lockCheck, Is.Not.Null, "dialog renders the aspect-lock checkbox");
+            });
+            Assert.Multiple(() =>
+            {
+                Assert.That(width.Value, Is.EqualTo(640m), "width prefills the display width");
+                Assert.That(height.Value, Is.EqualTo(360m), "height prefills the display height");
+                Assert.That(lockCheck.IsChecked, Is.True, "aspect lock defaults on");
+            });
+
+            // Editing one dimension recomputes the other from the natural dims.
+            width.Value = 320m;
+            Assert.That(height.Value, Is.EqualTo(180m));
+            height.Value = 90m;
+            Assert.That(width.Value, Is.EqualTo(160m));
+
+            // Blanking a dimension blanks the other (both blank = natural size).
+            width.Value = null;
+            Assert.That(height.Value, Is.Null);
+
+            // With the lock off, editing one dimension leaves the other alone.
+            width.Value = 320m;
+            height.Value = 180m;
+            lockCheck.IsChecked = false;
+            width.Value = 500m;
+            Assert.That(height.Value, Is.EqualTo(180m));
+        }
+
+        [AvaloniaTest]
+        public void ImagePropertiesDialog_UnknownDisplaySize_PrefillsBlank()
+        {
+            var dialog = new ImagePropertiesDialog(new ImageFormatState
+            {
+                NaturalWidth = 1600,
+                NaturalHeight = 900
+            });
+
+            var width = dialog.GetLogicalDescendants().OfType<NumericUpDown>()
+                .FirstOrDefault(n => n.Name == "ImageWidthSpinner");
+            var height = dialog.GetLogicalDescendants().OfType<NumericUpDown>()
+                .FirstOrDefault(n => n.Name == "ImageHeightSpinner");
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(width.Value, Is.Null, "no display width prefills blank (natural)");
+                Assert.That(height.Value, Is.Null);
+            });
+        }
+
         // ---- Rotate/effects route through the shell (pixel baking), not the editor ----
 
         [AvaloniaTest]
@@ -487,6 +613,68 @@ namespace OpenLiveWriter.EditorTests.Automated
             json = await harness.Editor.WebView.InvokeScript("OLWBridge.getSelectedImage()");
             using (var doc = JsonDocument.Parse(json))
                 Assert.That(doc.RootElement.GetProperty("link").GetString(), Is.EqualTo(""));
+        }
+
+        [Test]
+        public async Task ResizeHandles_AppearOnSelection_StayOutOfContent_AndDragResizes()
+        {
+            await using var harness = await EditorTestHarness.CreateAsync();
+            await harness.SetContentAsync($"<p>x</p><img src=\"{TinyPng}\" /><p>y</p>");
+
+            // No handles while no image is selected.
+            string hidden = await harness.Editor.WebView.InvokeScript(
+                "(function(){var l=document.querySelector('[data-olw-ui=resize-handles]');" +
+                "return l ? l.style.display : 'absent';})()");
+            Assert.That(hidden, Does.Not.Contain("block"));
+
+            // Selecting the image as a unit shows the 4 corner handles.
+            await harness.Editor.WebView.InvokeScript(SelectFirstImageScript);
+            string shown = await harness.Editor.WebView.InvokeScript(
+                "(function(){var l=document.querySelector('[data-olw-ui=resize-handles]');" +
+                "return l ? l.style.display + '|' + l.childNodes.length + '|' + (l.parentElement === document.documentElement) : 'absent';})()");
+            Assert.Multiple(() =>
+            {
+                Assert.That(shown, Does.Contain("block"));
+                Assert.That(shown, Does.Contain("|4|"), "one handle per corner");
+                Assert.That(shown, Does.Contain("true"), "the layer lives outside <body>");
+            });
+
+            // The handles never leak into the document payload.
+            string content = await harness.GetContentAsync();
+            Assert.That(content, Does.Not.Contain("data-olw-ui"));
+
+            // Corner-drag: 40x20 display size, drag se corner to 80px wide —
+            // aspect (2:1) is preserved and width/height persist as attributes
+            // plus matching inline styles.
+            await harness.Editor.ApplyImageAttrsAsync(new ImageAttributes { Width = 40, Height = 20 });
+            string dragged = await harness.Editor.WebView.InvokeScript(
+                "(function(){" +
+                "var img=document.querySelector('img');" +
+                "var rect=img.getBoundingClientRect();" +
+                "var h=document.querySelector('[data-olw-corner=se]');" +
+                "function ev(t,x,y){return new PointerEvent(t,{clientX:x,clientY:y,bubbles:true,pointerId:1});}" +
+                "h.dispatchEvent(ev('pointerdown',rect.right,rect.bottom));" +
+                "h.dispatchEvent(ev('pointermove',rect.left+80,rect.top+40));" +
+                "h.dispatchEvent(ev('pointerup',rect.left+80,rect.top+40));" +
+                "return img.getAttribute('width')+'x'+img.getAttribute('height')+'|'+" +
+                "img.style.width+'|'+img.style.height;})()");
+            Assert.Multiple(() =>
+            {
+                Assert.That(dragged, Does.Contain("80x40"), "aspect ratio preserved from display dims");
+                Assert.That(dragged, Does.Contain("80px"));
+                Assert.That(dragged, Does.Contain("40px"));
+            });
+
+            // Deselecting hides the handles again.
+            await harness.Editor.WebView.InvokeScript(
+                "(function(){var s=window.getSelection();s.removeAllRanges();" +
+                "var r=document.createRange();var p=document.querySelector('p');" +
+                "r.setStart(p.firstChild,0);r.collapse(true);s.addRange(r);" +
+                "OLWBridge.updateResizeHandles();return true;})()");
+            string after = await harness.Editor.WebView.InvokeScript(
+                "(function(){var l=document.querySelector('[data-olw-ui=resize-handles]');" +
+                "return l ? l.style.display : 'absent';})()");
+            Assert.That(after, Does.Contain("none"));
         }
     }
 }

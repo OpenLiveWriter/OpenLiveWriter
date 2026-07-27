@@ -192,6 +192,8 @@ namespace OpenLiveWriter.App.Avalonia
                 {
                     editorPanel.WebViewEditor.FormatStateChanged += OnFormatStateChanged;
                     editorPanel.WebViewEditor.ContentChanged += OnEditorContentChanged;
+                    editorPanel.WebViewEditor.ImageContextMenuRequested += (sender, e) =>
+                        _ = ShowImagePropertiesAsync();
                 }
             }
         }

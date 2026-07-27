@@ -211,7 +211,8 @@ namespace OpenLiveWriter.EditorTests.Automated
                     Alignment = "left",
                     MarginPx = 8,
                     BorderWidthPx = 1,
-                    BorderColor = "#999999"
+                    BorderColor = "#999999",
+                    LinkHref = "https://openlivewriter.org"
                 })),
                 ("dialog-link.png", () => new LinkDialog("Open Live Writer")),
                 ("dialog-map.png", () => new MapDialog()),

@@ -260,6 +260,7 @@ const OLWBridge = {
 
     // Replace the editor body content with new HTML
     setContent: function(html) {
+        this.hideResizeHandles();
         document.body.innerHTML = html;
     },
 
@@ -380,6 +381,18 @@ const OLWBridge = {
         return null;
     },
 
+    // Selects an image as a unit (single-node selection, like Windows Live
+    // Writer's picture selection) and reports the new state.
+    selectImageUnit: function(img) {
+        var range = document.createRange();
+        range.selectNode(img);
+        var sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+        this.saveSelection();
+        this.reportState();
+    },
+
     // Parses an integer pixel value from a CSS length ("12px" -> 12), else null.
     _px: function(value) {
         var m = /^(\d+(?:\.\d+)?)px$/.exec(value || '');
@@ -496,6 +509,7 @@ const OLWBridge = {
         this.saveSelection();
         this.reportState();
         postContentChanged();
+        this.layoutResizeHandles();
         return true;
     },
 
@@ -563,7 +577,124 @@ const OLWBridge = {
         this.saveSelection();
         this.reportState();
         postContentChanged();
+        this.layoutResizeHandles();
         return true;
+    },
+
+    // ---- Corner-drag resize handles ----
+    //
+    // The handle layer lives OUTSIDE <body> (appended to <html>) so it overlays
+    // the editable content without ever appearing in getContent()'s
+    // body.innerHTML, and without being editable/selectable content itself.
+
+    _resizeImage: null,
+    _handleLayer: null,
+
+    // Shows the handles when an image is selected as a unit, hides them
+    // otherwise. Called from the selectionchange listener.
+    updateResizeHandles: function() {
+        var img = this._selectedImage();
+        if (img) this.showResizeHandles(img);
+        else this.hideResizeHandles();
+    },
+
+    showResizeHandles: function(img) {
+        this._resizeImage = img;
+        var layer = this._ensureHandleLayer();
+        layer.style.display = 'block';
+        this.layoutResizeHandles();
+    },
+
+    hideResizeHandles: function() {
+        this._resizeImage = null;
+        if (this._handleLayer) this._handleLayer.style.display = 'none';
+    },
+
+    // Repositions the handles on the selected image's corners. Called on
+    // selectionchange, scroll (capture), window resize, and after image ops.
+    layoutResizeHandles: function() {
+        var img = this._resizeImage;
+        if (!img || !this._handleLayer || this._handleLayer.style.display === 'none') return;
+        if (!img.isConnected) { this.hideResizeHandles(); return; }
+        var r = img.getBoundingClientRect();
+        // 9px handles centered on the corners (nw, ne, sw, se order).
+        var xs = [r.left - 4, r.right - 4, r.left - 4, r.right - 4];
+        var ys = [r.top - 4, r.top - 4, r.bottom - 4, r.bottom - 4];
+        var kids = this._handleLayer.childNodes;
+        for (var i = 0; i < kids.length; i++) {
+            kids[i].style.left = xs[i] + 'px';
+            kids[i].style.top = ys[i] + 'px';
+        }
+    },
+
+    _ensureHandleLayer: function() {
+        if (this._handleLayer) return this._handleLayer;
+        var layer = document.createElement('div');
+        layer.setAttribute('data-olw-ui', 'resize-handles');
+        layer.setAttribute('contenteditable', 'false');
+        layer.style.cssText = 'position:fixed;left:0;top:0;width:0;height:0;' +
+            'z-index:2147483647;pointer-events:none;display:none;margin:0;padding:0;';
+        var corners = ['nw', 'ne', 'sw', 'se'];
+        for (var i = 0; i < corners.length; i++) {
+            var handle = document.createElement('div');
+            handle.setAttribute('data-olw-corner', corners[i]);
+            handle.style.cssText = 'position:absolute;width:9px;height:9px;background:#fff;' +
+                'border:1px solid #0066cc;box-sizing:border-box;pointer-events:auto;' +
+                'cursor:' + ((corners[i] === 'nw' || corners[i] === 'se') ? 'nwse-resize' : 'nesw-resize') + ';';
+            (function(h, corner) {
+                h.addEventListener('pointerdown', function(e) { OLWBridge.beginResize(e, corner); });
+            })(handle, corners[i]);
+            layer.appendChild(handle);
+        }
+        document.documentElement.appendChild(layer);
+        this._handleLayer = layer;
+        return layer;
+    },
+
+    // Corner-drag resize: live-previews via inline style, preserving the aspect
+    // ratio of the current display size; on drag end persists width/height
+    // attributes plus matching inline styles (the stylesheet's img{height:auto}
+    // would otherwise override the height attribute) and reports the change.
+    beginResize: function(e, corner) {
+        var img = this._resizeImage;
+        if (!img) return;
+        e.preventDefault();
+        e.stopPropagation();
+        var rect = img.getBoundingClientRect();
+        var startW = rect.width, startH = rect.height;
+        if (!(startW > 0) || !(startH > 0)) return;
+        var ratio = startW / startH;
+        // The corner opposite the dragged one stays anchored.
+        var anchorX = (corner === 'nw' || corner === 'sw') ? rect.right : rect.left;
+        var handle = e.target;
+        var lastW = Math.round(startW), lastH = Math.round(startH);
+        try { handle.setPointerCapture(e.pointerId); } catch (ex) { /* synthetic events */ }
+
+        var onMove = function(ev) {
+            var w = Math.max(8, Math.round(Math.abs(ev.clientX - anchorX)));
+            var h = Math.max(8, Math.round(w / ratio));
+            lastW = w;
+            lastH = h;
+            img.style.width = w + 'px';
+            img.style.height = h + 'px';
+            OLWBridge.layoutResizeHandles();
+        };
+        var onUp = function() {
+            handle.removeEventListener('pointermove', onMove);
+            handle.removeEventListener('pointerup', onUp);
+            handle.removeEventListener('pointercancel', onUp);
+            img.setAttribute('width', lastW);
+            img.setAttribute('height', lastH);
+            img.style.width = lastW + 'px';
+            img.style.height = lastH + 'px';
+            OLWBridge.saveSelection();
+            OLWBridge.reportState();
+            postContentChanged();
+            OLWBridge.layoutResizeHandles();
+        };
+        handle.addEventListener('pointermove', onMove);
+        handle.addEventListener('pointerup', onUp);
+        handle.addEventListener('pointercancel', onUp);
     },
 
     // Find and highlight the next occurrence of query using the browser's
@@ -710,8 +841,13 @@ document.addEventListener('selectionchange', function() {
     if (document.activeElement === document.body) {
         OLWBridge.saveSelection();
     }
+    OLWBridge.updateResizeHandles();
     OLWBridge.reportState();
 });
+
+// Keep the resize handles glued to the selected image as the view moves.
+document.addEventListener('scroll', function() { OLWBridge.layoutResizeHandles(); }, true);
+window.addEventListener('resize', function() { OLWBridge.layoutResizeHandles(); });
 
 // Track content changes. The host only needs to know THAT content changed (it
 // pulls full HTML on demand via getContent), so post a lightweight debounced
@@ -740,13 +876,16 @@ document.addEventListener('DOMContentLoaded', function() {
     // caret away deselects it via the selectionchange listener above.
     document.body.addEventListener('click', function(e) {
         if (e.target && e.target.tagName === 'IMG') {
-            var range = document.createRange();
-            range.selectNode(e.target);
-            var sel = window.getSelection();
-            sel.removeAllRanges();
-            sel.addRange(range);
-            OLWBridge.saveSelection();
-            OLWBridge.reportState();
+            OLWBridge.selectImageUnit(e.target);
+        }
+    });
+    // Right-clicking an image selects it as a unit and asks the host to open
+    // the Picture properties dialog (Windows Live Writer parity).
+    document.body.addEventListener('contextmenu', function(e) {
+        if (e.target && e.target.tagName === 'IMG') {
+            e.preventDefault();
+            OLWBridge.selectImageUnit(e.target);
+            OLWBridge.postToHost(JSON.stringify({ type: 'imageContextMenu' }));
         }
     });
 });

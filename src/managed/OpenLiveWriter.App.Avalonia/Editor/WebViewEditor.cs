@@ -25,6 +25,12 @@ namespace OpenLiveWriter.App.Avalonia.Editor
         public event EventHandler<FormatState> FormatStateChanged;
 
         /// <summary>
+        /// Raised when an image is right-clicked in the editor (the image is
+        /// selected as a unit first); the shell opens the Picture properties dialog.
+        /// </summary>
+        public event EventHandler ImageContextMenuRequested;
+
+        /// <summary>
         /// Raised (debounced, ~400ms) when the editor body changes. Carries no
         /// content payload — pull the full HTML on demand via <see cref="GetContentAsync"/>.
         /// </summary>
@@ -174,9 +180,10 @@ namespace OpenLiveWriter.App.Avalonia.Editor
         }
 
         // Handles JSON messages posted from editor.html via the WebView bridge.
-        // Two message types are used: 'stateChanged' (formatting state as the caret
-        // moves) and 'contentChanged' (debounced edit signal — no HTML payload;
-        // pull content on demand via GetContentAsync).
+        // Three message types are used: 'stateChanged' (formatting state as the
+        // caret moves), 'contentChanged' (debounced edit signal — no HTML payload;
+        // pull content on demand via GetContentAsync), and 'imageContextMenu'
+        // (right-click on an image — open the Picture properties dialog).
         private void OnWebMessageReceived(object sender, WebMessageReceivedEventArgs e)
         {
             var body = e?.Body;
@@ -199,6 +206,10 @@ namespace OpenLiveWriter.App.Avalonia.Editor
                 else if (type == "contentChanged")
                 {
                     Dispatcher.UIThread.Post(() => ContentChanged?.Invoke(this, EventArgs.Empty));
+                }
+                else if (type == "imageContextMenu")
+                {
+                    Dispatcher.UIThread.Post(() => ImageContextMenuRequested?.Invoke(this, EventArgs.Empty));
                 }
             }
             catch (JsonException)

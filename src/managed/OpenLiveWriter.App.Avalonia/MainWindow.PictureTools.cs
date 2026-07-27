@@ -224,8 +224,10 @@ namespace OpenLiveWriter.App.Avalonia
             UpdateStatus(statusMessage);
         }
 
-        // The Picture properties dialog: alt text/title, Link To, alignment,
+        // The Picture properties dialog: alt text/title, Link To, size, alignment,
         // margin, border — prefilled from the selected image's current state.
+        // Opened from the ribbon (Alt text / Link To commands) and from the
+        // editor's image right-click (imageContextMenu host message).
         private async Task ShowImagePropertiesAsync()
         {
             var editor = GetEditor();
@@ -240,15 +242,15 @@ namespace OpenLiveWriter.App.Avalonia
             if (result == null)
                 return;
 
-            await editor.ApplyImageAttrsAsync(new ImageAttributes
-            {
-                Alt = result.AltText,
-                Title = result.Title,
-                Alignment = result.Alignment,
-                MarginPx = result.MarginPx,
-                BorderWidthPx = result.BorderWidthPx,
-                BorderColor = result.BorderColor
-            });
+            ImageAttributes attrs = ImageEditBuilder.BuildSizeAttributes(
+                result.WidthPx, result.HeightPx, img.NaturalWidth, img.NaturalHeight);
+            attrs.Alt = result.AltText;
+            attrs.Title = result.Title;
+            attrs.Alignment = result.Alignment;
+            attrs.MarginPx = result.MarginPx;
+            attrs.BorderWidthPx = result.BorderWidthPx;
+            attrs.BorderColor = result.BorderColor;
+            await editor.ApplyImageAttrsAsync(attrs);
 
             string linkUrl = ImagePropertiesDialog.ResolveLinkUrl(result, img);
             if (result.LinkChoice == ImageLinkChoice.None)
