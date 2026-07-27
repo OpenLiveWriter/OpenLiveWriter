@@ -6,6 +6,8 @@ on:
       - master
       - develop/**
       - milestone4/**
+    tags:
+      - 'v*'
   pull_request:
     branches:
       - master
@@ -13,7 +15,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write # create GitHub Releases on tags
 
 env:
   OLW_CONFIG: Release
@@ -49,9 +51,30 @@ jobs:
         run: dotnet test src/managed/OpenLiveWriter.EditorTests.Automated --nologo -v minimal
 
       - name: Publish macOS app bundle (+ DMG)
-        run: bash build-mac.sh
+        run: |
+          if [[ "$GITHUB_REF" == refs/tags/v* ]]; then
+            export OLW_VERSION="${GITHUB_REF_NAME#v}"
+          fi
+          bash build-mac.sh
         env:
           OLW_CREATE_DMG: '1'
+          OLW_BUILD_NUMBER: ${{ github.run_number }}
+
+      - name: Compute release version
+        id: ver
+        run: echo "version=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
+
+      - name: Create GitHub Release (tag builds)
+        if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "${{ github.ref_name }}" \
+            --title "Open Live Writer for macOS ${{ steps.ver.outputs.version }}" \
+            --generate-notes \
+            --prerelease \
+            "artifacts/mac-arm64/Open Live Writer.zip" \
+            "artifacts/mac-arm64/Open Live Writer.dmg"
 
       - name: Zip app bundle for upload
         # .app is a directory; zip preserves the executable bit + symlinks

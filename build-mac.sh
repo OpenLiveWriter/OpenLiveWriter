@@ -15,6 +15,12 @@ APP_NAME="Open Live Writer"
 BUNDLE_ID="org.openlivewriter.app"
 EXE_NAME="OpenLiveWriter.App.Avalonia"
 
+# Versioning: OLW_VERSION is the marketing version (CFBundleShortVersionString);
+# OLW_BUILD_NUMBER is the monotonic build id (CFBundleVersion). CI stamps both
+# from the tag / run number; local builds default sensibly.
+VERSION="${OLW_VERSION:-0.1.1}"
+BUILD_NUMBER="${OLW_BUILD_NUMBER:-$(git -C "$ROOT" rev-list --count HEAD 2>/dev/null || echo 1)}"
+
 echo "==> Building Open Live Writer for $RID ($CONFIG)"
 
 dotnet publish "$PROJECT" \
@@ -58,9 +64,9 @@ cat > "$CONTENTS/Info.plist" <<EOF
   <key>CFBundlePackageType</key>
   <string>APPL</string>
   <key>CFBundleShortVersionString</key>
-  <string>1.0</string>
+  <string>$VERSION</string>
   <key>CFBundleVersion</key>
-  <string>1</string>
+  <string>$BUILD_NUMBER</string>
   <key>LSMinimumSystemVersion</key>
   <string>12.0</string>
   <key>NSHighResolutionCapable</key>
