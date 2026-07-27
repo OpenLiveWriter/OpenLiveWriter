@@ -32,7 +32,7 @@ IF %ERRORLEVEL% NEQ 0 (
    GOTO end
 )
 
-MOVE .\Releases\OpenLiveWriter-Setup.exe .\Releases\OpenLiveWriterSetup.exe
+MOVE .\Releases\OpenLiveWriter-stable-Setup.exe .\Releases\OpenLiveWriterSetup.exe
 IF %ERRORLEVEL% NEQ 0 (
    echo Failed to rename OpenLiveWriter-Setup.exe. The file may not have been created by Velopack.
    GOTO end

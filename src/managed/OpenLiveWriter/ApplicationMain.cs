@@ -236,10 +236,14 @@ namespace OpenLiveWriter
 
         public static void SetAssociation(string extension, string keyName, string openWith, string fileDescription)
         {
-            var baseKey = Registry.ClassesRoot.CreateSubKey(extension);
+            // Register per-user under HKCU\Software\Classes (merged into the HKCR
+            // view automatically). Writing to Registry.ClassesRoot directly needs
+            // admin rights, which per-user (Velopack) installs do not have.
+            var classesRoot = Registry.CurrentUser.CreateSubKey(@"Software\Classes");
+            var baseKey = classesRoot.CreateSubKey(extension);
             baseKey?.SetValue("", keyName);
 
-            var openMethod = Registry.ClassesRoot.CreateSubKey(keyName);
+            var openMethod = classesRoot.CreateSubKey(keyName);
             openMethod?.SetValue("", fileDescription);
             openMethod?.CreateSubKey("DefaultIcon")?.SetValue("", "\"" + openWith + "\",0");
             var shell = openMethod?.CreateSubKey("Shell");
@@ -301,7 +305,7 @@ namespace OpenLiveWriter
 
                 if (string.Equals(progId, wpostProgId, StringComparison.OrdinalIgnoreCase))
                 {
-                    Registry.ClassesRoot.CreateSubKey(wpostProgId)
+                    Registry.CurrentUser.CreateSubKey(@"Software\Classes\" + wpostProgId)
                         ?.SetValue("AppUserModelID", ApplicationEnvironment.TaskbarApplicationId);
                 }
             }
