@@ -623,6 +623,24 @@ namespace OpenLiveWriter.WebView2Shim
             }
         }
         
+        /// <summary>
+        /// Navigates to a complete HTML document, replacing the current page.
+        /// Used for the read-only preview document, which lacks the editing
+        /// shell elements (#olw-title/#olw-body) that LoadHtmlFile patches in place.
+        /// </summary>
+        public void NavigateToHtmlDocument(string html)
+        {
+            if (_isInitialized && _webView?.CoreWebView2 != null)
+            {
+                _webView.CoreWebView2.NavigateToString(html);
+            }
+            else
+            {
+                // Stash until initialization completes; InitializeWebView navigates to it.
+                _pendingHtml = html;
+            }
+        }
+        
         private async void UpdateContentViaJavaScript(string html)
         {
             try
