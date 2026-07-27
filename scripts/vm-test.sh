@@ -62,7 +62,7 @@ esac
 [ "$VM_DIR" = "$GUEST_SRC" ] && die "refusing to mirror the source share onto itself: '$VM_DIR'"
 
 SOLUTION='src\managed\writer.sln'
-GUEST_EXE="${OLW_VM_EXE:-${VM_DIR}\\src\\managed\\bin\\${OLW_CONFIG}\\x64\\Writer\\OpenLiveWriter.exe}"
+GUEST_EXE="${OLW_VM_EXE:-${VM_DIR}\\src\\managed\\OpenLiveWriter\\bin\\${OLW_CONFIG}\\OpenLiveWriter.exe}"
 
 # Run a command in the guest. Output streams back to this terminal.
 vm_exec() {
@@ -111,7 +111,27 @@ do_test() {
 
 do_run() {
   echo "==> Launching $GUEST_EXE in the VM"
-  vm_exec "start \"\" \"$GUEST_EXE\""
+  # prlctl exec runs as SYSTEM in session 0: GUI windows are invisible there,
+  # and Open Live Writer exits immediately because the SYSTEM profile has no
+  # Personal (Documents) folder. Launch through Task Scheduler as the
+  # interactively logged-on user instead, so the window appears on the VM
+  # desktop. The task is unregistered right after starting; the app keeps
+  # running.
+  local ps_script b64
+  ps_script="
+\$ProgressPreference = 'SilentlyContinue'
+\$user = (Get-CimInstance Win32_ComputerSystem).UserName
+if (-not \$user) { throw 'No interactive user is logged on in the VM' }
+\$user = \$user.Split('\\')[-1]
+\$action = New-ScheduledTaskAction -Execute '$GUEST_EXE'
+\$principal = New-ScheduledTaskPrincipal -UserId \$user -LogonType Interactive
+Register-ScheduledTask -TaskName 'OLWRun' -Action \$action -Principal \$principal -Force | Out-Null
+Start-ScheduledTask -TaskName 'OLWRun'
+Unregister-ScheduledTask -TaskName 'OLWRun' -Confirm:\$false
+Write-Output \"Launched as \$user\"
+"
+  b64="$(printf '%s' "$ps_script" | iconv -f UTF-8 -t UTF-16LE | base64)"
+  prlctl exec "$OLW_VM_NAME" powershell -NoProfile -EncodedCommand "$b64"
 }
 
 case "${1:-all}" in

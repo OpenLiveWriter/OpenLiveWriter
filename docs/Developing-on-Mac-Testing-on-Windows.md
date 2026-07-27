@@ -75,7 +75,11 @@ Example: `OLW_CONFIG=Release ./scripts/vm-test.sh build`
 3. **test**: runs `dotnet test` on the headless test project
    (`OpenLiveWriter.UnitTest` by default) in the VM.
 4. **run**: starts the built exe, by default
-   `C:\olw-build\OpenLiveWriter\src\managed\bin\<Config>\x64\Writer\OpenLiveWriter.exe`.
+   `C:\olw-build\OpenLiveWriter\src\managed\OpenLiveWriter\bin\<Config>\OpenLiveWriter.exe`.
+   Because `prlctl exec` runs as SYSTEM in session 0 (where GUI windows are
+   invisible and Open Live Writer exits due to the SYSTEM profile having no
+   Personal folder), the harness launches the app through Task Scheduler as
+   the interactively logged-on user, so the window appears on the VM desktop.
 
 All guest output streams back to your Mac terminal, and guest exit codes
 propagate, so the harness is safe to use in scripts.
@@ -87,8 +91,9 @@ propagate, so the harness is safe to use in scripts.
   assert exact line endings, which can differ depending on checkout line
   endings. A small number of such failures is environmental, not a harness
   bug.
-- `run` starts the exe in the guest. If no interactive user is logged in at
-  the VM console, the window may not be visible.
+- `run` needs an interactive user logged in at the VM console; otherwise
+  there is no desktop session to show the window in and the launch fails
+  with a clear error.
 
 ## ARM64 Windows and x64 emulation
 
