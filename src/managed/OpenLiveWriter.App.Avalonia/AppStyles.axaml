@@ -1,0 +1,53 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- macOS-style push buttons, app-wide (shared by the real app and the
+         headless UiReview/test app so captures match production). The Fluent
+         defaults read as Windows buttons (sharp corners, grey slabs, cramped
+         text); these approximate native Cocoa push buttons: ~6px radius,
+         airy padding, hairline border, blue accent for the default action.
+         Inline per-button properties (MinWidth etc.) still win. -->
+    <Style Selector="Button">
+        <Setter Property="CornerRadius" Value="6" />
+        <Setter Property="MinHeight" Value="28" />
+        <Setter Property="Padding" Value="14,4" />
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="Background" Value="#FFFFFF" />
+        <Setter Property="Foreground" Value="#1D1D1F" />
+        <Setter Property="BorderBrush" Value="#33000000" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+    </Style>
+    <Style Selector="Button:pointerover">
+        <Setter Property="Background" Value="#F2F2F7" />
+    </Style>
+    <Style Selector="Button:pressed">
+        <Setter Property="Background" Value="#E5E5EA" />
+    </Style>
+    <Style Selector="Button:disabled">
+        <Setter Property="Background" Value="#F7F7F7" />
+        <Setter Property="Foreground" Value="#9C9CA1" />
+        <Setter Property="BorderBrush" Value="#1A000000" />
+    </Style>
+
+    <!-- Default action (OK / Insert / Save): macOS accent blue -->
+    <Style Selector="Button[IsDefault=True]">
+        <Setter Property="Background" Value="#0A84FF" />
+        <Setter Property="Foreground" Value="#FFFFFF" />
+        <Setter Property="BorderBrush" Value="#0066D6" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+    </Style>
+    <Style Selector="Button[IsDefault=True]:pointerover">
+        <Setter Property="Background" Value="#339CFF" />
+        <Setter Property="Foreground" Value="#FFFFFF" />
+    </Style>
+    <Style Selector="Button[IsDefault=True]:pressed">
+        <Setter Property="Background" Value="#0066D6" />
+        <Setter Property="Foreground" Value="#FFFFFF" />
+    </Style>
+    <Style Selector="Button[IsDefault=True]:disabled">
+        <Setter Property="Background" Value="#A9D1FF" />
+        <Setter Property="Foreground" Value="#EAF3FF" />
+        <Setter Property="BorderBrush" Value="#A9D1FF" />
+    </Style>
+</Styles>

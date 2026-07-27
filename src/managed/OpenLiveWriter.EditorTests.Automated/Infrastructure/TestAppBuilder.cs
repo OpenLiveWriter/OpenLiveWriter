@@ -31,12 +31,18 @@ namespace OpenLiveWriter.EditorTests.Automated.Infrastructure
     /// <summary>
     /// Minimal Avalonia application with the Fluent theme so standard controls
     /// (TextBox, Button, CheckBox) initialize their templates during tests.
+    /// Also loads the production AppStyles.axaml (macOS-style buttons) so
+    /// UiReview captures match the real app.
     /// </summary>
     public sealed class TestApp : Application
     {
         public override void Initialize()
         {
             Styles.Add(new FluentTheme());
+            Styles.Add(new global::Avalonia.Markup.Xaml.Styling.StyleInclude((System.Uri)null)
+            {
+                Source = new System.Uri("avares://OpenLiveWriter.App.Avalonia/AppStyles.axaml")
+            });
         }
     }
 }
