@@ -497,7 +497,7 @@ namespace OpenLiveWriter
                     Trace.WriteLine("Migrating user settings...");
 
                     string legacyKeyName = @"Software\Open Live Writer";
-                    SettingsPersisterHelper legacySettings = new SettingsPersisterHelper(new OpenLiveWriter.Platform.Windows.RegistrySettingsPersister(Registry.CurrentUser, legacyKeyName));
+                    SettingsPersisterHelper legacySettings = new SettingsPersisterHelper(new OpenLiveWriter.CoreServices.Settings.RegistrySettingsPersister(Registry.CurrentUser, legacyKeyName));
                     ApplicationEnvironment.UserSettingsRoot.CopyFrom(legacySettings, true, false); // Don't overwrite existing settings
 
                     Registry.CurrentUser.DeleteSubKeyTree(legacyKeyName);
