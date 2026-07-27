@@ -110,28 +110,18 @@ do_test() {
 }
 
 do_run() {
-  echo "==> Launching $GUEST_EXE in the VM"
-  # prlctl exec runs as SYSTEM in session 0: GUI windows are invisible there,
-  # and Open Live Writer exits immediately because the SYSTEM profile has no
-  # Personal (Documents) folder. Launch through Task Scheduler as the
-  # interactively logged-on user instead, so the window appears on the VM
-  # desktop. The task is unregistered right after starting; the app keeps
-  # running.
-  local ps_script b64
-  ps_script="
-\$ProgressPreference = 'SilentlyContinue'
-\$user = (Get-CimInstance Win32_ComputerSystem).UserName
-if (-not \$user) { throw 'No interactive user is logged on in the VM' }
-\$user = \$user.Split('\\')[-1]
-\$action = New-ScheduledTaskAction -Execute '$GUEST_EXE'
-\$principal = New-ScheduledTaskPrincipal -UserId \$user -LogonType Interactive
-Register-ScheduledTask -TaskName 'OLWRun' -Action \$action -Principal \$principal -Force | Out-Null
-Start-ScheduledTask -TaskName 'OLWRun'
-Unregister-ScheduledTask -TaskName 'OLWRun' -Confirm:\$false
-Write-Output \"Launched as \$user\"
-"
-  b64="$(printf '%s' "$ps_script" | iconv -f UTF-8 -t UTF-16LE | base64)"
-  prlctl exec "$OLW_VM_NAME" powershell -NoProfile -EncodedCommand "$b64"
+  echo "==> Launching $GUEST_EXE in the VM (as the logged-on user)"
+  # prlctl exec runs as SYSTEM in session 0 by default: GUI windows are
+  # invisible there, and Open Live Writer exits because the SYSTEM profile
+  # has no Personal (Documents) folder. --current-user authenticates as the
+  # logged-on console user via Parallels Tools, so the window appears on
+  # the VM desktop. prlctl stays attached while the GUI app runs, so give
+  # it a few seconds to spawn and then drop the channel.
+  prlctl exec "$OLW_VM_NAME" --current-user cmd /c "start \"\" \"$GUEST_EXE\"" &
+  local prl_pid=$!
+  sleep 10
+  kill "$prl_pid" 2>/dev/null || true
+  echo "==> Launched (check the VM window)"
 }
 
 case "${1:-all}" in

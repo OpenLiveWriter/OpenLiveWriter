@@ -76,10 +76,14 @@ Example: `OLW_CONFIG=Release ./scripts/vm-test.sh build`
    (`OpenLiveWriter.UnitTest` by default) in the VM.
 4. **run**: starts the built exe, by default
    `C:\olw-build\OpenLiveWriter\src\managed\OpenLiveWriter\bin\<Config>\OpenLiveWriter.exe`.
-   Because `prlctl exec` runs as SYSTEM in session 0 (where GUI windows are
-   invisible and Open Live Writer exits due to the SYSTEM profile having no
-   Personal folder), the harness launches the app through Task Scheduler as
-   the interactively logged-on user, so the window appears on the VM desktop.
+   Because `prlctl exec` runs as SYSTEM in session 0 by default (where GUI
+   windows are invisible and Open Live Writer exits due to the SYSTEM
+   profile having no Personal folder), the harness launches the app with
+   `prlctl exec --current-user`, which authenticates as the logged-on
+   console user via Parallels Tools, so the window appears on the VM
+   desktop. This needs the VM account to match your Mac user credentials;
+   if it does not, launch the exe manually in the VM or use
+   `prlctl exec --user <name> --password <pwd>`.
 
 All guest output streams back to your Mac terminal, and guest exit codes
 propagate, so the harness is safe to use in scripts.
@@ -91,9 +95,9 @@ propagate, so the harness is safe to use in scripts.
   assert exact line endings, which can differ depending on checkout line
   endings. A small number of such failures is environmental, not a harness
   bug.
-- `run` needs an interactive user logged in at the VM console; otherwise
-  there is no desktop session to show the window in and the launch fails
-  with a clear error.
+- `run` needs a user logged in at the VM console and Parallels Tools able
+  to authenticate as that user with your Mac credentials; otherwise there
+  is no desktop session to show the window in and the launch fails.
 
 ## ARM64 Windows and x64 emulation
 
