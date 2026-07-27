@@ -1,6 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
     <AssemblyName>OpenLiveWriter.Extensibility</AssemblyName>
     <RootNamespace>OpenLiveWriter.Extensibility</RootNamespace>
     <ProjectGuid>{A803C16E-6619-4017-883C-EA73EB947F34}</ProjectGuid>

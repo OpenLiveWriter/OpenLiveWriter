@@ -1,6 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
     <AssemblyName>BlogRunnerGui</AssemblyName>
     <RootNamespace>BlogRunnerGui</RootNamespace>
     <ProjectGuid>{2CDA86AA-4264-4175-8A6C-E6AB436255C8}</ProjectGuid>

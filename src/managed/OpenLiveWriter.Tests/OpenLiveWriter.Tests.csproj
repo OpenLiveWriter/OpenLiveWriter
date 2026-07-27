@@ -1,6 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
     <AssemblyName>OpenLiveWriter.Tests</AssemblyName>
     <RootNamespace>OpenLiveWriter.Tests</RootNamespace>
     <ProjectGuid>{B3E5F002-AFD0-427A-BCBB-B1E4FB6FC92E}</ProjectGuid>

@@ -45,6 +45,9 @@ jobs:
           restore-keys: |
             nuget-${{ runner.os }}-
 
+      - name: Build (macOS solution filter)
+        run: dotnet build src/managed/writer.macOS.slnf --nologo -v minimal
+
       - name: Headless test suite
         # 800+ NUnit tests (Avalonia.Headless, AngleSharp, publishing logic).
         # Gates the bundle: no artifacts ship from a red suite.

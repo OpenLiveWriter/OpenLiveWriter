@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
 
 env:
-  SOLUTION_PATH: src/managed/writer.sln
+  SOLUTION_PATH: src/managed/writer.Windows.slnf
   OLW_CONFIG: Release
 
 jobs:

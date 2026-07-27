@@ -1,0 +1,17 @@
+{
+  "solution": {
+    "path": "writer.sln",
+    "projects": [
+      "OpenLiveWriter.App.Avalonia/OpenLiveWriter.App.Avalonia.csproj",
+      "OpenLiveWriter.Ribbon.Avalonia/OpenLiveWriter.Ribbon.Avalonia.csproj",
+      "OpenLiveWriter.Platform/OpenLiveWriter.Platform.csproj",
+      "OpenLiveWriter.Platform.Mac/OpenLiveWriter.Platform.Mac.csproj",
+      "OpenLiveWriter.Platform.Tests/OpenLiveWriter.Platform.Tests.csproj",
+      "OpenLiveWriter.Publishing/OpenLiveWriter.Publishing.csproj",
+      "OpenLiveWriter.Localization/OpenLiveWriter.Localization.csproj",
+      "OpenLiveWriter.HtmlParser/OpenLiveWriter.HtmlParser.csproj",
+      "OpenLiveWriter.CoreServices/OpenLiveWriter.CoreServices.csproj",
+      "OpenLiveWriter.EditorTests.Automated/OpenLiveWriter.EditorTests.Automated.csproj"
+    ]
+  }
+}

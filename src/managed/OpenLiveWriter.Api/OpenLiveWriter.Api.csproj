@@ -1,6 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
     <AssemblyName>OpenLiveWriter.Api</AssemblyName>
     <RootNamespace>OpenLiveWriter.Api</RootNamespace>
     <ProjectGuid>{B6D10B42-F173-4086-BB81-96B724BA5594}</ProjectGuid>

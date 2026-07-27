@@ -6,10 +6,12 @@
 
   <PropertyGroup>
     <!-- Default to Windows target; core/platform projects override in their own .csproj -->
-    <TargetFramework Condition="'$(TargetFramework)' == ''">net10.0-windows</TargetFramework>
+    <!-- Portable-by-default: projects opt into net10.0-windows explicitly -->
+    <TargetFramework Condition="'$(TargetFramework)' == ''">net10.0</TargetFramework>
 
     <!-- Enable Windows Forms by default; core projects set false -->
-    <UseWindowsForms Condition="'$(UseWindowsForms)' == ''">true</UseWindowsForms>
+    <!-- WinForms opt-in per project (most legacy projects; see their csproj) -->
+    <UseWindowsForms Condition="'$(UseWindowsForms)' == ''">false</UseWindowsForms>
 
     <!-- Allow building Windows-targeted projects on non-Windows platforms (e.g. macOS CI) -->
     <EnableWindowsTargeting>true</EnableWindowsTargeting>
