@@ -45,6 +45,13 @@ jobs:
           restore-keys: |
             nuget-${{ runner.os }}-
 
+      - name: Generate version info
+        # GlobalAssemblyVersionInfo.cs is generated, not committed (needed by
+        # MarketXmlGenerator, pulled in transitively via CoreServices).
+        run: |
+          v=$(tr -d '[:space:]' < version.txt)
+          printf '[assembly: System.Reflection.AssemblyVersion("%s")]\n[assembly: System.Reflection.AssemblyFileVersion("%s")]\n' "$v" "$v" > src/managed/GlobalAssemblyVersionInfo.cs
+
       - name: Build (macOS solution filter)
         run: dotnet build src/managed/writer.macOS.slnf --nologo -v minimal
 
