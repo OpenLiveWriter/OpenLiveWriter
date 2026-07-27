@@ -1689,6 +1689,7 @@ namespace OpenLiveWriter.PostEditor
                             _editorContainer.Controls.Add(_webView2HtmlContentEditor.EditorControl);
                         }
                         contentEditor = _webView2HtmlContentEditor;
+                        _webView2HtmlContentEditor.PreviewMode = CurrentEditingMode == EditingMode.Preview;
                         Debug.WriteLine("[OLW-DEBUG] Using WebView2 editor");
                     }
                     else

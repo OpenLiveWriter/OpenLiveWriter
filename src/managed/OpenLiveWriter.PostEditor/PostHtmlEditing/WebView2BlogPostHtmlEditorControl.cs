@@ -3,6 +3,7 @@
 
 using System;
 using System.Drawing;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using OpenLiveWriter.Api;
 using OpenLiveWriter.ApplicationFramework;
@@ -23,6 +24,14 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         private string _baseUrl;
         private string _title;
         private bool _fullyEditableRegionActive;
+        private bool _previewDocumentLoaded;
+
+        /// <summary>
+        /// When true, LoadHtmlFragment renders the post inside the blog editing
+        /// template as a read-only document (Preview mode) instead of the
+        /// editable editing shell used by Wysiwyg mode.
+        /// </summary>
+        public bool PreviewMode { get; set; }
 
 #pragma warning disable CS0067 // Events not used yet
         public event EventHandler TitleChanged;
@@ -47,14 +56,14 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             // Fire EditableRegionFocusChanged when the editor gets focus
             _editor.EditorControl.GotFocus += (s, e) =>
             {
-                OnEditableRegionFocusChanged(true);
+                OnEditableRegionFocusChanged(!PreviewMode);
             };
             
             // Fire EditableRegionFocusChanged when WebView2 finishes loading
             _editor.ReadyForEditing += (s, e) =>
             {
                 System.Diagnostics.Debug.WriteLine("[OLW-DEBUG] WebView2BlogPostHtmlEditorControl: ReadyForEditing received, firing EditableRegionFocusChanged");
-                OnEditableRegionFocusChanged(true);
+                OnEditableRegionFocusChanged(!PreviewMode);
             };
             
             System.Diagnostics.Debug.WriteLine("[OLW-DEBUG] WebView2BlogPostHtmlEditorControl created");
@@ -95,10 +104,16 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 
         public void LoadHtmlFragment(string title, string postBodyHtml, string baseUrl, BlogEditingTemplate editingTemplate)
         {
-            System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] LoadHtmlFragment called - title: '{title}', body: {postBodyHtml?.Length ?? 0} chars");
+            System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] LoadHtmlFragment called - title: '{title}', body: {postBodyHtml?.Length ?? 0} chars, preview: {PreviewMode}");
             
             _title = title ?? "";
             _baseUrl = baseUrl ?? "";
+            
+            if (PreviewMode && editingTemplate != null)
+            {
+                LoadPreviewDocument(postBodyHtml, editingTemplate);
+                return;
+            }
             
             // For now, just load the body HTML into the editor
             // NOTE: No inline script - listeners are set up via ExecuteScriptAsync after navigation
@@ -143,12 +158,44 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 </body>
 </html>";
             
+            if (_previewDocumentLoaded)
+            {
+                // The current document is the read-only preview, which lacks the
+                // editing shell elements that LoadHtmlFile patches in place, so
+                // navigate to a fresh editing shell instead.
+                _previewDocumentLoaded = false;
+                _editor.NavigateToHtmlDocument(html);
+                return;
+            }
+            
             // Use temporary file approach - always update the pending path
             var tempPath = System.IO.Path.Combine(System.IO.Path.GetTempPath(), $"olw_edit_{Guid.NewGuid():N}.html");
             System.IO.File.WriteAllText(tempPath, html);
             System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] LoadHtmlFragment - wrote {html.Length} chars to {tempPath}");
             _editor.LoadHtmlFile(tempPath);
             // Note: EditableRegionFocusChanged will fire via ReadyForEditing event when navigation completes
+        }
+
+        /// <summary>
+        /// Renders the post inside the blog editing template as a read-only
+        /// document (no contenteditable editing surface) for Preview mode.
+        /// </summary>
+        private void LoadPreviewDocument(string postBodyHtml, BlogEditingTemplate editingTemplate)
+        {
+            // Strip the extended-entry break marker so the preview shows the
+            // joined (main + extended) post, matching the Mac preview.
+            string body = (postBodyHtml ?? String.Empty).Replace("<!--more-->", String.Empty);
+
+            string titleHtml = System.Web.HttpUtility.HtmlEncode(_title);
+            string html = editingTemplate.ApplyTemplateToPostHtml(titleHtml, titleHtml, body);
+
+            // Add a base tag so relative resource references in the post resolve.
+            html = Regex.Replace(html, "</head>",
+                String.Format("<base href=\"{0}\"></head>", _baseUrl), RegexOptions.IgnoreCase);
+
+            System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] LoadPreviewDocument - navigating to preview document, {html.Length} chars");
+            _previewDocumentLoaded = true;
+            _editor.NavigateToHtmlDocument(html);
         }
 
         public string GetEditedTitleHtml()

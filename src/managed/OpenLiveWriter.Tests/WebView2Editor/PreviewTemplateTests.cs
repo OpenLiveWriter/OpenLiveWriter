@@ -14,10 +14,9 @@ namespace OpenLiveWriter.Tests.WebView2Editor
 {
     /// <summary>
     /// Tests for the default blog editing template used to compose preview HTML.
-    /// Honest scope: the WebView2 Preview mode currently ignores the blog template
-    /// and the read-only flag (known gap), so these tests cover the template
-    /// infrastructure (load, marker substitution, parseability) rather than a
-    /// live preview render.
+    /// These cover the template infrastructure (load, marker substitution,
+    /// parseability); the live WebView2 preview render is covered by
+    /// WebView2PreviewModeTests.
     /// </summary>
     [TestFixture]
     public class PreviewTemplateTests
