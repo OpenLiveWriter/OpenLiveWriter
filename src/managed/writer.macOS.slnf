@@ -10,7 +10,6 @@
       "OpenLiveWriter.Publishing/OpenLiveWriter.Publishing.csproj",
       "OpenLiveWriter.Localization/OpenLiveWriter.Localization.csproj",
       "OpenLiveWriter.HtmlParser/OpenLiveWriter.HtmlParser.csproj",
-      "OpenLiveWriter.CoreServices/OpenLiveWriter.CoreServices.csproj",
       "OpenLiveWriter.EditorTests.Automated/OpenLiveWriter.EditorTests.Automated.csproj"
     ]
   }
