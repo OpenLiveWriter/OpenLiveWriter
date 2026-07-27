@@ -16,29 +16,26 @@ env:
 
 jobs:
   build:
-    name: Build Open Live Writer
+    name: Build Open Live Writer (${{ env.OLW_CONFIG }})
     runs-on: windows-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup .NET Framework 4.6.1 Developer Pack
-        run: |
-          choco install netfx-4.6.1-devpack -y --no-progress
-
-      - name: Setup MSBuild
-        uses: microsoft/setup-msbuild@v2
-
-      - name: Setup NuGet
-        uses: nuget/setup-nuget@v2
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
 
       - name: Restore NuGet packages
-        run: nuget restore ${{ env.SOLUTION_PATH }}
+        run: dotnet restore ${{ env.SOLUTION_PATH }}
 
       - name: Build solution
+        # dotnet msbuild == MSBuild with .NET 10 SDK support. The v143 C++
+        # toolset (Ribbon project) ships with Visual Studio on windows-latest.
         run: |
-          msbuild ${{ env.SOLUTION_PATH }} `
+          dotnet msbuild ${{ env.SOLUTION_PATH }} `
             /nologo `
             /maxcpucount `
             /verbosity:minimal `
@@ -53,29 +50,24 @@ jobs:
           if-no-files-found: warn
 
   build-debug:
-    name: Build Debug Configuration
+    name: Build Open Live Writer (Debug)
     runs-on: windows-latest
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup .NET Framework 4.6.1 Developer Pack
-        run: |
-          choco install netfx-4.6.1-devpack -y --no-progress
-
-      - name: Setup MSBuild
-        uses: microsoft/setup-msbuild@v2
-
-      - name: Setup NuGet
-        uses: nuget/setup-nuget@v2
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
 
       - name: Restore NuGet packages
-        run: nuget restore ${{ env.SOLUTION_PATH }}
+        run: dotnet restore ${{ env.SOLUTION_PATH }}
 
       - name: Build solution (Debug)
         run: |
-          msbuild ${{ env.SOLUTION_PATH }} `
+          dotnet msbuild ${{ env.SOLUTION_PATH }} `
             /nologo `
             /maxcpucount `
             /verbosity:minimal `

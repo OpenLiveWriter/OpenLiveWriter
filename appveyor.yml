@@ -31,12 +31,15 @@ install:
   - cmd: nuget install SignClient -Version 0.9.0 -SolutionDir %APPVEYOR_BUILD_FOLDER% -Verbosity quiet -ExcludeVersion
 build_script:
   - cmd: rmdir C:\Tools\vcpkg /q /s 
-  - cmd: ./build.cmd
+  # The .NET 10 install above ran in a separate PowerShell context; cmd.exe
+  # steps do not inherit its $env:PATH, so put the SDK on PATH explicitly
+  # before invoking build.cmd (build.ps1 requires the dotnet CLI).
+  - cmd: set "PATH=C:\Program Files\dotnet;%PATH%" && build.cmd
 test_script:
   - ps: |
       Write-Host "Running tests..."
       dotnet test src\managed\OpenLiveWriter.Tests\OpenLiveWriter.Tests.csproj --no-build --logger "trx;LogFileName=testresults.trx"
-      dotnet test src\managed\OpenLiveWriter.UnitTest\OpenLiveWriter.UnitTest.csproj --no-build --logger "trx;LogFileName=unittestresults.trx" || true
+      dotnet test src\managed\OpenLiveWriter.UnitTest\OpenLiveWriter.UnitTest.csproj --no-build --logger "trx;LogFileName=unittestresults.trx"
 after_build:
   - ps: '.\SignClient\Sign-Package.ps1'  
 artifacts:
