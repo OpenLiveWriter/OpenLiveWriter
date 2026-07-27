@@ -56,6 +56,19 @@ namespace OpenLiveWriter.App.Avalonia
             // Picture Tools defaults: aspect-ratio lock starts on (like Windows).
             ribbon.SetToggleState(CommandId.FormatImageLockAspectRatio, true);
 
+            // Edit/Source/Preview view tabs docked at the far right of the tab strip.
+            var viewTabs = new ViewToggleTabs();
+            ribbon.RightContent = viewTabs;
+            viewTabs.ViewRequested += (s, view) =>
+                this.FindControl<EditorPanel>("EditorPanel")?.SetView(view);
+            var panelForTabs = this.FindControl<EditorPanel>("EditorPanel");
+            if (panelForTabs != null)
+            {
+                panelForTabs.ViewChanged += (s, e) =>
+                    viewTabs.ActiveView = panelForTabs.CurrentView;
+                viewTabs.ActiveView = panelForTabs.CurrentView;
+            }
+
             ribbon.ComboSelectionChanged += async (sender, args) =>
             {
                 // Blog selector is independent of the editor — handle it first.

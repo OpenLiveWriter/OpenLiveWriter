@@ -24,10 +24,35 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
         private readonly ScrollViewer _tabScrollViewer;
         private readonly List<ToggleButton> _tabButtons = new List<ToggleButton>();
         private int _selectedIndex = -1;
+        private Control _rightContent;
 
         // Contextual tabs get a distinct accent (mimics the Windows contextual-tab
         // coloring) so it's obvious they appeared in response to a selection.
         private static readonly IBrush ContextualBrush = new SolidColorBrush(Color.FromRgb(0x6B, 0x3F, 0xA0));
+
+        /// <summary>
+        /// Optional content docked to the far right of the tab strip (e.g. the
+        /// Edit/Source/Preview view tabs). Sits inline with the ribbon tabs.
+        /// </summary>
+        public Control RightContent
+        {
+            get => _rightContent;
+            set
+            {
+                if (ReferenceEquals(_rightContent, value)) return;
+                if (_rightContent != null)
+                    _rightDock.Children.Remove(_rightContent);
+                _rightContent = value;
+                if (_rightContent != null)
+                    _rightDock.Children.Add(_rightContent);
+            }
+        }
+
+        private readonly StackPanel _rightDock = new StackPanel
+        {
+            Orientation = Orientation.Horizontal,
+            VerticalAlignment = VerticalAlignment.Bottom
+        };
 
         /// <summary>
         /// Event raised when the active tab changes.
@@ -67,7 +92,12 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
                 VerticalScrollBarVisibility = ScrollBarVisibility.Disabled,
                 Content = _tabPanel
             };
-            Child = _tabScrollViewer;
+
+            var dock = new DockPanel { LastChildFill = true };
+            DockPanel.SetDock(_rightDock, Dock.Right);
+            dock.Children.Add(_rightDock);
+            dock.Children.Add(_tabScrollViewer);
+            Child = dock;
         }
 
         /// <summary>The tab configs currently rendered, in order.</summary>

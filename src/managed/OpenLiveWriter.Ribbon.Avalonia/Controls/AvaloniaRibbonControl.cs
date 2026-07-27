@@ -108,6 +108,17 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
         /// <summary>Tab strip (includes its own horizontal scroller).</summary>
         public RibbonTabStrip TabStrip => _tabStrip;
 
+        /// <summary>Content docked to the far right of the tab strip (e.g. view tabs).</summary>
+        public Control RightContent
+        {
+            get => _tabStrip?.RightContent;
+            set
+            {
+                if (_tabStrip != null)
+                    _tabStrip.RightContent = value;
+            }
+        }
+
         /// <summary>Pinned overflow ("More") button listing active-tab commands.</summary>
         public Button OverflowButton => _overflowButton;
 

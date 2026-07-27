@@ -154,27 +154,25 @@ namespace OpenLiveWriter.EditorTests.Automated
             var window = CreateLaidOutWindow(1280, 800);
             try
             {
-                var editorPanel = window.FindControl<EditorPanel>("EditorPanel");
-                var edit = editorPanel.FindControl<ToggleButton>("EditViewButton");
-                var source = editorPanel.FindControl<ToggleButton>("SourceViewButton");
-                var preview = editorPanel.FindControl<ToggleButton>("PreviewViewButton");
+                // View tabs live at the far right of the ribbon tab strip now.
+                ToggleButton[] viewTabs = FindViewTabs(window);
+                var edit = viewTabs.ElementAtOrDefault(0);
+                var source = viewTabs.ElementAtOrDefault(1);
+                var preview = viewTabs.ElementAtOrDefault(2);
 
                 Assert.Multiple(() =>
                 {
+                    // Tabs share padding / minimum size; width sizes to the label.
                     Assert.That(edit.Padding, Is.EqualTo(source.Padding));
                     Assert.That(source.Padding, Is.EqualTo(preview.Padding));
                     Assert.That(edit.MinWidth, Is.EqualTo(source.MinWidth));
                     Assert.That(source.MinWidth, Is.EqualTo(preview.MinWidth));
                     Assert.That(edit.MinWidth, Is.EqualTo(68));
-                    Assert.That(edit.Width, Is.EqualTo(68));
-                    Assert.That(source.Width, Is.EqualTo(68));
-                    Assert.That(preview.Width, Is.EqualTo(68));
-                    Assert.That(edit.Padding.Left, Is.EqualTo(10));
-                    Assert.That(edit.Padding.Right, Is.EqualTo(10));
-                    Assert.That(edit.Height, Is.EqualTo(source.Height));
-                    Assert.That(source.Height, Is.EqualTo(preview.Height));
-                    Assert.That(edit.Bounds.Width, Is.EqualTo(source.Bounds.Width).Within(0.5));
-                    Assert.That(source.Bounds.Width, Is.EqualTo(preview.Bounds.Width).Within(0.5));
+                    Assert.That(edit.Padding.Left, Is.EqualTo(12));
+                    Assert.That(edit.Padding.Right, Is.EqualTo(12));
+                    Assert.That(edit.MinHeight, Is.EqualTo(28));
+                    Assert.That(edit.Bounds.Height, Is.EqualTo(source.Bounds.Height).Within(0.5));
+                    Assert.That(source.Bounds.Height, Is.EqualTo(preview.Bounds.Height).Within(0.5));
                 });
             }
             finally
@@ -228,6 +226,15 @@ namespace OpenLiveWriter.EditorTests.Automated
                 .Where(d => d.CommandId == commandId)
                 .Select(d => d.ComboBox)
                 .FirstOrDefault();
+        }
+
+        // View tabs are created in code (no XAML name-scope registration), so find
+        // them through the ViewToggleTabs container in the ribbon's right dock.
+        private static ToggleButton[] FindViewTabs(Control root)
+        {
+            var tabs = root.GetLogicalDescendants().OfType<OpenLiveWriter.App.Avalonia.Editor.ViewToggleTabs>()
+                .FirstOrDefault();
+            return tabs?.GetLogicalChildren().OfType<ToggleButton>().ToArray() ?? new ToggleButton[0];
         }
     }
 }

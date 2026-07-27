@@ -333,9 +333,11 @@ namespace OpenLiveWriter.EditorTests.Automated.Infrastructure
             dump.Controls.Add(DescribeNamed("OverflowMore", ribbon?.OverflowButton));
             dump.Controls.Add(DescribeNamed("StatusBar", window.FindControl<Border>("StatusBar")));
             dump.Controls.Add(DescribeNamed("TitleEditor", window.FindControl<TextBox>("TitleEditor")));
-            dump.Controls.Add(DescribeNamed("EditViewButton", editorPanel?.FindControl<ToggleButton>("EditViewButton")));
-            dump.Controls.Add(DescribeNamed("SourceViewButton", editorPanel?.FindControl<ToggleButton>("SourceViewButton")));
-            dump.Controls.Add(DescribeNamed("PreviewViewButton", editorPanel?.FindControl<ToggleButton>("PreviewViewButton")));
+            // View tabs live at the far right of the ribbon tab strip now.
+            ToggleButton[] viewTabs = FindViewTabs(window);
+            dump.Controls.Add(DescribeNamed("EditViewButton", viewTabs.ElementAtOrDefault(0)));
+            dump.Controls.Add(DescribeNamed("SourceViewButton", viewTabs.ElementAtOrDefault(1)));
+            dump.Controls.Add(DescribeNamed("PreviewViewButton", viewTabs.ElementAtOrDefault(2)));
 
             var fontSize = FindCombo(ribbon, CommandId.FontSize);
             var styles = FindCombo(ribbon, CommandId.SemanticHtmlGallery);
@@ -354,9 +356,9 @@ namespace OpenLiveWriter.EditorTests.Automated.Infrastructure
             if (styles == null)
                 dump.Flags.Add("StylesCombo missing");
 
-            var edit = editorPanel?.FindControl<ToggleButton>("EditViewButton");
-            var source = editorPanel?.FindControl<ToggleButton>("SourceViewButton");
-            var preview = editorPanel?.FindControl<ToggleButton>("PreviewViewButton");
+            var edit = viewTabs.ElementAtOrDefault(0);
+            var source = viewTabs.ElementAtOrDefault(1);
+            var preview = viewTabs.ElementAtOrDefault(2);
             if (edit != null && source != null && preview != null)
             {
                 if (edit.Padding != source.Padding || source.Padding != preview.Padding)
@@ -373,6 +375,15 @@ namespace OpenLiveWriter.EditorTests.Automated.Infrastructure
         }
 
         private static bool NearlyEqual(double a, double b) => Math.Abs(a - b) < 0.5;
+        // View tabs are created in code (no XAML name-scope registration), so find
+        // them through the ViewToggleTabs container in the ribbon's right dock.
+        private static ToggleButton[] FindViewTabs(Control root)
+        {
+            var tabs = root.GetLogicalDescendants().OfType<OpenLiveWriter.App.Avalonia.Editor.ViewToggleTabs>()
+                .FirstOrDefault();
+            return tabs?.GetLogicalChildren().OfType<ToggleButton>().ToArray() ?? new ToggleButton[0];
+        }
+
 
         private static ComboBox FindCombo(AvaloniaRibbonControl ribbon, CommandId commandId)
         {

@@ -86,9 +86,11 @@ namespace OpenLiveWriter.EditorTests.Automated
                 var editorPanel = window.FindControl<EditorPanel>("EditorPanel");
                 var editorHost = editorPanel?.FindControl<ContentControl>("EditorHost");
                 var title = window.FindControl<TextBox>("TitleEditor");
-                var edit = editorPanel?.FindControl<ToggleButton>("EditViewButton");
-                var source = editorPanel?.FindControl<ToggleButton>("SourceViewButton");
-                var preview = editorPanel?.FindControl<ToggleButton>("PreviewViewButton");
+                // View tabs live at the far right of the ribbon tab strip now.
+                ToggleButton[] viewTabs = FindViewTabs(window);
+                var edit = viewTabs.ElementAtOrDefault(0);
+                var source = viewTabs.ElementAtOrDefault(1);
+                var preview = viewTabs.ElementAtOrDefault(2);
                 var placeholder = editorPanel?.GetLogicalDescendants()
                     .OfType<Border>()
                     .FirstOrDefault(b => b.Name == WebViewEditor.LayoutPlaceholderName);
@@ -313,6 +315,15 @@ namespace OpenLiveWriter.EditorTests.Automated
             var host = window.FindControl<Border>("RibbonHost");
             return host?.Child as AvaloniaRibbonControl
                    ?? window.GetLogicalDescendants().OfType<AvaloniaRibbonControl>().FirstOrDefault();
+        }
+
+        // View tabs are created in code (no XAML name-scope registration), so find
+        // them through the ViewToggleTabs container in the ribbon's right dock.
+        private static ToggleButton[] FindViewTabs(Control root)
+        {
+            var tabs = root.GetLogicalDescendants().OfType<OpenLiveWriter.App.Avalonia.Editor.ViewToggleTabs>()
+                .FirstOrDefault();
+            return tabs?.GetLogicalChildren().OfType<ToggleButton>().ToArray() ?? new ToggleButton[0];
         }
 
         private static void AssertScrollOrFit(ScrollViewer scroll, string label)
