@@ -38,6 +38,27 @@ jobs:
             "[assembly: System.Reflection.AssemblyVersion(`"$v`")]", `
             "[assembly: System.Reflection.AssemblyFileVersion(`"$v`")]"
 
+      - name: Generate GoogleBloggerv3Secrets.json
+        # Embedded by BlogClient, gitignored (contains OAuth credentials).
+        # Synthesized from CI secrets; empty strings when unset (dev builds
+        # simply can't use Blogger auth).
+        env:
+          OLW_BLOGGER_CLIENT_ID: ${{ secrets.OLW_BLOGGER_CLIENT_ID }}
+          OLW_BLOGGER_CLIENT_SECRET: ${{ secrets.OLW_BLOGGER_CLIENT_SECRET }}
+        run: |
+          $json = @{
+            installed = @{
+              client_id = "$env:OLW_BLOGGER_CLIENT_ID"
+              project_id = "open-live-writer"
+              auth_uri = "https://accounts.google.com/o/oauth2/auth"
+              token_uri = "https://oauth2.googleapis.com/token"
+              auth_provider_x509_cert_url = "https://www.googleapis.com/oauth2/v1/certs"
+              client_secret = "$env:OLW_BLOGGER_CLIENT_SECRET"
+              redirect_uris = @("http://localhost")
+            }
+          } | ConvertTo-Json -Depth 5
+          Set-Content src/managed/OpenLiveWriter.BlogClient/Clients/GoogleBloggerv3Secrets.json $json
+
       - name: Generate Markets.xml
         # CoreServices embeds Marketization/Markets.xml (gitignored, generated
         # from intl/markets by MarketXmlGenerator) and Marketization/Master.xml
@@ -90,6 +111,27 @@ jobs:
           Set-Content src/managed/GlobalAssemblyVersionInfo.cs `
             "[assembly: System.Reflection.AssemblyVersion(`"$v`")]", `
             "[assembly: System.Reflection.AssemblyFileVersion(`"$v`")]"
+
+      - name: Generate GoogleBloggerv3Secrets.json
+        # Embedded by BlogClient, gitignored (contains OAuth credentials).
+        # Synthesized from CI secrets; empty strings when unset (dev builds
+        # simply can't use Blogger auth).
+        env:
+          OLW_BLOGGER_CLIENT_ID: ${{ secrets.OLW_BLOGGER_CLIENT_ID }}
+          OLW_BLOGGER_CLIENT_SECRET: ${{ secrets.OLW_BLOGGER_CLIENT_SECRET }}
+        run: |
+          $json = @{
+            installed = @{
+              client_id = "$env:OLW_BLOGGER_CLIENT_ID"
+              project_id = "open-live-writer"
+              auth_uri = "https://accounts.google.com/o/oauth2/auth"
+              token_uri = "https://oauth2.googleapis.com/token"
+              auth_provider_x509_cert_url = "https://www.googleapis.com/oauth2/v1/certs"
+              client_secret = "$env:OLW_BLOGGER_CLIENT_SECRET"
+              redirect_uris = @("http://localhost")
+            }
+          } | ConvertTo-Json -Depth 5
+          Set-Content src/managed/OpenLiveWriter.BlogClient/Clients/GoogleBloggerv3Secrets.json $json
 
       - name: Generate Markets.xml
         # CoreServices embeds Marketization/Markets.xml (gitignored, generated
