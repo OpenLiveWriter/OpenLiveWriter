@@ -18,6 +18,7 @@ namespace OpenLiveWriter.App.Avalonia
     {
         private AvaloniaRibbonControl _ribbon;
         private DraftSession _draftSession;
+        private ImageEditing.MediaStore _mediaStore;
         private OpenLiveWriter.Publishing.Accounts.BlogAccountService _accountService;
         private TextBox _titleEditor;
         private bool _suppressDirty;
@@ -203,6 +204,7 @@ namespace OpenLiveWriter.App.Avalonia
             try
             {
                 _draftSession = new DraftSession(DraftStoreFactory.CreateDefault());
+                _mediaStore = ImageEditing.MediaStore.CreateDefault();
             }
             catch (Exception ex)
             {
@@ -210,6 +212,16 @@ namespace OpenLiveWriter.App.Avalonia
                 // the File menu simply stays inert until a store is available.
                 Console.WriteLine($"[OLW-Drafts] Draft store unavailable: {ex.Message}");
                 return;
+            }
+
+            // Inserted images are filed under the current document's media folder and
+            // referenced by file:// src (the provider reads the field, so it follows
+            // the test seam's substituted session too).
+            var editorPanel = this.FindControl<EditorPanel>("EditorPanel");
+            if (editorPanel?.WebViewEditor != null)
+            {
+                editorPanel.WebViewEditor.MediaStore = _mediaStore;
+                editorPanel.WebViewEditor.DocumentMediaIdProvider = () => _draftSession?.Current?.MediaId;
             }
 
             _titleEditor = this.FindControl<TextBox>("TitleEditor");
@@ -376,7 +388,9 @@ namespace OpenLiveWriter.App.Avalonia
             if (!confirmed)
                 return;
 
+            string mediaId = _draftSession.Current.MediaId;
             _draftSession.Delete(_draftSession.Current.Id);
+            _mediaStore?.DeleteMedia(mediaId);
             await LoadCurrentIntoEditorAsync();
             UpdateStatus("Draft deleted.");
         }

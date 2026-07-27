@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 namespace OpenLiveWriter.App.Avalonia.ImageEditing
 {
     /// <summary>
-    /// HTTP fetch seam for remote (web) pictures that need pixel baking — the
-    /// same testability pattern as <c>IThemeHtmlFetcher</c>. Implementations
-    /// return null on failure rather than throwing so a network miss degrades
-    /// to a status-bar message.
+    /// Fetch seam for pictures that need pixel baking — remote (web) pictures over
+    /// HTTP and local (file://) pictures from disk — the same testability pattern as
+    /// <c>IThemeHtmlFetcher</c>. Implementations return null on failure rather than
+    /// throwing so a miss degrades to a status-bar message.
     /// </summary>
     public interface IImageFetcher
     {
@@ -22,10 +22,11 @@ namespace OpenLiveWriter.App.Avalonia.ImageEditing
     }
 
     /// <summary>
-    /// Default <see cref="IImageFetcher"/> backed by the shell's proxy-aware
-    /// <see cref="HttpClient"/> (from <c>PublishingHttpClientFactory</c>). A
-    /// timeout bounds the wait so Picture Tools never hangs on a slow host.
-    /// Never throws — failures return null.
+    /// Default <see cref="IImageFetcher"/>: <c>file://</c> URLs are read from disk
+    /// (inserted pictures live in the draft's media folder until publish); anything
+    /// else is fetched with the shell's proxy-aware <see cref="HttpClient"/> (from
+    /// <c>PublishingHttpClientFactory</c>). A timeout bounds the wait so Picture
+    /// Tools never hangs on a slow host. Never throws — failures return null.
     /// </summary>
     public sealed class HttpImageFetcher : IImageFetcher
     {
@@ -42,6 +43,9 @@ namespace OpenLiveWriter.App.Avalonia.ImageEditing
 
         public async Task<byte[]> FetchAsync(string url)
         {
+            if (IsFileUri(url, out string localPath))
+                return ReadLocalFile(localPath);
+
             try
             {
                 using var cts = new CancellationTokenSource(_timeout);
@@ -55,6 +59,31 @@ namespace OpenLiveWriter.App.Avalonia.ImageEditing
             }
             catch (Exception ex) when (ex is HttpRequestException || ex is TaskCanceledException
                 || ex is OperationCanceledException || ex is IOException || ex is UriFormatException)
+            {
+                return null;
+            }
+        }
+
+        /// <summary>True when <paramref name="url"/> is a file:// URI that resolves to a local path.</summary>
+        internal static bool IsFileUri(string url, out string localPath)
+        {
+            localPath = null;
+            if (Uri.TryCreate(url, UriKind.Absolute, out Uri uri) && uri.IsFile)
+            {
+                localPath = uri.LocalPath;
+                return true;
+            }
+            return false;
+        }
+
+        private static byte[] ReadLocalFile(string localPath)
+        {
+            try
+            {
+                return File.ReadAllBytes(localPath);
+            }
+            catch (Exception ex) when (ex is IOException || ex is UnauthorizedAccessException
+                || ex is System.Security.SecurityException || ex is NotSupportedException)
             {
                 return null;
             }

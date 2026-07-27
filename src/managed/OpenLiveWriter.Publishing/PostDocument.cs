@@ -27,6 +27,15 @@ namespace OpenLiveWriter.Publishing
         /// </summary>
         public string Id { get; set; } = string.Empty;
 
+        /// <summary>
+        /// Stable identifier for the document's local media folder (inserted images
+        /// are copied to <c>Media/{MediaId}/</c> and referenced as <c>file://</c> URIs
+        /// until publish uploads them). Assigned at creation — before the first save —
+        /// so the media folder key never changes across the draft's lifetime. Persisted
+        /// with the draft; old drafts without it keep a fresh id on load.
+        /// </summary>
+        public string MediaId { get; set; } = Guid.NewGuid().ToString("N");
+
         /// <summary>Server-side blog identifier this post targets (empty = unassigned).</summary>
         public string BlogId { get; set; } = string.Empty;
 

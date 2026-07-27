@@ -309,8 +309,9 @@ namespace OpenLiveWriter.App.Avalonia
         }
 
         // Extracts the selected image's encoded bytes: decoded inline for
-        // embedded (data-URI) pictures, downloaded for web pictures. Returns
-        // null (after a status message) when the bytes are unavailable.
+        // embedded (data-URI) pictures, read from disk for local (file://)
+        // pictures, downloaded for web pictures. Returns null (after a status
+        // message) when the bytes are unavailable.
         private async Task<byte[]> GetSelectedImageBytesAsync()
         {
             var img = _lastImageState;
@@ -323,13 +324,15 @@ namespace OpenLiveWriter.App.Avalonia
             if (ImageDataUri.TryDecode(img.Src, out byte[] bytes))
                 return bytes;
 
-            if (img.HasRemoteSource)
+            bool isLocalFile = HttpImageFetcher.IsFileUri(img.Src, out _);
+            if (img.HasRemoteSource || isLocalFile)
             {
-                UpdateStatus("Downloading picture...");
+                if (!isLocalFile)
+                    UpdateStatus("Downloading picture...");
                 var fetcher = new HttpImageFetcher(CreatePublishingHttpClient());
                 bytes = await fetcher.FetchAsync(img.Src);
                 if (bytes == null)
-                    UpdateStatus("Could not download the picture for editing.");
+                    UpdateStatus("Could not read the picture for editing.");
                 return bytes;
             }
 

@@ -603,15 +603,37 @@ namespace OpenLiveWriter.App.Avalonia.Editor
             s?.Replace("&", "&amp;").Replace("<", "&lt;").Replace(">", "&gt;") ?? "";
 
         /// <summary>
-        /// Inserts an image loaded from a local file at the caret. The image bytes
-        /// are embedded inline as a base64 <c>data:</c> URI so the editor is fully
-        /// self-contained (no external file references or upload step required).
-        /// TODO(P2): when the BlogClient/image-upload path is ported, offer an
-        /// upload-on-publish strategy that rewrites these data URIs to hosted URLs.
+        /// Injectable media store + current-document media id for file-based image
+        /// insertion. When both are set (wired by the shell), inserted images are
+        /// copied into the document's media folder and referenced by a <c>file://</c>
+        /// src — the Windows behavior — instead of being embedded as base64.
+        /// </summary>
+        public ImageEditing.MediaStore MediaStore { get; set; }
+
+        /// <summary>Returns the current document's media id (<see cref="MediaStore"/> key).</summary>
+        public Func<string> DocumentMediaIdProvider { get; set; }
+
+        /// <summary>
+        /// Inserts an image loaded from a local file at the caret. When a media
+        /// store and document media id are available the file is copied into the
+        /// document's media folder and the <c>&lt;img src&gt;</c> is the copy's
+        /// <c>file://</c> URI (the publish pipeline uploads it and rewrites the src
+        /// to the hosted URL). Without them, falls back to an inline base64
+        /// <c>data:</c> URI so the editor stays self-contained.
         /// </summary>
         public async Task InsertImageFromFileAsync(string filePath, string altText = null)
         {
             if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath)) return;
+
+            string mediaId = DocumentMediaIdProvider?.Invoke();
+            if (MediaStore != null && !string.IsNullOrEmpty(mediaId))
+            {
+                string fileUri = MediaStore.AddImage(mediaId, filePath);
+                string alt = altText ?? Path.GetFileNameWithoutExtension(filePath);
+                await InsertHtmlAsync(BuildImageHtml(fileUri, alt));
+                return;
+            }
+
             string html = BuildImageHtmlFromFile(filePath, altText);
             await InsertHtmlAsync(html);
         }
@@ -633,8 +655,9 @@ namespace OpenLiveWriter.App.Avalonia.Editor
 
         /// <summary>
         /// Reads an image file and builds a self-contained <c>&lt;img&gt;</c> whose
-        /// <c>src</c> is an inline base64 data URI. Pure enough to unit-test against
-        /// a known file without a live WebView. Alt text defaults to the file name.
+        /// <c>src</c> is an inline base64 data URI. Used only as the fallback when no
+        /// media store is wired; kept for legacy drafts and unit tests. Alt text
+        /// defaults to the file name.
         /// </summary>
         internal static string BuildImageHtmlFromFile(string filePath, string altText = null)
         {

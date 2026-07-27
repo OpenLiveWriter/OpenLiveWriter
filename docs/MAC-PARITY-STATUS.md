@@ -99,7 +99,8 @@ path fix, thread-safety/caching fixes) — assessed in §7.2.
     Preformatted) via the ribbon SemanticHtmlGallery flyout
   - Color: text color (`foreColor`) + highlight (`hiliteColor`, backColor fallback)
     via ribbon color-swatch flyouts (standard + highlight palettes)
-  - Insert: image from file — file picker → inline base64 data-URI `<img>`
+  - Insert: image from file — file picker → copy into the draft's `Media/{id}/`
+    folder → `file://` `<img>` (uploaded + rewritten to the hosted URL on publish)
   - **Picture Tools (P1-2):** clicking an image selects it as a unit → the
     Picture Tools > Format contextual tab activates; width/height spinners with
     aspect-ratio lock, Small/Medium/Large/Original size presets, rotate CW/CCW
@@ -686,12 +687,14 @@ testable with fakes; only true live round-trips remain manual (`[Explicit]`).
 
 ### 10.1 Image upload-on-publish (`OpenLiveWriter.Publishing.ImagePublisher`)
 
-The editor embeds inserted images as base64 `data:` URIs. Before a post is transmitted,
-`ImagePublisher` scans the body for those data-URI `<img>`s, uploads each **unique** image
+The editor references inserted images by `file://` path (copied into the draft's
+`Media/{id}/` folder); legacy drafts may still embed base64 `data:` URIs. Before a post
+is transmitted, `ImagePublisher` scans the body for both, uploads each **unique** image
 via `IBlogClient.NewMediaObject` (`metaWeblog.newMediaObject`, faithful `name`/`type`/`bits`
 struct + new `XmlRpcBase64`), and rewrites every `src` to the returned hosted URL. No-ops
 when there are no images; identical images upload once and share the URL; an upload failure
-raises `BlogClientPublishException` so the publish aborts rather than sending broken HTML.
+— including a missing local file — raises `BlogClientPublishException` so the publish
+aborts rather than sending broken HTML.
 Runs on both the new-post and edit paths (`EditorContentPublisher` /
 `WebViewEditor.PublishAsync` / `BlogAccountService.Publish`).
 
