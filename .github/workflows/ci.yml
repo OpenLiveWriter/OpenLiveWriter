@@ -43,7 +43,7 @@ jobs:
         # from intl/markets by MarketXmlGenerator). Generate it before build.
         run: |
           dotnet build src/managed/MarketXmlGenerator/MarketXmlGenerator.csproj -c Release --nologo -v minimal
-          dotnet run --project src/managed/MarketXmlGenerator/MarketXmlGenerator.csproj --no-build -- intl/markets src/managed/OpenLiveWriter.CoreServices/Marketization/Markets.xml
+          dotnet run --project src/managed/MarketXmlGenerator/MarketXmlGenerator.csproj -c Release --no-build -- intl/markets src/managed/OpenLiveWriter.CoreServices/Marketization/Markets.xml
 
       - name: Restore NuGet packages
         run: dotnet restore ${{ env.SOLUTION_PATH }}
@@ -94,7 +94,7 @@ jobs:
         # from intl/markets by MarketXmlGenerator). Generate it before build.
         run: |
           dotnet build src/managed/MarketXmlGenerator/MarketXmlGenerator.csproj -c Release --nologo -v minimal
-          dotnet run --project src/managed/MarketXmlGenerator/MarketXmlGenerator.csproj --no-build -- intl/markets src/managed/OpenLiveWriter.CoreServices/Marketization/Markets.xml
+          dotnet run --project src/managed/MarketXmlGenerator/MarketXmlGenerator.csproj -c Release --no-build -- intl/markets src/managed/OpenLiveWriter.CoreServices/Marketization/Markets.xml
 
       - name: Restore NuGet packages
         run: dotnet restore ${{ env.SOLUTION_PATH }}
