@@ -6,7 +6,8 @@
 #   ./scripts/vm-test.sh            # sync + build (same as "all")
 #   ./scripts/vm-test.sh sync       # robocopy sources from the Mac share into the VM
 #   ./scripts/vm-test.sh build      # sync, then build the solution in the VM
-#   ./scripts/vm-test.sh test       # run headless tests in the VM
+#   ./scripts/vm-test.sh test       # run headless tests in the VM (extra args are
+#                                   # passed through to dotnet test)
 #   ./scripts/vm-test.sh run        # launch the built OpenLiveWriter.exe in the VM
 #
 # Configuration (env vars):
@@ -15,6 +16,9 @@
 #   OLW_CONFIG           Build configuration               (default: Debug)
 #   OLW_SRC_ROOT         Mac source root                   (default: this repo)
 #   OLW_VM_TEST_PROJECT  Test project, repo-relative       (default: src\managed\OpenLiveWriter.UnitTest)
+#   OLW_VM_TEST_USER     User to run tests as: "system" (default, via prlctl exec)
+#                        or "current" (the logged-on desktop user; needed for
+#                        WebView2 live tests and profile-dependent tests)
 #   OLW_VM_EXE           Guest path to the built exe       (default: computed from OLW_CONFIG)
 #   OLW_BLOGGER_CLIENT_ID / OLW_BLOGGER_CLIENT_SECRET
 #                        Real Blogger OAuth credentials for the generated
@@ -32,6 +36,7 @@ OLW_VM_BUILD_DIR="${OLW_VM_BUILD_DIR:-C:\\olw-build}"
 OLW_CONFIG="${OLW_CONFIG:-Debug}"
 OLW_SRC_ROOT="${OLW_SRC_ROOT:-$ROOT}"
 OLW_VM_TEST_PROJECT="${OLW_VM_TEST_PROJECT:-src\\managed\\OpenLiveWriter.UnitTest}"
+OLW_VM_TEST_USER="${OLW_VM_TEST_USER:-system}"
 
 die() {
   echo "error: $*" >&2
@@ -106,7 +111,20 @@ do_build() {
 
 do_test() {
   echo "==> Running tests ($OLW_VM_TEST_PROJECT) in the VM"
-  vm_exec "cd /d \"$VM_DIR\" && dotnet test \"$OLW_VM_TEST_PROJECT\" --nologo --verbosity minimal --configuration $OLW_CONFIG"
+  case "$OLW_VM_TEST_USER" in
+    system)
+      vm_exec "cd /d \"$VM_DIR\" && dotnet test \"$OLW_VM_TEST_PROJECT\" --nologo --verbosity minimal --configuration $OLW_CONFIG $*"
+      ;;
+    current)
+      # Run as the logged-on desktop user (needed for WebView2 live tests and
+      # tests that touch the user profile; SYSTEM has no Personal folder).
+      # dotnet is not on the logged-on user's PATH, so use the full path.
+      echo "==> (as the logged-on user)"
+      prlctl exec "$OLW_VM_NAME" --current-user cmd /c "cd /d \"$VM_DIR\" && \"C:\\Program Files\\dotnet\\dotnet.exe\" test \"$OLW_VM_TEST_PROJECT\" --nologo --verbosity minimal --configuration $OLW_CONFIG $*"
+      ;;
+    *)
+      die "unknown OLW_VM_TEST_USER '$OLW_VM_TEST_USER' (expected system or current)" ;;
+  esac
 }
 
 do_run() {
@@ -127,7 +145,7 @@ do_run() {
 case "${1:-all}" in
   sync)  do_sync ;;
   build) do_build ;;
-  test)  do_test ;;
+  test)  shift; do_test "$@" ;;
   run)   do_run ;;
   all)
     do_build

@@ -47,6 +47,7 @@ Configuration is via environment variables:
 | `OLW_CONFIG` | `Debug` | Build configuration |
 | `OLW_SRC_ROOT` | this repo | Mac source root (must be under `$HOME`) |
 | `OLW_VM_TEST_PROJECT` | `src\managed\OpenLiveWriter.UnitTest` | Test project to run |
+| `OLW_VM_TEST_USER` | `system` | User to run tests as: `system` (default, via `prlctl exec`) or `current` (the logged-on desktop user) |
 | `OLW_VM_EXE` | computed | Guest path to the built exe |
 | `OLW_BLOGGER_CLIENT_ID` / `OLW_BLOGGER_CLIENT_SECRET` | placeholders | Real Blogger OAuth credentials baked into the generated `GoogleBloggerv3Secrets.json` |
 
@@ -73,7 +74,15 @@ Example: `OLW_CONFIG=Release ./scripts/vm-test.sh build`
    flags as `build.ps1` (`/nologo /maxcpucount /verbosity:minimal
    /p:Configuration=$OLW_CONFIG`).
 3. **test**: runs `dotnet test` on the headless test project
-   (`OpenLiveWriter.UnitTest` by default) in the VM.
+   (`OpenLiveWriter.UnitTest` by default) in the VM. Any extra arguments
+   after `test` are passed through to `dotnet test` (for example
+   `./scripts/vm-test.sh test --filter Category=WebView2`). By default tests
+   run as SYSTEM (like any `prlctl exec` command); set
+   `OLW_VM_TEST_USER=current` to run them as the logged-on desktop user via
+   `prlctl exec --current-user`. WebView2 live tests need the interactive
+   user (a real desktop session and user profile); the SYSTEM account has no
+   Personal folder. The logged-on user has no `dotnet` on PATH, so that mode
+   invokes `C:\Program Files\dotnet\dotnet.exe` directly.
 4. **run**: starts the built exe, by default
    `C:\olw-build\OpenLiveWriter\src\managed\OpenLiveWriter\bin\<Config>\OpenLiveWriter.exe`.
    Because `prlctl exec` runs as SYSTEM in session 0 by default (where GUI
@@ -90,11 +99,9 @@ propagate, so the harness is safe to use in scripts.
 
 ## Caveats
 
-- `prlctl exec` runs commands as SYSTEM in the guest. A few unit tests that
-  initialize per-user application data fail in that context, and some tests
-  assert exact line endings, which can differ depending on checkout line
-  endings. A small number of such failures is environmental, not a harness
-  bug.
+- `prlctl exec` runs commands as SYSTEM in the guest. Tests that need a real
+  user profile or desktop session (WebView2 live tests, per-user application
+  data) fail in that context; run them with `OLW_VM_TEST_USER=current`.
 - `run` needs a user logged in at the VM console and Parallels Tools able
   to authenticate as that user with your Mac credentials; otherwise there
   is no desktop session to show the window in and the launch fails.

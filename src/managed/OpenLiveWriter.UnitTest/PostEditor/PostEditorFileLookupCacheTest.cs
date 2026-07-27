@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Text;
 using NUnit.Framework;
 using OpenLiveWriter.CoreServices;
@@ -22,7 +23,15 @@ namespace OpenLiveWriter.UnitTest.PostEditor
         [SetUp]
         public void SetUp()
         {
-            ApplicationEnvironment.Initialize();
+            // Use a non-default product name: with the default product name
+            // Initialize() throws when the profile has no Personal folder (e.g.
+            // the SYSTEM account in a headless test session).
+            if (ApplicationEnvironment.InstallationDirectory == null)
+            {
+                var assembly = Assembly.GetExecutingAssembly();
+                ApplicationEnvironment.Initialize(assembly, Path.GetDirectoryName(assembly.Location),
+                    "Software\\OpenLiveWriter.UnitTest", "Open Live Writer UnitTest");
+            }
 
             tempDir = new DirectoryInfo(Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString()));
             CreateBlogPost(blogId1, "1", "foo");

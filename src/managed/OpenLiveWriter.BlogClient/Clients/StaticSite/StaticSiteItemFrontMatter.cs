@@ -1,4 +1,4 @@
-﻿using OpenLiveWriter.Extensibility.BlogClient;
+using OpenLiveWriter.Extensibility.BlogClient;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -33,7 +33,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         /// <summary>
         /// Converts the front matter to it's YAML representation
         /// </summary>
-        /// <returns>YAML representation of post front-matter, lines separated by CRLF</returns>
+        /// <returns>YAML representation of post front-matter, lines separated by LF</returns>
         public string Serialize()
         {
             var root = new YamlMappingNode();
@@ -51,14 +51,18 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
             var stream = new YamlStream(new YamlDocument(root));
             var stringWriter = new StringWriter();
             stream.Save(stringWriter);
+            // Normalize to LF: YamlDotNet emits the platform newline, but front
+            // matter is consumed by static site generators cross-platform
+            // (StaticSiteItem.ToString() already normalizes to LF on write).
+            var yaml = stringWriter.ToString().Replace("\r\n", "\n");
             // Trim off end-of-doc
-            return new Regex("\\.\\.\\.\r\n$").Replace(stringWriter.ToString(), "", 1);
+            return new Regex("\\.\\.\\.\n$").Replace(yaml, "", 1);
         }
 
         /// <summary>
         /// Converts the front matter to it's YAML representation
         /// </summary>
-        /// <returns>YAML representation of post front-matter, lines separated by CRLF</returns>
+        /// <returns>YAML representation of post front-matter, lines separated by LF</returns>
         public override string ToString() => Serialize();
 
         public void Deserialize(string yaml)
