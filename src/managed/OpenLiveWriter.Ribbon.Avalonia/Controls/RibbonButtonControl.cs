@@ -203,8 +203,8 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
             // Formatting toggles are icon-only — give them a square hit target.
             if (IsFormattingGlyphCommand(_commandId))
             {
-                MinWidth = 30;
-                Padding = new Thickness(4, 2);
+                MinWidth = 26;
+                Padding = new Thickness(3, 2);
             }
             else
             {

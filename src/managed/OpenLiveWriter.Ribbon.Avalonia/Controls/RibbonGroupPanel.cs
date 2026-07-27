@@ -152,6 +152,10 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
                 {
                     BuildParagraphLayout(controlsPanel, controls);
                 }
+                else if (sizeDefinition == "ThreeMediumButtons")
+                {
+                    BuildTwoPlusOneLayout(controlsPanel, controls);
+                }
                 else if (sizeDefinition == "FourButtons")
                 {
                     BuildFourButtonGrid(controlsPanel, controls);
@@ -201,6 +205,12 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
             if (sizeDefinition == "SevenSmallButtons")
             {
                 BuildParagraphLayout(panel, controls);
+                return;
+            }
+
+            if (sizeDefinition == "ThreeMediumButtons")
+            {
+                BuildTwoPlusOneLayout(panel, controls);
                 return;
             }
 
@@ -354,39 +364,87 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
         }
 
         /// <summary>
-        /// Paragraph group: lists column + alignment column (Office-like 2-stack).
+        /// Paragraph group: two 2-row mini-grids (Office-like). Left block is
+        /// bullets+numbers on the top row and blockquote below; right block is the
+        /// four alignment buttons in a 2×2.
         /// </summary>
         private void BuildParagraphLayout(StackPanel panel, List<ControlConfig> controls)
         {
+            // Left block: [0]=bullets [1]=numbers / [2]=quote
             var lists = new StackPanel
             {
                 Orientation = Orientation.Vertical,
                 VerticalAlignment = VerticalAlignment.Center,
                 Spacing = 2
             };
+            var listsTop = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 1 };
+            var listsBottom = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 1 };
+            if (controls.Count > 0) listsTop.Children.Add(CreateControl(controls[0], RibbonGroupSize.Small));
+            if (controls.Count > 1) listsTop.Children.Add(CreateControl(controls[1], RibbonGroupSize.Small));
+            if (controls.Count > 2) listsBottom.Children.Add(CreateControl(controls[2], RibbonGroupSize.Small));
+            lists.Children.Add(listsTop);
+            lists.Children.Add(listsBottom);
+
+            // Right block: alignment buttons in a 2×2.
             var aligns = new StackPanel
             {
                 Orientation = Orientation.Vertical,
                 VerticalAlignment = VerticalAlignment.Center,
                 Spacing = 2
             };
-
-            // First three controls are list/quote; remainder are alignment.
-            for (int i = 0; i < controls.Count; i++)
+            var alignsTop = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 1 };
+            var alignsBottom = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 1 };
+            for (int i = 3; i < controls.Count; i++)
             {
-                var host = i < 3 ? lists : aligns;
-                host.Children.Add(CreateControl(controls[i], RibbonGroupSize.Small));
+                var row = (i - 3) < 2 ? alignsTop : alignsBottom;
+                row.Children.Add(CreateControl(controls[i], RibbonGroupSize.Small));
             }
+            aligns.Children.Add(alignsTop);
+            aligns.Children.Add(alignsBottom);
 
             panel.Children.Add(lists);
             panel.Children.Add(new Border
             {
                 Width = 1,
                 Background = new SolidColorBrush(Color.FromRgb(0xE0, 0xE0, 0xE0)),
-                Margin = new Thickness(3, 2),
+                Margin = new Thickness(2, 2),
                 VerticalAlignment = VerticalAlignment.Stretch
             });
             panel.Children.Add(aligns);
+        }
+
+        /// <summary>
+        /// Three-button groups (e.g. Breaks): two buttons stacked on the left, the
+        /// third to the right (vertically centered) — a 2-row-tall group instead of
+        /// a 3-high column.
+        /// </summary>
+        private void BuildTwoPlusOneLayout(StackPanel panel, List<ControlConfig> controls)
+        {
+            var stack = new StackPanel
+            {
+                Orientation = Orientation.Vertical,
+                VerticalAlignment = VerticalAlignment.Center,
+                Spacing = 2
+            };
+
+            for (int i = 0; i < controls.Count; i++)
+            {
+                if (i < 2)
+                {
+                    stack.Children.Add(CreateControl(controls[i], RibbonGroupSize.Small));
+                }
+                else
+                {
+                    panel.Children.Add(stack);
+                    var trailing = CreateControl(controls[i], RibbonGroupSize.Small);
+                    trailing.VerticalAlignment = VerticalAlignment.Center;
+                    panel.Children.Add(trailing);
+                    stack = null;
+                }
+            }
+
+            if (stack != null)
+                panel.Children.Add(stack);
         }
 
         /// <summary>
