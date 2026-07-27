@@ -62,9 +62,9 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
             _applyAsync = applyAsync ?? throw new ArgumentNullException(nameof(applyAsync));
 
             Title = "Preferences";
-            Width = 520;
+            Width = 560;
             Height = 480;
-            MinWidth = 480;
+            MinWidth = 520;
             MinHeight = 400;
             CanResize = true;
             WindowStartupLocation = WindowStartupLocation.CenterOwner;

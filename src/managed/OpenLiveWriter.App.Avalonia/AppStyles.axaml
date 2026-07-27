@@ -50,4 +50,29 @@
         <Setter Property="Foreground" Value="#EAF3FF" />
         <Setter Property="BorderBrush" Value="#A9D1FF" />
     </Style>
+
+    <!-- ComboBoxes: macOS popup-button look (rounded, white, hairline) instead
+         of the Windows-style bordered field. The inner toggle picks up the
+         button chrome from the control itself. -->
+    <Style Selector="ComboBox">
+        <Setter Property="CornerRadius" Value="6" />
+        <Setter Property="MinHeight" Value="26" />
+        <Setter Property="Padding" Value="10,3" />
+        <Setter Property="Background" Value="#FFFFFF" />
+        <Setter Property="BorderBrush" Value="#33000000" />
+        <Setter Property="BorderThickness" Value="1" />
+    </Style>
+    <Style Selector="ComboBox:pointerover">
+        <Setter Property="Background" Value="#F2F2F7" />
+    </Style>
+    <Style Selector="ComboBox:disabled">
+        <Setter Property="Background" Value="#F7F7F7" />
+        <Setter Property="Foreground" Value="#9C9CA1" />
+        <Setter Property="BorderBrush" Value="#1A000000" />
+    </Style>
+    <!-- Tab strips (Preferences etc.): tighter headers so all tabs fit one row. -->
+    <Style Selector="TabControl TabItem">
+        <Setter Property="Padding" Value="10,4" />
+        <Setter Property="FontSize" Value="12" />
+    </Style>
 </Styles>
