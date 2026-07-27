@@ -300,6 +300,8 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
 
             // Content area (groups for the active tab) — horizontal scroll when
             // groups exceed the window width so they don't clip or force overflow.
+            // Hidden bar: macOS apps scroll invisibly (trackpad/wheel); the More
+            // overflow menu is the visible affordance.
             _groupsPanel = new StackPanel
             {
                 Orientation = Orientation.Horizontal,
@@ -309,30 +311,33 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
 
             _contentScrollViewer = new ScrollViewer
             {
-                HorizontalScrollBarVisibility = global::Avalonia.Controls.Primitives.ScrollBarVisibility.Auto,
+                HorizontalScrollBarVisibility = global::Avalonia.Controls.Primitives.ScrollBarVisibility.Hidden,
                 VerticalScrollBarVisibility = global::Avalonia.Controls.Primitives.ScrollBarVisibility.Disabled,
                 HorizontalAlignment = HorizontalAlignment.Stretch,
                 VerticalAlignment = VerticalAlignment.Stretch,
-                // Allow group label descenders; horizontal scroll still clips sides.
-                ClipToBounds = false,
+                // Clip at the viewport so overflowing groups never paint over the
+                // More button docked at the right edge.
+                ClipToBounds = true,
                 Content = _groupsPanel
             };
 
             _overflowFlyout = new MenuFlyout();
+            // Full-height ribbon button with a hairline separator — a first-class
+            // part of the band, not a floating pill.
             _overflowButton = new Button
             {
                 Content = "More \u25BE",
                 MinWidth = 52,
-                MinHeight = 26,
-                Padding = new Thickness(8, 3),
+                MinHeight = 0,
+                Padding = new Thickness(12, 0),
                 FontSize = 11,
                 FontWeight = FontWeight.SemiBold,
-                Margin = new Thickness(6, 0, 2, 0),
-                VerticalAlignment = VerticalAlignment.Center,
+                Margin = new Thickness(0),
+                VerticalAlignment = VerticalAlignment.Stretch,
                 Background = Brushes.Transparent,
                 BorderBrush = new SolidColorBrush(Color.FromRgb(0xC8, 0xC8, 0xC8)),
-                BorderThickness = new Thickness(1),
-                CornerRadius = new CornerRadius(3),
+                BorderThickness = new Thickness(1, 0, 0, 0),
+                CornerRadius = new CornerRadius(0),
                 Foreground = new SolidColorBrush(Color.FromRgb(0x44, 0x44, 0x44)),
                 Flyout = _overflowFlyout,
                 IsVisible = false
@@ -350,9 +355,12 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
                 Background = new SolidColorBrush(Color.FromRgb(0xF7, 0xF7, 0xF7)),
                 BorderBrush = new SolidColorBrush(Color.FromRgb(0xD0, 0xD0, 0xD0)),
                 BorderThickness = new Thickness(0, 0, 0, 1),
-                MinHeight = 124,
-                // No MaxHeight — group labels must remain fully visible.
-                Padding = new Thickness(2, 6, 2, 8),
+                // Fits large buttons (~58) + group label (~15) + padding, no dead
+                // space at the bottom; no MaxHeight so labels are never clipped.
+                MinHeight = 96,
+                // No MaxHeight — group labels must remain fully visible. Even top/
+                // bottom padding so the band reads tight like the tab strip.
+                Padding = new Thickness(2, 4, 2, 4),
                 ClipToBounds = false,
                 HorizontalAlignment = HorizontalAlignment.Stretch,
                 Child = contentDock

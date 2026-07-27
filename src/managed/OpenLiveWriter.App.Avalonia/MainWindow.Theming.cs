@@ -5,6 +5,7 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using global::Avalonia.Controls;
+using OpenLiveWriter.App.Avalonia.Dialogs;
 using OpenLiveWriter.App.Avalonia.Editor;
 using OpenLiveWriter.App.Avalonia.Theming;
 using OpenLiveWriter.Localization;
@@ -105,18 +106,24 @@ namespace OpenLiveWriter.App.Avalonia
         }
 
         // "Update Theme" (Blog Account tab / Preview tab): force a re-harvest of the
-        // current blog's homepage stylesheets, with status-bar progress + result.
+        // current blog's homepage stylesheets. On success the theme is enabled for
+        // the account and the Preview view is shown so the result is immediately
+        // visible; failures are loud (dialog), not just a status-bar line.
         private async Task UpdateThemeAsync()
         {
             BlogAccount account = _accountService?.CurrentAccount;
             if (account == null)
             {
-                UpdateStatus("Update Theme: no blog is selected. Add or select a blog account first.");
+                UpdateStatus("Update Theme: no blog is selected.");
+                await MessageDialog.ShowAsync(this, "Update Theme",
+                    "No blog is selected. Add or select a blog account first — the theme is harvested from the blog's homepage.");
                 return;
             }
             if (string.IsNullOrWhiteSpace(account.HomepageUrl))
             {
                 UpdateStatus($"Update Theme: \u201c{account.DisplayLabel}\u201d has no homepage URL.");
+                await MessageDialog.ShowAsync(this, "Update Theme",
+                    $"\u201c{account.DisplayLabel}\u201d has no homepage URL to harvest a theme from. Edit the account and add the blog's URL.");
                 return;
             }
 
@@ -124,18 +131,34 @@ namespace OpenLiveWriter.App.Avalonia
             BlogThemeStyle theme = await SafeGetThemeAsync(account, forceRefresh: true);
             if (theme == null)
             {
-                UpdateStatus($"Update Theme failed: could not fetch {account.HomepageUrl}. Preview keeps the previous style.");
+                UpdateStatus($"Update Theme failed: could not fetch {account.HomepageUrl}.");
+                await MessageDialog.ShowAsync(this, "Update Theme Failed",
+                    $"Could not fetch {account.HomepageUrl}. Check the homepage URL and your connection — Preview keeps the previous style.");
                 return;
             }
             if (theme.IsEmpty)
             {
                 UpdateStatus($"Update Theme: no stylesheets found on \u201c{account.DisplayLabel}\u201d's homepage.");
+                await MessageDialog.ShowAsync(this, "Update Theme",
+                    $"No stylesheets were found on \u201c{account.DisplayLabel}\u201d's homepage, so there is no theme to apply.");
                 return;
             }
 
+            // Turn the theme on for this account (persisted) so Preview uses it,
+            // and bring the Preview view forward to show the result.
+            if (!account.UseThemeForPreview)
+            {
+                account.UseThemeForPreview = true;
+                _accountService.SaveAccount(account, password: null); // metadata-only update
+            }
+            RefreshThemeToggleState();
+
+            var editorPanel = this.FindControl<EditorPanel>("EditorPanel");
+            if (editorPanel != null)
+                await editorPanel.SetViewAsync("preview");
+
             UpdateStatus($"Theme updated for \u201c{account.DisplayLabel}\u201d: " +
                 $"{theme.StylesheetUrls.Count} stylesheet(s), {theme.InlineStyles.Count} inline style block(s).");
-            await RefreshPreviewIfShowingAsync();
         }
 
         // EditorPanel's theme provider: returns the current blog's theme only when its

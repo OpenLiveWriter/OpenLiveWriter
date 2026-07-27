@@ -93,6 +93,29 @@ namespace OpenLiveWriter.App.Avalonia
         private void SetEditorView(string view) =>
             this.FindControl<EditorPanel>("EditorPanel")?.SetView(view);
 
+        // F2 / F7 shortcuts. These must NOT be NativeMenu gestures: a bare
+        // function-key gesture (no modifiers) silently breaks Avalonia's macOS
+        // native menu export — the whole menu bar disappears. Window-level
+        // keys reach the same handlers instead (verified 2026-07).
+        protected override void OnKeyDown(global::Avalonia.Input.KeyEventArgs e)
+        {
+            base.OnKeyDown(e);
+            if (e.Handled)
+                return;
+
+            switch (e.Key)
+            {
+                case global::Avalonia.Input.Key.F2:
+                    _ = ExecuteCommandAsync(CommandId.PostProperties);
+                    e.Handled = true;
+                    break;
+                case global::Avalonia.Input.Key.F7:
+                    _ = ExecuteCommandAsync(CommandId.CheckSpelling);
+                    e.Handled = true;
+                    break;
+            }
+        }
+
         // Post Properties (F2): publish date plus slug/excerpt/ping URLs. The values
         // are stored on the draft and sent as dateCreated / wp_slug / mt_excerpt /
         // mt_tb_ping_urls on publish.

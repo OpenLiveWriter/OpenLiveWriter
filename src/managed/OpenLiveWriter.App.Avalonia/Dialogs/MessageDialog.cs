@@ -56,7 +56,9 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
         /// <summary>Shows the message modally over <paramref name="owner"/> (no-op if null).</summary>
         public static async Task ShowAsync(Window owner, string title, string message)
         {
-            if (owner == null)
+            // Null OR non-visible owner (headless test benches that never Show() the
+            // window) degrades to a no-op so callers stay testable.
+            if (owner == null || !owner.IsVisible)
                 return;
             var dialog = new MessageDialog(title, message);
             await dialog.ShowDialog(owner);

@@ -18,7 +18,7 @@ namespace OpenLiveWriter.App.Avalonia.Editor
     public class WebViewEditor : UserControl
     {
         private NativeWebView _webView;
-        private bool _isReady;
+        private int _isReadyFlag;
         private string _pendingHtml;
         private string _editorHtml;
 
@@ -40,7 +40,8 @@ namespace OpenLiveWriter.App.Avalonia.Editor
         public AutoreplaceOptions AutoreplaceOptions { get; set; } = new AutoreplaceOptions();
 
         public NativeWebView WebView => _webView;
-        public bool IsReady => _isReady;
+        public bool IsReady => _isReadyFlag != 0;
+        private bool _isReady => _isReadyFlag != 0;
 
         /// <summary>
         /// When true, <see cref="InitializeWebView"/> hosts a stretch <see cref="Border"/>
@@ -156,6 +157,12 @@ namespace OpenLiveWriter.App.Avalonia.Editor
                 {
                     _webView.Navigate(new Uri("file://" + tempFile));
                 });
+
+                // The macOS WebView backend is unreliable about raising
+                // NavigationCompleted (observed: the page reaches readyState
+                // 'complete' but the event never fires), so don't gate readiness
+                // on the event alone — poll the DOM for our bridge as well.
+                _ = WaitForBridgeReadyAsync();
             }
             catch (Exception ex)
             {
@@ -163,9 +170,43 @@ namespace OpenLiveWriter.App.Avalonia.Editor
             }
         }
 
-        private void OnNavigationCompleted(object sender, EventArgs e)
+        // Polls until editor.html has actually loaded (readyState complete AND the
+        // OLWBridge object exists — about:blank also reports 'complete', so the
+        // bridge check is what pins readiness to *our* page). Complements the
+        // NavigationCompleted fast path; MarkReady is idempotent.
+        private async Task WaitForBridgeReadyAsync()
         {
-            _isReady = true;
+            for (int i = 0; i < 40 && !_isReady; i++)
+            {
+                await Task.Delay(250);
+                if (_isReady) return;
+                try
+                {
+                    string probe = await RunJSReturn(
+                        "document.readyState + '|' + (typeof OLWBridge)");
+                    if (probe != null && probe.StartsWith("complete|object"))
+                    {
+                        MarkReady();
+                        return;
+                    }
+                }
+                catch
+                {
+                    // Page not up yet / navigation still in flight — keep polling.
+                }
+            }
+            if (!_isReady)
+                Console.WriteLine("[OLW-WebView] Bridge never became ready (10s poll exhausted)");
+        }
+
+        private void OnNavigationCompleted(object sender, EventArgs e) => MarkReady();
+
+        private void MarkReady()
+        {
+            // The event path (UI thread) and the poll path (threadpool) can race;
+            // only the first caller runs the ready logic.
+            if (System.Threading.Interlocked.CompareExchange(ref _isReadyFlag, 1, 0) != 0)
+                return;
             Console.WriteLine("[OLW-WebView] Ready");
 
             if (_pendingHtml != null)

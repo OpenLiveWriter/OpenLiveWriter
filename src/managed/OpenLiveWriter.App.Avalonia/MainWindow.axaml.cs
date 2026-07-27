@@ -177,6 +177,9 @@ namespace OpenLiveWriter.App.Avalonia
             var editorPanel = this.FindControl<EditorPanel>("EditorPanel");
             if (editorPanel?.WebViewEditor != null)
             {
+                // Formatting commands also target the (possibly hidden) editor —
+                // bring the Edit view forward first so the change is visible.
+                await EnsureEditViewAsync();
                 bool handled = await editorPanel.WebViewEditor.HandleCommandAsync(commandId);
                 if (handled)
                 {
@@ -214,6 +217,19 @@ namespace OpenLiveWriter.App.Avalonia
 
         private void InitializeDraftSession()
         {
+            // The title editor doesn't depend on the draft store — wire it first so
+            // it keeps working even when the store is unavailable.
+            _titleEditor = this.FindControl<TextBox>("TitleEditor");
+            if (_titleEditor != null)
+            {
+                _titleEditor.TextChanged += (s, e) =>
+                {
+                    if (_suppressDirty) return;
+                    _draftSession?.UpdateTitle(_titleEditor.Text ?? string.Empty);
+                    UpdateWindowTitle();
+                };
+            }
+
             try
             {
                 _draftSession = new DraftSession(DraftStoreFactory.CreateDefault());
@@ -235,17 +251,6 @@ namespace OpenLiveWriter.App.Avalonia
             {
                 editorPanel.WebViewEditor.MediaStore = _mediaStore;
                 editorPanel.WebViewEditor.DocumentMediaIdProvider = () => _draftSession?.Current?.MediaId;
-            }
-
-            _titleEditor = this.FindControl<TextBox>("TitleEditor");
-            if (_titleEditor != null)
-            {
-                _titleEditor.TextChanged += (s, e) =>
-                {
-                    if (_suppressDirty) return;
-                    _draftSession.UpdateTitle(_titleEditor.Text ?? string.Empty);
-                    UpdateWindowTitle();
-                };
             }
         }
 
@@ -434,6 +439,10 @@ namespace OpenLiveWriter.App.Avalonia
             _suppressDirty = true;
             try
             {
+                // A document load must be visible: if the user was in Source/Preview,
+                // the content would load into the hidden WebView and appear lost.
+                await EnsureEditViewAsync();
+
                 if (_titleEditor != null)
                     _titleEditor.Text = _draftSession.Current.Title ?? string.Empty;
 
@@ -452,6 +461,16 @@ namespace OpenLiveWriter.App.Avalonia
 
         private WebViewEditor GetEditor() =>
             this.FindControl<EditorPanel>("EditorPanel")?.WebViewEditor;
+
+        // Editor-targeted commands (inserts, formatting) must run against the
+        // visible editor: in Source/Preview view the WebView is hidden and the
+        // command would silently apply to an invisible surface.
+        private async Task EnsureEditViewAsync()
+        {
+            var panel = this.FindControl<EditorPanel>("EditorPanel");
+            if (panel != null && panel.CurrentView != "edit")
+                await panel.SetViewAsync("edit");
+        }
 
         private string DisplayTitle()
         {

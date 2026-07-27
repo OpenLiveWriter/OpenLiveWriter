@@ -68,7 +68,7 @@ namespace OpenLiveWriter.App.Avalonia
                 ShellMenuItem.Command("Delete Draft", CommandId.DeleteDraft),
                 ShellMenuItem.Separator(),
                 ShellMenuItem.Command("Set Categories\u2026", CommandId.ShowCategoryPopup),
-                ShellMenuItem.Command("Post Properties\u2026", CommandId.PostProperties, "F2"),
+                ShellMenuItem.Command("Post Properties\u2026", CommandId.PostProperties),
                 ShellMenuItem.Separator(),
                 ShellMenuItem.Command("Print Preview\u2026", CommandId.PrintPreview),
                 ShellMenuItem.Command("Print\u2026", CommandId.Print, "Cmd+P"),
@@ -90,7 +90,7 @@ namespace OpenLiveWriter.App.Avalonia
                 ShellMenuItem.Command("Select All", CommandId.SelectAll, "Cmd+A"),
                 ShellMenuItem.Separator(),
                 ShellMenuItem.Command("Find\u2026", CommandId.FindButton, "Cmd+F"),
-                ShellMenuItem.Command("Spelling\u2026", CommandId.CheckSpelling, "F7"),
+                ShellMenuItem.Command("Spelling\u2026", CommandId.CheckSpelling),
             });
 
             var view = new ShellMenu("View", new[]

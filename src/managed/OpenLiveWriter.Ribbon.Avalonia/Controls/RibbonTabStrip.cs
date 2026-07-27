@@ -72,24 +72,27 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
             Background = new SolidColorBrush(Color.FromRgb(0xF0, 0xF0, 0xF0));
             BorderBrush = new SolidColorBrush(Color.FromRgb(0xD0, 0xD0, 0xD0));
             BorderThickness = new Thickness(0, 0, 0, 1);
-            Padding = new Thickness(8, 4, 8, 0);
+            Padding = new Thickness(8, 2, 8, 0);
             HorizontalAlignment = HorizontalAlignment.Stretch;
             ClipToBounds = true;
 
             _tabPanel = new StackPanel
             {
                 Orientation = Orientation.Horizontal,
+                VerticalAlignment = VerticalAlignment.Bottom,
                 Spacing = 2
             };
 
             BuildTabs();
 
             // Horizontal scroll when many tabs (or contextual tabs) won't fit —
-            // StackPanel alone would clip or overflow the window edge.
+            // StackPanel alone would clip or overflow the window edge. Bottom-
+            // anchored so the tabs sit flush on the band (tight, even strip).
             _tabScrollViewer = new ScrollViewer
             {
-                HorizontalScrollBarVisibility = ScrollBarVisibility.Auto,
+                HorizontalScrollBarVisibility = ScrollBarVisibility.Hidden,
                 VerticalScrollBarVisibility = ScrollBarVisibility.Disabled,
+                VerticalAlignment = VerticalAlignment.Bottom,
                 Content = _tabPanel
             };
 

@@ -61,6 +61,7 @@ namespace OpenLiveWriter.App.Avalonia
             var editor = GetEditor();
             if (editor == null)
                 return;
+            await EnsureEditViewAsync();
 
             TableDialogResult result = await TableDialog.ShowAsync(this);
             if (result == null)
@@ -75,6 +76,7 @@ namespace OpenLiveWriter.App.Avalonia
             var editor = GetEditor();
             if (editor == null)
                 return;
+            await EnsureEditViewAsync();
 
             VideoDialogResult result = await VideoDialog.ShowAsync(this);
             if (result == null)
@@ -97,6 +99,7 @@ namespace OpenLiveWriter.App.Avalonia
             var editor = GetEditor();
             if (editor == null)
                 return;
+            await EnsureEditViewAsync();
 
             string emoji = await EmoticonDialog.ShowAsync(this);
             if (string.IsNullOrEmpty(emoji))
@@ -113,6 +116,7 @@ namespace OpenLiveWriter.App.Avalonia
             var editor = GetEditor();
             if (editor == null)
                 return;
+            await EnsureEditViewAsync();
 
             MapDialogResult result = await MapDialog.ShowAsync(this);
             if (result == null)
@@ -137,6 +141,7 @@ namespace OpenLiveWriter.App.Avalonia
             var editor = GetEditor();
             if (editor == null)
                 return;
+            await EnsureEditViewAsync();
 
             WebImageDialogResult result = await WebImageDialog.ShowAsync(this);
             if (result == null || !WebImageDialog.IsValidHttpUrl(result.Url))
@@ -154,6 +159,7 @@ namespace OpenLiveWriter.App.Avalonia
             var editor = GetEditor();
             if (editor == null)
                 return;
+            await EnsureEditViewAsync();
 
             IEnumerable<string> existing = _draftSession?.Current.Keywords;
             TagDialogResult result = await TagDialog.ShowAsync(this, existing);
@@ -183,6 +189,7 @@ namespace OpenLiveWriter.App.Avalonia
             var editor = GetEditor();
             if (editor == null)
                 return;
+            await EnsureEditViewAsync();
 
             string clipboardText = await TryReadClipboardTextAsync();
             if (string.IsNullOrEmpty(clipboardText))
@@ -202,6 +209,7 @@ namespace OpenLiveWriter.App.Avalonia
             var editor = GetEditor();
             if (editor == null)
                 return;
+            await EnsureEditViewAsync();
 
             string clipboardText = await TryReadClipboardTextAsync();
             if (string.IsNullOrEmpty(clipboardText))

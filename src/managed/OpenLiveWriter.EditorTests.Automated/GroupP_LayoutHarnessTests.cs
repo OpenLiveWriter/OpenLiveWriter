@@ -338,8 +338,10 @@ namespace OpenLiveWriter.EditorTests.Automated
             {
                 Assert.That(
                     scroll.HorizontalScrollBarVisibility,
-                    Is.EqualTo(ScrollBarVisibility.Auto).Or.EqualTo(ScrollBarVisibility.Visible),
-                    $"{label}: content wider than viewport requires a horizontal scroller");
+                    Is.EqualTo(ScrollBarVisibility.Auto).Or.EqualTo(ScrollBarVisibility.Visible)
+                        .Or.EqualTo(ScrollBarVisibility.Hidden),
+                    $"{label}: content wider than viewport requires a horizontal scroller " +
+                    "(Hidden keeps gesture scrolling without drawing a bar)");
             }
         }
 

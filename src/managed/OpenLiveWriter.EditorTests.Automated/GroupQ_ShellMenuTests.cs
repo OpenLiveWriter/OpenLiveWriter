@@ -65,7 +65,10 @@ namespace OpenLiveWriter.EditorTests.Automated
         [TestCase(CommandId.PasteSpecial, "Cmd+Shift+V")]
         [TestCase(CommandId.SelectAll, "Cmd+A")]
         [TestCase(CommandId.FindButton, "Cmd+F")]
-        [TestCase(CommandId.CheckSpelling, "F7")]
+        // F7 (Spelling) is intentionally gestureless in the menu: bare function-key
+        // gestures silently break Avalonia's macOS native menu export. It's a
+        // window-level key instead (see MainWindow.MenuBar.cs OnKeyDown).
+        [TestCase(CommandId.CheckSpelling, null)]
         public void EditMenu_MapsCommandsAndGestures(CommandId commandId, string gesture)
         {
             ShellMenuItem item = Item(Menu("Edit"), commandId);
@@ -114,6 +117,24 @@ namespace OpenLiveWriter.EditorTests.Automated
                 Assert.DoesNotThrow(() => parsed = KeyGesture.Parse(gesture), gesture);
                 Assert.That(parsed, Is.Not.Null, gesture);
             }
+        }
+
+        [Test]
+        public void NoMenuGesture_IsABareFunctionKey()
+        {
+            // A bare function-key NativeMenu gesture (F2, F7, …, no modifiers) silently
+            // breaks Avalonia's macOS native menu export — the whole menu bar disappears
+            // (verified live 2026-07). Function-key shortcuts belong to window-level
+            // key handling instead (MainWindow.MenuBar.cs OnKeyDown).
+            var bareFunctionKeys = ShellMenuBuilder.Build()
+                .SelectMany(m => m.Items)
+                .Where(i => i.Gesture != null)
+                .Select(i => KeyGesture.Parse(i.Gesture))
+                .Where(g => g.KeyModifiers == KeyModifiers.None &&
+                            g.Key >= global::Avalonia.Input.Key.F1 &&
+                            g.Key <= global::Avalonia.Input.Key.F24)
+                .ToList();
+            Assert.That(bareFunctionKeys, Is.Empty);
         }
 
         // ---- Debug tab gating (P0-5) ----

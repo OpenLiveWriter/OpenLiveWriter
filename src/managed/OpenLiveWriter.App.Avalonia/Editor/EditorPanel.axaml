@@ -19,7 +19,7 @@
                 ClipToBounds="True">
             <!-- Horizontal scroll so Match case / Next / Replace stay reachable at 800px -->
             <ScrollViewer x:Name="FindBarScrollViewer"
-                          HorizontalScrollBarVisibility="Auto"
+                          HorizontalScrollBarVisibility="Hidden"
                           VerticalScrollBarVisibility="Disabled">
                 <DockPanel LastChildFill="True" MinWidth="560">
                     <StackPanel DockPanel.Dock="Right"
