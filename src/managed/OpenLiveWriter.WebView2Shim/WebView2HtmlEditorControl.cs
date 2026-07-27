@@ -59,7 +59,12 @@ namespace OpenLiveWriter.WebView2Shim
             get => _selection;
             set => _selection = value ?? "";
         }
-        
+
+        /// <summary>
+        /// HTML of the current selection - updated by JS on selectionchange event
+        /// </summary>
+        public string SelectionHtml { get; set; } = "";
+
         // Link state - synced when selection changes
         public bool IsInLink { get; set; } = false;
         public string LinkHref { get; set; } = "";
@@ -90,8 +95,6 @@ namespace OpenLiveWriter.WebView2Shim
         private static int _instanceCounter;
         private readonly int _instanceId;
         private WebView2 _webView;
-        private WebView2Bridge _bridge;
-        private WebView2Document _document;
         private bool _isInitialized;
         private bool _isDirty;
         private string _pendingHtml;
@@ -128,7 +131,7 @@ namespace OpenLiveWriter.WebView2Shim
             _contentBridge = new EditorContentBridge();
             InitializeComponent();
             // Create command source immediately so it's never null
-            _commandSource = new WebView2HtmlEditorCommandSource(this, null);
+            _commandSource = new WebView2HtmlEditorCommandSource(this);
             
             // Subscribe to paragraph setting changes to apply immediately
             WebView2Document.UseParagraphTagsChanged += OnUseParagraphTagsChanged;
@@ -246,62 +249,9 @@ namespace OpenLiveWriter.WebView2Shim
                     }
                 };
                 
-                // Handle keyboard shortcuts via CoreWebView2Controller
-                _webView.CoreWebView2.GetDevToolsProtocolEventReceiver("cycler").DevToolsProtocolEventReceived += (s, e) => { };
-                var controller = (Microsoft.Web.WebView2.Core.CoreWebView2Controller)typeof(WebView2)
-                    .GetProperty("CoreWebView2Controller", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
-                    ?.GetValue(_webView);
-                
-                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] #{_instanceId} CoreWebView2Controller obtained: {controller != null}");
-                    
-                if (controller != null)
-                {
-                    controller.AcceleratorKeyPressed += (s, e) =>
-                    {
-                        // Check for Ctrl+key combinations on KeyDown
-                        if (e.KeyEventKind == Microsoft.Web.WebView2.Core.CoreWebView2KeyEventKind.KeyDown &&
-                            (Control.ModifierKeys & Keys.Control) == Keys.Control)
-                        {
-                            var key = (Keys)e.VirtualKey;
-                            bool handled = false;
-                            System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] AcceleratorKey: Ctrl+{key}");
-                            
-                            switch (key)
-                            {
-                                case Keys.B:
-                                    _commandSource.ApplyBold();
-                                    handled = true;
-                                    break;
-                                case Keys.I:
-                                    _commandSource.ApplyItalic();
-                                    handled = true;
-                                    break;
-                                case Keys.U:
-                                    _commandSource.ApplyUnderline();
-                                    handled = true;
-                                    break;
-                                case Keys.K:
-                                    System.Diagnostics.Debug.WriteLine("[OLW-DEBUG] Ctrl+K detected, calling InsertLink");
-                                    _commandSource.InsertLink();
-                                    handled = true;
-                                    break;
-                                case Keys.Z:
-                                    _commandSource.Undo();
-                                    handled = true;
-                                    break;
-                                case Keys.Y:
-                                    _commandSource.Redo();
-                                    handled = true;
-                                    break;
-                            }
-                            
-                            if (handled)
-                            {
-                                e.Handled = true;
-                            }
-                        }
-                    };
-                }
+                // Keyboard shortcuts: Ctrl+B/I/U/Z/Y are handled natively by
+                // Chromium's contenteditable; Ctrl+K is handled by the JS keydown
+                // handler injected in SetupHostObjectListeners.
 
                 // Check if we have pending html to load
                 if (!string.IsNullOrEmpty(_pendingHtml))
@@ -375,6 +325,15 @@ namespace OpenLiveWriter.WebView2Shim
                         function syncSelectionState() {
                             var sel = window.getSelection();
                             olw.Selection = sel ? sel.toString() : '';
+
+                            // Capture selection HTML (for SelectedHtml consumers)
+                            var selHtml = '';
+                            if (sel && sel.rangeCount > 0 && !sel.isCollapsed) {
+                                var container = document.createElement('div');
+                                container.appendChild(sel.getRangeAt(0).cloneContents());
+                                selHtml = container.innerHTML;
+                            }
+                            olw.SelectionHtml = selHtml;
                             
                             // Get anchor node for context
                             var node = sel && sel.anchorNode ? sel.anchorNode : null;
@@ -484,51 +443,6 @@ namespace OpenLiveWriter.WebView2Shim
             }
         }
 
-        private void InitializeBridge()
-        {
-            try
-            {
-                _bridge = new WebView2Bridge(_webView);
-                _bridge.Initialize();
-                _document = new WebView2Document(_bridge, _webView);
-                _commandSource.SetDocument(_document);
-                
-                // Set up content change monitoring for olw-body element
-                _bridge.ExecuteScript(@"
-                    var body = document.getElementById('olw-body');
-                    if (body) {
-                        body.addEventListener('input', function() {
-                            window.chrome.webview.postMessage(JSON.stringify({ type: 'contentChanged' }));
-                        });
-                    }
-                ");
-                
-                _webView.CoreWebView2.WebMessageReceived += (s, e) =>
-                {
-                    try
-                    {
-                        var json = e.WebMessageAsJson;
-                        // Handle contentChanged message
-                        if (json?.Contains("contentChanged") == true)
-                        {
-                            IsDirty = true;
-                        }
-                        // Handle insertLink (Ctrl+K) message
-                        else if (json?.Contains("insertLink") == true)
-                        {
-                            System.Diagnostics.Debug.WriteLine("[OLW-DEBUG] Received insertLink message from JS (Ctrl+K)");
-                            _commandSource.InsertLink();
-                        }
-                    }
-                    catch { }
-                };
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] Bridge init error: {ex.Message}");
-            }
-        }
-
         private string GetEditorTemplate()
         {
             return @"<!DOCTYPE html>
@@ -571,18 +485,6 @@ namespace OpenLiveWriter.WebView2Shim
 </html>";
         }
 
-        private void SetEditorContent(string html)
-        {
-            if (_isInitialized && _document != null)
-            {
-                var editor = _document.getElementById("olw-editor");
-                if (editor != null)
-                {
-                    editor.innerHTML = html ?? "";
-                }
-            }
-        }
-        
         private string GetEditorContent()
         {
             return _contentBridge.Body ?? "";
@@ -594,7 +496,6 @@ namespace OpenLiveWriter.WebView2Shim
             return _contentBridge.Title ?? "";
         }
 
-        public WebView2Document Document => _document;
         public bool IsInitialized => _isInitialized;
 
         #region IHtmlEditor Implementation
@@ -726,26 +627,16 @@ namespace OpenLiveWriter.WebView2Shim
         {
             get
             {
-                if (_isInitialized && _document != null)
-                {
-                    var selection = _document.selection;
-                    if (selection.type != "None")
-                    {
-                        var range = selection.createRange();
-                        var html = range.htmlText;
-                        range.Dispose();
-                        return html;
-                    }
-                }
-                return "";
+                // Synced from JS on selectionchange (see SetupHostObjectListeners)
+                return _contentBridge?.SelectionHtml ?? "";
             }
         }
 
         public void EmptySelection()
         {
-            if (_isInitialized && _document != null)
+            if (_isInitialized && _webView?.CoreWebView2 != null)
             {
-                _document.selection.empty();
+                _ = _webView.CoreWebView2.ExecuteScriptAsync("window.getSelection().removeAllRanges()");
             }
         }
         
@@ -920,7 +811,6 @@ namespace OpenLiveWriter.WebView2Shim
 
         public new void Dispose()
         {
-            _bridge?.Dispose();
             _webView?.Dispose();
             base.Dispose();
         }
@@ -934,23 +824,13 @@ namespace OpenLiveWriter.WebView2Shim
     internal class WebView2HtmlEditorCommandSource : IHtmlEditorCommandSource
     {
         private readonly WebView2HtmlEditorControl _editor;
-        private WebView2Document _document;
         private WebView2 _webView;
 
-        public WebView2HtmlEditorCommandSource(WebView2HtmlEditorControl editor, WebView2Document document)
+        public WebView2HtmlEditorCommandSource(WebView2HtmlEditorControl editor)
         {
             _editor = editor;
-            _document = document;
         }
 
-        /// <summary>
-        /// Updates the document reference after WebView2 initialization.
-        /// </summary>
-        public void SetDocument(WebView2Document document)
-        {
-            _document = document;
-        }
-        
         /// <summary>
         /// Sets the WebView2 reference for direct JavaScript execution.
         /// </summary>

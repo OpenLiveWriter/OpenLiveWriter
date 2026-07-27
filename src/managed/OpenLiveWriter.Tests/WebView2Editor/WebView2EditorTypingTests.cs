@@ -62,6 +62,29 @@ namespace OpenLiveWriter.Tests.WebView2Editor
         }
 
         [Test]
+        public void SelectionChange_SyncsSelectedHtml()
+        {
+            using (var form = CreateEditorForm(out WebView2HtmlEditorControl editor))
+            {
+                EnsureReadyOrIgnore(editor);
+
+                WebView2 webView = GetInnerWebView(editor);
+                webView.CoreWebView2.ExecuteScriptAsync(
+                    "var b = document.getElementById('olw-body');" +
+                    "b.innerHTML = '<p>Hello <b>bold</b> world</p>';" +
+                    "var range = document.createRange();" +
+                    "range.selectNodeContents(b);" +
+                    "var sel = window.getSelection();" +
+                    "sel.removeAllRanges();" +
+                    "sel.addRange(range);" +
+                    "document.dispatchEvent(new Event('selectionchange'));");
+
+                string html = WaitForValue(() => editor.SelectedHtml, "<b>bold</b>");
+                StringAssert.Contains("<b>bold</b>", html);
+            }
+        }
+
+        [Test]
         public void TitleEdit_SyncsToGetEditedTitleHtml()
         {
             using (var form = CreateEditorForm(out WebView2HtmlEditorControl editor))
