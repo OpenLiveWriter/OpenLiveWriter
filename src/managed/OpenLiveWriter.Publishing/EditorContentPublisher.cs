@@ -73,14 +73,18 @@ namespace OpenLiveWriter.Publishing
         /// <paramref name="excerpt"/> are sent as <c>wp_slug</c>/<c>mt_excerpt</c>
         /// (posts and pages); <paramref name="pingUrls"/> is sent as
         /// <c>mt_tb_ping_urls</c> (posts only). Empty values omit the members.
+        /// <paramref name="imageResizer"/> enables the Windows-style two-stage image
+        /// upload (resized display copy + original click-through); null keeps the
+        /// single-upload behavior. See <see cref="ImagePublisher"/>.
         /// </summary>
         public static async Task<string> PublishOrEditAsync(IBlogClient client, string blogId, string existingPostId,
             string title, string editorHtml, bool publish, IEnumerable<string> categories,
             string keywords = null, bool isPage = false, System.DateTime? publishDateUtc = null,
-            string slug = null, string excerpt = null, IEnumerable<string> pingUrls = null)
+            string slug = null, string excerpt = null, IEnumerable<string> pingUrls = null,
+            PublishImageResizer imageResizer = null)
         {
             string hosted = await ImagePublisher.RewriteInlineImagesAsync(
-                client, blogId, editorHtml ?? string.Empty).ConfigureAwait(false);
+                client, blogId, editorHtml ?? string.Empty, readLocalFile: null, resizer: imageResizer).ConfigureAwait(false);
             string[] categoryArray = categories?.Where(c => !string.IsNullOrEmpty(c)).ToArray()
                 ?? System.Array.Empty<string>();
             BlogPost post = BuildPost(title, hosted, publish, categoryArray);

@@ -340,7 +340,8 @@ namespace OpenLiveWriter.App.Avalonia
                     publishDateUtc: _draftSession?.Current.PublishDateUtc,
                     slug: _draftSession?.Current.Slug,
                     excerpt: _draftSession?.Current.Excerpt,
-                    pingUrls: _draftSession?.Current.PingUrls);
+                    pingUrls: _draftSession?.Current.PingUrls,
+                    imageResizer: ImageEditing.PublishImageResizerFactory.Create());
 
                 if (_draftSession != null)
                 {

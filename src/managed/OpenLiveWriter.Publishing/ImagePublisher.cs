@@ -44,6 +44,36 @@ namespace OpenLiveWriter.Publishing
             @"<img\b[^>]*?\bsrc\s*=\s*""(?<uri>file://[^""]+)""",
             RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
 
+        // Matches a complete <img> tag (through the closing >) whose src is a
+        // file:// URI. Used by the rewrite pass so display dimensions can be read
+        // from the whole tag and the tag can be wrapped in a click-through anchor.
+        private static readonly Regex FileImageTagRegex = new Regex(
+            @"<img\b[^>]*?\bsrc\s*=\s*""(?<uri>file://[^""]+)""[^>]*>",
+            RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
+
+        // Display-size probes: CSS px lengths (inline style overrides the width/height
+        // attributes in the browser, so style is probed first) and plain attributes.
+        private static readonly Regex StyleWidthRegex = new Regex(
+            @"\bwidth\s*:\s*(?<v>\d+)px",
+            RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
+        private static readonly Regex StyleHeightRegex = new Regex(
+            @"\bheight\s*:\s*(?<v>\d+)px",
+            RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
+        private static readonly Regex AttrWidthRegex = new Regex(
+            @"\bwidth\s*=\s*[""'](?<v>\d+)[""']",
+            RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
+        private static readonly Regex AttrHeightRegex = new Regex(
+            @"\bheight\s*=\s*[""'](?<v>\d+)[""']",
+            RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
+
+        // Anchor boundaries for the "already linked" check (no double-wrapping).
+        private static readonly Regex AnchorOpenRegex = new Regex(
+            @"<a\b[^>]*>",
+            RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
+        private static readonly Regex AnchorCloseRegex = new Regex(
+            @"</a\s*>",
+            RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
+
         /// <summary>A single inline base64 image discovered in editor HTML.</summary>
         public sealed class InlineImage
         {
@@ -148,6 +178,72 @@ namespace OpenLiveWriter.Publishing
         }
 
         /// <summary>
+        /// Reads the display size of an <c>&lt;img&gt;</c> tag from its inline style
+        /// (<c>width:…px;height:…px</c>, which overrides the attributes in the browser)
+        /// or its <c>width</c>/<c>height</c> attributes. Both dimensions must be
+        /// present and positive; anything else (no sizing, one-sided sizing,
+        /// non-px units) returns false. Pure; no I/O.
+        /// </summary>
+        public static bool TryGetDisplaySize(string imgTag, out int width, out int height)
+        {
+            width = 0;
+            height = 0;
+            if (string.IsNullOrEmpty(imgTag))
+                return false;
+
+            int w = MatchPx(StyleWidthRegex, imgTag) ?? MatchPx(AttrWidthRegex, imgTag) ?? 0;
+            int h = MatchPx(StyleHeightRegex, imgTag) ?? MatchPx(AttrHeightRegex, imgTag) ?? 0;
+            if (w <= 0 || h <= 0)
+                return false;
+
+            width = w;
+            height = h;
+            return true;
+        }
+
+        /// <summary>
+        /// The "should resize?" decision (pure): resize when an explicit display size
+        /// is set AND it is smaller than the natural size in both dimensions. Upscaled
+        /// or mixed images publish their original bytes (the browser scales those
+        /// better than a re-encode would, and there is no full-size original to gain).
+        /// </summary>
+        public static bool ShouldResizeForDisplay(
+            int displayWidth, int displayHeight, int naturalWidth, int naturalHeight) =>
+            displayWidth > 0 && displayHeight > 0
+            && displayWidth < naturalWidth && displayHeight < naturalHeight;
+
+        /// <summary>
+        /// True when the &lt;img&gt; starting at <paramref name="imgIndex"/> already
+        /// sits inside an anchor — the nearest anchor boundary before it is an
+        /// opening <c>&lt;a&gt;</c>. Such images keep whatever they link to; the
+        /// two-stage upload must not double-wrap them.
+        /// </summary>
+        internal static bool IsWrappedInAnchor(string html, int imgIndex)
+        {
+            if (string.IsNullOrEmpty(html) || imgIndex <= 0)
+                return false;
+
+            string prefix = html.Substring(0, imgIndex);
+            int open = -1;
+            foreach (Match m in AnchorOpenRegex.Matches(prefix))
+                open = m.Index;
+            int close = -1;
+            foreach (Match m in AnchorCloseRegex.Matches(prefix))
+                close = m.Index;
+            return open > close;
+        }
+
+        private static int? MatchPx(Regex regex, string imgTag)
+        {
+            Match m = regex.Match(imgTag);
+            if (!m.Success)
+                return null;
+            return int.TryParse(m.Groups["v"].Value,
+                System.Globalization.NumberStyles.None,
+                System.Globalization.CultureInfo.InvariantCulture, out int v) ? v : (int?)null;
+        }
+
+        /// <summary>
         /// Uploads every distinct inline image via <paramref name="client"/> and returns
         /// <paramref name="html"/> with each data URI replaced by its hosted URL. When
         /// there are no inline images the input is returned unchanged (no upload calls).
@@ -168,9 +264,23 @@ namespace OpenLiveWriter.Publishing
         /// aborts the publish with <see cref="BlogClientPublishException"/> — the
         /// partially rewritten HTML is never returned.
         /// </param>
+        /// <param name="resizer">
+        /// Optional two-stage-upload seam (Windows "Link to: source picture"
+        /// behavior). When supplied, a file:// <c>&lt;img&gt;</c> whose display size
+        /// (width/height attributes or inline px style) is smaller than its natural
+        /// size in both dimensions uploads twice: the original bytes under the
+        /// original file name, and a resized display copy named
+        /// <c>{name}_{width}x{height}.png</c> (e.g. <c>photo_320x240.png</c>). The
+        /// rewritten <c>src</c> points at the resized URL and the <c>&lt;img&gt;</c>
+        /// is wrapped in <c>&lt;a href="{original-url}"&gt;</c> — unless it already
+        /// sits inside an anchor, whose target is respected (no double-wrap).
+        /// Images without a qualifying display size keep the single-upload behavior.
+        /// Null disables resizing entirely.
+        /// </param>
         /// <exception cref="BlogClientPublishException">An image upload or file read failed.</exception>
         public static async Task<string> RewriteInlineImagesAsync(
-            IBlogClient client, string blogId, string html, Func<string, byte[]> readLocalFile)
+            IBlogClient client, string blogId, string html, Func<string, byte[]> readLocalFile,
+            PublishImageResizer resizer = null)
         {
             if (client == null) throw new ArgumentNullException(nameof(client));
             if (string.IsNullOrEmpty(html))
@@ -179,7 +289,7 @@ namespace OpenLiveWriter.Publishing
             readLocalFile ??= System.IO.File.ReadAllBytes;
 
             string rewritten = await RewriteDataUriImagesAsync(client, blogId, html).ConfigureAwait(false);
-            return await RewriteFileImagesAsync(client, blogId, rewritten, readLocalFile).ConfigureAwait(false);
+            return await RewriteFileImagesAsync(client, blogId, rewritten, readLocalFile, resizer).ConfigureAwait(false);
         }
 
         private static async Task<string> RewriteDataUriImagesAsync(IBlogClient client, string blogId, string html)
@@ -207,14 +317,31 @@ namespace OpenLiveWriter.Publishing
                 urlByDataUri.TryGetValue(m.Value, out string url) ? url : m.Value);
         }
 
+        /// <summary>Per-unique-image upload plan for the file:// rewrite.</summary>
+        private sealed class FileImagePlan
+        {
+            public LocalFileImage Image { get; set; }
+            public byte[] Bytes { get; set; }
+            public (int Width, int Height)? NaturalSize { get; set; }
+            public string OriginalUrl { get; set; }
+
+            /// <summary>Hosted URL per qualifying display size ("{w}x{h}" → URL).</summary>
+            public Dictionary<string, string> ResizedUrls { get; } =
+                new Dictionary<string, string>(StringComparer.Ordinal);
+        }
+
         private static async Task<string> RewriteFileImagesAsync(
-            IBlogClient client, string blogId, string html, Func<string, byte[]> readLocalFile)
+            IBlogClient client, string blogId, string html, Func<string, byte[]> readLocalFile,
+            PublishImageResizer resizer)
         {
             IReadOnlyList<LocalFileImage> images = FindLocalFileImages(html);
             if (images.Count == 0)
                 return html;
 
-            var urlByFileUri = new Dictionary<string, string>(StringComparer.Ordinal);
+            // One plan per unique image: read the bytes once, probe the natural size
+            // (when a resizer is wired), and upload the original — it is always
+            // needed, either as the src (no resize) or as the click-through target.
+            var plans = new Dictionary<string, FileImagePlan>(StringComparer.Ordinal);
             foreach (LocalFileImage image in images)
             {
                 byte[] bytes;
@@ -234,16 +361,107 @@ namespace OpenLiveWriter.Publishing
                         $"Failed to read local image '{image.LocalPath}' before publishing: the file is missing or empty.");
                 }
 
-                string hostedUrl = await UploadImageAsync(
+                var plan = new FileImagePlan { Image = image, Bytes = bytes };
+                if (resizer != null)
+                {
+                    // An undecodable (or probe-failing) image simply publishes
+                    // without resizing; it must not abort the publish.
+                    try { plan.NaturalSize = ToSize(resizer.ProbeNaturalSize(bytes)); }
+                    catch (Exception) { plan.NaturalSize = null; }
+                }
+
+                plan.OriginalUrl = await UploadImageAsync(
                     client, blogId, image.FileName, MimeTypeForFile(image.FileName), bytes).ConfigureAwait(false);
-                urlByFileUri[image.FileUri] = hostedUrl;
+                plans[image.FileUri] = plan;
             }
 
-            return FileImageRegex.Replace(html, m =>
-                urlByFileUri.TryGetValue(m.Groups["uri"].Value, out string url)
-                    ? m.Value.Substring(0, m.Groups["uri"].Index - m.Index) + url + "\""
-                    : m.Value);
+            // Pre-pass: for every distinct display size that qualifies, upload the
+            // resized display copy once (deduped per image + size). The original was
+            // already uploaded above, so ordering per image is original → resized.
+            if (resizer != null)
+            {
+                foreach (Match m in FileImageTagRegex.Matches(html))
+                {
+                    FileImagePlan plan = plans[m.Groups["uri"].Value];
+                    string dimsKey = QualifyingDisplaySize(plan, m.Value);
+                    if (dimsKey == null || plan.ResizedUrls.ContainsKey(dimsKey))
+                        continue;
+
+                    if (!TryGetDisplaySize(m.Value, out int displayW, out int displayH))
+                        continue;
+
+                    byte[] resizedBytes;
+                    try
+                    {
+                        resizedBytes = resizer.Resize(plan.Bytes, displayW, displayH);
+                    }
+                    catch (Exception ex) when (!(ex is BlogClientPublishException))
+                    {
+                        throw new BlogClientPublishException(
+                            $"Failed to resize local image '{plan.Image.LocalPath}' before publishing: {ex.Message}");
+                    }
+
+                    if (resizedBytes == null || resizedBytes.Length == 0)
+                    {
+                        throw new BlogClientPublishException(
+                            $"Failed to resize local image '{plan.Image.LocalPath}' before publishing: the resizer returned no bytes.");
+                    }
+
+                    plan.ResizedUrls[dimsKey] = await UploadImageAsync(
+                        client, blogId, ResizedFileName(plan.Image.FileName, displayW, displayH),
+                        "image/png", resizedBytes).ConfigureAwait(false);
+                }
+            }
+
+            // Rewrite pass: swap each file:// src for its hosted URL and wrap the
+            // qualifying tags in a click-through anchor to the original.
+            return FileImageTagRegex.Replace(html, m =>
+            {
+                FileImagePlan plan = plans[m.Groups["uri"].Value];
+                string dimsKey = QualifyingDisplaySize(plan, m.Value);
+
+                string resizedUrl = null;
+                bool resized = dimsKey != null && plan.ResizedUrls.TryGetValue(dimsKey, out resizedUrl);
+                string url = resized ? resizedUrl : plan.OriginalUrl;
+
+                string newTag = FileImageRegex.Replace(m.Value, srcMatch =>
+                    srcMatch.Value.Substring(0, srcMatch.Groups["uri"].Index - srcMatch.Index) + url + "\"");
+
+                return resized && !IsWrappedInAnchor(html, m.Index)
+                    ? "<a href=\"" + plan.OriginalUrl + "\">" + newTag + "</a>"
+                    : newTag;
+            });
         }
+
+        // The display-size key ("{w}x{h}") when this occurrence qualifies for the
+        // two-stage upload, else null. Pure given the plan's probed natural size.
+        private static string QualifyingDisplaySize(FileImagePlan plan, string imgTag)
+        {
+            if (!plan.NaturalSize.HasValue)
+                return null;
+            if (!TryGetDisplaySize(imgTag, out int displayW, out int displayH))
+                return null;
+            if (!ShouldResizeForDisplay(displayW, displayH,
+                plan.NaturalSize.Value.Width, plan.NaturalSize.Value.Height))
+                return null;
+            return displayW.ToString(System.Globalization.CultureInfo.InvariantCulture)
+                + "x" + displayH.ToString(System.Globalization.CultureInfo.InvariantCulture);
+        }
+
+        // Resized display copies are PNG (the resizer seam's contract) and named
+        // after the original file plus the display size: photo.png → photo_320x240.png.
+        private static string ResizedFileName(string fileName, int width, int height)
+        {
+            string baseName = System.IO.Path.GetFileNameWithoutExtension(fileName);
+            if (string.IsNullOrEmpty(baseName))
+                baseName = "image";
+            return baseName + "_"
+                + width.ToString(System.Globalization.CultureInfo.InvariantCulture) + "x"
+                + height.ToString(System.Globalization.CultureInfo.InvariantCulture) + ".png";
+        }
+
+        private static (int Width, int Height)? ToSize(ValueTuple<int, int>? probed) =>
+            probed.HasValue ? (probed.Value.Item1, probed.Value.Item2) : ((int Width, int Height)?)null;
 
         private static async Task<string> UploadImageAsync(
             IBlogClient client, string blogId, string fileName, string mimeType, byte[] bytes)

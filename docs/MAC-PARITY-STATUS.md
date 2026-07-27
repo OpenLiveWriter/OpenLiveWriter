@@ -698,6 +698,18 @@ aborts rather than sending broken HTML.
 Runs on both the new-post and edit paths (`EditorContentPublisher` /
 `WebViewEditor.PublishAsync` / `BlogAccountService.Publish`).
 
+**Two-stage upload (Windows "Link to: source picture" parity).** When the shell wires
+the `PublishImageResizer` seam (`PublishImageResizerFactory` — SkiaSharp probe +
+Mitchell-cubic resize from `ImageEditorService`; Publishing itself stays codec-free),
+a `file://` image whose display size (width/height attributes or inline px style) is
+smaller than its natural size in both dimensions uploads twice: the original bytes
+under the original file name, then a resized PNG display copy named
+`{name}_{width}x{height}.png`. The rewritten `src` points at the resized URL and the
+`<img>` is wrapped in `<a href="{original-url}">` — unless it already sits inside an
+anchor, whose target is respected. Upscaled, unsized, or undecodable images keep the
+single-upload behavior; a resize failure aborts the publish like any other upload
+failure.
+
 ### 10.2 Categories
 
 `BlogPostCategory` model + `IBlogClient.GetCategories(blogId)` (`metaWeblog.getCategories`)
