@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using OpenLiveWriter.Ribbon.Managed.Commands;
 using OpenLiveWriter.Ribbon.Managed.Rendering;
 
 namespace OpenLiveWriter.Ribbon.Managed.Controls
@@ -211,6 +212,17 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
         public RibbonColorPicker()
         {
             Size = new Size(56, LayoutConstants.LargeButtonMinHeight);
+
+            // A color pick from the dropdown (or color dialog) executes the command,
+            // passing the picked color to the source command via the bridge.
+            ColorChanged += (s, e) =>
+            {
+                if (CommandManager?.GetCommand(CommandId) is BridgedCommand bridgedCommand)
+                {
+                    bridgedCommand.SelectedColor = _selectedColor;
+                }
+                ExecuteCommand();
+            };
         }
 
         protected override void UpdateSize()

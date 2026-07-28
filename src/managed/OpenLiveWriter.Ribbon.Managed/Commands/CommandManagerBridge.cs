@@ -120,6 +120,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Commands
         private Image _smallImage;
         private List<CommandGalleryItem> _galleryItems = new List<CommandGalleryItem>();
         private int _selectedIndex = -1;
+        private Color? _selectedColor;
 
         public CommandId Id => _commandId;
         public string Label => _label ?? _commandId.ToString();
@@ -156,6 +157,16 @@ namespace OpenLiveWriter.Ribbon.Managed.Commands
                     OnStateChanged();
                 }
             }
+        }
+
+        /// <summary>
+        /// Gets or sets the color passed to the source command on the next execution
+        /// (used by color picker commands such as FontColorPicker). Cleared after use.
+        /// </summary>
+        public Color? SelectedColor
+        {
+            get => _selectedColor;
+            set => _selectedColor = value;
         }
 
         public bool Enabled
@@ -465,11 +476,14 @@ namespace OpenLiveWriter.Ribbon.Managed.Commands
         {
             // Refresh to ensure we have the latest source command and state
             var source = GetSourceCommand();
-            
+
             // If no source command exists, we can't execute - fail early
             if (source == null)
+            {
+                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] BridgedCommand.PerformExecute: {_commandId} has no source command");
                 return;
-            
+            }
+
             // Check the source command's enabled and on state directly
             // The underlying Command.PerformExecute() requires both On && Enabled to be true
             bool sourceEnabled = true;
@@ -491,7 +505,10 @@ namespace OpenLiveWriter.Ribbon.Managed.Commands
             catch { }
 
             if (!sourceEnabled || !sourceOn)
+            {
+                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] BridgedCommand.PerformExecute: {_commandId} gated (enabled={sourceEnabled}, on={sourceOn})");
                 return;
+            }
 
             Execute?.Invoke(this, EventArgs.Empty);
 
@@ -505,12 +522,12 @@ namespace OpenLiveWriter.Ribbon.Managed.Commands
                     var sourceType = source.GetType();
                     var selectedIndexProp = sourceType.GetProperty("SelectedIndex");
                     bool isGalleryCommand = selectedIndexProp != null && selectedIndexProp.CanWrite;
-                    
+
                     if (isGalleryCommand)
                     {
                         // Set the selected index on the source command
                         selectedIndexProp.SetValue(source, _selectedIndex);
-                        
+
                         // Gallery commands use PerformExecuteWithArgs with ExecuteEventHandlerArgs
                         var args = new ExecuteEventHandlerArgs(_commandId.ToString(), _selectedIndex);
                         command.PerformExecuteWithArgs(args);
@@ -518,6 +535,16 @@ namespace OpenLiveWriter.Ribbon.Managed.Commands
                     }
                     else
                     {
+                        // Color picker command - pass the selected color as an execution arg
+                        if (_selectedColor.HasValue)
+                        {
+                            var colorArgs = new ExecuteEventHandlerArgs();
+                            colorArgs.Add("SelectedColor", _selectedColor.Value);
+                            _selectedColor = null;
+                            command.PerformExecuteWithArgs(colorArgs);
+                            return;
+                        }
+
                         // Non-gallery command - use regular PerformExecute
                         command.PerformExecute();
                         return;
@@ -529,9 +556,10 @@ namespace OpenLiveWriter.Ribbon.Managed.Commands
                 var executeMethod = sourceType2.GetMethod("PerformExecute", Type.EmptyTypes);
                 executeMethod?.Invoke(source, null);
             }
-            catch
+            catch (Exception ex)
             {
                 // If command execution fails, swallow the exception
+                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] BridgedCommand.PerformExecute: {_commandId} threw: {ex}");
             }
         }
 
