@@ -3,6 +3,7 @@
 
 using System;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
@@ -375,6 +376,35 @@ namespace OpenLiveWriter.WebView2Shim
                         
                         titleEl.addEventListener('input', syncContent);
                         bodyEl.addEventListener('input', syncContent);
+
+                        // Apply a formatting command in CSS mode so Chromium emits
+                        // span+style markup instead of deprecated <font> tags, then
+                        // re-sync content to the bridge. Mirrors the macOS editor's
+                        // transient styleWithCSS pattern in editor.html.
+                        window.olwExecCss = function(command, value) {
+                            document.execCommand('styleWithCSS', false, true);
+                            document.execCommand(command, false, value);
+                            document.execCommand('styleWithCSS', false, false);
+                            bodyEl.dispatchEvent(new Event('input', { bubbles: true }));
+                        };
+
+                        // Apply an exact point font size. execCommand('fontSize') only
+                        // supports the 1-7 scale (keyword sizes in CSS mode), so apply
+                        // size 7 and rewrite the resulting xxx-large spans to the
+                        // requested pt value (same trick as the macOS setFontSizePx).
+                        window.olwApplyFontSizePt = function(pt) {
+                            document.execCommand('styleWithCSS', false, true);
+                            document.execCommand('fontSize', false, '7');
+                            document.execCommand('styleWithCSS', false, false);
+                            // Match on the serialized style attribute; the parsed
+                            // style.fontSize value is engine-specific for keywords.
+                            var spans = bodyEl.querySelectorAll('span[style*=""xxx-large""]');
+                            for (var i = 0; i < spans.length; i++) {
+                                spans[i].style.fontSize = pt + 'pt';
+                            }
+                            bodyEl.dispatchEvent(new Event('input', { bubbles: true }));
+                            return 'rewrote ' + spans.length + ' span(s) to ' + pt + 'pt';
+                        };
                         
                         // Handle Ctrl+K for hyperlink insertion via postMessage
                         document.addEventListener('keydown', function(e) {
@@ -861,12 +891,27 @@ namespace OpenLiveWriter.WebView2Shim
         private void ExecuteCommand(string command, string value = null)
         {
             if (_webView?.CoreWebView2 == null) return;
-            
-            var script = value != null 
+
+            var script = value != null
                 ? $"document.execCommand('{command}', false, '{value}')"
                 : $"document.execCommand('{command}')";
-            
+
             System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] ExecuteCommand: {script}");
+            _ = _webView.CoreWebView2.ExecuteScriptAsync(script);
+        }
+
+        /// <summary>
+        /// Executes a formatting command in CSS mode via the olwExecCss helper
+        /// (injected by SetupHostObjectListeners) so the document gains
+        /// span+style markup instead of deprecated font tags.
+        /// </summary>
+        private void ExecuteCssCommand(string command, string value)
+        {
+            if (_webView?.CoreWebView2 == null) return;
+
+            var script = $"window.olwExecCss && window.olwExecCss('{command}', '{value}')";
+
+            System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] ExecuteCssCommand: {script}");
             _ = _webView.CoreWebView2.ExecuteScriptAsync(script);
         }
         
@@ -909,34 +954,33 @@ namespace OpenLiveWriter.WebView2Shim
         public bool CanApplyFormatting(CommandId? commandId) => _webView?.CoreWebView2 != null;
 
         public string SelectionFontFamily => null; // TODO
-        public void ApplyFontFamily(string fontFamily) => ExecuteCommand("fontName", fontFamily);
+        public void ApplyFontFamily(string fontFamily) => ExecuteCssCommand("fontName", fontFamily);
 
         public float SelectionFontSize => 0; // TODO: would need to sync this via bridge
-        
+
         /// <summary>
-        /// Applies font size. Browser execCommand uses size 1-7, not points.
-        /// OLW uses point sizes, so we map: 8pt->1, 10pt->2, 12pt->3, 14pt->4, 18pt->5, 24pt->6, 36pt->7
+        /// Applies an exact point font size. Browser execCommand only supports the
+        /// 1-7 scale, so the injected olwApplyFontSizePt helper applies size 7 in
+        /// CSS mode and rewrites the resulting keyword-sized spans to the exact pt
+        /// value, producing span+style markup instead of font tags.
         /// </summary>
         public void ApplyFontSize(float fontSize)
         {
-            // Map point size to browser fontSize (1-7)
-            int browserSize;
-            if (fontSize <= 8) browserSize = 1;
-            else if (fontSize <= 10) browserSize = 2;
-            else if (fontSize <= 12) browserSize = 3;
-            else if (fontSize <= 14) browserSize = 4;
-            else if (fontSize <= 18) browserSize = 5;
-            else if (fontSize <= 24) browserSize = 6;
-            else browserSize = 7;
-            
-            ExecuteCommand("fontSize", browserSize.ToString());
+            if (_webView?.CoreWebView2 == null) return;
+
+            var script = string.Format(CultureInfo.InvariantCulture,
+                "window.olwApplyFontSizePt && window.olwApplyFontSizePt({0})", fontSize);
+
+            System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] ApplyFontSize: {script}");
+            _ = _webView.CoreWebView2.ExecuteScriptAsync(script).ContinueWith(t =>
+                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] ApplyFontSize result: {t.Result}"));
         }
 
         public int SelectionForeColor => 0;
-        public void ApplyFontForeColor(int color) 
+        public void ApplyFontForeColor(int color)
         {
             var c = Color.FromArgb(color);
-            ExecuteCommand("foreColor", $"#{c.R:X2}{c.G:X2}{c.B:X2}");
+            ExecuteCssCommand("foreColor", $"#{c.R:X2}{c.G:X2}{c.B:X2}");
         }
 
         public int SelectionBackColor => 0;
@@ -945,7 +989,7 @@ namespace OpenLiveWriter.WebView2Shim
             if (color.HasValue)
             {
                 var c = Color.FromArgb(color.Value);
-                ExecuteCommand("hiliteColor", $"#{c.R:X2}{c.G:X2}{c.B:X2}");
+                ExecuteCssCommand("hiliteColor", $"#{c.R:X2}{c.G:X2}{c.B:X2}");
             }
         }
 
