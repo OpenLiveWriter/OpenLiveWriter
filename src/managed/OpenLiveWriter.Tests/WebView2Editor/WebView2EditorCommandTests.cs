@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using Microsoft.Web.WebView2.WinForms;
 using NUnit.Framework;
 using OpenLiveWriter.WebView2Shim;
+using StringAssert = NUnit.Framework.Legacy.StringAssert;
 
 namespace OpenLiveWriter.Tests.WebView2Editor
 {
@@ -93,6 +94,62 @@ namespace OpenLiveWriter.Tests.WebView2Editor
             }
         }
 
+        [Test]
+        public void SourceEditor_UndoAfterSetContent_DoesNotWipeContent()
+        {
+            Form form = null;
+            try
+            {
+                form = new Form();
+                var editor = new WebView2SourceEditorControl { Dock = DockStyle.Fill };
+                form.Controls.Add(editor);
+                try
+                {
+                    form.Show();
+                }
+                catch (Exception ex)
+                {
+                    Assert.Ignore("Could not show editor host form in this session: " + ex.Message);
+                }
+
+                WebView2 webView = GetInnerSourceWebView(editor);
+
+                // Wait for CodeMirror to come up.
+                if (!WaitFor(() => "\"function\"".Equals(ExecuteScript(webView, "typeof getContent"))))
+                {
+                    Assert.Ignore("WebView2 source editor did not become ready (runtime or desktop unavailable in this session).");
+                }
+
+                editor.SetContent("<p>hello source</p>");
+                Assert.IsTrue(WaitFor(() =>
+                    (ExecuteScript(webView, "getContent()") ?? "").Contains("hello source")),
+                    "SetContent did not reach CodeMirror");
+
+                // Two undos used to walk back past the initial programmatic load
+                // and empty the document.
+                ExecuteScript(webView, "editor.undo()");
+                ExecuteScript(webView, "editor.undo()");
+                Pump(200);
+
+                string content = ExecuteScript(webView, "getContent()") ?? "";
+                StringAssert.Contains("hello source", content);
+            }
+            finally
+            {
+                form?.Dispose();
+            }
+        }
+
+        private static void Pump(int milliseconds)
+        {
+            var sw = Stopwatch.StartNew();
+            while (sw.ElapsedMilliseconds < milliseconds)
+            {
+                Application.DoEvents();
+                Thread.Sleep(10);
+            }
+        }
+
         private static int CountOccurrences(string haystack, string needle)
         {
             int count = 0;
@@ -107,6 +164,7 @@ namespace OpenLiveWriter.Tests.WebView2Editor
 
         private static string ExecuteScript(WebView2 webView, string script)
         {
+            if (webView?.CoreWebView2 == null) return null;
             var task = webView.CoreWebView2.ExecuteScriptAsync(script);
             var sw = Stopwatch.StartNew();
             while (!task.IsCompleted && sw.ElapsedMilliseconds < SyncTimeoutMs)
@@ -173,7 +231,16 @@ namespace OpenLiveWriter.Tests.WebView2Editor
             var field = typeof(WebView2HtmlEditorControl).GetField("_webView", BindingFlags.NonPublic | BindingFlags.Instance);
             Assert.IsNotNull(field, "WebView2HtmlEditorControl._webView field not found; editor internals changed");
             var webView = (WebView2)field.GetValue(editor);
-            Assert.IsNotNull(webView?.CoreWebView2, "inner WebView2 not initialized");
+            Assert.IsNotNull(webView, "inner WebView2 not created");
+            return webView;
+        }
+
+        private static WebView2 GetInnerSourceWebView(WebView2SourceEditorControl editor)
+        {
+            var field = typeof(WebView2SourceEditorControl).GetField("_webView", BindingFlags.NonPublic | BindingFlags.Instance);
+            Assert.IsNotNull(field, "WebView2SourceEditorControl._webView field not found; editor internals changed");
+            var webView = (WebView2)field.GetValue(editor);
+            Assert.IsNotNull(webView, "inner WebView2 not created");
             return webView;
         }
     }
