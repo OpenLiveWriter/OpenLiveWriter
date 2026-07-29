@@ -539,6 +539,10 @@ namespace OpenLiveWriter.WebView2Shim
                                     }
                                 });
                             });
+                            // Observer corrections do not fire input events, so
+                            // push the corrected markup to the bridge explicitly;
+                            // otherwise GetEditedHtml lags one edit behind.
+                            syncContent();
                         });
                         observer.observe(bodyEl, { childList: true });
 
