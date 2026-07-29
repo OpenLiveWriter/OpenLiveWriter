@@ -430,6 +430,10 @@ namespace OpenLiveWriter.WebView2Shim
         // API for C#
         window.setContent = function(text) {{
             editor.setValue(text || '');
+            // Programmatic loads must not be undoable: without this the initial
+            // setValue is the first undo step, so Ctrl+Z reverts the document
+            // to empty and switching back to Edit wipes the post body.
+            editor.clearHistory();
         }};
 
         window.getContent = function() {{

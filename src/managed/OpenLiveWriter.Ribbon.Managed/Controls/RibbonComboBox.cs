@@ -290,11 +290,10 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                 }
                 else if (CommandId == OpenLiveWriter.Localization.CommandId.FontSize)
                 {
-                    if (_innerComboBox.Items.Count == 0)
-                    {
-                        _innerComboBox.Items.Add("11");
-                        _innerComboBox.SelectedIndex = 0;
-                    }
+                    // No placeholder: the gallery sizes are 8/10/12/14/18/24/36,
+                    // so showing any hard-coded default (previously "11") displays
+                    // a size that is not in the list. Leave the combo blank until
+                    // the gallery items load.
                 }
             }
             finally

@@ -171,6 +171,53 @@ namespace OpenLiveWriter.WebView2Shim
             }
         }
 
+        private bool _formActivatedHooked;
+
+        protected override void OnVisibleChanged(EventArgs e)
+        {
+            base.OnVisibleChanged(e);
+            if (Visible)
+            {
+                HookParentFormActivated();
+                NudgeWebViewRepaint();
+            }
+        }
+
+        /// <summary>
+        /// WebView2 intermittently renders fully black after view switches or
+        /// dialog popups (observed heavily under x64 emulation on ARM64 Windows);
+        /// the surface recovers on its own only after a minimize/maximize. Force
+        /// a frame whenever the editor resurfaces or the host window reactivates.
+        /// </summary>
+        private void HookParentFormActivated()
+        {
+            if (_formActivatedHooked) return;
+            var form = FindForm();
+            if (form == null) return;
+            _formActivatedHooked = true;
+            form.Activated += (s, args) => NudgeWebViewRepaint();
+        }
+
+        private void NudgeWebViewRepaint()
+        {
+            try
+            {
+                if (_webView == null || _webView.IsDisposed || !_webView.IsHandleCreated) return;
+                // A 1px resize-and-restore makes the WebView2 controller re-emit
+                // its bounds, which forces the compositor to produce a new frame.
+                var size = _webView.Size;
+                if (size.Width > 1 && size.Height > 1)
+                {
+                    _webView.Size = new Size(size.Width - 1, size.Height);
+                    _webView.Size = size;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] #{_instanceId} NudgeWebViewRepaint error: {ex.Message}");
+            }
+        }
+
         private void InitializeComponent()
         {
             BackColor = System.Drawing.Color.White;
@@ -339,10 +386,28 @@ namespace OpenLiveWriter.WebView2Shim
                             return null;
                         }
                         
+                        // Selection text with line breaks between blocks, so the
+                        // hyperlink dialog's link text does not concatenate a
+                        // multi-block selection into one unbroken run.
+                        function olwSelectionText(sel) {
+                            if (!sel || sel.rangeCount === 0) return '';
+                            if (sel.isCollapsed) return '';
+                            var container = document.createElement('div');
+                            container.appendChild(sel.getRangeAt(0).cloneContents());
+                            var html = container.innerHTML
+                                .replace(/<br\s*\/?>/gi, '\n')
+                                .replace(/<\/(p|div|li|h[1-6]|blockquote|tr|table|ul|ol)>/gi, '\n');
+                            var tmp = document.createElement('div');
+                            tmp.innerHTML = html;
+                            return (tmp.textContent || '')
+                                .replace(/\n{3,}/g, '\n\n')
+                                .replace(/^\n+|\n+$/g, '');
+                        }
+
                         // Sync selection and context state to bridge
                         function syncSelectionState() {
                             var sel = window.getSelection();
-                            olw.Selection = sel ? sel.toString() : '';
+                            olw.Selection = olwSelectionText(sel);
 
                             // Capture selection HTML (for SelectedHtml consumers)
                             var selHtml = '';
@@ -510,10 +575,41 @@ namespace OpenLiveWriter.WebView2Shim
                             }
                         });
                         
+                        // Track Chromium history operations (undo/redo). The div-to-p
+                        // observer must not mutate the document while an undo/redo
+                        // transaction is being applied: observer edits are not part of
+                        // Chromium's undo stack, so mutating then corrupts it (e.g. undo
+                        // after applying a heading duplicates the restored paragraphs).
+                        var olwHistoryOpPending = false;
+                        bodyEl.addEventListener('beforeinput', function(e) {
+                            if (e.inputType === 'historyUndo' || e.inputType === 'historyRedo') {
+                                olwHistoryOpPending = true;
+                                // Safety net: clear on the next tick if the observer
+                                // batch for this operation never fires.
+                                setTimeout(function() { olwHistoryOpPending = false; }, 0);
+                            }
+                        });
+
+                        // Undo/redo entry point for host-driven commands. execCommand
+                        // does not reliably fire beforeinput, so flag the operation
+                        // explicitly before running it.
+                        window.olwHistoryCommand = function(cmd) {
+                            olwHistoryOpPending = true;
+                            document.execCommand(cmd);
+                            setTimeout(function() { olwHistoryOpPending = false; }, 0);
+                            bodyEl.dispatchEvent(new Event('input', { bubbles: true }));
+                        };
+
                         // Use MutationObserver to convert <div> to <p> when useParagraphTags is true
                         // Chromium's defaultParagraphSeparator doesn't work, so we post-process
                         var observer = new MutationObserver(function(mutations) {
                             if (window.olwUseParagraphTags === false) return;
+                            if (olwHistoryOpPending) {
+                                // Skip corrections during undo/redo so the history
+                                // transaction applies exactly as Chromium recorded it.
+                                olwHistoryOpPending = false;
+                                return;
+                            }
                             mutations.forEach(function(mutation) {
                                 mutation.addedNodes.forEach(function(node) {
                                     if (node.nodeName === 'DIV' && node.parentElement === bodyEl) {
@@ -528,11 +624,244 @@ namespace OpenLiveWriter.WebView2Shim
                                         range.collapse(false);
                                         sel.removeAllRanges();
                                         sel.addRange(range);
+                                    } else if (node.nodeType === 3 && node.parentNode === bodyEl && node.textContent.trim() !== '') {
+                                        // Wrap bare text added directly to the body
+                                        // (e.g. the first line of a multi-line paste)
+                                        // in a paragraph like the other lines.
+                                        var wrapper = document.createElement('p');
+                                        bodyEl.insertBefore(wrapper, node);
+                                        wrapper.appendChild(node);
                                     }
                                 });
                             });
+                            // Observer corrections do not fire input events, so
+                            // push the corrected markup to the bridge explicitly;
+                            // otherwise GetEditedHtml lags one edit behind.
+                            syncContent();
                         });
                         observer.observe(bodyEl, { childList: true });
+
+                        // True when the element carries no content worth keeping.
+                        // A lone <br> counts as content: that is how Chromium
+                        // represents an intentional blank paragraph.
+                        function olwIsEmpty(el) {
+                            if (!el) return true;
+                            if (el.querySelector('img,br,hr,table,iframe,object,embed,video,audio')) return false;
+                            return (el.textContent || '').replace(/\u00a0/g, '').trim() === '';
+                        }
+
+                        // Chromium's insertUnorderedList/insertOrderedList can nest
+                        // the new list inside the current <p>, producing invalid
+                        // <p><ul>...</ul></p> markup. Hoist such lists out of the
+                        // paragraph, splitting it when text surrounds the list.
+                        function olwFixNestedLists() {
+                            var lists = bodyEl.querySelectorAll('p > ul, p > ol');
+                            for (var i = 0; i < lists.length; i++) {
+                                var list = lists[i];
+                                var p = list.parentNode;
+                                if (!p || p.tagName !== 'P') continue;
+                                var afterP = document.createElement('p');
+                                var node = list.nextSibling;
+                                while (node) {
+                                    var next = node.nextSibling;
+                                    afterP.appendChild(node);
+                                    node = next;
+                                }
+                                p.parentNode.insertBefore(list, p.nextSibling);
+                                if (!olwIsEmpty(afterP)) {
+                                    p.parentNode.insertBefore(afterP, list.nextSibling);
+                                }
+                                if (olwIsEmpty(p)) {
+                                    p.parentNode.removeChild(p);
+                                }
+                            }
+                        }
+
+                        // Tidy execCommand DOM artifacts: drop empty lists, merge
+                        // adjacent same-type lists, and drop empty paragraphs left
+                        // adjacent to lists/blockquotes by block commands.
+                        window.olwCleanupBlocks = function() {
+                            olwFixNestedLists();
+                            var changed = true;
+                            while (changed) {
+                                changed = false;
+                                var all = bodyEl.querySelectorAll('ul, ol, blockquote');
+                                for (var i = 0; i < all.length; i++) {
+                                    var el = all[i];
+                                    // The NodeList is static: nodes detached by an
+                                    // earlier merge in this pass must be skipped.
+                                    if (!el.parentNode) continue;
+                                    if (olwIsEmpty(el)) {
+                                        el.parentNode.removeChild(el);
+                                        changed = true;
+                                        break;
+                                    }
+                                    var sib = el.nextElementSibling;
+                                    if (sib && sib.tagName === el.tagName) {
+                                        while (sib.firstChild) el.appendChild(sib.firstChild);
+                                        sib.parentNode.removeChild(sib);
+                                        changed = true;
+                                        break;
+                                    }
+                                }
+                            }
+                            var ps = bodyEl.querySelectorAll('p');
+                            for (var j = ps.length - 1; j >= 0; j--) {
+                                var p = ps[j];
+                                if (p.children.length > 0 || (p.textContent || '').trim() !== '') continue;
+                                var prev = p.previousElementSibling;
+                                var nextSib = p.nextElementSibling;
+                                var nearBlock = function(n) {
+                                    return n && (n.tagName === 'UL' || n.tagName === 'OL' || n.tagName === 'BLOCKQUOTE');
+                                };
+                                if (nearBlock(prev) || nearBlock(nextSib)) {
+                                    p.parentNode.removeChild(p);
+                                }
+                            }
+                        };
+
+                        // Insert a list and repair the DOM so ul/ol end up as
+                        // siblings of p, never nested inside one.
+                        window.olwInsertList = function(ordered) {
+                            if (window.olwSelectionInTitle()) return 'skipped-title-selection';
+                            document.execCommand(ordered ? 'insertOrderedList' : 'insertUnorderedList');
+                            window.olwCleanupBlocks();
+                            bodyEl.dispatchEvent(new Event('input', { bubbles: true }));
+                        };
+
+                        // Apply a block format (H1-H6, P, ...) to every block in the
+                        // selection. Chromium's formatBlock collapses a multi-block
+                        // selection into a single heading joined by <br>; formatting
+                        // each block individually matches the classic OLW behavior.
+                        window.olwFormatBlock = function(tag) {
+                            if (window.olwSelectionInTitle()) return 'skipped-title-selection';
+                            var sel = window.getSelection();
+                            if (!sel || sel.rangeCount === 0 || sel.getRangeAt(0).collapsed) {
+                                document.execCommand('formatBlock', false, tag);
+                                bodyEl.dispatchEvent(new Event('input', { bubbles: true }));
+                                return;
+                            }
+                            var range = sel.getRangeAt(0);
+                            var blockTags = ['P','DIV','H1','H2','H3','H4','H5','H6','LI','BLOCKQUOTE','PRE'];
+                            var blocks = [];
+                            var walker = document.createTreeWalker(bodyEl, NodeFilter.SHOW_ELEMENT, null);
+                            var node;
+                            while ((node = walker.nextNode())) {
+                                if (blockTags.indexOf(node.tagName) < 0) continue;
+                                if (!range.intersectsNode(node)) continue;
+                                // Skip blocks already covered by a collected ancestor.
+                                var anc = node.parentNode;
+                                var covered = false;
+                                while (anc && anc !== bodyEl) {
+                                    if (blocks.indexOf(anc) >= 0) { covered = true; break; }
+                                    anc = anc.parentNode;
+                                }
+                                if (!covered) blocks.push(node);
+                            }
+                            if (blocks.length <= 1) {
+                                document.execCommand('formatBlock', false, tag);
+                                bodyEl.dispatchEvent(new Event('input', { bubbles: true }));
+                                return;
+                            }
+                            var firstNew = null;
+                            var lastNew = null;
+                            for (var i = 0; i < blocks.length; i++) {
+                                if (!blocks[i].parentNode) continue; // detached by an earlier step
+                                var r = document.createRange();
+                                r.selectNodeContents(blocks[i]);
+                                sel.removeAllRanges();
+                                sel.addRange(r);
+                                document.execCommand('formatBlock', false, tag);
+                                var newBlock = findBlockParent(sel.anchorNode);
+                                if (newBlock) {
+                                    if (!firstNew) firstNew = newBlock;
+                                    lastNew = newBlock;
+                                }
+                            }
+                            // Re-select across the formatted blocks.
+                            if (firstNew && lastNew) {
+                                var restore = document.createRange();
+                                restore.setStart(firstNew, 0);
+                                restore.setEnd(lastNew, lastNew.childNodes.length);
+                                sel.removeAllRanges();
+                                sel.addRange(restore);
+                            }
+                            bodyEl.dispatchEvent(new Event('input', { bubbles: true }));
+                        };
+
+                        // Wrap the selection in a blockquote (or outdent out of one)
+                        // and repair the execCommand artifacts: Chromium splits a
+                        // quoted list into one list per item and litters empty
+                        // paragraphs around the blockquote.
+                        window.olwApplyBlockquote = function() {
+                            if (window.olwSelectionInTitle()) return 'skipped-title-selection';
+                            document.execCommand('formatBlock', false, 'blockquote');
+                            window.olwCleanupBlocks();
+                            bodyEl.dispatchEvent(new Event('input', { bubbles: true }));
+                        };
+
+                        window.olwRemoveBlockquote = function() {
+                            if (window.olwSelectionInTitle()) return 'skipped-title-selection';
+                            document.execCommand('outdent');
+                            window.olwCleanupBlocks();
+                            bodyEl.dispatchEvent(new Event('input', { bubbles: true }));
+                        };
+
+                        function olwDepth(el) {
+                            var d = 0;
+                            while (el.parentNode) { d++; el = el.parentNode; }
+                            return d;
+                        }
+
+                        // Clear formatting, matching the classic (0.6.2) behavior:
+                        // removeFormat only strips inline markup, so additionally
+                        // convert headings/list items back to paragraphs, unwrap
+                        // lists and blockquotes, and reset block alignment.
+                        window.olwClearFormatting = function() {
+                            if (window.olwSelectionInTitle()) return 'skipped-title-selection';
+                            var sel = window.getSelection();
+                            var range = (sel && sel.rangeCount > 0) ? sel.getRangeAt(0) : null;
+                            document.execCommand('removeFormat');
+                            if (range) {
+                                var i;
+                                // Rename headings and list items in the selection to p.
+                                var toRename = [];
+                                var all = bodyEl.querySelectorAll('h1,h2,h3,h4,h5,h6,li');
+                                for (i = 0; i < all.length; i++) {
+                                    if (range.intersectsNode(all[i])) toRename.push(all[i]);
+                                }
+                                for (i = 0; i < toRename.length; i++) {
+                                    var el = toRename[i];
+                                    if (!el.parentNode) continue;
+                                    var p = document.createElement('p');
+                                    while (el.firstChild) p.appendChild(el.firstChild);
+                                    el.parentNode.replaceChild(p, el);
+                                }
+                                // Unwrap lists and blockquotes, innermost first.
+                                var wrappers = [];
+                                all = bodyEl.querySelectorAll('ul,ol,blockquote');
+                                for (i = 0; i < all.length; i++) {
+                                    if (range.intersectsNode(all[i])) wrappers.push(all[i]);
+                                }
+                                wrappers.sort(function(a, b) { return olwDepth(b) - olwDepth(a); });
+                                for (i = 0; i < wrappers.length; i++) {
+                                    var w = wrappers[i];
+                                    if (!w.parentNode) continue;
+                                    while (w.firstChild) w.parentNode.insertBefore(w.firstChild, w);
+                                    w.parentNode.removeChild(w);
+                                }
+                                // Reset alignment on the remaining blocks.
+                                all = bodyEl.querySelectorAll('p,div,h1,h2,h3,h4,h5,h6,li,blockquote');
+                                for (i = 0; i < all.length; i++) {
+                                    if (range.intersectsNode(all[i])) {
+                                        all[i].removeAttribute('align');
+                                        all[i].style.textAlign = '';
+                                    }
+                                }
+                            }
+                            window.olwCleanupBlocks();
+                            bodyEl.dispatchEvent(new Event('input', { bubbles: true }));
+                        };
                         
                         // Sync initial content
                         syncContent();
@@ -542,8 +871,20 @@ namespace OpenLiveWriter.WebView2Shim
                     })();
                 ";
                 
-                var result = await _webView.CoreWebView2.ExecuteScriptAsync(script);
-                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] #{_instanceId} SetupHostObjectListeners result: {result}");
+                string result = null;
+                // The editing shell elements and the host object bridge can lag
+                // NavigationCompleted by a beat; retry a few times before giving up.
+                for (var attempt = 0; attempt < 4; attempt++)
+                {
+                    result = await _webView.CoreWebView2.ExecuteScriptAsync(script);
+                    System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] #{_instanceId} SetupHostObjectListeners result: {result} (attempt {attempt + 1})");
+                    if (result == null ||
+                        (!result.Contains("elements not found") && !result.Contains("hostObjects not available")))
+                    {
+                        break;
+                    }
+                    await Task.Delay(150);
+                }
             }
             catch (Exception ex)
             {
@@ -940,6 +1281,11 @@ namespace OpenLiveWriter.WebView2Shim
                 var html = $"<a href=\"{System.Net.WebUtility.HtmlEncode(url)}\"{titleAttr}{relAttr}{target}>{System.Net.WebUtility.HtmlEncode(linkText)}</a>";
                 System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] InsertLink: {html}");
                 InsertHtml(html, HtmlInsertionOptions.MoveCursorAfter);
+                // Replacing a multi-item list selection with the link leaves an
+                // empty list behind; clean up the artifacts (queued after the
+                // insert script, so execution order is preserved).
+                _ = _webView.CoreWebView2.ExecuteScriptAsync(
+                    "window.olwCleanupBlocks && window.olwCleanupBlocks()");
             }
         }
 
@@ -1049,12 +1395,23 @@ namespace OpenLiveWriter.WebView2Shim
             return _webView?.CoreWebView2 != null;
         }
 
+        /// <summary>
+        /// Executes an arbitrary script against the editor document.
+        /// </summary>
+        private void ExecuteScript(string script)
+        {
+            if (_webView?.CoreWebView2 == null) return;
+
+            System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] ExecuteScript: {script}");
+            _ = _webView.CoreWebView2.ExecuteScriptAsync(script);
+        }
+
         // ISimpleTextEditorCommandSource
         public bool HasFocus => _editor?.ContainsFocus ?? false;
         public bool CanUndo => QueryCommandEnabled("undo");
-        public void Undo() => ExecuteCommand("undo");
+        public void Undo() => ExecuteScript("window.olwHistoryCommand && window.olwHistoryCommand('undo')");
         public bool CanRedo => QueryCommandEnabled("redo");
-        public void Redo() => ExecuteCommand("redo");
+        public void Redo() => ExecuteScript("window.olwHistoryCommand && window.olwHistoryCommand('redo')");
         public bool CanCut => QueryCommandEnabled("cut");
         public void Cut() => ExecuteCommand("cut");
         public bool CanCopy => QueryCommandEnabled("copy");
@@ -1073,7 +1430,7 @@ namespace OpenLiveWriter.WebView2Shim
 
         // IHtmlEditorCommandSource
         public void ViewSource() { /* TODO */ }
-        public void ClearFormatting() => ExecuteFormattingCommand("removeFormat");
+        public void ClearFormatting() => ExecuteScript("window.olwClearFormatting && window.olwClearFormatting()");
         public bool CanApplyFormatting(CommandId? commandId) => _webView?.CoreWebView2 != null;
 
         public string SelectionFontFamily => null; // TODO
@@ -1119,16 +1476,18 @@ namespace OpenLiveWriter.WebView2Shim
         public string SelectionStyleName => _editor?.ContentBridge?.CurrentBlockTag;
         
         /// <summary>
-        /// Applies HTML formatting style (H1, H2, P, etc.) using formatBlock command.
+        /// Applies HTML formatting style (H1, H2, P, etc.) per selected block via
+        /// the olwFormatBlock helper. Raw formatBlock collapses a multi-paragraph
+        /// selection into a single heading joined by br separators.
         /// </summary>
         public void ApplyHtmlFormattingStyle(IHtmlFormattingStyle style)
         {
             if (style == null) return;
             var elementName = style.ElementName?.ToUpperInvariant();
             if (string.IsNullOrEmpty(elementName)) return;
-            
+
             // formatBlock needs angle brackets for the tag
-            ExecuteFormattingCommand("formatBlock", $"<{elementName}>");
+            ExecuteScript($"window.olwFormatBlock && window.olwFormatBlock('<{elementName}>')");
         }
 
         public bool SelectionBold => QueryCommandState("bold");
@@ -1179,10 +1538,10 @@ namespace OpenLiveWriter.WebView2Shim
         }
 
         public bool SelectionBulleted => QueryCommandState("insertUnorderedList");
-        public void ApplyBullets() => ExecuteFormattingCommand("insertUnorderedList");
+        public void ApplyBullets() => ExecuteScript("window.olwInsertList && window.olwInsertList(false)");
 
         public bool SelectionNumbered => QueryCommandState("insertOrderedList");
-        public void ApplyNumbers() => ExecuteFormattingCommand("insertOrderedList");
+        public void ApplyNumbers() => ExecuteScript("window.olwInsertList && window.olwInsertList(true)");
 
         public bool CanIndent => true;
         public void ApplyIndent() => ExecuteFormattingCommand("indent");
@@ -1192,18 +1551,20 @@ namespace OpenLiveWriter.WebView2Shim
 
         /// <summary>
         /// Toggles blockquote. If already in blockquote, outdents. Otherwise wraps in blockquote.
+        /// Both paths run a cleanup pass that merges the per-item list fragments
+        /// Chromium creates and removes empty paragraph litter.
         /// </summary>
         public void ApplyBlockquote()
         {
             if (SelectionBlockquoted)
             {
                 // Remove blockquote by outdenting
-                ExecuteFormattingCommand("outdent");
+                ExecuteScript("window.olwRemoveBlockquote && window.olwRemoveBlockquote()");
             }
             else
             {
                 // Wrap in blockquote using formatBlock
-                ExecuteFormattingCommand("formatBlock", "<blockquote>");
+                ExecuteScript("window.olwApplyBlockquote && window.olwApplyBlockquote()");
             }
         }
         
