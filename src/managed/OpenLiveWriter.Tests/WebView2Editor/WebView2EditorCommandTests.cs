@@ -143,6 +143,38 @@ namespace OpenLiveWriter.Tests.WebView2Editor
         }
 
         [Test]
+        public void ClearFormatting_ResetsBlockStructureAndAlignment()
+        {
+            using (var form = CreateEditorForm(out WebView2HtmlEditorControl editor))
+            {
+                EnsureReadyOrIgnore(editor);
+                WebView2 webView = GetInnerWebView(editor);
+
+                ExecuteScript(webView,
+                    "var b = document.getElementById('olw-body');" +
+                    "b.innerHTML = '<blockquote><ul><li style=\"text-align: center;\">quoted <b>item</b></li></ul></blockquote>';" +
+                    "b.focus();" +
+                    "var range = document.createRange();" +
+                    "range.selectNodeContents(b);" +
+                    "var sel = window.getSelection();" +
+                    "sel.removeAllRanges();" +
+                    "sel.addRange(range);");
+
+                editor.CommandSource.ClearFormatting();
+
+                Assert.IsTrue(WaitFor(() =>
+                {
+                    string html = editor.GetEditedHtml(true).ToLowerInvariant();
+                    return !html.Contains("<blockquote") && !html.Contains("<ul") && !html.Contains("<b>");
+                }), "clear formatting did not unwrap blocks, got: " + editor.GetEditedHtml(true));
+
+                string body = editor.GetEditedHtml(true).ToLowerInvariant();
+                Assert.IsFalse(body.Contains("text-align"), "alignment survived clear formatting: " + body);
+                StringAssert.Contains("quoted item", body);
+            }
+        }
+
+        [Test]
         public void ApplyBlockquote_OnList_KeepsSingleListNoLitter()
         {
             using (var form = CreateEditorForm(out WebView2HtmlEditorControl editor))

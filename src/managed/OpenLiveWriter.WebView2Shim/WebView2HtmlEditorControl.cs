@@ -681,6 +681,61 @@ namespace OpenLiveWriter.WebView2Shim
                             window.olwCleanupBlocks();
                             bodyEl.dispatchEvent(new Event('input', { bubbles: true }));
                         };
+
+                        function olwDepth(el) {
+                            var d = 0;
+                            while (el.parentNode) { d++; el = el.parentNode; }
+                            return d;
+                        }
+
+                        // Clear formatting, matching the classic (0.6.2) behavior:
+                        // removeFormat only strips inline markup, so additionally
+                        // convert headings/list items back to paragraphs, unwrap
+                        // lists and blockquotes, and reset block alignment.
+                        window.olwClearFormatting = function() {
+                            var sel = window.getSelection();
+                            var range = (sel && sel.rangeCount > 0) ? sel.getRangeAt(0) : null;
+                            document.execCommand('removeFormat');
+                            if (range) {
+                                var i;
+                                // Rename headings and list items in the selection to p.
+                                var toRename = [];
+                                var all = bodyEl.querySelectorAll('h1,h2,h3,h4,h5,h6,li');
+                                for (i = 0; i < all.length; i++) {
+                                    if (range.intersectsNode(all[i])) toRename.push(all[i]);
+                                }
+                                for (i = 0; i < toRename.length; i++) {
+                                    var el = toRename[i];
+                                    if (!el.parentNode) continue;
+                                    var p = document.createElement('p');
+                                    while (el.firstChild) p.appendChild(el.firstChild);
+                                    el.parentNode.replaceChild(p, el);
+                                }
+                                // Unwrap lists and blockquotes, innermost first.
+                                var wrappers = [];
+                                all = bodyEl.querySelectorAll('ul,ol,blockquote');
+                                for (i = 0; i < all.length; i++) {
+                                    if (range.intersectsNode(all[i])) wrappers.push(all[i]);
+                                }
+                                wrappers.sort(function(a, b) { return olwDepth(b) - olwDepth(a); });
+                                for (i = 0; i < wrappers.length; i++) {
+                                    var w = wrappers[i];
+                                    if (!w.parentNode) continue;
+                                    while (w.firstChild) w.parentNode.insertBefore(w.firstChild, w);
+                                    w.parentNode.removeChild(w);
+                                }
+                                // Reset alignment on the remaining blocks.
+                                all = bodyEl.querySelectorAll('p,div,h1,h2,h3,h4,h5,h6,li,blockquote');
+                                for (i = 0; i < all.length; i++) {
+                                    if (range.intersectsNode(all[i])) {
+                                        all[i].removeAttribute('align');
+                                        all[i].style.textAlign = '';
+                                    }
+                                }
+                            }
+                            window.olwCleanupBlocks();
+                            bodyEl.dispatchEvent(new Event('input', { bubbles: true }));
+                        };
                         
                         // Sync initial content
                         syncContent();
@@ -1209,7 +1264,7 @@ namespace OpenLiveWriter.WebView2Shim
 
         // IHtmlEditorCommandSource
         public void ViewSource() { /* TODO */ }
-        public void ClearFormatting() => ExecuteCommand("removeFormat");
+        public void ClearFormatting() => ExecuteScript("window.olwClearFormatting && window.olwClearFormatting()");
         public bool CanApplyFormatting(CommandId? commandId) => _webView?.CoreWebView2 != null;
 
         public string SelectionFontFamily => null; // TODO
