@@ -39,6 +39,18 @@ namespace OpenLiveWriter.Tests.WebView2Editor
             }
         }
 
+        /// <summary>
+        /// Waits until the injected editor helpers exist in the document. The
+        /// bridge only syncs content once SetupHostObjectListeners ran, so a
+        /// missing helper means the test would misread state downstream.
+        /// </summary>
+        private static void EnsureHelpersInjected(WebView2 webView)
+        {
+            Assert.IsTrue(
+                WaitFor(() => "\"function\"".Equals(ExecuteScript(webView, "typeof window.olwCleanupBlocks"))),
+                "injected editor script did not set up the olw* helpers");
+        }
+
         [Test]
         public void Undo_AfterHeadingOnParagraphs_DoesNotDuplicateContent()
         {
@@ -46,6 +58,7 @@ namespace OpenLiveWriter.Tests.WebView2Editor
             {
                 EnsureReadyOrIgnore(editor);
                 WebView2 webView = GetInnerWebView(editor);
+                EnsureHelpersInjected(webView);
                 editor.FocusBody();
 
                 // Build three paragraphs the way typing does: text plus paragraph
@@ -67,14 +80,14 @@ namespace OpenLiveWriter.Tests.WebView2Editor
                     "document.execCommand('insertParagraph');" +
                     "document.execCommand('insertHTML', false, 'three');");
 
-                // Wait for the observer to convert the typed blocks to <p>.
+                // Wait for the typed paragraphs to sync to the bridge.
                 Assert.IsTrue(WaitFor(() =>
                 {
                     string html = editor.GetEditedHtml(true);
                     return html.Contains("three") &&
-                           html.IndexOf("<p", StringComparison.OrdinalIgnoreCase) >= 0 &&
-                           html.IndexOf("<div", StringComparison.OrdinalIgnoreCase) < 0;
-                }), "typed paragraphs were not converted to <p> by the observer");
+                           html.IndexOf("<p", StringComparison.OrdinalIgnoreCase) >= 0;
+                }), "typed paragraphs did not sync to the bridge: '" + editor.GetEditedHtml(true) +
+                    "' dom: " + ExecuteScript(webView, "document.getElementById('olw-body').innerHTML"));
 
                 // Select all and apply Heading 2 (raw formatBlock, as the ribbon did).
                 ExecuteScript(webView,
@@ -107,6 +120,7 @@ namespace OpenLiveWriter.Tests.WebView2Editor
             {
                 EnsureReadyOrIgnore(editor);
                 WebView2 webView = GetInnerWebView(editor);
+                EnsureHelpersInjected(webView);
 
                 ExecuteScript(webView,
                     "var b = document.getElementById('olw-body');" +
@@ -155,6 +169,7 @@ namespace OpenLiveWriter.Tests.WebView2Editor
             {
                 EnsureReadyOrIgnore(editor);
                 WebView2 webView = GetInnerWebView(editor);
+                EnsureHelpersInjected(webView);
 
                 ExecuteScript(webView,
                     "var b = document.getElementById('olw-body');" +
@@ -184,6 +199,7 @@ namespace OpenLiveWriter.Tests.WebView2Editor
             {
                 EnsureReadyOrIgnore(editor);
                 WebView2 webView = GetInnerWebView(editor);
+                EnsureHelpersInjected(webView);
 
                 ExecuteScript(webView,
                     "var b = document.getElementById('olw-body');" +
@@ -197,10 +213,12 @@ namespace OpenLiveWriter.Tests.WebView2Editor
 
                 editor.CommandSource.ClearFormatting();
 
+                // Wait for the settled state: content present, block wrappers gone.
                 Assert.IsTrue(WaitFor(() =>
                 {
                     string html = editor.GetEditedHtml(true).ToLowerInvariant();
-                    return !html.Contains("<blockquote") && !html.Contains("<ul") && !html.Contains("<b>");
+                    return html.Contains("quoted") &&
+                           !html.Contains("<blockquote") && !html.Contains("<ul") && !html.Contains("<b>");
                 }), "clear formatting did not unwrap blocks, got: " + editor.GetEditedHtml(true));
 
                 string body = editor.GetEditedHtml(true).ToLowerInvariant();
@@ -216,6 +234,7 @@ namespace OpenLiveWriter.Tests.WebView2Editor
             {
                 EnsureReadyOrIgnore(editor);
                 WebView2 webView = GetInnerWebView(editor);
+                EnsureHelpersInjected(webView);
 
                 ExecuteScript(webView,
                     "var b = document.getElementById('olw-body');" +
@@ -230,9 +249,13 @@ namespace OpenLiveWriter.Tests.WebView2Editor
 
                 editor.CommandSource.ApplyBlockquote();
 
+                // Wait for the settled state: the cleanup pass merges the
+                // per-item list fragments Chromium creates back into one list.
                 Assert.IsTrue(WaitFor(() =>
-                    editor.GetEditedHtml(true).IndexOf("<blockquote", StringComparison.OrdinalIgnoreCase) >= 0),
-                    "blockquote was not applied");
+                {
+                    string html = editor.GetEditedHtml(true).ToLowerInvariant();
+                    return html.Contains("<blockquote") && CountOccurrences(html, "<ul") == 1;
+                }), "blockquote apply did not settle to a single list: " + editor.GetEditedHtml(true));
 
                 string body = editor.GetEditedHtml(true).ToLowerInvariant();
                 Assert.AreEqual(1, CountOccurrences(body, "<ul"),
@@ -251,6 +274,7 @@ namespace OpenLiveWriter.Tests.WebView2Editor
             {
                 EnsureReadyOrIgnore(editor);
                 WebView2 webView = GetInnerWebView(editor);
+                EnsureHelpersInjected(webView);
 
                 ExecuteScript(webView,
                     "var b = document.getElementById('olw-body');" +
@@ -264,13 +288,14 @@ namespace OpenLiveWriter.Tests.WebView2Editor
 
                 editor.CommandSource.ApplyBullets();
 
-                // The list must exist and must not be nested inside a paragraph:
-                // <p><ul>...</ul></p> is invalid HTML.
+                // Wait for the settled state: the cleanup pass hoists the list
+                // out of the paragraph Chromium nested it in (<p><ul> is invalid).
                 Assert.IsTrue(WaitFor(() =>
                 {
                     string html = editor.GetEditedHtml(true).ToLowerInvariant();
-                    return html.Contains("<ul") && html.Contains("<li");
-                }), "bullet command did not produce a list");
+                    return html.Contains("<ul") && html.Contains("<li") &&
+                           !System.Text.RegularExpressions.Regex.IsMatch(html, @"<p[^>]*>\s*<ul");
+                }), "bullet command did not settle to a hoisted list: " + editor.GetEditedHtml(true));
 
                 string body = editor.GetEditedHtml(true).ToLowerInvariant();
                 Assert.IsFalse(System.Text.RegularExpressions.Regex.IsMatch(body, @"<p[^>]*>\s*<ul"),

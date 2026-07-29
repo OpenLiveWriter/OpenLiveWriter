@@ -589,16 +589,20 @@ namespace OpenLiveWriter.WebView2Shim
                                 var all = bodyEl.querySelectorAll('ul, ol, blockquote');
                                 for (var i = 0; i < all.length; i++) {
                                     var el = all[i];
+                                    // The NodeList is static: nodes detached by an
+                                    // earlier merge in this pass must be skipped.
+                                    if (!el.parentNode) continue;
                                     if (olwIsEmpty(el)) {
                                         el.parentNode.removeChild(el);
                                         changed = true;
-                                        continue;
+                                        break;
                                     }
                                     var sib = el.nextElementSibling;
                                     if (sib && sib.tagName === el.tagName) {
                                         while (sib.firstChild) el.appendChild(sib.firstChild);
                                         sib.parentNode.removeChild(sib);
                                         changed = true;
+                                        break;
                                     }
                                 }
                             }
@@ -763,8 +767,20 @@ namespace OpenLiveWriter.WebView2Shim
                     })();
                 ";
                 
-                var result = await _webView.CoreWebView2.ExecuteScriptAsync(script);
-                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] #{_instanceId} SetupHostObjectListeners result: {result}");
+                var result = null;
+                // The editing shell elements and the host object bridge can lag
+                // NavigationCompleted by a beat; retry a few times before giving up.
+                for (var attempt = 0; attempt < 4; attempt++)
+                {
+                    result = await _webView.CoreWebView2.ExecuteScriptAsync(script);
+                    System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] #{_instanceId} SetupHostObjectListeners result: {result} (attempt {attempt + 1})");
+                    if (result == null ||
+                        (!result.Contains("elements not found") && !result.Contains("hostObjects not available")))
+                    {
+                        break;
+                    }
+                    await Task.Delay(150);
+                }
             }
             catch (Exception ex)
             {
