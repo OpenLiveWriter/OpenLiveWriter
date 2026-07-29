@@ -154,6 +154,53 @@ namespace OpenLiveWriter.WebView2Shim
             }
         }
 
+        private bool _formActivatedHooked;
+
+        protected override void OnVisibleChanged(EventArgs e)
+        {
+            base.OnVisibleChanged(e);
+            if (Visible)
+            {
+                HookParentFormActivated();
+                NudgeWebViewRepaint();
+            }
+        }
+
+        /// <summary>
+        /// WebView2 intermittently renders fully black after view switches or
+        /// dialog popups (observed heavily under x64 emulation on ARM64 Windows);
+        /// the surface recovers on its own only after a minimize/maximize. Force
+        /// a frame whenever the editor resurfaces or the host window reactivates.
+        /// </summary>
+        private void HookParentFormActivated()
+        {
+            if (_formActivatedHooked) return;
+            var form = FindForm();
+            if (form == null) return;
+            _formActivatedHooked = true;
+            form.Activated += (s, args) => NudgeWebViewRepaint();
+        }
+
+        private void NudgeWebViewRepaint()
+        {
+            try
+            {
+                if (_webView == null || _webView.IsDisposed || !_webView.IsHandleCreated) return;
+                // A 1px resize-and-restore makes the WebView2 controller re-emit
+                // its bounds, which forces the compositor to produce a new frame.
+                var size = _webView.Size;
+                if (size.Width > 1 && size.Height > 1)
+                {
+                    _webView.Size = new Size(size.Width - 1, size.Height);
+                    _webView.Size = size;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] #{_instanceId} NudgeWebViewRepaint error: {ex.Message}");
+            }
+        }
+
         private void InitializeComponent()
         {
             BackColor = System.Drawing.Color.White;
