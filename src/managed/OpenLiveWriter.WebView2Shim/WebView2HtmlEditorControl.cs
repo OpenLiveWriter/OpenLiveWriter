@@ -32,14 +32,31 @@ namespace OpenLiveWriter.WebView2Shim
         private string _body = "";
         private string _selection = "";
         
-        public string Title 
-        { 
+        public string Title
+        {
             get => _title;
             set
             {
-                _title = value;
+                // The title is plain text (0.6.2 parity: it was a plain text
+                // box). Sanitize here as defense in depth so consumers such as
+                // the AutoRecover file name built from the title never see HTML.
+                _title = ToPlainText(value);
                 System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] Bridge.Title SET: {value?.Length ?? 0} chars");
             }
+        }
+
+        /// <summary>
+        /// Reduces a (possibly HTML) title string to single-line plain text:
+        /// strips tags, decodes entities, and collapses all whitespace.
+        /// </summary>
+        internal static string ToPlainText(string text)
+        {
+            if (string.IsNullOrEmpty(text))
+                return "";
+            text = System.Text.RegularExpressions.Regex.Replace(text, "<[^>]*>", " ");
+            text = System.Net.WebUtility.HtmlDecode(text);
+            text = System.Text.RegularExpressions.Regex.Replace(text, @"\s+", " ");
+            return text.Trim();
         }
         
         public string Body 
@@ -369,19 +386,96 @@ namespace OpenLiveWriter.WebView2Shim
                         document.addEventListener('selectionchange', syncSelectionState);
                         
                         function syncContent() {
-                            olw.Title = titleEl.innerHTML;
+                            olw.Title = titleEl.textContent;
                             olw.Body = bodyEl.innerHTML;
                             olw.MarkDirty();
                         }
-                        
-                        titleEl.addEventListener('input', syncContent);
+
+                        // The title is plain text (0.6.2 parity: it was a plain
+                        // text box). Strip any markup that slips in via drop or
+                        // native editing commands, preserving the caret. This
+                        // also removes stray <br> nodes so the :empty CSS
+                        // placeholder shows when the title has no text.
+                        function sanitizeTitle() {
+                            if (titleEl.childElementCount === 0) return;
+                            var sel = window.getSelection();
+                            var hasCaret = sel.rangeCount > 0 && titleEl.contains(sel.anchorNode);
+                            var offset = 0;
+                            if (hasCaret) {
+                                var pre = sel.getRangeAt(0).cloneRange();
+                                pre.selectNodeContents(titleEl);
+                                pre.setEnd(sel.getRangeAt(0).startContainer, sel.getRangeAt(0).startOffset);
+                                offset = pre.toString().length;
+                            }
+                            titleEl.textContent = titleEl.textContent;
+                            if (hasCaret && titleEl.firstChild) {
+                                var node = titleEl.firstChild;
+                                var range = document.createRange();
+                                range.setStart(node, Math.min(offset, node.length));
+                                range.collapse(true);
+                                sel.removeAllRanges();
+                                sel.addRange(range);
+                            }
+                        }
+
+                        titleEl.addEventListener('input', function() {
+                            sanitizeTitle();
+                            syncContent();
+                        });
                         bodyEl.addEventListener('input', syncContent);
+
+                        // Paste into the title as plain text (no markup, no line breaks).
+                        titleEl.addEventListener('paste', function(e) {
+                            e.preventDefault();
+                            var text = (e.clipboardData || window.clipboardData).getData('text/plain') || '';
+                            text = text.replace(/\s+/g, ' ');
+                            document.execCommand('insertText', false, text);
+                        });
+
+                        // Enter in the title moves to the body (0.6.2 parity);
+                        // block native Ctrl+B/I/U so Chromium cannot apply rich
+                        // formatting inside the plain-text title.
+                        titleEl.addEventListener('keydown', function(e) {
+                            if (e.key === 'Enter') {
+                                e.preventDefault();
+                                bodyEl.focus();
+                                return;
+                            }
+                            if (e.ctrlKey && !e.altKey && (e.key === 'b' || e.key === 'B' || e.key === 'i' || e.key === 'I' || e.key === 'u' || e.key === 'U')) {
+                                e.preventDefault();
+                            }
+                        });
+
+                        // True when the caret/selection is inside the title
+                        // element, where rich formatting must never apply.
+                        window.olwSelectionInTitle = function() {
+                            var node = null;
+                            var sel = window.getSelection();
+                            if (sel && sel.anchorNode) node = sel.anchorNode;
+                            if (!node) node = document.activeElement;
+                            while (node) {
+                                if (node === titleEl) return true;
+                                if (node === bodyEl || node === document.body) return false;
+                                node = node.parentNode;
+                            }
+                            return false;
+                        };
+
+                        // Execute a formatting command unless the selection is
+                        // in the title, then re-sync content to the bridge.
+                        window.olwExecFormatting = function(command, value) {
+                            if (window.olwSelectionInTitle()) return 'skipped-title-selection';
+                            document.execCommand(command, false, value || null);
+                            bodyEl.dispatchEvent(new Event('input', { bubbles: true }));
+                            return 'ok';
+                        };
 
                         // Apply a formatting command in CSS mode so Chromium emits
                         // span+style markup instead of deprecated <font> tags, then
                         // re-sync content to the bridge. Mirrors the macOS editor's
                         // transient styleWithCSS pattern in editor.html.
                         window.olwExecCss = function(command, value) {
+                            if (window.olwSelectionInTitle()) return 'skipped-title-selection';
                             document.execCommand('styleWithCSS', false, true);
                             document.execCommand(command, false, value);
                             document.execCommand('styleWithCSS', false, false);
@@ -393,6 +487,7 @@ namespace OpenLiveWriter.WebView2Shim
                         // size 7 and rewrite the resulting xxx-large spans to the
                         // requested pt value (same trick as the macOS setFontSizePx).
                         window.olwApplyFontSizePt = function(pt) {
+                            if (window.olwSelectionInTitle()) return 'skipped-title-selection';
                             document.execCommand('styleWithCSS', false, true);
                             document.execCommand('fontSize', false, '7');
                             document.execCommand('styleWithCSS', false, false);
@@ -475,6 +570,11 @@ namespace OpenLiveWriter.WebView2Shim
 
         private string GetEditorTemplate()
         {
+            // 0.6.2 parity: an empty title shows the "Enter a post title" hint.
+            // Rendered via CSS (:empty:before) so it never becomes part of the
+            // synced Title value.
+            var placeholder = System.Net.WebUtility.HtmlEncode(String.Format(
+                CultureInfo.CurrentCulture, Res.Get(StringId.TitleDefaultText), Res.Get(StringId.PostLower)));
             return @"<!DOCTYPE html>
 <html>
 <head>
@@ -499,6 +599,11 @@ namespace OpenLiveWriter.WebView2Shim
             padding-bottom: 10px;
             outline: none;
         }
+        #olw-title:empty:before {
+            content: attr(data-placeholder);
+            color: #767676;
+            font-weight: normal;
+        }
         #olw-body {
             min-height: 300px;
             outline: none;
@@ -509,10 +614,10 @@ namespace OpenLiveWriter.WebView2Shim
     </style>
 </head>
 <body>
-    <div id='olw-title' contenteditable='true'></div>
+    <div id='olw-title' contenteditable='true' data-placeholder='__TITLE_PLACEHOLDER__'></div>
     <div id='olw-body' contenteditable='true'></div>
 </body>
-</html>";
+</html>".Replace("__TITLE_PLACEHOLDER__", placeholder);
         }
 
         private string GetEditorContent()
@@ -629,7 +734,7 @@ namespace OpenLiveWriter.WebView2Shim
                         const olw = window.chrome.webview.hostObjects.sync.olw;
                         
                         function syncContentToHost() {{
-                            olw.Title = document.getElementById('olw-title').innerHTML;
+                            olw.Title = document.getElementById('olw-title').textContent;
                             olw.Body = document.getElementById('olw-body').innerHTML;
                             olw.MarkDirty();
                         }}
@@ -901,6 +1006,24 @@ namespace OpenLiveWriter.WebView2Shim
         }
 
         /// <summary>
+        /// Executes a formatting command via the injected olwExecFormatting
+        /// helper, which skips the command when the selection is in the
+        /// plain-text title element (0.6.2 parity: the title accepts no
+        /// formatting) and re-syncs content to the bridge afterwards.
+        /// </summary>
+        private void ExecuteFormattingCommand(string command, string value = null)
+        {
+            if (_webView?.CoreWebView2 == null) return;
+
+            var script = value != null
+                ? $"window.olwExecFormatting && window.olwExecFormatting('{command}', '{value}')"
+                : $"window.olwExecFormatting && window.olwExecFormatting('{command}')";
+
+            System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] ExecuteFormattingCommand: {script}");
+            _ = _webView.CoreWebView2.ExecuteScriptAsync(script);
+        }
+
+        /// <summary>
         /// Executes a formatting command in CSS mode via the olwExecCss helper
         /// (injected by SetupHostObjectListeners) so the document gains
         /// span+style markup instead of deprecated font tags.
@@ -950,7 +1073,7 @@ namespace OpenLiveWriter.WebView2Shim
 
         // IHtmlEditorCommandSource
         public void ViewSource() { /* TODO */ }
-        public void ClearFormatting() => ExecuteCommand("removeFormat");
+        public void ClearFormatting() => ExecuteFormattingCommand("removeFormat");
         public bool CanApplyFormatting(CommandId? commandId) => _webView?.CoreWebView2 != null;
 
         public string SelectionFontFamily => null; // TODO
@@ -1005,38 +1128,38 @@ namespace OpenLiveWriter.WebView2Shim
             if (string.IsNullOrEmpty(elementName)) return;
             
             // formatBlock needs angle brackets for the tag
-            ExecuteCommand("formatBlock", $"<{elementName}>");
+            ExecuteFormattingCommand("formatBlock", $"<{elementName}>");
         }
 
         public bool SelectionBold => QueryCommandState("bold");
         public void ApplyBold()
         {
             System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] ApplyBold called, _webView null: {_webView == null}");
-            ExecuteCommand("bold");
+            ExecuteFormattingCommand("bold");
         }
 
         public bool SelectionItalic => QueryCommandState("italic");
         public void ApplyItalic()
         {
             System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] ApplyItalic called, _webView null: {_webView == null}");
-            ExecuteCommand("italic");
+            ExecuteFormattingCommand("italic");
         }
 
         public bool SelectionUnderlined => QueryCommandState("underline");
         public void ApplyUnderline()
         {
             System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] ApplyUnderline called, _webView null: {_webView == null}");
-            ExecuteCommand("underline");
+            ExecuteFormattingCommand("underline");
         }
 
         public bool SelectionStrikethrough => QueryCommandState("strikeThrough");
-        public void ApplyStrikethrough() => ExecuteCommand("strikeThrough");
+        public void ApplyStrikethrough() => ExecuteFormattingCommand("strikeThrough");
 
         public bool SelectionSuperscript => QueryCommandState("superscript");
-        public void ApplySuperscript() => ExecuteCommand("superscript");
+        public void ApplySuperscript() => ExecuteFormattingCommand("superscript");
 
         public bool SelectionSubscript => QueryCommandState("subscript");
-        public void ApplySubscript() => ExecuteCommand("subscript");
+        public void ApplySubscript() => ExecuteFormattingCommand("subscript");
 
         public bool SelectionIsLTR => true;
         public void InsertLTRTextBlock() { /* TODO */ }
@@ -1048,24 +1171,24 @@ namespace OpenLiveWriter.WebView2Shim
         {
             switch (alignment)
             {
-                case EditorTextAlignment.Left: ExecuteCommand("justifyLeft"); break;
-                case EditorTextAlignment.Center: ExecuteCommand("justifyCenter"); break;
-                case EditorTextAlignment.Right: ExecuteCommand("justifyRight"); break;
-                case EditorTextAlignment.Justify: ExecuteCommand("justifyFull"); break;
+                case EditorTextAlignment.Left: ExecuteFormattingCommand("justifyLeft"); break;
+                case EditorTextAlignment.Center: ExecuteFormattingCommand("justifyCenter"); break;
+                case EditorTextAlignment.Right: ExecuteFormattingCommand("justifyRight"); break;
+                case EditorTextAlignment.Justify: ExecuteFormattingCommand("justifyFull"); break;
             }
         }
 
         public bool SelectionBulleted => QueryCommandState("insertUnorderedList");
-        public void ApplyBullets() => ExecuteCommand("insertUnorderedList");
+        public void ApplyBullets() => ExecuteFormattingCommand("insertUnorderedList");
 
         public bool SelectionNumbered => QueryCommandState("insertOrderedList");
-        public void ApplyNumbers() => ExecuteCommand("insertOrderedList");
+        public void ApplyNumbers() => ExecuteFormattingCommand("insertOrderedList");
 
         public bool CanIndent => true;
-        public void ApplyIndent() => ExecuteCommand("indent");
+        public void ApplyIndent() => ExecuteFormattingCommand("indent");
 
         public bool CanOutdent => true;
-        public void ApplyOutdent() => ExecuteCommand("outdent");
+        public void ApplyOutdent() => ExecuteFormattingCommand("outdent");
 
         /// <summary>
         /// Toggles blockquote. If already in blockquote, outdents. Otherwise wraps in blockquote.
@@ -1075,12 +1198,12 @@ namespace OpenLiveWriter.WebView2Shim
             if (SelectionBlockquoted)
             {
                 // Remove blockquote by outdenting
-                ExecuteCommand("outdent");
+                ExecuteFormattingCommand("outdent");
             }
             else
             {
                 // Wrap in blockquote using formatBlock
-                ExecuteCommand("formatBlock", "<blockquote>");
+                ExecuteFormattingCommand("formatBlock", "<blockquote>");
             }
         }
         
