@@ -83,8 +83,13 @@ namespace OpenLiveWriter.Interop.Windows.TaskDialog
         LONG_PTR lpCallbackData;
         UINT cxWidth;
     } TASKDIALOGCONFIG;
+
+    Note: Pack = 1 is required. TaskDialogIndirect in comctl32 v6.10 (Windows 11
+    24H2) rejects the naturally-aligned 64-bit layout (176 bytes) with
+    E_INVALIDARG; it expects the SDK-recorded packed layout (160 bytes, the same
+    layout CsWin32/WinForms use). TASKDIALOG_BUTTON is packed likewise (12 bytes).
      */
-    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
+    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode, Pack = 1)]
     internal unsafe struct TASKDIALOGCONFIG
     {
         public int cbSize;
@@ -113,7 +118,7 @@ namespace OpenLiveWriter.Interop.Windows.TaskDialog
         public uint cxWidth;
     }
 
-    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
+    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode, Pack = 1)]
     internal struct TASKDIALOG_BUTTON
     {
         public int nButtonID;
