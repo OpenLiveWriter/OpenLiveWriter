@@ -95,6 +95,54 @@ namespace OpenLiveWriter.Tests.WebView2Editor
         }
 
         [Test]
+        public void ApplyHeading_OnMultiParagraphSelection_FormatsEachBlock()
+        {
+            using (var form = CreateEditorForm(out WebView2HtmlEditorControl editor))
+            {
+                EnsureReadyOrIgnore(editor);
+                WebView2 webView = GetInnerWebView(editor);
+
+                ExecuteScript(webView,
+                    "var b = document.getElementById('olw-body');" +
+                    "b.innerHTML = '<p>first</p><p>second</p><p>third</p>';" +
+                    "b.focus();" +
+                    "var range = document.createRange();" +
+                    "range.selectNodeContents(b);" +
+                    "var sel = window.getSelection();" +
+                    "sel.removeAllRanges();" +
+                    "sel.addRange(range);");
+
+                editor.CommandSource.ApplyHtmlFormattingStyle(new TestFormattingStyle("H2"));
+
+                // Each paragraph becomes its own heading (0.6.2 behavior); the
+                // buggy path produced one h2 with the paragraphs joined by <br>.
+                Assert.IsTrue(WaitFor(() =>
+                {
+                    string html = editor.GetEditedHtml(true).ToLowerInvariant();
+                    return CountOccurrences(html, "<h2") >= 3;
+                }), "expected one h2 per paragraph, got: " + editor.GetEditedHtml(true));
+
+                string body = editor.GetEditedHtml(true).ToLowerInvariant();
+                Assert.AreEqual(3, CountOccurrences(body, "<h2"), "wrong h2 count: " + body);
+                Assert.IsFalse(body.Contains("<br"), "heading merge left <br> separators: " + body);
+            }
+        }
+
+        private class TestFormattingStyle : OpenLiveWriter.HtmlEditor.IHtmlFormattingStyle
+        {
+            private readonly string _elementName;
+
+            public TestFormattingStyle(string elementName)
+            {
+                _elementName = elementName;
+            }
+
+            public string DisplayName => _elementName;
+            public string ElementName => _elementName;
+            public mshtml._ELEMENT_TAG_ID ElementTagId => mshtml._ELEMENT_TAG_ID.TAGID_NULL;
+        }
+
+        [Test]
         public void ApplyBullets_OnParagraphs_ProducesListOutsideParagraph()
         {
             using (var form = CreateEditorForm(out WebView2HtmlEditorControl editor))

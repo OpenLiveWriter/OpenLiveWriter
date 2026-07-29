@@ -552,6 +552,65 @@ namespace OpenLiveWriter.WebView2Shim
                             window.olwCleanupBlocks();
                             bodyEl.dispatchEvent(new Event('input', { bubbles: true }));
                         };
+
+                        // Apply a block format (H1-H6, P, ...) to every block in the
+                        // selection. Chromium's formatBlock collapses a multi-block
+                        // selection into a single heading joined by <br>; formatting
+                        // each block individually matches the classic OLW behavior.
+                        window.olwFormatBlock = function(tag) {
+                            var sel = window.getSelection();
+                            if (!sel || sel.rangeCount === 0 || sel.getRangeAt(0).collapsed) {
+                                document.execCommand('formatBlock', false, tag);
+                                bodyEl.dispatchEvent(new Event('input', { bubbles: true }));
+                                return;
+                            }
+                            var range = sel.getRangeAt(0);
+                            var blockTags = ['P','DIV','H1','H2','H3','H4','H5','H6','LI','BLOCKQUOTE','PRE'];
+                            var blocks = [];
+                            var walker = document.createTreeWalker(bodyEl, NodeFilter.SHOW_ELEMENT, null);
+                            var node;
+                            while ((node = walker.nextNode())) {
+                                if (blockTags.indexOf(node.tagName) < 0) continue;
+                                if (!range.intersectsNode(node)) continue;
+                                // Skip blocks already covered by a collected ancestor.
+                                var anc = node.parentNode;
+                                var covered = false;
+                                while (anc && anc !== bodyEl) {
+                                    if (blocks.indexOf(anc) >= 0) { covered = true; break; }
+                                    anc = anc.parentNode;
+                                }
+                                if (!covered) blocks.push(node);
+                            }
+                            if (blocks.length <= 1) {
+                                document.execCommand('formatBlock', false, tag);
+                                bodyEl.dispatchEvent(new Event('input', { bubbles: true }));
+                                return;
+                            }
+                            var firstNew = null;
+                            var lastNew = null;
+                            for (var i = 0; i < blocks.length; i++) {
+                                if (!blocks[i].parentNode) continue; // detached by an earlier step
+                                var r = document.createRange();
+                                r.selectNodeContents(blocks[i]);
+                                sel.removeAllRanges();
+                                sel.addRange(r);
+                                document.execCommand('formatBlock', false, tag);
+                                var newBlock = findBlockParent(sel.anchorNode);
+                                if (newBlock) {
+                                    if (!firstNew) firstNew = newBlock;
+                                    lastNew = newBlock;
+                                }
+                            }
+                            // Re-select across the formatted blocks.
+                            if (firstNew && lastNew) {
+                                var restore = document.createRange();
+                                restore.setStart(firstNew, 0);
+                                restore.setEnd(lastNew, lastNew.childNodes.length);
+                                sel.removeAllRanges();
+                                sel.addRange(restore);
+                            }
+                            bodyEl.dispatchEvent(new Event('input', { bubbles: true }));
+                        };
                         
                         // Sync initial content
                         syncContent();
@@ -949,6 +1008,11 @@ namespace OpenLiveWriter.WebView2Shim
                 var html = $"<a href=\"{System.Net.WebUtility.HtmlEncode(url)}\"{titleAttr}{relAttr}{target}>{System.Net.WebUtility.HtmlEncode(linkText)}</a>";
                 System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] InsertLink: {html}");
                 InsertHtml(html, HtmlInsertionOptions.MoveCursorAfter);
+                // Replacing a multi-item list selection with the link leaves an
+                // empty list behind; clean up the artifacts (queued after the
+                // insert script, so execution order is preserved).
+                _ = _webView.CoreWebView2.ExecuteScriptAsync(
+                    "window.olwCleanupBlocks && window.olwCleanupBlocks()");
             }
         }
 
@@ -1121,16 +1185,18 @@ namespace OpenLiveWriter.WebView2Shim
         public string SelectionStyleName => _editor?.ContentBridge?.CurrentBlockTag;
         
         /// <summary>
-        /// Applies HTML formatting style (H1, H2, P, etc.) using formatBlock command.
+        /// Applies HTML formatting style (H1, H2, P, etc.) per selected block via
+        /// the olwFormatBlock helper. Raw formatBlock collapses a multi-paragraph
+        /// selection into a single heading joined by br separators.
         /// </summary>
         public void ApplyHtmlFormattingStyle(IHtmlFormattingStyle style)
         {
             if (style == null) return;
             var elementName = style.ElementName?.ToUpperInvariant();
             if (string.IsNullOrEmpty(elementName)) return;
-            
+
             // formatBlock needs angle brackets for the tag
-            ExecuteCommand("formatBlock", $"<{elementName}>");
+            ExecuteScript($"window.olwFormatBlock && window.olwFormatBlock('<{elementName}>')");
         }
 
         public bool SelectionBold => QueryCommandState("bold");
