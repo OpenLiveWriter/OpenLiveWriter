@@ -369,10 +369,28 @@ namespace OpenLiveWriter.WebView2Shim
                             return null;
                         }
                         
+                        // Selection text with line breaks between blocks, so the
+                        // hyperlink dialog's link text does not concatenate a
+                        // multi-block selection into one unbroken run.
+                        function olwSelectionText(sel) {
+                            if (!sel || sel.rangeCount === 0) return '';
+                            if (sel.isCollapsed) return '';
+                            var container = document.createElement('div');
+                            container.appendChild(sel.getRangeAt(0).cloneContents());
+                            var html = container.innerHTML
+                                .replace(/<br\s*\/?>/gi, '\n')
+                                .replace(/<\/(p|div|li|h[1-6]|blockquote|tr|table|ul|ol)>/gi, '\n');
+                            var tmp = document.createElement('div');
+                            tmp.innerHTML = html;
+                            return (tmp.textContent || '')
+                                .replace(/\n{3,}/g, '\n\n')
+                                .replace(/^\n+|\n+$/g, '');
+                        }
+
                         // Sync selection and context state to bridge
                         function syncSelectionState() {
                             var sel = window.getSelection();
-                            olw.Selection = sel ? sel.toString() : '';
+                            olw.Selection = olwSelectionText(sel);
 
                             // Capture selection HTML (for SelectedHtml consumers)
                             var selHtml = '';

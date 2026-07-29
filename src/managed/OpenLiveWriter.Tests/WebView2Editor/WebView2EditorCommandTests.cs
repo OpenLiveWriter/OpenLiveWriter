@@ -143,6 +143,35 @@ namespace OpenLiveWriter.Tests.WebView2Editor
         }
 
         [Test]
+        public void SelectionText_MultiBlockSelection_JoinsWithNewlines()
+        {
+            using (var form = CreateEditorForm(out WebView2HtmlEditorControl editor))
+            {
+                EnsureReadyOrIgnore(editor);
+                WebView2 webView = GetInnerWebView(editor);
+
+                ExecuteScript(webView,
+                    "var b = document.getElementById('olw-body');" +
+                    "b.innerHTML = '<p>alpha</p><p>beta</p>';" +
+                    "var range = document.createRange();" +
+                    "range.selectNodeContents(b);" +
+                    "var sel = window.getSelection();" +
+                    "sel.removeAllRanges();" +
+                    "sel.addRange(range);" +
+                    "document.dispatchEvent(new Event('selectionchange'));");
+
+                // The hyperlink dialog's "Text to be displayed" must not
+                // concatenate blocks into "alphabeta".
+                Assert.IsTrue(WaitFor(() => editor.SelectedText.Contains("alpha")),
+                    "selection did not sync to the bridge");
+                StringAssert.Contains("alpha", editor.SelectedText);
+                StringAssert.Contains("beta", editor.SelectedText);
+                Assert.IsTrue(editor.SelectedText.Contains("\n"),
+                    "expected a newline separator between blocks, got: '" + editor.SelectedText + "'");
+            }
+        }
+
+        [Test]
         public void ClearFormatting_ResetsBlockStructureAndAlignment()
         {
             using (var form = CreateEditorForm(out WebView2HtmlEditorControl editor))
