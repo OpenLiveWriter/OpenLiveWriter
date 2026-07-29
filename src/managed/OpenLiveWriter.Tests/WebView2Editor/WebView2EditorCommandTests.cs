@@ -95,6 +95,42 @@ namespace OpenLiveWriter.Tests.WebView2Editor
         }
 
         [Test]
+        public void ApplyBullets_OnParagraphs_ProducesListOutsideParagraph()
+        {
+            using (var form = CreateEditorForm(out WebView2HtmlEditorControl editor))
+            {
+                EnsureReadyOrIgnore(editor);
+                WebView2 webView = GetInnerWebView(editor);
+
+                ExecuteScript(webView,
+                    "var b = document.getElementById('olw-body');" +
+                    "b.innerHTML = '<p>alpha</p><p>beta</p>';" +
+                    "b.focus();" +
+                    "var range = document.createRange();" +
+                    "range.selectNodeContents(b);" +
+                    "var sel = window.getSelection();" +
+                    "sel.removeAllRanges();" +
+                    "sel.addRange(range);");
+
+                editor.CommandSource.ApplyBullets();
+
+                // The list must exist and must not be nested inside a paragraph:
+                // <p><ul>...</ul></p> is invalid HTML.
+                Assert.IsTrue(WaitFor(() =>
+                {
+                    string html = editor.GetEditedHtml(true).ToLowerInvariant();
+                    return html.Contains("<ul") && html.Contains("<li");
+                }), "bullet command did not produce a list");
+
+                string body = editor.GetEditedHtml(true).ToLowerInvariant();
+                Assert.IsFalse(System.Text.RegularExpressions.Regex.IsMatch(body, @"<p[^>]*>\s*<ul"),
+                    "ul nested inside p: " + body);
+                StringAssert.Contains("alpha", body);
+                StringAssert.Contains("beta", body);
+            }
+        }
+
+        [Test]
         public void SourceEditor_UndoAfterSetContent_DoesNotWipeContent()
         {
             Form form = null;

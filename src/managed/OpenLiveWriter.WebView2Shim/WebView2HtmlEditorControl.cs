@@ -469,6 +469,89 @@ namespace OpenLiveWriter.WebView2Shim
                             });
                         });
                         observer.observe(bodyEl, { childList: true });
+
+                        // True when the element carries no content worth keeping.
+                        // A lone <br> counts as content: that is how Chromium
+                        // represents an intentional blank paragraph.
+                        function olwIsEmpty(el) {
+                            if (!el) return true;
+                            if (el.querySelector('img,br,hr,table,iframe,object,embed,video,audio')) return false;
+                            return (el.textContent || '').replace(/\u00a0/g, '').trim() === '';
+                        }
+
+                        // Chromium's insertUnorderedList/insertOrderedList can nest
+                        // the new list inside the current <p>, producing invalid
+                        // <p><ul>...</ul></p> markup. Hoist such lists out of the
+                        // paragraph, splitting it when text surrounds the list.
+                        function olwFixNestedLists() {
+                            var lists = bodyEl.querySelectorAll('p > ul, p > ol');
+                            for (var i = 0; i < lists.length; i++) {
+                                var list = lists[i];
+                                var p = list.parentNode;
+                                if (!p || p.tagName !== 'P') continue;
+                                var afterP = document.createElement('p');
+                                var node = list.nextSibling;
+                                while (node) {
+                                    var next = node.nextSibling;
+                                    afterP.appendChild(node);
+                                    node = next;
+                                }
+                                p.parentNode.insertBefore(list, p.nextSibling);
+                                if (!olwIsEmpty(afterP)) {
+                                    p.parentNode.insertBefore(afterP, list.nextSibling);
+                                }
+                                if (olwIsEmpty(p)) {
+                                    p.parentNode.removeChild(p);
+                                }
+                            }
+                        }
+
+                        // Tidy execCommand DOM artifacts: drop empty lists, merge
+                        // adjacent same-type lists, and drop empty paragraphs left
+                        // adjacent to lists/blockquotes by block commands.
+                        window.olwCleanupBlocks = function() {
+                            olwFixNestedLists();
+                            var changed = true;
+                            while (changed) {
+                                changed = false;
+                                var all = bodyEl.querySelectorAll('ul, ol, blockquote');
+                                for (var i = 0; i < all.length; i++) {
+                                    var el = all[i];
+                                    if (olwIsEmpty(el)) {
+                                        el.parentNode.removeChild(el);
+                                        changed = true;
+                                        continue;
+                                    }
+                                    var sib = el.nextElementSibling;
+                                    if (sib && sib.tagName === el.tagName) {
+                                        while (sib.firstChild) el.appendChild(sib.firstChild);
+                                        sib.parentNode.removeChild(sib);
+                                        changed = true;
+                                    }
+                                }
+                            }
+                            var ps = bodyEl.querySelectorAll('p');
+                            for (var j = ps.length - 1; j >= 0; j--) {
+                                var p = ps[j];
+                                if (p.children.length > 0 || (p.textContent || '').trim() !== '') continue;
+                                var prev = p.previousElementSibling;
+                                var nextSib = p.nextElementSibling;
+                                var nearBlock = function(n) {
+                                    return n && (n.tagName === 'UL' || n.tagName === 'OL' || n.tagName === 'BLOCKQUOTE');
+                                };
+                                if (nearBlock(prev) || nearBlock(nextSib)) {
+                                    p.parentNode.removeChild(p);
+                                }
+                            }
+                        };
+
+                        // Insert a list and repair the DOM so ul/ol end up as
+                        // siblings of p, never nested inside one.
+                        window.olwInsertList = function(ordered) {
+                            document.execCommand(ordered ? 'insertOrderedList' : 'insertUnorderedList');
+                            window.olwCleanupBlocks();
+                            bodyEl.dispatchEvent(new Event('input', { bubbles: true }));
+                        };
                         
                         // Sync initial content
                         syncContent();
@@ -1098,10 +1181,10 @@ namespace OpenLiveWriter.WebView2Shim
         }
 
         public bool SelectionBulleted => QueryCommandState("insertUnorderedList");
-        public void ApplyBullets() => ExecuteCommand("insertUnorderedList");
+        public void ApplyBullets() => ExecuteScript("window.olwInsertList && window.olwInsertList(false)");
 
         public bool SelectionNumbered => QueryCommandState("insertOrderedList");
-        public void ApplyNumbers() => ExecuteCommand("insertOrderedList");
+        public void ApplyNumbers() => ExecuteScript("window.olwInsertList && window.olwInsertList(true)");
 
         public bool CanIndent => true;
         public void ApplyIndent() => ExecuteCommand("indent");
