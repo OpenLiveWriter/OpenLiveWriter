@@ -511,6 +511,13 @@ namespace OpenLiveWriter.WebView2Shim
                                         range.collapse(false);
                                         sel.removeAllRanges();
                                         sel.addRange(range);
+                                    } else if (node.nodeType === 3 && node.parentNode === bodyEl && node.textContent.trim() !== '') {
+                                        // Wrap bare text added directly to the body
+                                        // (e.g. the first line of a multi-line paste)
+                                        // in a paragraph like the other lines.
+                                        var wrapper = document.createElement('p');
+                                        bodyEl.insertBefore(wrapper, node);
+                                        wrapper.appendChild(node);
                                     }
                                 });
                             });
