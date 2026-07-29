@@ -3,12 +3,14 @@
 
 using System;
 using System.Drawing;
+using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using OpenLiveWriter.Api;
 using OpenLiveWriter.ApplicationFramework;
 using OpenLiveWriter.BlogClient.Detection;
 using OpenLiveWriter.HtmlEditor;
+using OpenLiveWriter.Localization;
 using OpenLiveWriter.WebView2Shim;
 
 namespace OpenLiveWriter.PostEditor.PostHtmlEditing
@@ -115,6 +117,12 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                 return;
             }
             
+            // 0.6.2 parity: an empty title shows the "Enter a post title" hint,
+            // rendered via CSS (:empty:before) so it never becomes part of the
+            // synced Title value.
+            var titlePlaceholder = System.Net.WebUtility.HtmlEncode(String.Format(
+                CultureInfo.CurrentCulture, Res.Get(StringId.TitleDefaultText), Res.Get(StringId.PostLower)));
+
             // For now, just load the body HTML into the editor
             // NOTE: No inline script - listeners are set up via ExecuteScriptAsync after navigation
             var html = $@"<!DOCTYPE html>
@@ -142,6 +150,11 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             background-color: #ffffff;
             outline: none;
         }}
+        #olw-title:empty:before {{
+            content: attr(data-placeholder);
+            color: #767676;
+            font-weight: normal;
+        }}
         #olw-body {{ 
             min-height: 300px; 
             background-color: #ffffff;
@@ -153,7 +166,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
     </style>
 </head>
 <body>
-    <div id=""olw-title"" contenteditable=""true"">{System.Web.HttpUtility.HtmlEncode(_title)}</div>
+    <div id=""olw-title"" contenteditable=""true"" data-placeholder=""{titlePlaceholder}"">{System.Web.HttpUtility.HtmlEncode(_title)}</div>
     <div id=""olw-body"" contenteditable=""true"">{postBodyHtml}</div>
 </body>
 </html>";

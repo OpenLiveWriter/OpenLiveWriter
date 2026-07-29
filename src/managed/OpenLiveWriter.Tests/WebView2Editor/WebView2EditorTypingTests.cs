@@ -104,6 +104,56 @@ namespace OpenLiveWriter.Tests.WebView2Editor
             }
         }
 
+        [Test]
+        public void TitleEdit_StripsMarkupFromSyncedTitle()
+        {
+            using (var form = CreateEditorForm(out WebView2HtmlEditorControl editor))
+            {
+                EnsureReadyOrIgnore(editor);
+
+                // The title is plain text (0.6.2 parity): markup injected into
+                // the title element must not reach the synced Title value.
+                WebView2 webView = GetInnerWebView(editor);
+                webView.CoreWebView2.ExecuteScriptAsync(
+                    "var t = document.getElementById('olw-title');" +
+                    "t.innerHTML = '<b>Bold</b> Plain';" +
+                    "t.dispatchEvent(new Event('input', { bubbles: true }));");
+
+                string title = WaitForValue(() => editor.GetEditedTitleHtml(), "Bold Plain");
+                Assert.AreEqual("Bold Plain", title);
+            }
+        }
+
+        [Test]
+        public void TitleFormattingCommand_DoesNotApplyInTitle()
+        {
+            using (var form = CreateEditorForm(out WebView2HtmlEditorControl editor))
+            {
+                EnsureReadyOrIgnore(editor);
+
+                // Selecting title text and running a formatting command (as the
+                // ribbon's Bold button does) must leave the plain-text title
+                // untouched; the resulting markup crashed AutoSave when the
+                // title HTML was used as the AutoRecover file name.
+                WebView2 webView = GetInnerWebView(editor);
+                string titleHtml = null;
+                webView.CoreWebView2.ExecuteScriptAsync(
+                    "var t = document.getElementById('olw-title');" +
+                    "t.textContent = 'My Title';" +
+                    "var range = document.createRange();" +
+                    "range.selectNodeContents(t);" +
+                    "var sel = window.getSelection();" +
+                    "sel.removeAllRanges();" +
+                    "sel.addRange(range);" +
+                    "window.olwExecFormatting('bold');" +
+                    "t.innerHTML;")
+                    .ContinueWith(t => titleHtml = t.Result);
+
+                titleHtml = WaitForValue(() => titleHtml, "My Title");
+                Assert.IsFalse(titleHtml.Contains("<b>"), "title must stay plain text, got: " + titleHtml);
+            }
+        }
+
         private static Form CreateEditorForm(out WebView2HtmlEditorControl editor)
         {
             Form form;
