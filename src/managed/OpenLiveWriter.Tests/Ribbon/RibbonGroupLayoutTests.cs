@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using NUnit.Framework;
 using OpenLiveWriter.Localization;
@@ -205,6 +206,50 @@ namespace OpenLiveWriter.Tests.Ribbon
             
             // Layout should have been updated (width recalculated)
             Assert.That(group.SizeDefinition, Is.EqualTo("OneButton"));
+        }
+
+        [Test]
+        public void SevenSmallButtons_SplitsThreeTopFourBottom()
+        {
+            // Matches the native ribbon's SevenSmallButtons SizeDefinition
+            // (src/unmanaged/OpenLiveWriter.Ribbon/Ribbon.xml): bullets/numbers/blockquote
+            // on the top row, the four alignment buttons on the bottom row.
+            using var group = new RibbonGroup();
+            group.Label = "Paragraph";
+            group.Size = new Size(120, 70);
+            group.SizeDefinition = "SevenSmallButtons";
+
+            var buttons = new List<RibbonButton>();
+            for (var i = 0; i < 7; i++)
+            {
+                var button = new RibbonButton { CurrentSize = RibbonGroupSize.Small };
+                buttons.Add(button);
+                group.AddControl(button);
+            }
+
+            try
+            {
+                // Top row: first 3 buttons share a Y
+                Assert.That(buttons[1].Location.Y, Is.EqualTo(buttons[0].Location.Y));
+                Assert.That(buttons[2].Location.Y, Is.EqualTo(buttons[0].Location.Y));
+
+                // Bottom row: last 4 buttons share a Y below the top row
+                for (var i = 3; i < 7; i++)
+                {
+                    Assert.That(buttons[i].Location.Y, Is.EqualTo(buttons[3].Location.Y));
+                }
+                Assert.That(buttons[3].Location.Y, Is.GreaterThan(buttons[0].Location.Y));
+
+                // Bottom row starts at the left edge (AlignLeft below Bullets)
+                Assert.That(buttons[3].Location.X, Is.EqualTo(buttons[0].Location.X));
+            }
+            finally
+            {
+                foreach (var button in buttons)
+                {
+                    button.Dispose();
+                }
+            }
         }
 
         #endregion

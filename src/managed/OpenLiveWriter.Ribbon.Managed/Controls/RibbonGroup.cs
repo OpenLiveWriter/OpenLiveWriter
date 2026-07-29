@@ -689,7 +689,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
 
         /// <summary>
         /// Calculate the preferred width for the "SevenSmallButtons" SizeDefinition.
-        /// Layout: 7 small icon-only buttons in 2 rows (4 top, 3 bottom) matching native ribbon.
+        /// Layout: 7 small icon-only buttons in 2 rows (3 top, 4 bottom) matching native ribbon.
         /// Uses compact 20px buttons packed tight with no gaps.
         /// </summary>
         private int GetSevenSmallButtonsWidth()
@@ -1353,8 +1353,8 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
         /// <summary>
         /// Layout for the "SevenSmallButtons" SizeDefinition:
         /// Seven small icon-only buttons (22x22) in 2 rows matching native ribbon.
-        /// Row 0: 4 buttons (Bullets, Numbers, Blockquote, AlignLeft)
-        /// Row 1: 3 buttons (AlignCenter, AlignRight, Justify)
+        /// Row 0: 3 buttons (Bullets, Numbers, Blockquote)
+        /// Row 1: 4 buttons (AlignLeft, AlignCenter, AlignRight, Justify)
         /// </summary>
         private void LayoutSevenSmallButtons(int availableHeight)
         {
@@ -1373,7 +1373,8 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                     visibleButtons.Add(_controls[i]);
             }
 
-            // Row 0: first 4 buttons, Row 1: remaining buttons
+            // Row 0: first 3 buttons, Row 1: remaining buttons (matches native
+            // SevenSmallButtons: bullets/numbers/blockquote on top, alignment on bottom)
             for (var i = 0; i < visibleButtons.Count; i++)
             {
                 var control = visibleButtons[i];
@@ -1381,7 +1382,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                 control.Size = new Size(smallButtonSize, smallButtonSize);
 
                 int column, row;
-                if (i < 4)
+                if (i < 3)
                 {
                     row = 0;
                     column = i;
@@ -1389,7 +1390,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                 else
                 {
                     row = 1;
-                    column = i - 4;
+                    column = i - 3;
                 }
 
                 var columnX = x + column * smallButtonSize;
