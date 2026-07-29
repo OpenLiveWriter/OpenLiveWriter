@@ -696,7 +696,10 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
         {
             var btnSize = (int)(LayoutConstants.SmallButtonSize * 16.0 / 22.0); // compact button size for paragraph toolbar
             var numColumns = 4;
-            var width = PADDING + (btnSize * numColumns) + PADDING;
+            // Include the group separator margin on the right so the bottom row's
+            // fourth button does not overhang the separator (the layout places
+            // fixed-size buttons and cannot shrink them to fit).
+            var width = PADDING + (btnSize * numColumns) + PADDING + LayoutConstants.GroupSeparatorMargin;
 
             // Ensure label fits
             using (var g = CreateGraphics())
