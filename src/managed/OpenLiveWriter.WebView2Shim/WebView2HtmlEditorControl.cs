@@ -767,7 +767,7 @@ namespace OpenLiveWriter.WebView2Shim
                     })();
                 ";
                 
-                var result = null;
+                string result = null;
                 // The editing shell elements and the host object bridge can lag
                 // NavigationCompleted by a beat; retry a few times before giving up.
                 for (var attempt = 0; attempt < 4; attempt++)
