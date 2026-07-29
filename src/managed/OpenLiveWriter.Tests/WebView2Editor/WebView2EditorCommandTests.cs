@@ -55,6 +55,12 @@ namespace OpenLiveWriter.Tests.WebView2Editor
                 ExecuteScript(webView,
                     "var b = document.getElementById('olw-body');" +
                     "b.focus();" +
+                    "var sel = window.getSelection();" +
+                    "var init = document.createRange();" +
+                    "init.selectNodeContents(b);" +
+                    "init.collapse(false);" +
+                    "sel.removeAllRanges();" +
+                    "sel.addRange(init);" +
                     "document.execCommand('insertHTML', false, 'one');" +
                     "document.execCommand('insertParagraph');" +
                     "document.execCommand('insertHTML', false, 'two');" +
