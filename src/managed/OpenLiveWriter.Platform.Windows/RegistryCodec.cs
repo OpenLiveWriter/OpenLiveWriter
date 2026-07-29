@@ -86,7 +86,7 @@ namespace OpenLiveWriter.Platform.Windows
         /// </summary>
         public object Decode(object val, Type desiredType)
         {
-            return GetCodec(desiredType).Decode(val);
+            return GetCodec(desiredType).Decode(val, desiredType);
         }
 
         protected Codec GetCodec(Type type)
@@ -164,6 +164,17 @@ namespace OpenLiveWriter.Platform.Windows
             /// here.
             /// </summary>
             public abstract object Decode(object val);
+
+            /// <summary>
+            /// Convert a symmetrically persistable type back into a native object,
+            /// given the type the caller expects. Codecs that can handle a variety
+            /// of types (like SerializableCodec) need the desired type to produce
+            /// the correctly typed value; the default implementation ignores it.
+            /// </summary>
+            public virtual object Decode(object val, Type desiredType)
+            {
+                return Decode(val);
+            }
         }
 
         /// <summary>
@@ -552,6 +563,11 @@ namespace OpenLiveWriter.Platform.Windows
             public override object Decode(object val)
             {
                 return Deserialize((byte[])val);
+            }
+
+            public override object Decode(object val, Type desiredType)
+            {
+                return Deserialize((byte[])val, desiredType);
             }
 
             /// <summary>
