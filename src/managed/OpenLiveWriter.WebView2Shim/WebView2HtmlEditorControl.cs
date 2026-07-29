@@ -415,10 +415,41 @@ namespace OpenLiveWriter.WebView2Shim
                             }
                         });
                         
+                        // Track Chromium history operations (undo/redo). The div-to-p
+                        // observer must not mutate the document while an undo/redo
+                        // transaction is being applied: observer edits are not part of
+                        // Chromium's undo stack, so mutating then corrupts it (e.g. undo
+                        // after applying a heading duplicates the restored paragraphs).
+                        var olwHistoryOpPending = false;
+                        bodyEl.addEventListener('beforeinput', function(e) {
+                            if (e.inputType === 'historyUndo' || e.inputType === 'historyRedo') {
+                                olwHistoryOpPending = true;
+                                // Safety net: clear on the next tick if the observer
+                                // batch for this operation never fires.
+                                setTimeout(function() { olwHistoryOpPending = false; }, 0);
+                            }
+                        });
+
+                        // Undo/redo entry point for host-driven commands. execCommand
+                        // does not reliably fire beforeinput, so flag the operation
+                        // explicitly before running it.
+                        window.olwHistoryCommand = function(cmd) {
+                            olwHistoryOpPending = true;
+                            document.execCommand(cmd);
+                            setTimeout(function() { olwHistoryOpPending = false; }, 0);
+                            bodyEl.dispatchEvent(new Event('input', { bubbles: true }));
+                        };
+
                         // Use MutationObserver to convert <div> to <p> when useParagraphTags is true
                         // Chromium's defaultParagraphSeparator doesn't work, so we post-process
                         var observer = new MutationObserver(function(mutations) {
                             if (window.olwUseParagraphTags === false) return;
+                            if (olwHistoryOpPending) {
+                                // Skip corrections during undo/redo so the history
+                                // transaction applies exactly as Chromium recorded it.
+                                olwHistoryOpPending = false;
+                                return;
+                            }
                             mutations.forEach(function(mutation) {
                                 mutation.addedNodes.forEach(function(node) {
                                     if (node.nodeName === 'DIV' && node.parentElement === bodyEl) {
@@ -926,12 +957,23 @@ namespace OpenLiveWriter.WebView2Shim
             return _webView?.CoreWebView2 != null;
         }
 
+        /// <summary>
+        /// Executes an arbitrary script against the editor document.
+        /// </summary>
+        private void ExecuteScript(string script)
+        {
+            if (_webView?.CoreWebView2 == null) return;
+
+            System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] ExecuteScript: {script}");
+            _ = _webView.CoreWebView2.ExecuteScriptAsync(script);
+        }
+
         // ISimpleTextEditorCommandSource
         public bool HasFocus => _editor?.ContainsFocus ?? false;
         public bool CanUndo => QueryCommandEnabled("undo");
-        public void Undo() => ExecuteCommand("undo");
+        public void Undo() => ExecuteScript("window.olwHistoryCommand && window.olwHistoryCommand('undo')");
         public bool CanRedo => QueryCommandEnabled("redo");
-        public void Redo() => ExecuteCommand("redo");
+        public void Redo() => ExecuteScript("window.olwHistoryCommand && window.olwHistoryCommand('redo')");
         public bool CanCut => QueryCommandEnabled("cut");
         public void Cut() => ExecuteCommand("cut");
         public bool CanCopy => QueryCommandEnabled("copy");

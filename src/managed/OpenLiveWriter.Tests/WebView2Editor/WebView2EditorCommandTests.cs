@@ -1,0 +1,180 @@
+// Copyright (c) .NET Foundation. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for details.
+
+using System;
+using System.Diagnostics;
+using System.IO;
+using System.Reflection;
+using System.Threading;
+using System.Windows.Forms;
+using Microsoft.Web.WebView2.WinForms;
+using NUnit.Framework;
+using OpenLiveWriter.WebView2Shim;
+
+namespace OpenLiveWriter.Tests.WebView2Editor
+{
+    /// <summary>
+    /// Live integration tests for WebView2 editor formatting commands and undo
+    /// behavior. Requires a real desktop session and the WebView2 runtime; the
+    /// tests Assert.Ignore when the environment cannot be created (e.g. session 0).
+    /// </summary>
+    [TestFixture]
+    [Apartment(ApartmentState.STA)]
+    [Category("WebView2")]
+    public class WebView2EditorCommandTests
+    {
+        private const int ReadyTimeoutMs = 30000;
+        private const int SyncTimeoutMs = 10000;
+
+        [OneTimeSetUp]
+        public void ConfigureWebView2UserDataFolder()
+        {
+            // See WebView2EditorTypingTests: the loader needs a writable
+            // user-data folder under testhost.
+            if (string.IsNullOrEmpty(Environment.GetEnvironmentVariable("WEBVIEW2_USER_DATA_FOLDER")))
+            {
+                Environment.SetEnvironmentVariable("WEBVIEW2_USER_DATA_FOLDER",
+                    Path.Combine(Path.GetTempPath(), "OpenLiveWriter.Tests.WebView2"));
+            }
+        }
+
+        [Test]
+        public void Undo_AfterHeadingOnParagraphs_DoesNotDuplicateContent()
+        {
+            using (var form = CreateEditorForm(out WebView2HtmlEditorControl editor))
+            {
+                EnsureReadyOrIgnore(editor);
+                WebView2 webView = GetInnerWebView(editor);
+                editor.FocusBody();
+
+                // Build three paragraphs the way typing does: text plus paragraph
+                // breaks. Chromium creates <div> blocks that the div-to-p observer
+                // then converts; those observer edits are what used to corrupt the
+                // Chromium undo stack.
+                ExecuteScript(webView,
+                    "var b = document.getElementById('olw-body');" +
+                    "b.focus();" +
+                    "document.execCommand('insertHTML', false, 'one');" +
+                    "document.execCommand('insertParagraph');" +
+                    "document.execCommand('insertHTML', false, 'two');" +
+                    "document.execCommand('insertParagraph');" +
+                    "document.execCommand('insertHTML', false, 'three');");
+
+                // Wait for the observer to convert the typed blocks to <p>.
+                Assert.IsTrue(WaitFor(() =>
+                {
+                    string html = editor.GetEditedHtml(true);
+                    return html.Contains("three") &&
+                           html.IndexOf("<p", StringComparison.OrdinalIgnoreCase) >= 0 &&
+                           html.IndexOf("<div", StringComparison.OrdinalIgnoreCase) < 0;
+                }), "typed paragraphs were not converted to <p> by the observer");
+
+                // Select all and apply Heading 2 (raw formatBlock, as the ribbon did).
+                ExecuteScript(webView,
+                    "document.execCommand('selectAll');" +
+                    "document.execCommand('formatBlock', false, '<H2>');");
+                Assert.IsTrue(WaitFor(() =>
+                    editor.GetEditedHtml(true).IndexOf("<h2", StringComparison.OrdinalIgnoreCase) >= 0),
+                    "formatBlock did not produce a heading");
+
+                editor.CommandSource.Undo();
+
+                // Undo must remove the heading and restore the paragraphs exactly
+                // once each (pre-fix the observer mutation during undo left the
+                // heading in place AND restored the paragraphs).
+                Assert.IsTrue(WaitFor(() =>
+                    editor.GetEditedHtml(true).IndexOf("<h2", StringComparison.OrdinalIgnoreCase) < 0),
+                    "undo did not remove the heading");
+
+                string body = editor.GetEditedHtml(true);
+                Assert.AreEqual(1, CountOccurrences(body, "one"), "paragraph 'one' duplicated by undo: " + body);
+                Assert.AreEqual(1, CountOccurrences(body, "two"), "paragraph 'two' duplicated by undo: " + body);
+                Assert.AreEqual(1, CountOccurrences(body, "three"), "paragraph 'three' duplicated by undo: " + body);
+            }
+        }
+
+        private static int CountOccurrences(string haystack, string needle)
+        {
+            int count = 0;
+            int index = 0;
+            while ((index = haystack.IndexOf(needle, index, StringComparison.Ordinal)) >= 0)
+            {
+                count++;
+                index += needle.Length;
+            }
+            return count;
+        }
+
+        private static string ExecuteScript(WebView2 webView, string script)
+        {
+            var task = webView.CoreWebView2.ExecuteScriptAsync(script);
+            var sw = Stopwatch.StartNew();
+            while (!task.IsCompleted && sw.ElapsedMilliseconds < SyncTimeoutMs)
+            {
+                Application.DoEvents();
+                Thread.Sleep(10);
+            }
+            return task.IsCompleted ? task.Result : null;
+        }
+
+        private static bool WaitFor(Func<bool> condition)
+        {
+            var sw = Stopwatch.StartNew();
+            while (sw.ElapsedMilliseconds < SyncTimeoutMs)
+            {
+                if (condition()) return true;
+                Application.DoEvents();
+                Thread.Sleep(25);
+            }
+            return condition();
+        }
+
+        private static Form CreateEditorForm(out WebView2HtmlEditorControl editor)
+        {
+            Form form;
+            WebView2HtmlEditorControl control;
+            try
+            {
+                form = new Form();
+                control = new WebView2HtmlEditorControl { Dock = DockStyle.Fill };
+                form.Controls.Add(control);
+                form.Show();
+            }
+            catch (Exception ex)
+            {
+                Assert.Ignore("Could not create editor host form in this session: " + ex.Message);
+                throw; // unreachable; Assert.Ignore throws
+            }
+            editor = control;
+            return form;
+        }
+
+        private static void EnsureReadyOrIgnore(WebView2HtmlEditorControl editor)
+        {
+            bool ready = false;
+            editor.ReadyForEditing += (s, e) => ready = true;
+            var sw = Stopwatch.StartNew();
+            while (!ready && sw.ElapsedMilliseconds < ReadyTimeoutMs)
+            {
+                Application.DoEvents();
+                Thread.Sleep(10);
+            }
+            if (!ready)
+            {
+                string detail = editor.InitializationError != null
+                    ? " Initialization error: " + editor.InitializationError
+                    : " No initialization error was captured; ReadyForEditing never fired.";
+                Assert.Ignore("WebView2 editor did not become ready (runtime or desktop unavailable in this session)." + detail);
+            }
+        }
+
+        private static WebView2 GetInnerWebView(WebView2HtmlEditorControl editor)
+        {
+            var field = typeof(WebView2HtmlEditorControl).GetField("_webView", BindingFlags.NonPublic | BindingFlags.Instance);
+            Assert.IsNotNull(field, "WebView2HtmlEditorControl._webView field not found; editor internals changed");
+            var webView = (WebView2)field.GetValue(editor);
+            Assert.IsNotNull(webView?.CoreWebView2, "inner WebView2 not initialized");
+            return webView;
+        }
+    }
+}
