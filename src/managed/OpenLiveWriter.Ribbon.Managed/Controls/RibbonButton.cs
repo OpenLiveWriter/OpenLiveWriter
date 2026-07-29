@@ -337,6 +337,8 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
         {
             base.OnMouseDown(e);
 
+            System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] RibbonButton.OnMouseDown: {CommandId} type={_buttonType} enabled={Enabled} cmdEnabled={CommandEnabled} menuItems={_menuItems.Count}");
+
             if (e.Button != MouseButtons.Left) return;
 
             CalculateBounds();
@@ -384,6 +386,8 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             // Don't call base.OnClick - we handle everything in OnMouseUp for proper split button support
             // base.OnClick(e);
 
+            System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] RibbonButton.OnClick: {CommandId} type={_buttonType} menuItems={_menuItems.Count}");
+
             // Only handle non-split button types here (for keyboard/accessibility support)
             if (_buttonType == RibbonButtonType.DropDownButton)
             {
@@ -398,6 +402,8 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
 
         private void OnButtonClick()
         {
+            System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] RibbonButton.OnButtonClick: {CommandId} type={_buttonType} enabled={Enabled} cmdEnabled={CommandEnabled}");
+
             if (!Enabled || !CommandEnabled) return;
 
             // Toggle state for toggle buttons
@@ -416,6 +422,8 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
 
         private void ShowDropDown()
         {
+            System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] RibbonButton.ShowDropDown: {CommandId} menuItems={_menuItems.Count}");
+
             if (_menuItems.Count == 0) return;
 
             if (_dropDownMenu == null)
@@ -444,6 +452,9 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                         {
                             var mi = (ToolStripMenuItem)s;
                             var ribbonItem = (RibbonMenuItem)mi.Tag;
+
+                            System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] RibbonButton.MenuItem.Click: {ribbonItem.CommandId}");
+
                             MenuItemClick?.Invoke(this, new MenuItemClickEventArgs(ribbonItem));
 
                             if (ribbonItem.CommandId != Localization.CommandId.None)
