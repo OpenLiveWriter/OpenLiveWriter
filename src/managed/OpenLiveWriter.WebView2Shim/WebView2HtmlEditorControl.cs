@@ -611,6 +611,22 @@ namespace OpenLiveWriter.WebView2Shim
                             }
                             bodyEl.dispatchEvent(new Event('input', { bubbles: true }));
                         };
+
+                        // Wrap the selection in a blockquote (or outdent out of one)
+                        // and repair the execCommand artifacts: Chromium splits a
+                        // quoted list into one list per item and litters empty
+                        // paragraphs around the blockquote.
+                        window.olwApplyBlockquote = function() {
+                            document.execCommand('formatBlock', false, 'blockquote');
+                            window.olwCleanupBlocks();
+                            bodyEl.dispatchEvent(new Event('input', { bubbles: true }));
+                        };
+
+                        window.olwRemoveBlockquote = function() {
+                            document.execCommand('outdent');
+                            window.olwCleanupBlocks();
+                            bodyEl.dispatchEvent(new Event('input', { bubbles: true }));
+                        };
                         
                         // Sync initial content
                         syncContent();
@@ -1260,18 +1276,20 @@ namespace OpenLiveWriter.WebView2Shim
 
         /// <summary>
         /// Toggles blockquote. If already in blockquote, outdents. Otherwise wraps in blockquote.
+        /// Both paths run a cleanup pass that merges the per-item list fragments
+        /// Chromium creates and removes empty paragraph litter.
         /// </summary>
         public void ApplyBlockquote()
         {
             if (SelectionBlockquoted)
             {
                 // Remove blockquote by outdenting
-                ExecuteCommand("outdent");
+                ExecuteScript("window.olwRemoveBlockquote && window.olwRemoveBlockquote()");
             }
             else
             {
                 // Wrap in blockquote using formatBlock
-                ExecuteCommand("formatBlock", "<blockquote>");
+                ExecuteScript("window.olwApplyBlockquote && window.olwApplyBlockquote()");
             }
         }
         

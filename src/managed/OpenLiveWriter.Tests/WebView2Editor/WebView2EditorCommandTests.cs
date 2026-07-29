@@ -143,6 +143,41 @@ namespace OpenLiveWriter.Tests.WebView2Editor
         }
 
         [Test]
+        public void ApplyBlockquote_OnList_KeepsSingleListNoLitter()
+        {
+            using (var form = CreateEditorForm(out WebView2HtmlEditorControl editor))
+            {
+                EnsureReadyOrIgnore(editor);
+                WebView2 webView = GetInnerWebView(editor);
+
+                ExecuteScript(webView,
+                    "var b = document.getElementById('olw-body');" +
+                    "b.innerHTML = '<ul><li>aa</li><li>bb</li><li>cc</li></ul>';" +
+                    "b.focus();" +
+                    "var range = document.createRange();" +
+                    "range.selectNodeContents(b);" +
+                    "var sel = window.getSelection();" +
+                    "sel.removeAllRanges();" +
+                    "sel.addRange(range);" +
+                    "document.dispatchEvent(new Event('selectionchange'));");
+
+                editor.CommandSource.ApplyBlockquote();
+
+                Assert.IsTrue(WaitFor(() =>
+                    editor.GetEditedHtml(true).IndexOf("<blockquote", StringComparison.OrdinalIgnoreCase) >= 0),
+                    "blockquote was not applied");
+
+                string body = editor.GetEditedHtml(true).ToLowerInvariant();
+                Assert.AreEqual(1, CountOccurrences(body, "<ul"),
+                    "blockquote split the list into multiple uls: " + body);
+                Assert.IsFalse(System.Text.RegularExpressions.Regex.IsMatch(body, @"<p>\s*</p>"),
+                    "blockquote left empty paragraph litter: " + body);
+                StringAssert.Contains("aa", body);
+                StringAssert.Contains("cc", body);
+            }
+        }
+
+        [Test]
         public void ApplyBullets_OnParagraphs_ProducesListOutsideParagraph()
         {
             using (var form = CreateEditorForm(out WebView2HtmlEditorControl editor))
