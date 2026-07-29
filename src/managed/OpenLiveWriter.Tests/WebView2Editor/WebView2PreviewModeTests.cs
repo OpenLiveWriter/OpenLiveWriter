@@ -44,7 +44,7 @@ namespace OpenLiveWriter.Tests.WebView2Editor
             if (string.IsNullOrEmpty(Environment.GetEnvironmentVariable("WEBVIEW2_USER_DATA_FOLDER")))
             {
                 Environment.SetEnvironmentVariable("WEBVIEW2_USER_DATA_FOLDER",
-                    Path.Combine(Path.GetTempPath(), "OpenLiveWriter.Tests.WebView2"));
+                    Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "OpenLiveWriter.Tests.WebView2"));
             }
         }
 
