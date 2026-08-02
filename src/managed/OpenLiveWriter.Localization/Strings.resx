@@ -4818,4 +4818,19 @@ This might take a while.</value>
   <data name="YouTubeVideoError" xml:space="preserve">
     <value>There was an unexpected error while uploading the video.</value>
   </data>
+  <data name="LabsPreferencesPanelName" xml:space="preserve">
+    <value>Labs</value>
+  </data>
+  <data name="LabsPreferencesExplanation" xml:space="preserve">
+    <value>Try out experimental features. Changes on this page take effect after you restart Open Live Writer.</value>
+  </data>
+  <data name="LabsRibbonGroup" xml:space="preserve">
+    <value>Ribbon</value>
+  </data>
+  <data name="LabsRibbonManaged" xml:space="preserve">
+    <value>Use the new managed ribbon (default)</value>
+  </data>
+  <data name="LabsRibbonNative" xml:space="preserve">
+    <value>Use the classic Windows ribbon (as in 0.6.2)</value>
+  </data>
 </root>

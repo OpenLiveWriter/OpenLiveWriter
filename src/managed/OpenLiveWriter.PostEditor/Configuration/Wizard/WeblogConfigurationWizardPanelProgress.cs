@@ -42,7 +42,11 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             MaximizeWidth(progressBar);
             MaximizeWidth(labelProgress);
             progressBar.Top = labelProgress.Bottom + Convert.ToInt32(DisplayHelper.ScaleY(10));
-            if (progressAnimatedBitmap.Bitmaps.Length > 0)
+            // Bitmaps may be missing (or contain nulls) if an image resource is
+            // not embedded; skip the animation rather than crashing the wizard.
+            if (progressAnimatedBitmap.Bitmaps != null
+                && progressAnimatedBitmap.Bitmaps.Length > 0
+                && progressAnimatedBitmap.Bitmaps[0] != null)
             {
                 progressAnimatedBitmap.Size = progressAnimatedBitmap.Bitmaps[0].Size;
                 progressAnimatedBitmap.Left = progressBar.Left + (progressBar.Width - progressAnimatedBitmap.Width) / 2;
