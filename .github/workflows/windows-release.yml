@@ -1,14 +1,13 @@
-name: CI Build
+name: Windows Release
 
 on:
   push:
-    branches:
-      - master
-      - develop/**
-  pull_request:
-    branches:
-      - master
+    tags:
+      - 'win-v*'
   workflow_dispatch:
+
+permissions:
+  contents: write
 
 env:
   SOLUTION_PATH: src/managed/writer.Windows.slnf
@@ -16,8 +15,8 @@ env:
   DOTNET_VERSION: '10.0.x'
 
 jobs:
-  build:
-    name: Build Open Live Writer (Release)
+  release:
+    name: Build and publish Windows release
     runs-on: windows-latest
 
     steps:
@@ -37,9 +36,6 @@ jobs:
         run: nuget install SignClient -Version 0.9.0 -SolutionDir ${{ github.workspace }} -Verbosity quiet -ExcludeVersion
 
       - name: Generate version info
-        # GlobalAssemblyVersionInfo.cs is generated, not committed; the build
-        # fails without it on a fresh checkout. getversion.cmd only sets cmd
-        # variables, so generate the file directly from version.txt.
         run: |
           $v = (Get-Content version.txt -Raw).Trim()
           Set-Content src/managed/GlobalAssemblyVersionInfo.cs `
@@ -47,9 +43,6 @@ jobs:
             "[assembly: System.Reflection.AssemblyFileVersion(`"$v`")]"
 
       - name: Generate GoogleBloggerv3Secrets.json
-        # Embedded by BlogClient, gitignored (contains OAuth credentials).
-        # Synthesized from CI secrets; empty strings when unset (dev builds
-        # simply can't use Blogger auth).
         env:
           OLW_BLOGGER_CLIENT_ID: ${{ secrets.OLW_BLOGGER_CLIENT_ID }}
           OLW_BLOGGER_CLIENT_SECRET: ${{ secrets.OLW_BLOGGER_CLIENT_SECRET }}
@@ -68,9 +61,6 @@ jobs:
           Set-Content src/managed/OpenLiveWriter.BlogClient/Clients/GoogleBloggerv3Secrets.json $json
 
       - name: Generate Markets.xml
-        # CoreServices embeds Marketization/Markets.xml (gitignored, generated
-        # from intl/markets by MarketXmlGenerator) and Marketization/Master.xml
-        # (gitignored, copied from intl/markets). Produce both before build.
         run: |
           dotnet build src/managed/MarketXmlGenerator/MarketXmlGenerator.csproj -c Release --nologo -v minimal
           dotnet run --project src/managed/MarketXmlGenerator/MarketXmlGenerator.csproj -c Release --no-build -- intl/markets src/managed/OpenLiveWriter.CoreServices/Marketization/Markets.xml
@@ -80,8 +70,6 @@ jobs:
         run: dotnet restore ${{ env.SOLUTION_PATH }}
 
       - name: Build solution
-        # dotnet msbuild == MSBuild with .NET 10 SDK support. The v143 C++
-        # toolset (Ribbon project) ships with Visual Studio on windows-latest.
         run: |
           dotnet msbuild ${{ env.SOLUTION_PATH }} `
             /nologo `
@@ -89,6 +77,20 @@ jobs:
             /verbosity:minimal `
             /p:Configuration=${{ env.OLW_CONFIG }} `
             /p:PlatformToolset=v143
+
+      - name: Setup MSBuild for the native ribbon DLL
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Build native ribbon resource DLL
+        # OpenLiveWriter.Ribbon.dll carries the compiled Windows Ribbon markup
+        # used by the Labs "classic Windows ribbon" option. It must sit next to
+        # OpenLiveWriter.exe so vpk packs it below.
+        shell: pwsh
+        run: |
+          $v = (Get-Content version.txt -Raw).Trim()
+          Set-Content src/unmanaged/version.h ("#define FILE_VERSION " + ($v -replace '\.', ',') + "`n#define PRODUCT_VERSION $v")
+          msbuild src\unmanaged\OpenLiveWriter.Ribbon\OpenLiveWriter.Ribbon.vcxproj /nologo /verbosity:minimal /p:Configuration=${{ env.OLW_CONFIG }} /p:Platform=x64
+          Copy-Item "src\managed\bin\${{ env.OLW_CONFIG }}\x64\Writer\OpenLiveWriter.Ribbon.dll" "src\managed\OpenLiveWriter\bin\${{ env.OLW_CONFIG }}\"
 
       - name: Package with Velopack (signed)
         # vpk signs the app binaries and the Setup.exe via SignClient when the
@@ -140,81 +142,15 @@ jobs:
             --shortcuts Desktop,StartMenuRoot ^
             --skipVeloAppCheck
 
-      - name: Upload installer artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: OpenLiveWriter-Installer-${{ github.run_number }}
-          path: Releases/
-          if-no-files-found: warn
-
-      - name: Upload binaries
-        uses: actions/upload-artifact@v4
-        with:
-          name: OpenLiveWriter-Binaries-${{ github.run_number }}
-          path: src/managed/OpenLiveWriter/bin/${{ env.OLW_CONFIG }}/
-          if-no-files-found: warn
-
-  build-debug:
-    name: Build Open Live Writer (Debug)
-    runs-on: windows-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: ${{ env.DOTNET_VERSION }}
-
-      - name: Generate version info
-        # GlobalAssemblyVersionInfo.cs is generated, not committed; the build
-        # fails without it on a fresh checkout. getversion.cmd only sets cmd
-        # variables, so generate the file directly from version.txt.
+      - name: Rename setup for download consistency
+        shell: cmd
         run: |
-          $v = (Get-Content version.txt -Raw).Trim()
-          Set-Content src/managed/GlobalAssemblyVersionInfo.cs `
-            "[assembly: System.Reflection.AssemblyVersion(`"$v`")]", `
-            "[assembly: System.Reflection.AssemblyFileVersion(`"$v`")]"
+          move /y Releases\OpenLiveWriter-stable-Setup.exe Releases\OpenLiveWriterSetup.exe
 
-      - name: Generate GoogleBloggerv3Secrets.json
-        # Embedded by BlogClient, gitignored (contains OAuth credentials).
-        # Synthesized from CI secrets; empty strings when unset (dev builds
-        # simply can't use Blogger auth).
+      - name: Publish GitHub Release
         env:
-          OLW_BLOGGER_CLIENT_ID: ${{ secrets.OLW_BLOGGER_CLIENT_ID }}
-          OLW_BLOGGER_CLIENT_SECRET: ${{ secrets.OLW_BLOGGER_CLIENT_SECRET }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          $json = @{
-            installed = @{
-              client_id = "$env:OLW_BLOGGER_CLIENT_ID"
-              project_id = "open-live-writer"
-              auth_uri = "https://accounts.google.com/o/oauth2/auth"
-              token_uri = "https://oauth2.googleapis.com/token"
-              auth_provider_x509_cert_url = "https://www.googleapis.com/oauth2/v1/certs"
-              client_secret = "$env:OLW_BLOGGER_CLIENT_SECRET"
-              redirect_uris = @("http://localhost")
-            }
-          } | ConvertTo-Json -Depth 5
-          Set-Content src/managed/OpenLiveWriter.BlogClient/Clients/GoogleBloggerv3Secrets.json $json
-
-      - name: Generate Markets.xml
-        # CoreServices embeds Marketization/Markets.xml (gitignored, generated
-        # from intl/markets by MarketXmlGenerator) and Marketization/Master.xml
-        # (gitignored, copied from intl/markets). Produce both before build.
-        run: |
-          dotnet build src/managed/MarketXmlGenerator/MarketXmlGenerator.csproj -c Release --nologo -v minimal
-          dotnet run --project src/managed/MarketXmlGenerator/MarketXmlGenerator.csproj -c Release --no-build -- intl/markets src/managed/OpenLiveWriter.CoreServices/Marketization/Markets.xml
-          Copy-Item intl/markets/Master.xml src/managed/OpenLiveWriter.CoreServices/Marketization/Master.xml
-
-      - name: Restore NuGet packages
-        run: dotnet restore ${{ env.SOLUTION_PATH }}
-
-      - name: Build solution (Debug)
-        run: |
-          dotnet msbuild ${{ env.SOLUTION_PATH }} `
-            /nologo `
-            /maxcpucount `
-            /verbosity:minimal `
-            /p:Configuration=Debug `
-            /p:PlatformToolset=v143
+          $tag = "${{ github.ref_name }}"
+          gh release create "$tag" --title "Open Live Writer $tag" --generate-notes --prerelease || gh release view "$tag"
+          gh release upload "$tag" Releases/* --clobber

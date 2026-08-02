@@ -41,13 +41,38 @@ namespace OpenLiveWriter.PostEditor.Updates
             set { settings.SetString(CHECKBETAUPDATESURL, value); }
         }
 
+        /// <summary>
+        /// Which feed auto-update checks: "github" (GitHub Releases via
+        /// Velopack's GithubSource) or "website" (static Velopack feed on the
+        /// Open Live Writer website via SimpleWebSource).
+        /// </summary>
+        public static string UpdateFeedType
+        {
+            get { return settings.GetString(UPDATEFEEDTYPE, "github"); }
+            set { settings.SetString(UPDATEFEEDTYPE, value); }
+        }
+
+        /// <summary>
+        /// GitHub repository (owner/name or full URL) whose Releases feed the
+        /// auto-update check when UpdateFeedType is "github".
+        /// </summary>
+        public static string GitHubRepoUrl
+        {
+            get { return settings.GetString(GITHUBREPOURL, DEFAULTGITHUBREPOURL); }
+            set { settings.SetString(GITHUBREPOURL, value); }
+        }
+
         private const string AUTOUPDATE = "AutoUpdate";
         private const string CHECKFORBETAUPDATES = "CheckForBetaUpdates";
 
         private const string CHECKUPDATESURL = "CheckUpdatesUrl";
-        private const string UPDATEDOWNLOADURL = "https://openlivewriter.azureedge.net/stable/Releases"; // Location of signed builds
+        private const string UPDATEDOWNLOADURL = "https://openlivewriter.com/releases/stable"; // Website feed for stable builds
         private const string CHECKBETAUPDATESURL = "CheckBetaUpdatesUrl";
-        private const string BETAUPDATEDOWNLOADURL = "https://olw.blob.core.windows.net/nightly/Releases"; // Location of CI builds
+        private const string BETAUPDATEDOWNLOADURL = "https://openlivewriter.com/releases/nightly"; // Website feed for CI builds
+
+        private const string UPDATEFEEDTYPE = "UpdateFeedType";
+        private const string GITHUBREPOURL = "GitHubRepoUrl";
+        private const string DEFAULTGITHUBREPOURL = "https://github.com/OpenLiveWriter/OpenLiveWriter";
 
         private static readonly SettingsPersisterHelper settings = ApplicationEnvironment.UserSettingsRoot.GetSubSettings("Updates");
     }
