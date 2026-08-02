@@ -28,8 +28,13 @@ namespace OpenLiveWriter.Ribbon.Managed.Rendering
         public Color TabBackground { get; set; } = Color.FromArgb(245, 246, 247);
         // Hover state - very subtle highlight (native ribbon barely changes on hover)
         public Color TabBackgroundHover { get; set; } = Color.FromArgb(247, 248, 250);
-        // Selected tab - pure white, matches content area
-        public Color TabBackgroundSelected { get; set; } = Color.FromArgb(255, 255, 255);
+        // Tab strip background - same (245,246,247) gray as the ribbon body so a
+        // maximized window shows one continuous chrome colour instead of a white
+        // band behind the tabs; the selected tab is set apart by its border
+        public Color TabStripBackground { get; set; } = Color.FromArgb(245, 246, 247);
+        // Selected tab - matches the content area below it (245,246,247) so the
+        // active tab blends seamlessly into the ribbon body like the native one
+        public Color TabBackgroundSelected { get; set; } = Color.FromArgb(245, 246, 247);
         // Tab borders - match native ribbon's lighter gray border
         public Color TabBorder { get; set; } = Color.FromArgb(209, 209, 209);
         // Tab text - dark gray for readability (matches Windows Ribbon)
@@ -49,7 +54,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Rendering
 
         // Ribbon panel colors - Neutral gray to match original
         // Content area is pure white (matches native ribbon)
-        public Color RibbonBackground { get; set; } = Color.FromArgb(255, 255, 255);
+        public Color RibbonBackground { get; set; } = Color.FromArgb(245, 246, 247);
         // Border - subtle gray
         public Color RibbonBorder { get; set; } = Color.FromArgb(171, 171, 171);
 
@@ -60,7 +65,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Rendering
         // Label text - lighter gray to match native ribbon's subdued group labels
         public Color GroupLabelText { get; set; } = Color.FromArgb(131, 131, 131);
         // Separator - subtle vertical line between groups (match native ribbon)
-        public Color GroupSeparator { get; set; } = Color.FromArgb(220, 220, 220);
+        public Color GroupSeparator { get; set; } = Color.FromArgb(227, 229, 230);
         // Label area styling - transparent to match native ribbon (no distinct background or border)
         public Color GroupLabelBackground { get; set; } = Color.Transparent;
         public Color GroupLabelBorder { get; set; } = Color.Transparent;
@@ -121,7 +126,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Rendering
         /// Default opaque background color for groups when GroupBackground is transparent.
         /// Matches the selected tab / content area white to ensure seamless blending.
         /// </summary>
-        public static readonly Color DefaultOpaqueGroupBackground = Color.FromArgb(255, 255, 255);
+        public static readonly Color DefaultOpaqueGroupBackground = Color.FromArgb(245, 246, 247);
 
         /// <summary>
         /// Gets the group background color, guaranteed to be opaque.

@@ -485,39 +485,20 @@ namespace OpenLiveWriter.PostEditor
         {
             try
             {
-                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] {DateTime.Now:HH:mm:ss.fff} InitializeRibbon - Starting managed ribbon initialization");
-
-                // Initialize the RibbonControl for command management
+                // Initialize the RibbonControl for command management (both ribbons need it)
                 ribbonControl = new RibbonControl(_htmlEditor.IHtmlEditorComponentContext, _htmlEditor);
                 System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] {DateTime.Now:HH:mm:ss.fff} InitializeRibbon - RibbonControl created");
 
-                // Create the managed ribbon panel
-                _managedRibbon = new RibbonPanel();
-                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] {DateTime.Now:HH:mm:ss.fff} InitializeRibbon - RibbonPanel created");
-
-                // Create the command manager bridge to connect with existing CommandManager
-                _commandManagerBridge = new CommandManagerBridge(_htmlEditor.CommandManager);
-                _managedRibbon.CommandManager = _commandManagerBridge.RibbonCommandManager;
-                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] {DateTime.Now:HH:mm:ss.fff} InitializeRibbon - CommandManager bridge created");
-
-                // Build the ribbon from the default configuration
-                var config = DefaultRibbonConfiguration.Create();
-                _managedRibbon.BuildFromConfiguration(config);
-                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] {DateTime.Now:HH:mm:ss.fff} InitializeRibbon - Ribbon built from configuration");
-
-                // Add the ribbon to the form
-                Controls.Add(_managedRibbon);
-                _managedRibbon.BringToFront();
-
-                // Update editor panel padding to account for ribbon height
-                if (_mainEditorPanel != null)
+                // Labs setting: use the classic native Windows ribbon when requested.
+                // Falls back to the managed ribbon if the native one cannot initialize.
+                if (PostEditorSettings.UseNativeRibbon && TryInitializeNativeRibbon())
                 {
-                    _mainEditorPanel.DockPadding.Top = _managedRibbon.RibbonHeight;
+                    System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] {DateTime.Now:HH:mm:ss.fff} InitializeRibbon - Using native ribbon");
                 }
-                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] {DateTime.Now:HH:mm:ss.fff} InitializeRibbon - Ribbon added to form");
-
-                // Set initial mode
-                UpdateManagedRibbonMode();
+                else
+                {
+                    InitializeManagedRibbon();
+                }
 
                 CommandManager.Invalidate(CommandId.MRUList);
                 CommandManager.Invalidate(CommandId.OpenDraftSplit);
@@ -539,6 +520,87 @@ namespace OpenLiveWriter.PostEditor
                 ribbonControl = null;
                 _managedRibbon = null;
             }
+        }
+
+        /// <summary>
+        /// Initializes the classic Windows Ribbon Framework ribbon (as in 0.6.2).
+        /// Returns false (so the caller falls back to the managed ribbon) when the
+        /// framework or the compiled markup DLL is unavailable.
+        /// </summary>
+        private bool TryInitializeNativeRibbon()
+        {
+            try
+            {
+                IUIFramework framework = (IUIFramework)Activator.CreateInstance<Framework>();
+                if (framework == null)
+                    return false;
+
+                int initializeResult = framework.Initialize(_mainFrameWindow.Handle, this);
+                if (initializeResult != HRESULT.S_OK)
+                {
+                    Trace.TraceWarning("Native ribbon framework failed to initialize: " + initializeResult);
+                    return false;
+                }
+
+                string nativeResourceDLL = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\OpenLiveWriter.Ribbon.dll";
+                IntPtr hMod = Kernel32.LoadLibrary(nativeResourceDLL);
+                if (hMod == IntPtr.Zero)
+                {
+                    Trace.TraceWarning("OpenLiveWriter.Ribbon.dll not found; falling back to the managed ribbon.");
+                    return false;
+                }
+
+                int loadResult = framework.LoadUI(hMod, "RIBBON_RIBBON");
+                if (loadResult != HRESULT.S_OK)
+                {
+                    Trace.TraceWarning("Native ribbon failed to load: " + loadResult + "; falling back to the managed ribbon.");
+                    return false;
+                }
+
+                _framework = framework;
+                _framework.SetModes(mode);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Trace.TraceWarning("Native ribbon initialization failed, falling back to the managed ribbon: " + ex.Message);
+                return false;
+            }
+        }
+
+        private void InitializeManagedRibbon()
+        {
+            System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] {DateTime.Now:HH:mm:ss.fff} InitializeManagedRibbon - Starting");
+
+            // Create the managed ribbon panel
+            _managedRibbon = new RibbonPanel();
+
+            // Create the command manager bridge to connect with existing CommandManager
+            _commandManagerBridge = new CommandManagerBridge(_htmlEditor.CommandManager);
+            _managedRibbon.CommandManager = _commandManagerBridge.RibbonCommandManager;
+
+            // Build the ribbon from the default configuration
+            var config = DefaultRibbonConfiguration.Create();
+            _managedRibbon.BuildFromConfiguration(config);
+
+            // Add the ribbon to the form
+            Controls.Add(_managedRibbon);
+            _managedRibbon.BringToFront();
+
+            // Force an immediate synchronous paint: the init sequence blocks the
+            // message loop, so without this the just-created ribbon sits
+            // unpainted and transparent until the loop unblocks.
+            _managedRibbon.Update();
+
+            // Update editor panel padding to account for ribbon height
+            if (_mainEditorPanel != null)
+            {
+                _mainEditorPanel.DockPadding.Top = _managedRibbon.RibbonHeight;
+            }
+
+            // Set initial mode
+            UpdateManagedRibbonMode();
+            System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] {DateTime.Now:HH:mm:ss.fff} InitializeManagedRibbon - Complete");
         }
 
         private void UpdateManagedRibbonMode()
@@ -569,9 +631,16 @@ namespace OpenLiveWriter.PostEditor
         {
             base.OnSizeChanged(e);
 
-            if (_mainEditorPanel != null && _managedRibbon != null)
+            if (_mainEditorPanel != null)
             {
-                _mainEditorPanel.DockPadding.Top = _managedRibbon.RibbonHeight;
+                if (_managedRibbon != null)
+                {
+                    _mainEditorPanel.DockPadding.Top = _managedRibbon.RibbonHeight;
+                }
+                else if (ribbon != null && ComHelper.SUCCEEDED(ribbon.GetHeight(out uint ribbonHeight)))
+                {
+                    _mainEditorPanel.DockPadding.Top = (int)ribbonHeight;
+                }
             }
 
             Invalidate(false);

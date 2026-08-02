@@ -192,7 +192,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Configuration
 
             // HTML Styles Group - SizeDefinition="OneInRibbonGallery"
             // Match native ribbon: MaxColumns="7", ItemHeight="36", ItemWidth="64", MaxRows="3"
-            var htmlStylesGroup = CreateGroup(CommandId.SemanticHtmlGroup, "Style", "HS");
+            var htmlStylesGroup = CreateGroup(CommandId.SemanticHtmlGroup, "HTML styles", "HS");
             htmlStylesGroup.SizeDefinition = "OneInRibbonGallery";
             htmlStylesGroup.Controls.Add(new GalleryConfig 
             { 
@@ -361,8 +361,12 @@ namespace OpenLiveWriter.Ribbon.Managed.Configuration
                 TextPosition = RibbonTextPosition.Right,
                 ItemHeight = 16,
                 ItemWidth = 16,
+                Columns = 1,  // Single column for list-style layout (without this,
+                              // the gallery width computes as 5 columns and pushes
+                              // the Add/Options buttons off the ribbon's right edge)
                 MaxColumns = 1,
-                MaxRows = 3
+                MaxRows = 3,
+                MinColumnsLarge = 1
             });
             pluginsGroupWithPlugins.Controls.Add(new ButtonConfig { CommandId = CommandId.AddPlugin, PreferredSize = RibbonGroupSize.Medium });
             pluginsGroupWithPlugins.Controls.Add(new ButtonConfig { CommandId = CommandId.ManagePlugins, PreferredSize = RibbonGroupSize.Medium });

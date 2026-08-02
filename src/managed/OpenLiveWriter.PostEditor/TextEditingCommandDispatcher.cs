@@ -222,18 +222,14 @@ namespace OpenLiveWriter.PostEditor
 
             public override Bitmap SmallImage
             {
+                // The managed ribbon's RibbonColorPicker draws the selected-color
+                // indicator over the icon's bar area, so return the base image
+                // unchanged. (Previously this stamped the color onto the shared
+                // cached bitmap on every get, which both corrupted the shared
+                // instance and produced a second color bar below the icon.)
                 get
                 {
-                    Bitmap bitmap = base.SmallImage;
-                    using (Graphics g = Graphics.FromImage(bitmap))
-                    {
-                        using (SolidBrush brush = new SolidBrush(this.SelectedColor))
-                        {
-                            g.FillRectangle(brush, 0, 12, 16, 4);
-                        }
-                    }
-
-                    return bitmap;
+                    return base.SmallImage;
                 }
                 set
                 {

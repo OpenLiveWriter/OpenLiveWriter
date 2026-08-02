@@ -91,7 +91,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             BackColor = RibbonColors.Current.AppMenuBackground;
 
             // Menu panel
-            _menuPanel = new Panel
+            _menuPanel = new BufferedPanel
             {
                 Location = new Point(0, 0),
                 Size = new Size(MENU_WIDTH, Height),
@@ -104,7 +104,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             Controls.Add(_menuPanel);
 
             // Recent items panel
-            _recentPanel = new Panel
+            _recentPanel = new BufferedPanel
             {
                 Location = new Point(MENU_WIDTH, 0),
                 Size = new Size(RECENT_PANEL_WIDTH, Height),

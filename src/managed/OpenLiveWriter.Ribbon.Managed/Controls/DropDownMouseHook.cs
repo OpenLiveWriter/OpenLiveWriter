@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
@@ -19,6 +20,44 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
         private const int WM_RBUTTONDOWN = 0x0204;
         private const int WM_MBUTTONDOWN = 0x0207;
         private const int WH_MOUSE_LL = 14;
+
+        // Registry of all currently visible dropdowns in the app. A click inside
+        // ANY of them counts as "inside", so nested dropdowns (e.g. a button
+        // dropdown opened from inside a collapsed group popup) do not close
+        // their parents and the click cannot fall through to controls behind.
+        private static readonly List<ToolStripDropDown> _visibleDropDowns = new List<ToolStripDropDown>();
+        private static readonly object _visibleDropDownsLock = new object();
+
+        internal static void RegisterVisibleDropDown(ToolStripDropDown dropDown)
+        {
+            if (dropDown == null) return;
+            lock (_visibleDropDownsLock)
+            {
+                if (!_visibleDropDowns.Contains(dropDown))
+                    _visibleDropDowns.Add(dropDown);
+            }
+        }
+
+        internal static void UnregisterVisibleDropDown(ToolStripDropDown dropDown)
+        {
+            lock (_visibleDropDownsLock)
+            {
+                _visibleDropDowns.Remove(dropDown);
+            }
+        }
+
+        internal static bool IsInsideAnyVisibleDropDown(Point clickPoint)
+        {
+            lock (_visibleDropDownsLock)
+            {
+                foreach (var dropDown in _visibleDropDowns)
+                {
+                    if (dropDown.Visible && dropDown.Bounds.Contains(clickPoint))
+                        return true;
+                }
+            }
+            return false;
+        }
 
         private readonly Control _owner;
         private readonly Func<ToolStripDropDown> _getDropDown;
@@ -118,7 +157,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
 
                         // Check if the click is inside the dropdown bounds
                         var dropDownBounds = dropDown.Bounds;
-                        if (!dropDownBounds.Contains(clickPoint))
+                        if (!dropDownBounds.Contains(clickPoint) && !IsInsideAnyVisibleDropDown(clickPoint))
                         {
                             // Also check if click is on the owner control itself (to allow toggling)
                             var ownerScreenBounds = _owner.RectangleToScreen(_owner.ClientRectangle);
