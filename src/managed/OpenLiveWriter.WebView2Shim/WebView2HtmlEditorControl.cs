@@ -1734,9 +1734,23 @@ namespace OpenLiveWriter.WebView2Shim
             }
         }
 
-        public bool CanPrint => false;
-        public void Print() { /* TODO */ }
-        public void PrintPreview() { /* TODO */ }
+        public bool CanPrint => _webView?.CoreWebView2 != null;
+
+        /// <summary>
+        /// Shows the system print dialog. Chromium's print UI includes a
+        /// preview, matching the classic print-and-preview behavior.
+        /// </summary>
+        public void Print() => PrintPreview();
+
+        /// <summary>
+        /// Shows Chromium's print preview dialog (with print options), the
+        /// WebView2 equivalent of the old MSHTML OLECMDID_PRINTPREVIEW.
+        /// </summary>
+        public void PrintPreview()
+        {
+            // ShowPrintUI() is synchronous void in WebView2 SDK 1.0.2903.40.
+            _webView?.CoreWebView2?.ShowPrintUI();
+        }
 
         /// <summary>
         /// Returns information about the current link at cursor position.

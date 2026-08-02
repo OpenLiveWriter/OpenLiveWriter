@@ -362,6 +362,13 @@ namespace OpenLiveWriter.PostEditor
             commandInsertVideoFromWeb.Execute += new EventHandler(commandInsertVideoFromWeb_Execute);
             CommandManager.Add(commandInsertVideoFromWeb);
 
+            // The web-image inserter is a plugin content source whose command is keyed by
+            // plugin GUID, so register a CommandId.WebImage alias that the ribbon's
+            // Picture > From Web menu item can resolve and execute.
+            commandInsertWebImage = new Command(CommandId.WebImage);
+            commandInsertWebImage.Execute += new EventHandler(commandInsertWebImage_Execute);
+            CommandManager.Add(commandInsertWebImage);
+
             bool tagProvidersFeatureEnabled = MarketizationOptions.IsFeatureEnabled(MarketizationOptions.Feature.TagProviders);
             CommandManager.Add(CommandId.InsertTags, commandInsertTags_Execute, tagProvidersFeatureEnabled);
 
@@ -1848,6 +1855,7 @@ namespace OpenLiveWriter.PostEditor
             bool inSourceOrWysiwygModeAndEditFieldNotSelected = InSourceOrWysiwygModeAndEditFieldIsNotSelected();
 
             commandInsertPicture.Enabled = inSourceOrWysiwygModeAndEditFieldNotSelected;
+            commandInsertWebImage.Enabled = inSourceOrWysiwygModeAndEditFieldNotSelected;
             commandInsertEmoticon.Enabled = inSourceOrWysiwygModeAndEditFieldNotSelected;
             commandInsertTable.Enabled = inSourceOrWysiwygModeAndEditFieldNotSelected;
             commandInsertMap.Enabled = _mapsFeatureEnabled && inSourceOrWysiwygModeAndEditFieldNotSelected;
@@ -2177,6 +2185,18 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
+        private void commandInsertWebImage_Execute(object sender, EventArgs e)
+        {
+            foreach (ContentSourceInfo contentSourceInfo in ContentSourceManager.PluginInsertableContentSources)
+            {
+                if (contentSourceInfo.Id == WebImageContentSource.ID)
+                {
+                    ContentSourceManager.PerformInsertion(this, contentSourceInfo);
+                    return;
+                }
+            }
+        }
+
         private void commandInsertPicture_Execute(object sender, EventArgs e)
         {
             // WinLive 222100: Writer crash: Access violation
@@ -2397,6 +2417,7 @@ namespace OpenLiveWriter.PostEditor
             commandInsertTable.Enabled = allowInsertCommands;
             commandInsertTable2.Enabled = allowInsertCommands;
             commandInsertPicture.Enabled = allowInsertCommands;
+            commandInsertWebImage.Enabled = allowInsertCommands;
 #if SUPPORT_FILES
             commandInsertFile.Enabled = allowInsertCommands;
 #endif
@@ -2868,6 +2889,7 @@ namespace OpenLiveWriter.PostEditor
 
         private Command commandViewSidebar;
         private Command commandInsertPicture;
+        private Command commandInsertWebImage;
 
         private Command commandInsertHorizontalLine;
         private Command commandInsertClearBreak;
