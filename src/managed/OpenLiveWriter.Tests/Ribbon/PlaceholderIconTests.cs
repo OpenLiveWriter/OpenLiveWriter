@@ -69,5 +69,37 @@ namespace OpenLiveWriter.Tests.Ribbon
                 "large image must not be the Missing placeholder");
             Assert.AreEqual(32, command.LargeImage.Width, "upscaled large image should be 32px");
         }
+
+        [Test]
+        public void CollapsedPopupGroups_HaveRealLargeIcons()
+        {
+            // The collapsed Paragraph, Font, HTML styles, and Editing group
+            // popup buttons use the group command's large icon. All four must
+            // resolve real 32px artwork (no Missing placeholder, no upscale of
+            // the 16px small icon) so the popup icons render crisply.
+            var groupCommands = new[]
+            {
+                CommandId.ParagraphGroup,
+                CommandId.FontGroup,
+                CommandId.SemanticHtmlGroup,
+                CommandId.TextEditingGroup,
+            };
+
+            var commandManager = new CommandManager();
+            foreach (var id in groupCommands)
+                commandManager.Add(new Command(id));
+
+            var bridge = new CommandManagerBridge(commandManager);
+
+            foreach (var id in groupCommands)
+            {
+                var command = bridge.GetOrCreateBridgedCommand(id);
+                Assert.NotNull(command.LargeImage, $"{id} popup needs a large icon");
+                Assert.IsFalse(ReferenceEquals(command.LargeImage, CommandResourceLoader.MissingLarge),
+                    $"{id} popup icon must not be the Missing placeholder");
+                Assert.AreEqual(32, command.LargeImage.Width,
+                    $"{id} popup icon should be native 32px artwork, not an upscale");
+            }
+        }
     }
 }
