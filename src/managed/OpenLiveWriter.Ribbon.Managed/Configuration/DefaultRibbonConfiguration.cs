@@ -328,7 +328,6 @@ namespace OpenLiveWriter.Ribbon.Managed.Configuration
             mediaInsertVideoButton.MenuItems.Add(new MenuItemConfig { CommandId = CommandId.InsertVideoFromFile });
             mediaInsertVideoButton.MenuItems.Add(new MenuItemConfig { CommandId = CommandId.InsertVideoFromService });
             mediaGroup.Controls.Add(mediaInsertVideoButton);
-            mediaGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.InsertMap, PreferredSize = RibbonGroupSize.Large });
             mediaGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.InsertTags, PreferredSize = RibbonGroupSize.Large });
             mediaGroup.Controls.Add(new GalleryConfig 
             { 
