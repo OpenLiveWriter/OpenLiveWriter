@@ -1665,9 +1665,10 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             // the group too narrow, so the fourth button overhung the separator.
             var smallButtonSize = SevenSmallButtonsCellSize;
 
-            // 2 rows, center vertically
+            // 2 rows, aligned to the top of the group like the native ribbon
+            // (previously vertically centered, which pushed the rows down)
             var totalHeight = smallButtonSize * 2;
-            var startY = y + Math.Max(0, (availableHeight - totalHeight) / 2);
+            var startY = y;
 
             var visibleButtons = new List<RibbonControlBase>();
             for (var i = 0; i < Math.Min(_controls.Count, 7); i++)

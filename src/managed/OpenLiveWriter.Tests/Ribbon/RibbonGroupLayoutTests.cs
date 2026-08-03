@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using NUnit.Framework;
 using OpenLiveWriter.Localization;
 using OpenLiveWriter.Ribbon.Managed;
@@ -206,6 +207,40 @@ namespace OpenLiveWriter.Tests.Ribbon
             
             // Layout should have been updated (width recalculated)
             Assert.That(group.SizeDefinition, Is.EqualTo("OneButton"));
+        }
+
+        [Test]
+        public void SevenSmallButtons_RowsAlignToTopNotCentered()
+        {
+            // Regression: the Paragraph group's button rows were vertically
+            // centered in the group, leaving a gap above them at tall group
+            // heights. The native ribbon aligns them to the top.
+            using var group = new RibbonGroup();
+            group.Label = "Paragraph";
+            group.Size = new Size(120, 200); // tall group: centering would push rows down
+            group.SizeDefinition = "SevenSmallButtons";
+
+            var buttons = new List<RibbonButton>();
+            for (var i = 0; i < 7; i++)
+            {
+                var button = new RibbonButton { CurrentSize = RibbonGroupSize.Small };
+                buttons.Add(button);
+                group.AddControl(button);
+            }
+
+            try
+            {
+                var topY = buttons.Min(b => b.Location.Y);
+                Assert.That(topY, Is.LessThanOrEqualTo(12),
+                    "paragraph button rows must align to the top of the group, not center vertically");
+            }
+            finally
+            {
+                foreach (var button in buttons)
+                {
+                    button.Dispose();
+                }
+            }
         }
 
         [Test]
