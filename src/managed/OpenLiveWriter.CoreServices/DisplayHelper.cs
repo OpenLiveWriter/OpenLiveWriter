@@ -58,10 +58,7 @@ namespace OpenLiveWriter.CoreServices
             {
                 if (_pixelsPerLogicalInchX == null)
                 {
-                    IntPtr hWndDesktop = User32.GetDesktopWindow();
-                    IntPtr hDCDesktop = User32.GetDC(hWndDesktop);
-                    _pixelsPerLogicalInchX = Gdi32.GetDeviceCaps(hDCDesktop, DEVICECAPS.LOGPIXELSX);
-                    User32.ReleaseDC(hWndDesktop, hDCDesktop);
+                    _pixelsPerLogicalInchX = GetDeviceCapsLogicalDpi(DEVICECAPS.LOGPIXELSX);
                 }
                 return _pixelsPerLogicalInchX.Value;
             }
@@ -74,12 +71,33 @@ namespace OpenLiveWriter.CoreServices
             {
                 if (_pixelsPerLogicalInchY == null)
                 {
-                    IntPtr hWndDesktop = User32.GetDesktopWindow();
-                    IntPtr hDCDesktop = User32.GetDC(hWndDesktop);
-                    _pixelsPerLogicalInchY = Gdi32.GetDeviceCaps(hDCDesktop, DEVICECAPS.LOGPIXELSY);
-                    User32.ReleaseDC(hWndDesktop, hDCDesktop);
+                    _pixelsPerLogicalInchY = GetDeviceCapsLogicalDpi(DEVICECAPS.LOGPIXELSY);
                 }
                 return _pixelsPerLogicalInchY.Value;
+            }
+        }
+
+        /// <summary>
+        /// Reads the display DPI via GDI. Returns DEFAULT_DPI off Windows or on
+        /// failure, so managed UI (e.g. the managed ribbon) also runs on
+        /// non-Windows machines instead of throwing DllNotFoundException.
+        /// </summary>
+        private static int GetDeviceCapsLogicalDpi(int deviceCap)
+        {
+            if (!OperatingSystem.IsWindows())
+                return DEFAULT_DPI;
+
+            try
+            {
+                IntPtr hWndDesktop = User32.GetDesktopWindow();
+                IntPtr hDCDesktop = User32.GetDC(hWndDesktop);
+                int dpi = Gdi32.GetDeviceCaps(hDCDesktop, deviceCap);
+                User32.ReleaseDC(hWndDesktop, hDCDesktop);
+                return dpi > 0 ? dpi : DEFAULT_DPI;
+            }
+            catch
+            {
+                return DEFAULT_DPI;
             }
         }
 

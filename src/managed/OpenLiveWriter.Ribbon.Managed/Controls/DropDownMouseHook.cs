@@ -123,11 +123,13 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
         /// Returns the control's screen rectangle in physical pixels, the same
         /// coordinate space as low-level mouse hook points. Control.Bounds can
         /// be in scaled (logical) units on high-DPI displays, which made every
-        /// click read as "outside" and closed dropdowns under the mouse.
+        /// click read as "outside" and closed dropdowns under the mouse. The
+        /// Win32 call is guarded so this also works off Windows.
         /// </summary>
         private static Rectangle GetPhysicalScreenRect(Control control)
         {
-            if (control.IsHandleCreated && GetWindowRect(control.Handle, out RECT rect))
+            if (OperatingSystem.IsWindows() && control.IsHandleCreated &&
+                GetWindowRect(control.Handle, out RECT rect))
             {
                 return Rectangle.FromLTRB(rect.Left, rect.Top, rect.Right, rect.Bottom);
             }
@@ -151,9 +153,16 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
 
         /// <summary>
         /// Installs the low-level mouse hook.
+        /// No-op off Windows: the hook exists to close dropdowns when clicking
+        /// native child windows (WebView2/MSHTML) that WinForms message filters
+        /// do not reach; managed-only platforms get auto-close from the
+        /// ToolStrip's built-in behavior instead.
         /// </summary>
         public void Install()
         {
+            if (!OperatingSystem.IsWindows())
+                return;
+
             if (_hookId == IntPtr.Zero)
             {
                 using (var curProcess = System.Diagnostics.Process.GetCurrentProcess())
