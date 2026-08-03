@@ -1429,7 +1429,36 @@ namespace OpenLiveWriter.WebView2Shim
 #pragma warning restore CS0067
 
         // IHtmlEditorCommandSource
-        public void ViewSource() { /* TODO */ }
+        public void ViewSource()
+        {
+            // Equivalent of the MSHTML IDM_VIEWSOURCE command: show the current
+            // document HTML in a read-only dialog.
+            string html = _editor.GetEditedHtml(true) ?? string.Empty;
+            using (var form = new Form
+            {
+                Text = "HTML Source",
+                Width = 900,
+                Height = 600,
+                StartPosition = FormStartPosition.CenterParent,
+                ShowInTaskbar = false
+            })
+            {
+                var textBox = new TextBox
+                {
+                    Multiline = true,
+                    ReadOnly = true,
+                    ScrollBars = ScrollBars.Both,
+                    Dock = DockStyle.Fill,
+                    WordWrap = false,
+                    Font = new Font("Consolas", 9f),
+                    Text = html
+                };
+                textBox.SelectionStart = 0;
+                textBox.SelectionLength = 0;
+                form.Controls.Add(textBox);
+                form.ShowDialog(_editor.FindForm());
+            }
+        }
         public void ClearFormatting() => ExecuteScript("window.olwClearFormatting && window.olwClearFormatting()");
         public bool CanApplyFormatting(CommandId? commandId) => _webView?.CoreWebView2 != null;
 

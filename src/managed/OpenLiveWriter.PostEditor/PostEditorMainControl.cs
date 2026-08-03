@@ -247,6 +247,7 @@ namespace OpenLiveWriter.PostEditor
                 _htmlEditor.CommandManager.Add(CommandId.ShowErrorDialog, new EventHandler(commandErrorDialog_Execute));
                 _htmlEditor.CommandManager.Add(CommandId.BlogClientOptions, new EventHandler(commandBlogClientOptions_Execute));
                 _htmlEditor.CommandManager.Add(CommandId.ShowDisplayMessageTestForm, new EventHandler(commandShowDisplayMessageTestForm_Execute));
+                _htmlEditor.CommandManager.Add(CommandId.ShowUpdateMessage, new EventHandler(commandShowUpdateMessage_Execute));
                 _htmlEditor.CommandManager.Add(CommandId.ShowSupportingFilesForm, new EventHandler(commandShowSupportingFilesForm_Execute));
                 _htmlEditor.CommandManager.Add(CommandId.InsertLoremIpsum, new EventHandler(commandInsertLoremIpsum_Execute));
                 _htmlEditor.CommandManager.Add(CommandId.ValidateHtml, new EventHandler(commandValidateHtml_Execute));
@@ -888,6 +889,15 @@ namespace OpenLiveWriter.PostEditor
             {
                 form.ShowDialog(FindForm());
             }
+        }
+
+        private void commandShowUpdateMessage_Execute(object sender, EventArgs e)
+        {
+            // Debug aid: kick off an update check and point at the diagnostics
+            // log for the outcome (the check itself is silent by design).
+            Updates.UpdateManager.CheckforUpdates(forceCheck: true);
+            MessageBox.Show(this, "Update check started. See the diagnostics log for the result.",
+                "Update Check", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void commandShowSupportingFilesForm_Execute(object sender, EventArgs e)
