@@ -52,7 +52,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             {
                 foreach (var dropDown in _visibleDropDowns)
                 {
-                    if (dropDown.Visible && dropDown.Bounds.Contains(clickPoint))
+                    if (dropDown.Visible && GetPhysicalScreenRect(dropDown).Contains(clickPoint))
                         return true;
                 }
             }
@@ -97,6 +97,41 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             public uint flags;
             public uint time;
             public IntPtr dwExtraInfo;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        private struct RECT
+        {
+            public int Left;
+            public int Top;
+            public int Right;
+            public int Bottom;
+        }
+
+        [DllImport("user32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool GetWindowRect(IntPtr hWnd, out RECT lpRect);
+
+        [DllImport("user32.dll")]
+        private static extern uint GetDpiForWindow(IntPtr hwnd);
+
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool PhysicalToLogicalPointForPerMonitorDPI(IntPtr hwnd, ref POINT lpPoint);
+
+        /// <summary>
+        /// Returns the control's screen rectangle in physical pixels, the same
+        /// coordinate space as low-level mouse hook points. Control.Bounds can
+        /// be in scaled (logical) units on high-DPI displays, which made every
+        /// click read as "outside" and closed dropdowns under the mouse.
+        /// </summary>
+        private static Rectangle GetPhysicalScreenRect(Control control)
+        {
+            if (control.IsHandleCreated && GetWindowRect(control.Handle, out RECT rect))
+            {
+                return Rectangle.FromLTRB(rect.Left, rect.Top, rect.Right, rect.Bottom);
+            }
+            return control.Bounds;
         }
 
         /// <summary>
@@ -153,16 +188,29 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                     if (dropDown != null && dropDown.Visible)
                     {
                         var hookStruct = Marshal.PtrToStructure<MSLLHOOKSTRUCT>(lParam);
-                        var clickPoint = new Point(hookStruct.pt.x, hookStruct.pt.y);
 
-                        // Check if the click is inside the dropdown bounds
-                        var dropDownBounds = dropDown.Bounds;
+                        // Low-level mouse hook points are physical device pixels,
+                        // but WinForms bounds are in scaled (logical) units on
+                        // high-DPI displays. Convert with the per-monitor API so
+                        // the comparison is valid; without it every click reads
+                        // as outside at 200% DPI.
+                        var pt = hookStruct.pt;
+                        var hwndForDpi = dropDown.IsHandleCreated ? dropDown.Handle : _owner.Handle;
+                        if (hwndForDpi != IntPtr.Zero)
+                            PhysicalToLogicalPointForPerMonitorDPI(hwndForDpi, ref pt);
+                        var clickPoint = new Point(pt.x, pt.y);
+
+                        // Check if the click is inside the dropdown bounds (in
+                        // physical pixels, matching the hook point's space)
+                        var dropDownBounds = GetPhysicalScreenRect(dropDown);
                         if (!dropDownBounds.Contains(clickPoint) && !IsInsideAnyVisibleDropDown(clickPoint))
                         {
                             // Also check if click is on the owner control itself (to allow toggling)
-                            var ownerScreenBounds = _owner.RectangleToScreen(_owner.ClientRectangle);
+                            var ownerScreenBounds = GetPhysicalScreenRect(_owner);
                             if (!ownerScreenBounds.Contains(clickPoint))
                             {
+                                System.Diagnostics.Debug.WriteLine(
+                                    $"[OLW-DEBUG] DropDownMouseHook: closing dropdown; raw={hookStruct.pt.x},{hookStruct.pt.y} click={clickPoint.X},{clickPoint.Y} dropdown={dropDownBounds} owner={ownerScreenBounds} dpi={GetDpiForWindow(hwndForDpi)}");
                                 // Use BeginInvoke to close on the UI thread
                                 if (_owner.IsHandleCreated && !_owner.IsDisposed)
                                 {
