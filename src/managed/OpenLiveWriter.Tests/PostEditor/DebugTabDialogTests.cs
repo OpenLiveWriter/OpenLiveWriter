@@ -96,6 +96,23 @@ namespace OpenLiveWriter.Tests.PostEditor
         }
 
         [Test]
+        [Apartment(ApartmentState.STA)]
+        public void DiagnosticsConsole_Constructs()
+        {
+            // The console was built with ContextMenu/MenuItem, which are .NET
+            // Framework only: their constructors throw
+            // PlatformNotSupportedException, so the Diagnostics Console button
+            // took the app down instead of opening.
+            Assert.DoesNotThrow(() =>
+            {
+                using (var console = new OpenLiveWriter.CoreServices.Diagnostics.DiagnosticsConsole(
+                    new OpenLiveWriter.CoreServices.Diagnostics.BufferingTraceListener(), "test"))
+                {
+                }
+            });
+        }
+
+        [Test]
         public void ValidateLocalizedResources_RunsWithoutThrowing()
         {
             Assert.DoesNotThrow(() => OpenLiveWriter.Localization.Res.Validate());

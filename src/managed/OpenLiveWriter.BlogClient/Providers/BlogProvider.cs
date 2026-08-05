@@ -573,7 +573,10 @@ namespace OpenLiveWriter.BlogClient.Providers
                 OptionStreamWriter writer = new OptionStreamWriter(stream);
                 writer.Write(options);
             }
-            Process.Start(clientOptionsFile);
+            // UseShellExecute defaults to false on .NET (Core), so starting a
+            // .txt directly fails with "not a valid application for this OS
+            // platform". Shell-execute it so the registered text editor opens.
+            Process.Start(new ProcessStartInfo(clientOptionsFile) { UseShellExecute = true });
         }
 
         private class OptionStreamWriter : DisplayableBlogClientOptionWriter

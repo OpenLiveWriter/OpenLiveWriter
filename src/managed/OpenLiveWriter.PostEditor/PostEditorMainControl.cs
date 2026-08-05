@@ -936,64 +936,36 @@ namespace OpenLiveWriter.PostEditor
 
         private void ValidateHtml(bool xhtml)
         {
-            const string XHTML_DOCTYPE =
-                @"<!DOCTYPE html PUBLIC ""-//W3C//DTD XHTML 1.0 Transitional//EN"" ""http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"">";
-            const string HTML_DOCTYPE =
-                @"<!DOCTYPE HTML PUBLIC ""-//W3C//DTD HTML 4.01 Transitional//EN"">";
-            const string HTML_TEMPLATE = "<html><head><title>Untitled</title></head><body>{0}</body></html>";
-            const string XHTML_TEMPLATE = "<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\"><head><title>Untitled</title></head><body>{0}</body></html>";
-            const string VALIDATOR_URL = "http://validator.w3.org/";
+            const string HTML_TEMPLATE = "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\"><title>Untitled</title></head><body>{0}</body></html>";
+            const string XHTML_TEMPLATE = "<!DOCTYPE html><html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\"><head><title>Untitled</title></head><body>{0}</body></html>";
 
-            HtmlForm form;
-            FormData data;
-            Uri validatorBaseUri;
+            // The old flow GET'd validator.w3.org and scraped the third form on
+            // the page for its textarea. That page is now a 301 to https and no
+            // longer has that layout, so the scrape threw before validating
+            // anything. The Nu checker takes the document as the request body,
+            // which needs no scraping and no DTD-era doctypes.
+            const string VALIDATOR_URL = "https://validator.w3.org/nu/?out=html";
+            const string VALIDATOR_BASE = "https://validator.w3.org/nu/";
 
             string html = string.Format(CultureInfo.InvariantCulture, xhtml ? XHTML_TEMPLATE : HTML_TEMPLATE, _htmlEditor.Body);
-            if (xhtml)
-                html = XHTML_DOCTYPE + html;
-            else
-                html = HTML_DOCTYPE + html;
+            string contentType = xhtml ? "application/xhtml+xml; charset=utf-8" : "text/html; charset=utf-8";
 
-            // Get the validator page using HttpClient
-            using (Stream s = HttpRequestHelper.GetResponseStream(VALIDATOR_URL, out validatorBaseUri))
+            using (Stream resultsStream = HttpRequestHelper.PostFormStream(
+                VALIDATOR_URL, Encoding.UTF8.GetBytes(html), out _, contentType))
             {
-                FormFactory formFactory = new FormFactory(s);
-                formFactory.NextForm();
-                formFactory.NextForm();
-                form = formFactory.NextForm();
-                Textarea textarea = form.GetElementByIndex(0) as Textarea;
-                if (textarea == null)
-                    throw new ArgumentException("Unexpected HTML: textarea element not found");
-                textarea.Value = html;
-                data = form.Submit(null);
-            }
+                string resultsHtml = StreamHelper.AsString(resultsStream, Encoding.UTF8);
+                // The results page references its stylesheet and icon relatively.
+                resultsHtml = resultsHtml.Replace("<head>",
+                                                  string.Format(CultureInfo.InvariantCulture, "<head><base href=\"{0}\"/>",
+                                                                HtmlUtils.EscapeEntities(VALIDATOR_BASE)));
 
-            // Submit the form using HttpClient
-            string submitUrl = UrlHelper.EscapeRelativeURL(UrlHelper.SafeToAbsoluteUri(validatorBaseUri), form.Action);
-            using (Stream formDataStream = data.ToStream())
-            {
-                byte[] formBytes;
-                using (var ms = new MemoryStream())
+                string tempFile = TempFileManager.Instance.CreateTempFile("results.htm");
+                using (Stream fileStream = new FileStream(tempFile, FileMode.Create, FileAccess.Write))
                 {
-                    formDataStream.CopyTo(ms);
-                    formBytes = ms.ToArray();
+                    byte[] bytes = Encoding.UTF8.GetBytes(resultsHtml);
+                    fileStream.Write(bytes, 0, bytes.Length);
                 }
-
-                using (Stream resultsStream = HttpRequestHelper.PostFormStream(submitUrl, formBytes, out Uri responseUri))
-                {
-                    string resultsHtml = StreamHelper.AsString(resultsStream, Encoding.UTF8);
-                    resultsHtml = resultsHtml.Replace("<head>",
-                                                      string.Format(CultureInfo.InvariantCulture, "<head><base href=\"{0}\"/>",
-                                                                    HtmlUtils.EscapeEntities(UrlHelper.SafeToAbsoluteUri(responseUri))));
-
-                    string tempFile = TempFileManager.Instance.CreateTempFile("results.htm");
-                    using (Stream fileStream = new FileStream(tempFile, FileMode.Create, FileAccess.Write))
-                    {
-                        byte[] bytes = Encoding.UTF8.GetBytes(resultsHtml);
-                        fileStream.Write(bytes, 0, bytes.Length);
-                    }
-                    ShellHelper.LaunchUrl(tempFile);
-                }
+                ShellHelper.LaunchUrl(tempFile);
             }
         }
 

@@ -38,10 +38,13 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
         private ColumnHeader columnHeaderTime;
         private Label labelLog;
         private ListView listViewLog;
-        private ContextMenu contextMenuLog;
-        private MenuItem menuItemCopy;
-        private MenuItem menuItemClear;
-        private MenuItem menuItemSelectAll;
+        // ContextMenu/MenuItem are .NET Framework only: their constructors throw
+        // PlatformNotSupportedException on .NET (Core), which took the console
+        // down before it could be shown.
+        private ContextMenuStrip contextMenuLog;
+        private ToolStripMenuItem menuItemCopy;
+        private ToolStripMenuItem menuItemClear;
+        private ToolStripMenuItem menuItemSelectAll;
         private Button buttonClear;
         private Button buttonSelectAll;
         private Button buttonCopy;
@@ -53,11 +56,11 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
         private Label labelExclude;
         private TextBox textBoxExclude;
         private GroupBox groupBoxFilter;
-        private MenuItem menuItemReload;
-        private MenuItem menuItemSep1;
+        private ToolStripMenuItem menuItemReload;
+        private ToolStripSeparator menuItemSep1;
         private ColumnHeader columnHeaderCategory;
-        private MenuItem menuItemOpen;
-        private MenuItem menuItemSep2;
+        private ToolStripMenuItem menuItemOpen;
+        private ToolStripSeparator menuItemSep2;
         private EmptyComponent emptyComponent;
 
         #endregion Designer Generated Code
@@ -168,14 +171,14 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
             this.columnHeaderTime = new System.Windows.Forms.ColumnHeader();
             this.columnHeaderCategory = new System.Windows.Forms.ColumnHeader();
             this.columnHeaderText = new System.Windows.Forms.ColumnHeader();
-            this.contextMenuLog = new System.Windows.Forms.ContextMenu();
-            this.menuItemOpen = new System.Windows.Forms.MenuItem();
-            this.menuItemSep1 = new System.Windows.Forms.MenuItem();
-            this.menuItemCopy = new System.Windows.Forms.MenuItem();
-            this.menuItemClear = new System.Windows.Forms.MenuItem();
-            this.menuItemReload = new System.Windows.Forms.MenuItem();
-            this.menuItemSep2 = new System.Windows.Forms.MenuItem();
-            this.menuItemSelectAll = new System.Windows.Forms.MenuItem();
+            this.contextMenuLog = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.menuItemOpen = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuItemSep1 = new System.Windows.Forms.ToolStripSeparator();
+            this.menuItemCopy = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuItemClear = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuItemReload = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuItemSep2 = new System.Windows.Forms.ToolStripSeparator();
+            this.menuItemSelectAll = new System.Windows.Forms.ToolStripMenuItem();
             this.labelLog = new System.Windows.Forms.Label();
             this.buttonClear = new System.Windows.Forms.Button();
             this.buttonSelectAll = new System.Windows.Forms.Button();
@@ -202,7 +205,7 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
                                                                                           this.columnHeaderTime,
                                                                                           this.columnHeaderCategory,
                                                                                           this.columnHeaderText});
-            this.listViewLog.ContextMenu = this.contextMenuLog;
+            this.listViewLog.ContextMenuStrip = this.contextMenuLog;
             this.listViewLog.FullRowSelect = true;
             this.listViewLog.GridLines = true;
             this.listViewLog.HideSelection = false;
@@ -235,7 +238,8 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
             //
             // contextMenuLog
             //
-            this.contextMenuLog.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            // Order comes from the AddRange order; ToolStripItem has no Index.
+            this.contextMenuLog.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
                                                                                            this.menuItemOpen,
                                                                                            this.menuItemSep1,
                                                                                            this.menuItemCopy,
@@ -246,45 +250,30 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
             //
             // menuItemOpen
             //
-            this.menuItemOpen.Index = 0;
             this.menuItemOpen.Text = "Open...";
             this.menuItemOpen.Click += new System.EventHandler(this.menuItemOpen_Click);
             //
-            // menuItemSep1
-            //
-            this.menuItemSep1.Index = 1;
-            this.menuItemSep1.Text = "-";
-            //
             // menuItemCopy
             //
-            this.menuItemCopy.Index = 2;
-            this.menuItemCopy.Shortcut = System.Windows.Forms.Shortcut.CtrlC;
+            this.menuItemCopy.ShortcutKeys = System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C;
             this.menuItemCopy.Text = "&Copy";
             this.menuItemCopy.Click += new System.EventHandler(this.menuItemCopy_Click);
             //
             // menuItemClear
             //
-            this.menuItemClear.Index = 3;
-            this.menuItemClear.Shortcut = System.Windows.Forms.Shortcut.CtrlW;
+            this.menuItemClear.ShortcutKeys = System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.W;
             this.menuItemClear.Text = "Clea&r";
             this.menuItemClear.Click += new System.EventHandler(this.menuItemClear_Click);
             //
             // menuItemReload
             //
-            this.menuItemReload.Index = 4;
-            this.menuItemReload.Shortcut = System.Windows.Forms.Shortcut.CtrlR;
+            this.menuItemReload.ShortcutKeys = System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R;
             this.menuItemReload.Text = "&Reload";
             this.menuItemReload.Click += new System.EventHandler(this.menuItemReload_Click);
             //
-            // menuItemSep2
-            //
-            this.menuItemSep2.Index = 5;
-            this.menuItemSep2.Text = "-";
-            //
             // menuItemSelectAll
             //
-            this.menuItemSelectAll.Index = 6;
-            this.menuItemSelectAll.Shortcut = System.Windows.Forms.Shortcut.CtrlA;
+            this.menuItemSelectAll.ShortcutKeys = System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A;
             this.menuItemSelectAll.Text = "Select &All";
             this.menuItemSelectAll.Click += new System.EventHandler(this.menuItemSelectAll_Click);
             //

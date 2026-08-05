@@ -182,7 +182,9 @@ namespace OpenLiveWriter.BlogClient.Clients
 
         private void linkLabel1_LinkClicked(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start("https://www.google.com/accounts/DisplayUnlockCaptcha?service=blogger");
+            // UseShellExecute defaults to false on .NET (Core), so Process.Start
+            // with a bare URL throws instead of opening a browser.
+            ShellHelper.LaunchUrl("https://www.google.com/accounts/DisplayUnlockCaptcha?service=blogger");
             DialogResult = DialogResult.Cancel;
         }
     }

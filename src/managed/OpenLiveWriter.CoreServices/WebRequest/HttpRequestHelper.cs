@@ -260,7 +260,10 @@ namespace OpenLiveWriter.CoreServices
         public static HttpResponseMessage PostForm(string url, byte[] formData, string contentType = "application/x-www-form-urlencoded")
         {
             using var content = new ByteArrayContent(formData);
-            content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(contentType);
+            // Parse, not the constructor: the constructor rejects any parameters,
+            // so a caller passing "text/html; charset=utf-8" got a FormatException
+            // instead of a request.
+            content.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse(contentType);
             var response = HttpClient.PostAsync(url, content).GetAwaiter().GetResult();
             response.EnsureSuccessStatusCode();
             return response;
