@@ -47,6 +47,32 @@ jobs:
             /p:Configuration=${{ env.OLW_CONFIG }} `
             /p:PlatformToolset=v143
 
+      # A tag build publishes straight to a GitHub Release, so it is the last
+      # place that should skip the suite. One step per project: pwsh does not
+      # stop on a native non-zero exit, so two calls in one step would report
+      # only the last exit code.
+      - name: Test (OpenLiveWriter.Tests)
+        run: >
+          dotnet test src/managed/OpenLiveWriter.Tests/OpenLiveWriter.Tests.csproj
+          --no-build --nologo -v minimal -c ${{ env.OLW_CONFIG }}
+          --logger "trx;LogFileName=OpenLiveWriter.Tests.trx"
+          --results-directory artifacts/test-results
+
+      - name: Test (OpenLiveWriter.UnitTest)
+        run: >
+          dotnet test src/managed/OpenLiveWriter.UnitTest/OpenLiveWriter.UnitTest.csproj
+          --no-build --nologo -v minimal -c ${{ env.OLW_CONFIG }}
+          --logger "trx;LogFileName=OpenLiveWriter.UnitTest.trx"
+          --results-directory artifacts/test-results
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: TestResults-Release-${{ github.run_number }}
+          path: artifacts/test-results/
+          if-no-files-found: warn
+
       - name: Setup MSBuild for the native ribbon DLL
         uses: microsoft/setup-msbuild@v2
 
@@ -128,9 +154,15 @@ jobs:
           move /y Releases\OpenLiveWriter-stable-Setup.exe Releases\OpenLiveWriterSetup.exe
 
       - name: Publish GitHub Release
+        # Tags only. Without this guard a workflow_dispatch run on any branch
+        # cut a prerelease named after the branch ref and uploaded installers
+        # to it; dispatch is now a safe build/test/package dry run.
+        if: startsWith(github.ref, 'refs/tags/win-v')
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Via env rather than inlined into the script: ref_name is attacker-
+          # influenced input in the general case, and this runs a shell.
+          TAG: ${{ github.ref_name }}
         run: |
-          $tag = "${{ github.ref_name }}"
-          gh release create "$tag" --title "Open Live Writer $tag" --generate-notes --prerelease || gh release view "$tag"
-          gh release upload "$tag" Releases/* --clobber
+          gh release create "$env:TAG" --title "Open Live Writer $env:TAG" --generate-notes --prerelease || gh release view "$env:TAG"
+          gh release upload "$env:TAG" Releases/* --clobber
