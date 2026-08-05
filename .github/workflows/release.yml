@@ -211,13 +211,22 @@ jobs:
           dotnet test src/managed/OpenLiveWriter.EditorTests.Automated --nologo -v minimal
           dotnet test src/managed/OpenLiveWriter.Platform.Tests --nologo -v minimal
 
-      - name: Publish macOS app bundle
+      - name: Install Velopack CLI
+        # vpk 0.0.1251 targets .NET 9 and the runner has 10; build-mac.sh sets
+        # DOTNET_ROLL_FORWARD so the tool starts anyway.
+        run: dotnet tool install -g vpk --version 0.0.1251
+
+      - name: Build and pack with Velopack
         env:
           # CFBundleShortVersionString takes at most three components; the build
-          # number goes to CFBundleVersion.
+          # number goes to CFBundleVersion. The Velopack package version has to
+          # be 3-part SemVer2, hence the -alpha.<build> form.
           OLW_VERSION: ${{ needs.prepare.outputs.semver }}
           OLW_BUILD_NUMBER: ${{ needs.prepare.outputs.build }}
-        run: bash build-mac.sh
+          OLW_PACK_VERSION: ${{ needs.prepare.outputs.pack }}
+        run: |
+          export PATH="$PATH:$HOME/.dotnet/tools"
+          bash build-mac.sh
 
       - name: Confirm the bundle carries the stamped version
         run: |
@@ -227,28 +236,25 @@ jobs:
           [ "$build" = "${{ needs.prepare.outputs.build }}" ] || { echo "::error::CFBundleVersion is $build"; exit 1; }
           echo "Info.plist $short ($build)"
 
-      # Signing and notarization slot in here, before the zip and DMG are made,
-      # because stapling mutates the .app. See mac-build.yml for the steps and
-      # the secrets they need; they are omitted until the certificates exist.
+      # Signing and notarization are vpk's job now: set OLW_CODESIGN_IDENTITY,
+      # OLW_INSTALL_IDENTITY and OLW_NOTARY_PROFILE on the step above and it
+      # signs the app, signs the .pkg and notarizes, in the right order.
 
-      - name: Zip app bundle
+      - name: Confirm the bundle is a Velopack install
+        # Without sq.version the app reports "not a Velopack install" and never
+        # checks for updates, which is exactly the bug this release train fixes.
         run: |
-          cd artifacts/mac-arm64
-          ditto -c -k --keepParent "Open Live Writer.app" "Open Live Writer.zip"
-
-      - name: Create DMG
-        run: |
-          bash packaging/mac/create-dmg.sh \
-            "artifacts/mac-arm64/Open Live Writer.app" \
-            "artifacts/mac-arm64/Open Live Writer.dmg"
+          test -f "artifacts/mac-arm64/Open Live Writer.app/Contents/MacOS/sq.version" \
+            || { echo "::error::bundle carries no Velopack metadata"; exit 1; }
+          ls artifacts/mac-arm64/Releases
 
       - name: Upload macOS artifacts
         uses: actions/upload-artifact@v4
         with:
           name: macos-release
-          path: |
-            artifacts/mac-arm64/Open Live Writer.zip
-            artifacts/mac-arm64/Open Live Writer.dmg
+          # The whole Releases folder: the .pkg installer plus RELEASES-osx,
+          # releases.osx.json and the .nupkg that make up the update feed.
+          path: artifacts/mac-arm64/Releases/
           if-no-files-found: error
 
   publish:
