@@ -24,10 +24,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
+      - name: Prepare build
+        uses: ./.github/actions/prepare-build
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
+          solution: ${{ env.SOLUTION_PATH }}
+          blogger-client-id: ${{ secrets.OLW_BLOGGER_CLIENT_ID }}
+          blogger-client-secret: ${{ secrets.OLW_BLOGGER_CLIENT_SECRET }}
 
       - name: Install Velopack CLI
         # vpk version must match the Velopack NuGet package (Directory.Packages.props)
@@ -35,49 +38,6 @@ jobs:
 
       - name: Install SignClient
         run: nuget install SignClient -Version 0.9.0 -SolutionDir ${{ github.workspace }} -Verbosity quiet -ExcludeVersion
-
-      - name: Generate version info
-        # GlobalAssemblyVersionInfo.cs is generated, not committed; the build
-        # fails without it on a fresh checkout. getversion.cmd only sets cmd
-        # variables, so generate the file directly from version.txt.
-        run: |
-          $v = (Get-Content version.txt -Raw).Trim()
-          Set-Content src/managed/GlobalAssemblyVersionInfo.cs `
-            "[assembly: System.Reflection.AssemblyVersion(`"$v`")]", `
-            "[assembly: System.Reflection.AssemblyFileVersion(`"$v`")]"
-
-      - name: Generate GoogleBloggerv3Secrets.json
-        # Embedded by BlogClient, gitignored (contains OAuth credentials).
-        # Synthesized from CI secrets; empty strings when unset (dev builds
-        # simply can't use Blogger auth).
-        env:
-          OLW_BLOGGER_CLIENT_ID: ${{ secrets.OLW_BLOGGER_CLIENT_ID }}
-          OLW_BLOGGER_CLIENT_SECRET: ${{ secrets.OLW_BLOGGER_CLIENT_SECRET }}
-        run: |
-          $json = @{
-            installed = @{
-              client_id = "$env:OLW_BLOGGER_CLIENT_ID"
-              project_id = "open-live-writer"
-              auth_uri = "https://accounts.google.com/o/oauth2/auth"
-              token_uri = "https://oauth2.googleapis.com/token"
-              auth_provider_x509_cert_url = "https://www.googleapis.com/oauth2/v1/certs"
-              client_secret = "$env:OLW_BLOGGER_CLIENT_SECRET"
-              redirect_uris = @("http://localhost")
-            }
-          } | ConvertTo-Json -Depth 5
-          Set-Content src/managed/OpenLiveWriter.BlogClient/Clients/GoogleBloggerv3Secrets.json $json
-
-      - name: Generate Markets.xml
-        # CoreServices embeds Marketization/Markets.xml (gitignored, generated
-        # from intl/markets by MarketXmlGenerator) and Marketization/Master.xml
-        # (gitignored, copied from intl/markets). Produce both before build.
-        run: |
-          dotnet build src/managed/MarketXmlGenerator/MarketXmlGenerator.csproj -c Release --nologo -v minimal
-          dotnet run --project src/managed/MarketXmlGenerator/MarketXmlGenerator.csproj -c Release --no-build -- intl/markets src/managed/OpenLiveWriter.CoreServices/Marketization/Markets.xml
-          Copy-Item intl/markets/Master.xml src/managed/OpenLiveWriter.CoreServices/Marketization/Master.xml
-
-      - name: Restore NuGet packages
-        run: dotnet restore ${{ env.SOLUTION_PATH }}
 
       - name: Build solution
         # dotnet msbuild == MSBuild with .NET 10 SDK support. The v143 C++
@@ -201,53 +161,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
+      - name: Prepare build
+        uses: ./.github/actions/prepare-build
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
-
-      - name: Generate version info
-        # GlobalAssemblyVersionInfo.cs is generated, not committed; the build
-        # fails without it on a fresh checkout. getversion.cmd only sets cmd
-        # variables, so generate the file directly from version.txt.
-        run: |
-          $v = (Get-Content version.txt -Raw).Trim()
-          Set-Content src/managed/GlobalAssemblyVersionInfo.cs `
-            "[assembly: System.Reflection.AssemblyVersion(`"$v`")]", `
-            "[assembly: System.Reflection.AssemblyFileVersion(`"$v`")]"
-
-      - name: Generate GoogleBloggerv3Secrets.json
-        # Embedded by BlogClient, gitignored (contains OAuth credentials).
-        # Synthesized from CI secrets; empty strings when unset (dev builds
-        # simply can't use Blogger auth).
-        env:
-          OLW_BLOGGER_CLIENT_ID: ${{ secrets.OLW_BLOGGER_CLIENT_ID }}
-          OLW_BLOGGER_CLIENT_SECRET: ${{ secrets.OLW_BLOGGER_CLIENT_SECRET }}
-        run: |
-          $json = @{
-            installed = @{
-              client_id = "$env:OLW_BLOGGER_CLIENT_ID"
-              project_id = "open-live-writer"
-              auth_uri = "https://accounts.google.com/o/oauth2/auth"
-              token_uri = "https://oauth2.googleapis.com/token"
-              auth_provider_x509_cert_url = "https://www.googleapis.com/oauth2/v1/certs"
-              client_secret = "$env:OLW_BLOGGER_CLIENT_SECRET"
-              redirect_uris = @("http://localhost")
-            }
-          } | ConvertTo-Json -Depth 5
-          Set-Content src/managed/OpenLiveWriter.BlogClient/Clients/GoogleBloggerv3Secrets.json $json
-
-      - name: Generate Markets.xml
-        # CoreServices embeds Marketization/Markets.xml (gitignored, generated
-        # from intl/markets by MarketXmlGenerator) and Marketization/Master.xml
-        # (gitignored, copied from intl/markets). Produce both before build.
-        run: |
-          dotnet build src/managed/MarketXmlGenerator/MarketXmlGenerator.csproj -c Release --nologo -v minimal
-          dotnet run --project src/managed/MarketXmlGenerator/MarketXmlGenerator.csproj -c Release --no-build -- intl/markets src/managed/OpenLiveWriter.CoreServices/Marketization/Markets.xml
-          Copy-Item intl/markets/Master.xml src/managed/OpenLiveWriter.CoreServices/Marketization/Master.xml
-
-      - name: Restore NuGet packages
-        run: dotnet restore ${{ env.SOLUTION_PATH }}
+          solution: ${{ env.SOLUTION_PATH }}
+          blogger-client-id: ${{ secrets.OLW_BLOGGER_CLIENT_ID }}
+          blogger-client-secret: ${{ secrets.OLW_BLOGGER_CLIENT_SECRET }}
 
       - name: Build solution (Debug)
         run: |
