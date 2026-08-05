@@ -43,7 +43,7 @@ IF %ERRORLEVEL% NEQ 0 (
 :: Create Velopack installer package
 vpk pack ^
   --packId OpenLiveWriter ^
-  --packVersion %dottedVersion% ^
+  --packVersion %packVersion% ^
   --packTitle "Open Live Writer" ^
   --packDir %PUBLISH_DIR% ^
   --mainExe OpenLiveWriter.exe ^
