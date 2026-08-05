@@ -1553,9 +1553,9 @@ namespace OpenLiveWriter.PostEditor
 
         public void InsertSmartContentFromTabbedDialog(string contentSourceID, int selectedTab)
         {
-            // Get a reference to the video plugin
-            ITabbedInsertDialogContentSource contentSource =
-                (ITabbedInsertDialogContentSource)ContentSourceManager.GetContentSourceInfoById(contentSourceID).Instance;
+            // Get a reference to the content source (e.g. the video plugin)
+            SmartContentSource contentSource =
+                ContentSourceManager.GetContentSourceInfoById(contentSourceID).Instance as SmartContentSource;
 
             if (contentSource == null)
                 return;
@@ -1564,9 +1564,14 @@ namespace OpenLiveWriter.PostEditor
             ISmartContent sContent = new InternalSmartContent(extensionData, this, contentSourceID);
             using (EditorUndoUnit undo = new EditorUndoUnit(_currentEditor))
             {
-                if (contentSource.CreateContentFromTabbedDialog(_mainFrameWindow, sContent, selectedTab) == DialogResult.OK)
+                // Sources without tabbed-dialog support (e.g. the deprecated Video source)
+                // fall back to their standard CreateContent entry point.
+                DialogResult result = contentSource is ITabbedInsertDialogContentSource tabbedContentSource
+                    ? tabbedContentSource.CreateContentFromTabbedDialog(_mainFrameWindow, sContent, selectedTab)
+                    : contentSource.CreateContent(_mainFrameWindow, sContent);
+                if (result == DialogResult.OK)
                 {
-                    string content = ((SmartContentSource)contentSource).GenerateEditorHtml(sContent, this);
+                    string content = contentSource.GenerateEditorHtml(sContent, this);
                     if (content != null)
                     {
                         ((IContentSourceSite)this).InsertContent(contentSourceID, content, extensionData);
@@ -1689,6 +1694,7 @@ namespace OpenLiveWriter.PostEditor
                             _editorContainer.Controls.Add(_webView2HtmlContentEditor.EditorControl);
                         }
                         contentEditor = _webView2HtmlContentEditor;
+                        _webView2HtmlContentEditor.PreviewMode = CurrentEditingMode == EditingMode.Preview;
                         Debug.WriteLine("[OLW-DEBUG] Using WebView2 editor");
                     }
                     else

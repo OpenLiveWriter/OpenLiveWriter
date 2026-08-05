@@ -102,16 +102,10 @@ echo "==> Published bundle: $BUNDLE_DIR"
 echo "==> Run headless tests: dotnet test src/managed/OpenLiveWriter.EditorTests.Automated"
 
 # Optional DMG creation (set OLW_CREATE_DMG=1 to enable).
+# CI does NOT set this: the workflow creates the DMG itself, after
+# signing/notarization/stapling, so it ships the final stapled app.
 if [[ "${OLW_CREATE_DMG:-}" == "1" ]]; then
-  DMG_PATH="$OUT/$APP_NAME.dmg"
-  DMG_STAGE="$OUT/dmg-stage"
-  rm -rf "$DMG_STAGE" "$DMG_PATH"
-  mkdir -p "$DMG_STAGE"
-  cp -R "$BUNDLE_DIR" "$DMG_STAGE/"
-  ln -s /Applications "$DMG_STAGE/Applications"
-  hdiutil create -volname "$APP_NAME" -srcfolder "$DMG_STAGE" -ov -format UDZO "$DMG_PATH"
-  rm -rf "$DMG_STAGE"
-  echo "==> Created DMG: $DMG_PATH"
+  "$ROOT/packaging/mac/create-dmg.sh" "$BUNDLE_DIR" "$OUT/$APP_NAME.dmg"
 fi
 
 # Optional code signing / notarization (requires certificates; not run in default CI).

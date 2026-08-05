@@ -21,7 +21,7 @@ using OpenLiveWriter.PostEditor.JumpList;
 using OpenLiveWriter.PostEditor.Updates;
 using OpenLiveWriter.Platform.Windows;
 using OpenLiveWriter.WebView2Shim;
-using Squirrel;
+using Velopack;
 
 namespace OpenLiveWriter
 {
@@ -39,6 +39,12 @@ namespace OpenLiveWriter
         [STAThread]
         public static void Main(string[] args)
         {
+            VelopackApp.Build()
+                .OnAfterInstallFastCallback(v => OnInstall())
+                .OnAfterUpdateFastCallback(v => OnAfterUpdate())
+                .OnBeforeUninstallFastCallback(v => OnUninstall())
+                .Run();
+
             // In .NET 10, Debug.Fail and Trace.Fail call Environment.FailFast by default.
             // Configure the DefaultTraceListener to show a dialog instead of terminating the process.
             // This restores the .NET Framework behavior for debug assertions.
@@ -152,9 +158,6 @@ namespace OpenLiveWriter
 
                 InitializeApplicationEnvironment();
 
-                string downloadUrl = UpdateSettings.CheckForBetaUpdates ? UpdateSettings.BetaUpdateDownloadUrl : UpdateSettings.UpdateDownloadUrl;
-                RegisterSquirrelEventHandlers(downloadUrl);
-                
                 try
                 {
                     // TODO:OLW
@@ -208,69 +211,39 @@ namespace OpenLiveWriter
             }
         }
 
-        /// <summary>
-        /// Registers functions to handle Squirrel's events.
-        /// </summary>
-        /// <param name="downloadUrl">The Url to use for downloading payloads.</param>
-        private static void RegisterSquirrelEventHandlers(string downloadUrl)
+        private static void OnInstall()
         {
-            try
-            {
-                using (var mgr = new Squirrel.UpdateManager(downloadUrl))
-                {
-                    SquirrelAwareApp.HandleEvents(
-                        onInitialInstall: v => InitialInstall(mgr),
-                        onFirstRun: () => FirstRun(mgr),
-                        onAppUpdate: v => OnAppUpdate(mgr),
-                        onAppUninstall: v => OnAppUninstall(mgr));
-                }
-            }
-            catch (Exception)
-            {
-                // Ignore, chances are this is being run locally on a dev's machine
-            }
+            SetAssociation(".wpost", "OPEN_LIVE_WRITER",
+                Environment.ProcessPath, "Open Live Writer post");
         }
 
-        /// <summary>
-        /// Removes registry keys under HKCU/SOFTWARE/OpenLiveWriter and deletes the AppData and Roaming profiles.
-        /// </summary>
-        /// <param name="mgr">An instance of Squirrel.UpdateManager to be used as helper class.</param>
-        private static async void OnAppUninstall(IUpdateManager mgr)
+        private static void OnAfterUpdate()
         {
-            await mgr.FullUninstall();
-            string OLWRegKey = @"SOFTWARE\OpenLiveWriter";
-            Registry.CurrentUser.DeleteSubKeyTree(OLWRegKey);
-            mgr.RemoveShortcutForThisExe();
-            mgr.RemoveUninstallerRegistryEntry();
-            Directory.Delete(ApplicationEnvironment.LocalApplicationDataDirectory, true);
-            Directory.Delete(ApplicationEnvironment.ApplicationDataDirectory, true);
+            SetAssociation(".wpost", "OPEN_LIVE_WRITER",
+                Environment.ProcessPath, "Open Live Writer post");
         }
 
-        private static async void OnAppUpdate(IUpdateManager mgr)
+        private static void OnUninstall()
         {
-            await mgr.UpdateApp();
-        }
-
-        private static void FirstRun(IUpdateManager mgr)
-        {
-            mgr.CreateShortcutForThisExe();
-        }
-
-        private static async void InitialInstall(Squirrel.UpdateManager mgr)
-        {
-            mgr.CreateShortcutForThisExe();
-            await mgr.CreateUninstallerRegistryEntry();
-            await mgr.FullInstall();
-
-            SetAssociation(".wpost", "OPEN_LIVE_WRITER", Application.ExecutablePath, "Open Live Writer post");
+            try { Registry.CurrentUser.DeleteSubKeyTree(@"SOFTWARE\OpenLiveWriter", false); } catch { }
+            string localAppData = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "OpenLiveWriter");
+            string roamingAppData = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "OpenLiveWriter");
+            try { if (Directory.Exists(localAppData)) Directory.Delete(localAppData, true); } catch { }
+            try { if (Directory.Exists(roamingAppData)) Directory.Delete(roamingAppData, true); } catch { }
         }
 
         public static void SetAssociation(string extension, string keyName, string openWith, string fileDescription)
         {
-            var baseKey = Registry.ClassesRoot.CreateSubKey(extension);
+            // Register per-user under HKCU\Software\Classes (merged into the HKCR
+            // view automatically). Writing to Registry.ClassesRoot directly needs
+            // admin rights, which per-user (Velopack) installs do not have.
+            var classesRoot = Registry.CurrentUser.CreateSubKey(@"Software\Classes");
+            var baseKey = classesRoot.CreateSubKey(extension);
             baseKey?.SetValue("", keyName);
 
-            var openMethod = Registry.ClassesRoot.CreateSubKey(keyName);
+            var openMethod = classesRoot.CreateSubKey(keyName);
             openMethod?.SetValue("", fileDescription);
             openMethod?.CreateSubKey("DefaultIcon")?.SetValue("", "\"" + openWith + "\",0");
             var shell = openMethod?.CreateSubKey("Shell");
@@ -307,14 +280,14 @@ namespace OpenLiveWriter
                 TaskbarManager.Instance.ApplicationId = ApplicationEnvironment.TaskbarApplicationId;
 
             // Ensure the .wpost file association exists so the Jump List works correctly.
-            // This is normally set up during Squirrel install, but may be missing for
+            // This is normally set up during Velopack install, but may be missing for
             // xcopy/zip installs or if the registry entry was deleted.
             EnsureWpostFileAssociation();
         }
 
         /// <summary>
         /// Checks whether the .wpost ProgId is registered and registers it if missing.
-        /// This is a fallback for installations that did not go through the Squirrel installer.
+        /// This is a fallback for installations that did not go through the Velopack installer.
         /// </summary>
         private static void EnsureWpostFileAssociation()
         {
@@ -332,7 +305,7 @@ namespace OpenLiveWriter
 
                 if (string.Equals(progId, wpostProgId, StringComparison.OrdinalIgnoreCase))
                 {
-                    Registry.ClassesRoot.CreateSubKey(wpostProgId)
+                    Registry.CurrentUser.CreateSubKey(@"Software\Classes\" + wpostProgId)
                         ?.SetValue("AppUserModelID", ApplicationEnvironment.TaskbarApplicationId);
                 }
             }

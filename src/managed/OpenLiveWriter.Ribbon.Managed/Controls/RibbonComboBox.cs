@@ -164,7 +164,28 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                 // Don't execute command during loading/initialization
                 if (!_isLoading)
                 {
-                    ExecuteCommand();
+                    var selectedIndex = _innerComboBox.SelectedIndex;
+                    Action execute = () =>
+                    {
+                        // Push the new selection into the gallery command before executing,
+                        // mirroring how RibbonGallery.ExecuteGalleryItem routes gallery picks.
+                        if (CommandManager?.GetCommand(CommandId) is IGalleryCommand galleryCommand)
+                        {
+                            galleryCommand.SelectedIndex = selectedIndex;
+                        }
+                        ExecuteCommand();
+                    };
+                    // Defer execution until the ComboBox has finished processing its own
+                    // selection notification. Refreshing the combo items or executing the
+                    // command reentrantly inside the native notification can crash comctl32.
+                    if (IsHandleCreated)
+                    {
+                        BeginInvoke(execute);
+                    }
+                    else
+                    {
+                        execute();
+                    }
                 }
             };
 
@@ -269,11 +290,10 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                 }
                 else if (CommandId == OpenLiveWriter.Localization.CommandId.FontSize)
                 {
-                    if (_innerComboBox.Items.Count == 0)
-                    {
-                        _innerComboBox.Items.Add("11");
-                        _innerComboBox.SelectedIndex = 0;
-                    }
+                    // No placeholder: the gallery sizes are 8/10/12/14/18/24/36,
+                    // so showing any hard-coded default (previously "11") displays
+                    // a size that is not in the list. Leave the combo blank until
+                    // the gallery items load.
                 }
             }
             finally

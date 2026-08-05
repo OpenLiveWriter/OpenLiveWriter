@@ -483,47 +483,62 @@ namespace OpenLiveWriter.PostEditor
 
         private void InitializeRibbon()
         {
-            System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] {DateTime.Now:HH:mm:ss.fff} InitializeRibbon - Starting managed ribbon initialization");
-
-            // Initialize the RibbonControl for command management
-            ribbonControl = new RibbonControl(_htmlEditor.IHtmlEditorComponentContext, _htmlEditor);
-            System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] {DateTime.Now:HH:mm:ss.fff} InitializeRibbon - RibbonControl created");
-
-            // Create the managed ribbon panel
-            _managedRibbon = new RibbonPanel();
-            System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] {DateTime.Now:HH:mm:ss.fff} InitializeRibbon - RibbonPanel created");
-
-            // Create the command manager bridge to connect with existing CommandManager
-            _commandManagerBridge = new CommandManagerBridge(_htmlEditor.CommandManager);
-            _managedRibbon.CommandManager = _commandManagerBridge.RibbonCommandManager;
-            System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] {DateTime.Now:HH:mm:ss.fff} InitializeRibbon - CommandManager bridge created");
-
-            // Build the ribbon from the default configuration
-            var config = DefaultRibbonConfiguration.Create();
-            _managedRibbon.BuildFromConfiguration(config);
-            System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] {DateTime.Now:HH:mm:ss.fff} InitializeRibbon - Ribbon built from configuration");
-
-            // Add the ribbon to the form
-            Controls.Add(_managedRibbon);
-            _managedRibbon.BringToFront();
-
-            // Update editor panel padding to account for ribbon height
-            if (_mainEditorPanel != null)
+            try
             {
-                _mainEditorPanel.DockPadding.Top = _managedRibbon.RibbonHeight;
+                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] {DateTime.Now:HH:mm:ss.fff} InitializeRibbon - Starting managed ribbon initialization");
+
+                // Initialize the RibbonControl for command management
+                ribbonControl = new RibbonControl(_htmlEditor.IHtmlEditorComponentContext, _htmlEditor);
+                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] {DateTime.Now:HH:mm:ss.fff} InitializeRibbon - RibbonControl created");
+
+                // Create the managed ribbon panel
+                _managedRibbon = new RibbonPanel();
+                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] {DateTime.Now:HH:mm:ss.fff} InitializeRibbon - RibbonPanel created");
+
+                // Create the command manager bridge to connect with existing CommandManager
+                _commandManagerBridge = new CommandManagerBridge(_htmlEditor.CommandManager);
+                _managedRibbon.CommandManager = _commandManagerBridge.RibbonCommandManager;
+                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] {DateTime.Now:HH:mm:ss.fff} InitializeRibbon - CommandManager bridge created");
+
+                // Build the ribbon from the default configuration
+                var config = DefaultRibbonConfiguration.Create();
+                _managedRibbon.BuildFromConfiguration(config);
+                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] {DateTime.Now:HH:mm:ss.fff} InitializeRibbon - Ribbon built from configuration");
+
+                // Add the ribbon to the form
+                Controls.Add(_managedRibbon);
+                _managedRibbon.BringToFront();
+
+                // Update editor panel padding to account for ribbon height
+                if (_mainEditorPanel != null)
+                {
+                    _mainEditorPanel.DockPadding.Top = _managedRibbon.RibbonHeight;
+                }
+                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] {DateTime.Now:HH:mm:ss.fff} InitializeRibbon - Ribbon added to form");
+
+                // Set initial mode
+                UpdateManagedRibbonMode();
+
+                CommandManager.Invalidate(CommandId.MRUList);
+                CommandManager.Invalidate(CommandId.OpenDraftSplit);
+                CommandManager.Invalidate(CommandId.OpenPostSplit);
+
+                ApplicationDiagnostics.TestModeChanged += OnTestModeChanged;
+                TestMode = ApplicationDiagnostics.TestMode;
+                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] {DateTime.Now:HH:mm:ss.fff} InitializeRibbon - Complete");
             }
-            System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] {DateTime.Now:HH:mm:ss.fff} InitializeRibbon - Ribbon added to form");
-
-            // Set initial mode
-            UpdateManagedRibbonMode();
-
-            CommandManager.Invalidate(CommandId.MRUList);
-            CommandManager.Invalidate(CommandId.OpenDraftSplit);
-            CommandManager.Invalidate(CommandId.OpenPostSplit);
-
-            ApplicationDiagnostics.TestModeChanged += OnTestModeChanged;
-            TestMode = ApplicationDiagnostics.TestMode;
-            System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] {DateTime.Now:HH:mm:ss.fff} InitializeRibbon - Complete");
+            catch (COMException ex)
+            {
+                Trace.Fail("Ribbon initialization failed with COMException: " + ex.Message);
+                ribbonControl = null;
+                _managedRibbon = null;
+            }
+            catch (Exception ex)
+            {
+                Trace.Fail("Ribbon initialization failed: " + ex.Message);
+                ribbonControl = null;
+                _managedRibbon = null;
+            }
         }
 
         private void UpdateManagedRibbonMode()

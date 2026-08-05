@@ -3,6 +3,7 @@
 
 using System;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
@@ -31,14 +32,31 @@ namespace OpenLiveWriter.WebView2Shim
         private string _body = "";
         private string _selection = "";
         
-        public string Title 
-        { 
+        public string Title
+        {
             get => _title;
             set
             {
-                _title = value;
+                // The title is plain text (0.6.2 parity: it was a plain text
+                // box). Sanitize here as defense in depth so consumers such as
+                // the AutoRecover file name built from the title never see HTML.
+                _title = ToPlainText(value);
                 System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] Bridge.Title SET: {value?.Length ?? 0} chars");
             }
+        }
+
+        /// <summary>
+        /// Reduces a (possibly HTML) title string to single-line plain text:
+        /// strips tags, decodes entities, and collapses all whitespace.
+        /// </summary>
+        internal static string ToPlainText(string text)
+        {
+            if (string.IsNullOrEmpty(text))
+                return "";
+            text = System.Text.RegularExpressions.Regex.Replace(text, "<[^>]*>", " ");
+            text = System.Net.WebUtility.HtmlDecode(text);
+            text = System.Text.RegularExpressions.Regex.Replace(text, @"\s+", " ");
+            return text.Trim();
         }
         
         public string Body 
@@ -59,7 +77,12 @@ namespace OpenLiveWriter.WebView2Shim
             get => _selection;
             set => _selection = value ?? "";
         }
-        
+
+        /// <summary>
+        /// HTML of the current selection - updated by JS on selectionchange event
+        /// </summary>
+        public string SelectionHtml { get; set; } = "";
+
         // Link state - synced when selection changes
         public bool IsInLink { get; set; } = false;
         public string LinkHref { get; set; } = "";
@@ -90,8 +113,6 @@ namespace OpenLiveWriter.WebView2Shim
         private static int _instanceCounter;
         private readonly int _instanceId;
         private WebView2 _webView;
-        private WebView2Bridge _bridge;
-        private WebView2Document _document;
         private bool _isInitialized;
         private bool _isDirty;
         private string _pendingHtml;
@@ -103,6 +124,14 @@ namespace OpenLiveWriter.WebView2Shim
         /// Fired when the editor has finished loading and is ready for editing.
         /// </summary>
         public event EventHandler ReadyForEditing;
+
+        /// <summary>
+        /// The error that prevented WebView2 initialization, or null when
+        /// initialization succeeded or is still in progress. Surfaced for
+        /// diagnostics and tests; initialization errors are otherwise only
+        /// written to the debug log.
+        /// </summary>
+        internal Exception InitializationError { get; private set; }
         
         protected override void Dispose(bool disposing)
         {
@@ -120,7 +149,7 @@ namespace OpenLiveWriter.WebView2Shim
             _contentBridge = new EditorContentBridge();
             InitializeComponent();
             // Create command source immediately so it's never null
-            _commandSource = new WebView2HtmlEditorCommandSource(this, null);
+            _commandSource = new WebView2HtmlEditorCommandSource(this);
             
             // Subscribe to paragraph setting changes to apply immediately
             WebView2Document.UseParagraphTagsChanged += OnUseParagraphTagsChanged;
@@ -139,6 +168,53 @@ namespace OpenLiveWriter.WebView2Shim
             else
             {
                 System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] #{_instanceId} OnUseParagraphTagsChanged - NOT applying (initialized={_isInitialized}, webView null={_webView?.CoreWebView2 == null})");
+            }
+        }
+
+        private bool _formActivatedHooked;
+
+        protected override void OnVisibleChanged(EventArgs e)
+        {
+            base.OnVisibleChanged(e);
+            if (Visible)
+            {
+                HookParentFormActivated();
+                NudgeWebViewRepaint();
+            }
+        }
+
+        /// <summary>
+        /// WebView2 intermittently renders fully black after view switches or
+        /// dialog popups (observed heavily under x64 emulation on ARM64 Windows);
+        /// the surface recovers on its own only after a minimize/maximize. Force
+        /// a frame whenever the editor resurfaces or the host window reactivates.
+        /// </summary>
+        private void HookParentFormActivated()
+        {
+            if (_formActivatedHooked) return;
+            var form = FindForm();
+            if (form == null) return;
+            _formActivatedHooked = true;
+            form.Activated += (s, args) => NudgeWebViewRepaint();
+        }
+
+        private void NudgeWebViewRepaint()
+        {
+            try
+            {
+                if (_webView == null || _webView.IsDisposed || !_webView.IsHandleCreated) return;
+                // A 1px resize-and-restore makes the WebView2 controller re-emit
+                // its bounds, which forces the compositor to produce a new frame.
+                var size = _webView.Size;
+                if (size.Width > 1 && size.Height > 1)
+                {
+                    _webView.Size = new Size(size.Width - 1, size.Height);
+                    _webView.Size = size;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] #{_instanceId} NudgeWebViewRepaint error: {ex.Message}");
             }
         }
 
@@ -238,62 +314,9 @@ namespace OpenLiveWriter.WebView2Shim
                     }
                 };
                 
-                // Handle keyboard shortcuts via CoreWebView2Controller
-                _webView.CoreWebView2.GetDevToolsProtocolEventReceiver("cycler").DevToolsProtocolEventReceived += (s, e) => { };
-                var controller = (Microsoft.Web.WebView2.Core.CoreWebView2Controller)typeof(WebView2)
-                    .GetProperty("CoreWebView2Controller", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
-                    ?.GetValue(_webView);
-                
-                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] #{_instanceId} CoreWebView2Controller obtained: {controller != null}");
-                    
-                if (controller != null)
-                {
-                    controller.AcceleratorKeyPressed += (s, e) =>
-                    {
-                        // Check for Ctrl+key combinations on KeyDown
-                        if (e.KeyEventKind == Microsoft.Web.WebView2.Core.CoreWebView2KeyEventKind.KeyDown &&
-                            (Control.ModifierKeys & Keys.Control) == Keys.Control)
-                        {
-                            var key = (Keys)e.VirtualKey;
-                            bool handled = false;
-                            System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] AcceleratorKey: Ctrl+{key}");
-                            
-                            switch (key)
-                            {
-                                case Keys.B:
-                                    _commandSource.ApplyBold();
-                                    handled = true;
-                                    break;
-                                case Keys.I:
-                                    _commandSource.ApplyItalic();
-                                    handled = true;
-                                    break;
-                                case Keys.U:
-                                    _commandSource.ApplyUnderline();
-                                    handled = true;
-                                    break;
-                                case Keys.K:
-                                    System.Diagnostics.Debug.WriteLine("[OLW-DEBUG] Ctrl+K detected, calling InsertLink");
-                                    _commandSource.InsertLink();
-                                    handled = true;
-                                    break;
-                                case Keys.Z:
-                                    _commandSource.Undo();
-                                    handled = true;
-                                    break;
-                                case Keys.Y:
-                                    _commandSource.Redo();
-                                    handled = true;
-                                    break;
-                            }
-                            
-                            if (handled)
-                            {
-                                e.Handled = true;
-                            }
-                        }
-                    };
-                }
+                // Keyboard shortcuts: Ctrl+B/I/U/Z/Y are handled natively by
+                // Chromium's contenteditable; Ctrl+K is handled by the JS keydown
+                // handler injected in SetupHostObjectListeners.
 
                 // Check if we have pending html to load
                 if (!string.IsNullOrEmpty(_pendingHtml))
@@ -319,6 +342,7 @@ namespace OpenLiveWriter.WebView2Shim
             }
             catch (Exception ex)
             {
+                InitializationError = ex;
                 System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] WebView2HtmlEditorControl init error: {ex.Message}");
             }
         }
@@ -362,10 +386,37 @@ namespace OpenLiveWriter.WebView2Shim
                             return null;
                         }
                         
+                        // Selection text with line breaks between blocks, so the
+                        // hyperlink dialog's link text does not concatenate a
+                        // multi-block selection into one unbroken run.
+                        function olwSelectionText(sel) {
+                            if (!sel || sel.rangeCount === 0) return '';
+                            if (sel.isCollapsed) return '';
+                            var container = document.createElement('div');
+                            container.appendChild(sel.getRangeAt(0).cloneContents());
+                            var html = container.innerHTML
+                                .replace(/<br\s*\/?>/gi, '\n')
+                                .replace(/<\/(p|div|li|h[1-6]|blockquote|tr|table|ul|ol)>/gi, '\n');
+                            var tmp = document.createElement('div');
+                            tmp.innerHTML = html;
+                            return (tmp.textContent || '')
+                                .replace(/\n{3,}/g, '\n\n')
+                                .replace(/^\n+|\n+$/g, '');
+                        }
+
                         // Sync selection and context state to bridge
                         function syncSelectionState() {
                             var sel = window.getSelection();
-                            olw.Selection = sel ? sel.toString() : '';
+                            olw.Selection = olwSelectionText(sel);
+
+                            // Capture selection HTML (for SelectedHtml consumers)
+                            var selHtml = '';
+                            if (sel && sel.rangeCount > 0 && !sel.isCollapsed) {
+                                var container = document.createElement('div');
+                                container.appendChild(sel.getRangeAt(0).cloneContents());
+                                selHtml = container.innerHTML;
+                            }
+                            olw.SelectionHtml = selHtml;
                             
                             // Get anchor node for context
                             var node = sel && sel.anchorNode ? sel.anchorNode : null;
@@ -400,13 +451,120 @@ namespace OpenLiveWriter.WebView2Shim
                         document.addEventListener('selectionchange', syncSelectionState);
                         
                         function syncContent() {
-                            olw.Title = titleEl.innerHTML;
+                            olw.Title = titleEl.textContent;
                             olw.Body = bodyEl.innerHTML;
                             olw.MarkDirty();
                         }
-                        
-                        titleEl.addEventListener('input', syncContent);
+
+                        // The title is plain text (0.6.2 parity: it was a plain
+                        // text box). Strip any markup that slips in via drop or
+                        // native editing commands, preserving the caret. This
+                        // also removes stray <br> nodes so the :empty CSS
+                        // placeholder shows when the title has no text.
+                        function sanitizeTitle() {
+                            if (titleEl.childElementCount === 0) return;
+                            var sel = window.getSelection();
+                            var hasCaret = sel.rangeCount > 0 && titleEl.contains(sel.anchorNode);
+                            var offset = 0;
+                            if (hasCaret) {
+                                var pre = sel.getRangeAt(0).cloneRange();
+                                pre.selectNodeContents(titleEl);
+                                pre.setEnd(sel.getRangeAt(0).startContainer, sel.getRangeAt(0).startOffset);
+                                offset = pre.toString().length;
+                            }
+                            titleEl.textContent = titleEl.textContent;
+                            if (hasCaret && titleEl.firstChild) {
+                                var node = titleEl.firstChild;
+                                var range = document.createRange();
+                                range.setStart(node, Math.min(offset, node.length));
+                                range.collapse(true);
+                                sel.removeAllRanges();
+                                sel.addRange(range);
+                            }
+                        }
+
+                        titleEl.addEventListener('input', function() {
+                            sanitizeTitle();
+                            syncContent();
+                        });
                         bodyEl.addEventListener('input', syncContent);
+
+                        // Paste into the title as plain text (no markup, no line breaks).
+                        titleEl.addEventListener('paste', function(e) {
+                            e.preventDefault();
+                            var text = (e.clipboardData || window.clipboardData).getData('text/plain') || '';
+                            text = text.replace(/\s+/g, ' ');
+                            document.execCommand('insertText', false, text);
+                        });
+
+                        // Enter in the title moves to the body (0.6.2 parity);
+                        // block native Ctrl+B/I/U so Chromium cannot apply rich
+                        // formatting inside the plain-text title.
+                        titleEl.addEventListener('keydown', function(e) {
+                            if (e.key === 'Enter') {
+                                e.preventDefault();
+                                bodyEl.focus();
+                                return;
+                            }
+                            if (e.ctrlKey && !e.altKey && (e.key === 'b' || e.key === 'B' || e.key === 'i' || e.key === 'I' || e.key === 'u' || e.key === 'U')) {
+                                e.preventDefault();
+                            }
+                        });
+
+                        // True when the caret/selection is inside the title
+                        // element, where rich formatting must never apply.
+                        window.olwSelectionInTitle = function() {
+                            var node = null;
+                            var sel = window.getSelection();
+                            if (sel && sel.anchorNode) node = sel.anchorNode;
+                            if (!node) node = document.activeElement;
+                            while (node) {
+                                if (node === titleEl) return true;
+                                if (node === bodyEl || node === document.body) return false;
+                                node = node.parentNode;
+                            }
+                            return false;
+                        };
+
+                        // Execute a formatting command unless the selection is
+                        // in the title, then re-sync content to the bridge.
+                        window.olwExecFormatting = function(command, value) {
+                            if (window.olwSelectionInTitle()) return 'skipped-title-selection';
+                            document.execCommand(command, false, value || null);
+                            bodyEl.dispatchEvent(new Event('input', { bubbles: true }));
+                            return 'ok';
+                        };
+
+                        // Apply a formatting command in CSS mode so Chromium emits
+                        // span+style markup instead of deprecated <font> tags, then
+                        // re-sync content to the bridge. Mirrors the macOS editor's
+                        // transient styleWithCSS pattern in editor.html.
+                        window.olwExecCss = function(command, value) {
+                            if (window.olwSelectionInTitle()) return 'skipped-title-selection';
+                            document.execCommand('styleWithCSS', false, true);
+                            document.execCommand(command, false, value);
+                            document.execCommand('styleWithCSS', false, false);
+                            bodyEl.dispatchEvent(new Event('input', { bubbles: true }));
+                        };
+
+                        // Apply an exact point font size. execCommand('fontSize') only
+                        // supports the 1-7 scale (keyword sizes in CSS mode), so apply
+                        // size 7 and rewrite the resulting xxx-large spans to the
+                        // requested pt value (same trick as the macOS setFontSizePx).
+                        window.olwApplyFontSizePt = function(pt) {
+                            if (window.olwSelectionInTitle()) return 'skipped-title-selection';
+                            document.execCommand('styleWithCSS', false, true);
+                            document.execCommand('fontSize', false, '7');
+                            document.execCommand('styleWithCSS', false, false);
+                            // Match on the serialized style attribute; the parsed
+                            // style.fontSize value is engine-specific for keywords.
+                            var spans = bodyEl.querySelectorAll('span[style*=""xxx-large""]');
+                            for (var i = 0; i < spans.length; i++) {
+                                spans[i].style.fontSize = pt + 'pt';
+                            }
+                            bodyEl.dispatchEvent(new Event('input', { bubbles: true }));
+                            return 'rewrote ' + spans.length + ' span(s) to ' + pt + 'pt';
+                        };
                         
                         // Handle Ctrl+K for hyperlink insertion via postMessage
                         document.addEventListener('keydown', function(e) {
@@ -417,10 +575,41 @@ namespace OpenLiveWriter.WebView2Shim
                             }
                         });
                         
+                        // Track Chromium history operations (undo/redo). The div-to-p
+                        // observer must not mutate the document while an undo/redo
+                        // transaction is being applied: observer edits are not part of
+                        // Chromium's undo stack, so mutating then corrupts it (e.g. undo
+                        // after applying a heading duplicates the restored paragraphs).
+                        var olwHistoryOpPending = false;
+                        bodyEl.addEventListener('beforeinput', function(e) {
+                            if (e.inputType === 'historyUndo' || e.inputType === 'historyRedo') {
+                                olwHistoryOpPending = true;
+                                // Safety net: clear on the next tick if the observer
+                                // batch for this operation never fires.
+                                setTimeout(function() { olwHistoryOpPending = false; }, 0);
+                            }
+                        });
+
+                        // Undo/redo entry point for host-driven commands. execCommand
+                        // does not reliably fire beforeinput, so flag the operation
+                        // explicitly before running it.
+                        window.olwHistoryCommand = function(cmd) {
+                            olwHistoryOpPending = true;
+                            document.execCommand(cmd);
+                            setTimeout(function() { olwHistoryOpPending = false; }, 0);
+                            bodyEl.dispatchEvent(new Event('input', { bubbles: true }));
+                        };
+
                         // Use MutationObserver to convert <div> to <p> when useParagraphTags is true
                         // Chromium's defaultParagraphSeparator doesn't work, so we post-process
                         var observer = new MutationObserver(function(mutations) {
                             if (window.olwUseParagraphTags === false) return;
+                            if (olwHistoryOpPending) {
+                                // Skip corrections during undo/redo so the history
+                                // transaction applies exactly as Chromium recorded it.
+                                olwHistoryOpPending = false;
+                                return;
+                            }
                             mutations.forEach(function(mutation) {
                                 mutation.addedNodes.forEach(function(node) {
                                     if (node.nodeName === 'DIV' && node.parentElement === bodyEl) {
@@ -435,11 +624,244 @@ namespace OpenLiveWriter.WebView2Shim
                                         range.collapse(false);
                                         sel.removeAllRanges();
                                         sel.addRange(range);
+                                    } else if (node.nodeType === 3 && node.parentNode === bodyEl && node.textContent.trim() !== '') {
+                                        // Wrap bare text added directly to the body
+                                        // (e.g. the first line of a multi-line paste)
+                                        // in a paragraph like the other lines.
+                                        var wrapper = document.createElement('p');
+                                        bodyEl.insertBefore(wrapper, node);
+                                        wrapper.appendChild(node);
                                     }
                                 });
                             });
+                            // Observer corrections do not fire input events, so
+                            // push the corrected markup to the bridge explicitly;
+                            // otherwise GetEditedHtml lags one edit behind.
+                            syncContent();
                         });
                         observer.observe(bodyEl, { childList: true });
+
+                        // True when the element carries no content worth keeping.
+                        // A lone <br> counts as content: that is how Chromium
+                        // represents an intentional blank paragraph.
+                        function olwIsEmpty(el) {
+                            if (!el) return true;
+                            if (el.querySelector('img,br,hr,table,iframe,object,embed,video,audio')) return false;
+                            return (el.textContent || '').replace(/\u00a0/g, '').trim() === '';
+                        }
+
+                        // Chromium's insertUnorderedList/insertOrderedList can nest
+                        // the new list inside the current <p>, producing invalid
+                        // <p><ul>...</ul></p> markup. Hoist such lists out of the
+                        // paragraph, splitting it when text surrounds the list.
+                        function olwFixNestedLists() {
+                            var lists = bodyEl.querySelectorAll('p > ul, p > ol');
+                            for (var i = 0; i < lists.length; i++) {
+                                var list = lists[i];
+                                var p = list.parentNode;
+                                if (!p || p.tagName !== 'P') continue;
+                                var afterP = document.createElement('p');
+                                var node = list.nextSibling;
+                                while (node) {
+                                    var next = node.nextSibling;
+                                    afterP.appendChild(node);
+                                    node = next;
+                                }
+                                p.parentNode.insertBefore(list, p.nextSibling);
+                                if (!olwIsEmpty(afterP)) {
+                                    p.parentNode.insertBefore(afterP, list.nextSibling);
+                                }
+                                if (olwIsEmpty(p)) {
+                                    p.parentNode.removeChild(p);
+                                }
+                            }
+                        }
+
+                        // Tidy execCommand DOM artifacts: drop empty lists, merge
+                        // adjacent same-type lists, and drop empty paragraphs left
+                        // adjacent to lists/blockquotes by block commands.
+                        window.olwCleanupBlocks = function() {
+                            olwFixNestedLists();
+                            var changed = true;
+                            while (changed) {
+                                changed = false;
+                                var all = bodyEl.querySelectorAll('ul, ol, blockquote');
+                                for (var i = 0; i < all.length; i++) {
+                                    var el = all[i];
+                                    // The NodeList is static: nodes detached by an
+                                    // earlier merge in this pass must be skipped.
+                                    if (!el.parentNode) continue;
+                                    if (olwIsEmpty(el)) {
+                                        el.parentNode.removeChild(el);
+                                        changed = true;
+                                        break;
+                                    }
+                                    var sib = el.nextElementSibling;
+                                    if (sib && sib.tagName === el.tagName) {
+                                        while (sib.firstChild) el.appendChild(sib.firstChild);
+                                        sib.parentNode.removeChild(sib);
+                                        changed = true;
+                                        break;
+                                    }
+                                }
+                            }
+                            var ps = bodyEl.querySelectorAll('p');
+                            for (var j = ps.length - 1; j >= 0; j--) {
+                                var p = ps[j];
+                                if (p.children.length > 0 || (p.textContent || '').trim() !== '') continue;
+                                var prev = p.previousElementSibling;
+                                var nextSib = p.nextElementSibling;
+                                var nearBlock = function(n) {
+                                    return n && (n.tagName === 'UL' || n.tagName === 'OL' || n.tagName === 'BLOCKQUOTE');
+                                };
+                                if (nearBlock(prev) || nearBlock(nextSib)) {
+                                    p.parentNode.removeChild(p);
+                                }
+                            }
+                        };
+
+                        // Insert a list and repair the DOM so ul/ol end up as
+                        // siblings of p, never nested inside one.
+                        window.olwInsertList = function(ordered) {
+                            if (window.olwSelectionInTitle()) return 'skipped-title-selection';
+                            document.execCommand(ordered ? 'insertOrderedList' : 'insertUnorderedList');
+                            window.olwCleanupBlocks();
+                            bodyEl.dispatchEvent(new Event('input', { bubbles: true }));
+                        };
+
+                        // Apply a block format (H1-H6, P, ...) to every block in the
+                        // selection. Chromium's formatBlock collapses a multi-block
+                        // selection into a single heading joined by <br>; formatting
+                        // each block individually matches the classic OLW behavior.
+                        window.olwFormatBlock = function(tag) {
+                            if (window.olwSelectionInTitle()) return 'skipped-title-selection';
+                            var sel = window.getSelection();
+                            if (!sel || sel.rangeCount === 0 || sel.getRangeAt(0).collapsed) {
+                                document.execCommand('formatBlock', false, tag);
+                                bodyEl.dispatchEvent(new Event('input', { bubbles: true }));
+                                return;
+                            }
+                            var range = sel.getRangeAt(0);
+                            var blockTags = ['P','DIV','H1','H2','H3','H4','H5','H6','LI','BLOCKQUOTE','PRE'];
+                            var blocks = [];
+                            var walker = document.createTreeWalker(bodyEl, NodeFilter.SHOW_ELEMENT, null);
+                            var node;
+                            while ((node = walker.nextNode())) {
+                                if (blockTags.indexOf(node.tagName) < 0) continue;
+                                if (!range.intersectsNode(node)) continue;
+                                // Skip blocks already covered by a collected ancestor.
+                                var anc = node.parentNode;
+                                var covered = false;
+                                while (anc && anc !== bodyEl) {
+                                    if (blocks.indexOf(anc) >= 0) { covered = true; break; }
+                                    anc = anc.parentNode;
+                                }
+                                if (!covered) blocks.push(node);
+                            }
+                            if (blocks.length <= 1) {
+                                document.execCommand('formatBlock', false, tag);
+                                bodyEl.dispatchEvent(new Event('input', { bubbles: true }));
+                                return;
+                            }
+                            var firstNew = null;
+                            var lastNew = null;
+                            for (var i = 0; i < blocks.length; i++) {
+                                if (!blocks[i].parentNode) continue; // detached by an earlier step
+                                var r = document.createRange();
+                                r.selectNodeContents(blocks[i]);
+                                sel.removeAllRanges();
+                                sel.addRange(r);
+                                document.execCommand('formatBlock', false, tag);
+                                var newBlock = findBlockParent(sel.anchorNode);
+                                if (newBlock) {
+                                    if (!firstNew) firstNew = newBlock;
+                                    lastNew = newBlock;
+                                }
+                            }
+                            // Re-select across the formatted blocks.
+                            if (firstNew && lastNew) {
+                                var restore = document.createRange();
+                                restore.setStart(firstNew, 0);
+                                restore.setEnd(lastNew, lastNew.childNodes.length);
+                                sel.removeAllRanges();
+                                sel.addRange(restore);
+                            }
+                            bodyEl.dispatchEvent(new Event('input', { bubbles: true }));
+                        };
+
+                        // Wrap the selection in a blockquote (or outdent out of one)
+                        // and repair the execCommand artifacts: Chromium splits a
+                        // quoted list into one list per item and litters empty
+                        // paragraphs around the blockquote.
+                        window.olwApplyBlockquote = function() {
+                            if (window.olwSelectionInTitle()) return 'skipped-title-selection';
+                            document.execCommand('formatBlock', false, 'blockquote');
+                            window.olwCleanupBlocks();
+                            bodyEl.dispatchEvent(new Event('input', { bubbles: true }));
+                        };
+
+                        window.olwRemoveBlockquote = function() {
+                            if (window.olwSelectionInTitle()) return 'skipped-title-selection';
+                            document.execCommand('outdent');
+                            window.olwCleanupBlocks();
+                            bodyEl.dispatchEvent(new Event('input', { bubbles: true }));
+                        };
+
+                        function olwDepth(el) {
+                            var d = 0;
+                            while (el.parentNode) { d++; el = el.parentNode; }
+                            return d;
+                        }
+
+                        // Clear formatting, matching the classic (0.6.2) behavior:
+                        // removeFormat only strips inline markup, so additionally
+                        // convert headings/list items back to paragraphs, unwrap
+                        // lists and blockquotes, and reset block alignment.
+                        window.olwClearFormatting = function() {
+                            if (window.olwSelectionInTitle()) return 'skipped-title-selection';
+                            var sel = window.getSelection();
+                            var range = (sel && sel.rangeCount > 0) ? sel.getRangeAt(0) : null;
+                            document.execCommand('removeFormat');
+                            if (range) {
+                                var i;
+                                // Rename headings and list items in the selection to p.
+                                var toRename = [];
+                                var all = bodyEl.querySelectorAll('h1,h2,h3,h4,h5,h6,li');
+                                for (i = 0; i < all.length; i++) {
+                                    if (range.intersectsNode(all[i])) toRename.push(all[i]);
+                                }
+                                for (i = 0; i < toRename.length; i++) {
+                                    var el = toRename[i];
+                                    if (!el.parentNode) continue;
+                                    var p = document.createElement('p');
+                                    while (el.firstChild) p.appendChild(el.firstChild);
+                                    el.parentNode.replaceChild(p, el);
+                                }
+                                // Unwrap lists and blockquotes, innermost first.
+                                var wrappers = [];
+                                all = bodyEl.querySelectorAll('ul,ol,blockquote');
+                                for (i = 0; i < all.length; i++) {
+                                    if (range.intersectsNode(all[i])) wrappers.push(all[i]);
+                                }
+                                wrappers.sort(function(a, b) { return olwDepth(b) - olwDepth(a); });
+                                for (i = 0; i < wrappers.length; i++) {
+                                    var w = wrappers[i];
+                                    if (!w.parentNode) continue;
+                                    while (w.firstChild) w.parentNode.insertBefore(w.firstChild, w);
+                                    w.parentNode.removeChild(w);
+                                }
+                                // Reset alignment on the remaining blocks.
+                                all = bodyEl.querySelectorAll('p,div,h1,h2,h3,h4,h5,h6,li,blockquote');
+                                for (i = 0; i < all.length; i++) {
+                                    if (range.intersectsNode(all[i])) {
+                                        all[i].removeAttribute('align');
+                                        all[i].style.textAlign = '';
+                                    }
+                                }
+                            }
+                            window.olwCleanupBlocks();
+                            bodyEl.dispatchEvent(new Event('input', { bubbles: true }));
+                        };
                         
                         // Sync initial content
                         syncContent();
@@ -449,8 +871,20 @@ namespace OpenLiveWriter.WebView2Shim
                     })();
                 ";
                 
-                var result = await _webView.CoreWebView2.ExecuteScriptAsync(script);
-                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] #{_instanceId} SetupHostObjectListeners result: {result}");
+                string result = null;
+                // The editing shell elements and the host object bridge can lag
+                // NavigationCompleted by a beat; retry a few times before giving up.
+                for (var attempt = 0; attempt < 4; attempt++)
+                {
+                    result = await _webView.CoreWebView2.ExecuteScriptAsync(script);
+                    System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] #{_instanceId} SetupHostObjectListeners result: {result} (attempt {attempt + 1})");
+                    if (result == null ||
+                        (!result.Contains("elements not found") && !result.Contains("hostObjects not available")))
+                    {
+                        break;
+                    }
+                    await Task.Delay(150);
+                }
             }
             catch (Exception ex)
             {
@@ -475,53 +909,13 @@ namespace OpenLiveWriter.WebView2Shim
             }
         }
 
-        private void InitializeBridge()
-        {
-            try
-            {
-                _bridge = new WebView2Bridge(_webView);
-                _bridge.Initialize();
-                _document = new WebView2Document(_bridge, _webView);
-                _commandSource.SetDocument(_document);
-                
-                // Set up content change monitoring for olw-body element
-                _bridge.ExecuteScript(@"
-                    var body = document.getElementById('olw-body');
-                    if (body) {
-                        body.addEventListener('input', function() {
-                            window.chrome.webview.postMessage(JSON.stringify({ type: 'contentChanged' }));
-                        });
-                    }
-                ");
-                
-                _webView.CoreWebView2.WebMessageReceived += (s, e) =>
-                {
-                    try
-                    {
-                        var json = e.WebMessageAsJson;
-                        // Handle contentChanged message
-                        if (json?.Contains("contentChanged") == true)
-                        {
-                            IsDirty = true;
-                        }
-                        // Handle insertLink (Ctrl+K) message
-                        else if (json?.Contains("insertLink") == true)
-                        {
-                            System.Diagnostics.Debug.WriteLine("[OLW-DEBUG] Received insertLink message from JS (Ctrl+K)");
-                            _commandSource.InsertLink();
-                        }
-                    }
-                    catch { }
-                };
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] Bridge init error: {ex.Message}");
-            }
-        }
-
         private string GetEditorTemplate()
         {
+            // 0.6.2 parity: an empty title shows the "Enter a post title" hint.
+            // Rendered via CSS (:empty:before) so it never becomes part of the
+            // synced Title value.
+            var placeholder = System.Net.WebUtility.HtmlEncode(String.Format(
+                CultureInfo.CurrentCulture, Res.Get(StringId.TitleDefaultText), Res.Get(StringId.PostLower)));
             return @"<!DOCTYPE html>
 <html>
 <head>
@@ -546,6 +940,11 @@ namespace OpenLiveWriter.WebView2Shim
             padding-bottom: 10px;
             outline: none;
         }
+        #olw-title:empty:before {
+            content: attr(data-placeholder);
+            color: #767676;
+            font-weight: normal;
+        }
         #olw-body {
             min-height: 300px;
             outline: none;
@@ -556,24 +955,12 @@ namespace OpenLiveWriter.WebView2Shim
     </style>
 </head>
 <body>
-    <div id='olw-title' contenteditable='true'></div>
+    <div id='olw-title' contenteditable='true' data-placeholder='__TITLE_PLACEHOLDER__'></div>
     <div id='olw-body' contenteditable='true'></div>
 </body>
-</html>";
+</html>".Replace("__TITLE_PLACEHOLDER__", placeholder);
         }
 
-        private void SetEditorContent(string html)
-        {
-            if (_isInitialized && _document != null)
-            {
-                var editor = _document.getElementById("olw-editor");
-                if (editor != null)
-                {
-                    editor.innerHTML = html ?? "";
-                }
-            }
-        }
-        
         private string GetEditorContent()
         {
             return _contentBridge.Body ?? "";
@@ -585,7 +972,6 @@ namespace OpenLiveWriter.WebView2Shim
             return _contentBridge.Title ?? "";
         }
 
-        public WebView2Document Document => _document;
         public bool IsInitialized => _isInitialized;
 
         #region IHtmlEditor Implementation
@@ -611,6 +997,24 @@ namespace OpenLiveWriter.WebView2Shim
                 {
                     System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] #{_instanceId} LoadHtmlFile - NOT READY, storing pending html");
                 }
+            }
+        }
+        
+        /// <summary>
+        /// Navigates to a complete HTML document, replacing the current page.
+        /// Used for the read-only preview document, which lacks the editing
+        /// shell elements (#olw-title/#olw-body) that LoadHtmlFile patches in place.
+        /// </summary>
+        public void NavigateToHtmlDocument(string html)
+        {
+            if (_isInitialized && _webView?.CoreWebView2 != null)
+            {
+                _webView.CoreWebView2.NavigateToString(html);
+            }
+            else
+            {
+                // Stash until initialization completes; InitializeWebView navigates to it.
+                _pendingHtml = html;
             }
         }
         
@@ -671,7 +1075,7 @@ namespace OpenLiveWriter.WebView2Shim
                         const olw = window.chrome.webview.hostObjects.sync.olw;
                         
                         function syncContentToHost() {{
-                            olw.Title = document.getElementById('olw-title').innerHTML;
+                            olw.Title = document.getElementById('olw-title').textContent;
                             olw.Body = document.getElementById('olw-body').innerHTML;
                             olw.MarkDirty();
                         }}
@@ -717,26 +1121,16 @@ namespace OpenLiveWriter.WebView2Shim
         {
             get
             {
-                if (_isInitialized && _document != null)
-                {
-                    var selection = _document.selection;
-                    if (selection.type != "None")
-                    {
-                        var range = selection.createRange();
-                        var html = range.htmlText;
-                        range.Dispose();
-                        return html;
-                    }
-                }
-                return "";
+                // Synced from JS on selectionchange (see SetupHostObjectListeners)
+                return _contentBridge?.SelectionHtml ?? "";
             }
         }
 
         public void EmptySelection()
         {
-            if (_isInitialized && _document != null)
+            if (_isInitialized && _webView?.CoreWebView2 != null)
             {
-                _document.selection.empty();
+                _ = _webView.CoreWebView2.ExecuteScriptAsync("window.getSelection().removeAllRanges()");
             }
         }
         
@@ -887,6 +1281,11 @@ namespace OpenLiveWriter.WebView2Shim
                 var html = $"<a href=\"{System.Net.WebUtility.HtmlEncode(url)}\"{titleAttr}{relAttr}{target}>{System.Net.WebUtility.HtmlEncode(linkText)}</a>";
                 System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] InsertLink: {html}");
                 InsertHtml(html, HtmlInsertionOptions.MoveCursorAfter);
+                // Replacing a multi-item list selection with the link leaves an
+                // empty list behind; clean up the artifacts (queued after the
+                // insert script, so execution order is preserved).
+                _ = _webView.CoreWebView2.ExecuteScriptAsync(
+                    "window.olwCleanupBlocks && window.olwCleanupBlocks()");
             }
         }
 
@@ -911,7 +1310,6 @@ namespace OpenLiveWriter.WebView2Shim
 
         public new void Dispose()
         {
-            _bridge?.Dispose();
             _webView?.Dispose();
             base.Dispose();
         }
@@ -925,23 +1323,13 @@ namespace OpenLiveWriter.WebView2Shim
     internal class WebView2HtmlEditorCommandSource : IHtmlEditorCommandSource
     {
         private readonly WebView2HtmlEditorControl _editor;
-        private WebView2Document _document;
         private WebView2 _webView;
 
-        public WebView2HtmlEditorCommandSource(WebView2HtmlEditorControl editor, WebView2Document document)
+        public WebView2HtmlEditorCommandSource(WebView2HtmlEditorControl editor)
         {
             _editor = editor;
-            _document = document;
         }
 
-        /// <summary>
-        /// Updates the document reference after WebView2 initialization.
-        /// </summary>
-        public void SetDocument(WebView2Document document)
-        {
-            _document = document;
-        }
-        
         /// <summary>
         /// Sets the WebView2 reference for direct JavaScript execution.
         /// </summary>
@@ -954,12 +1342,45 @@ namespace OpenLiveWriter.WebView2Shim
         private void ExecuteCommand(string command, string value = null)
         {
             if (_webView?.CoreWebView2 == null) return;
-            
-            var script = value != null 
+
+            var script = value != null
                 ? $"document.execCommand('{command}', false, '{value}')"
                 : $"document.execCommand('{command}')";
-            
+
             System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] ExecuteCommand: {script}");
+            _ = _webView.CoreWebView2.ExecuteScriptAsync(script);
+        }
+
+        /// <summary>
+        /// Executes a formatting command via the injected olwExecFormatting
+        /// helper, which skips the command when the selection is in the
+        /// plain-text title element (0.6.2 parity: the title accepts no
+        /// formatting) and re-syncs content to the bridge afterwards.
+        /// </summary>
+        private void ExecuteFormattingCommand(string command, string value = null)
+        {
+            if (_webView?.CoreWebView2 == null) return;
+
+            var script = value != null
+                ? $"window.olwExecFormatting && window.olwExecFormatting('{command}', '{value}')"
+                : $"window.olwExecFormatting && window.olwExecFormatting('{command}')";
+
+            System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] ExecuteFormattingCommand: {script}");
+            _ = _webView.CoreWebView2.ExecuteScriptAsync(script);
+        }
+
+        /// <summary>
+        /// Executes a formatting command in CSS mode via the olwExecCss helper
+        /// (injected by SetupHostObjectListeners) so the document gains
+        /// span+style markup instead of deprecated font tags.
+        /// </summary>
+        private void ExecuteCssCommand(string command, string value)
+        {
+            if (_webView?.CoreWebView2 == null) return;
+
+            var script = $"window.olwExecCss && window.olwExecCss('{command}', '{value}')";
+
+            System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] ExecuteCssCommand: {script}");
             _ = _webView.CoreWebView2.ExecuteScriptAsync(script);
         }
         
@@ -974,12 +1395,23 @@ namespace OpenLiveWriter.WebView2Shim
             return _webView?.CoreWebView2 != null;
         }
 
+        /// <summary>
+        /// Executes an arbitrary script against the editor document.
+        /// </summary>
+        private void ExecuteScript(string script)
+        {
+            if (_webView?.CoreWebView2 == null) return;
+
+            System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] ExecuteScript: {script}");
+            _ = _webView.CoreWebView2.ExecuteScriptAsync(script);
+        }
+
         // ISimpleTextEditorCommandSource
         public bool HasFocus => _editor?.ContainsFocus ?? false;
         public bool CanUndo => QueryCommandEnabled("undo");
-        public void Undo() => ExecuteCommand("undo");
+        public void Undo() => ExecuteScript("window.olwHistoryCommand && window.olwHistoryCommand('undo')");
         public bool CanRedo => QueryCommandEnabled("redo");
-        public void Redo() => ExecuteCommand("redo");
+        public void Redo() => ExecuteScript("window.olwHistoryCommand && window.olwHistoryCommand('redo')");
         public bool CanCut => QueryCommandEnabled("cut");
         public void Cut() => ExecuteCommand("cut");
         public bool CanCopy => QueryCommandEnabled("copy");
@@ -998,38 +1430,37 @@ namespace OpenLiveWriter.WebView2Shim
 
         // IHtmlEditorCommandSource
         public void ViewSource() { /* TODO */ }
-        public void ClearFormatting() => ExecuteCommand("removeFormat");
+        public void ClearFormatting() => ExecuteScript("window.olwClearFormatting && window.olwClearFormatting()");
         public bool CanApplyFormatting(CommandId? commandId) => _webView?.CoreWebView2 != null;
 
         public string SelectionFontFamily => null; // TODO
-        public void ApplyFontFamily(string fontFamily) => ExecuteCommand("fontName", fontFamily);
+        public void ApplyFontFamily(string fontFamily) => ExecuteCssCommand("fontName", fontFamily);
 
         public float SelectionFontSize => 0; // TODO: would need to sync this via bridge
-        
+
         /// <summary>
-        /// Applies font size. Browser execCommand uses size 1-7, not points.
-        /// OLW uses point sizes, so we map: 8pt->1, 10pt->2, 12pt->3, 14pt->4, 18pt->5, 24pt->6, 36pt->7
+        /// Applies an exact point font size. Browser execCommand only supports the
+        /// 1-7 scale, so the injected olwApplyFontSizePt helper applies size 7 in
+        /// CSS mode and rewrites the resulting keyword-sized spans to the exact pt
+        /// value, producing span+style markup instead of font tags.
         /// </summary>
         public void ApplyFontSize(float fontSize)
         {
-            // Map point size to browser fontSize (1-7)
-            int browserSize;
-            if (fontSize <= 8) browserSize = 1;
-            else if (fontSize <= 10) browserSize = 2;
-            else if (fontSize <= 12) browserSize = 3;
-            else if (fontSize <= 14) browserSize = 4;
-            else if (fontSize <= 18) browserSize = 5;
-            else if (fontSize <= 24) browserSize = 6;
-            else browserSize = 7;
-            
-            ExecuteCommand("fontSize", browserSize.ToString());
+            if (_webView?.CoreWebView2 == null) return;
+
+            var script = string.Format(CultureInfo.InvariantCulture,
+                "window.olwApplyFontSizePt && window.olwApplyFontSizePt({0})", fontSize);
+
+            System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] ApplyFontSize: {script}");
+            _ = _webView.CoreWebView2.ExecuteScriptAsync(script).ContinueWith(t =>
+                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] ApplyFontSize result: {t.Result}"));
         }
 
         public int SelectionForeColor => 0;
-        public void ApplyFontForeColor(int color) 
+        public void ApplyFontForeColor(int color)
         {
             var c = Color.FromArgb(color);
-            ExecuteCommand("foreColor", $"#{c.R:X2}{c.G:X2}{c.B:X2}");
+            ExecuteCssCommand("foreColor", $"#{c.R:X2}{c.G:X2}{c.B:X2}");
         }
 
         public int SelectionBackColor => 0;
@@ -1038,54 +1469,56 @@ namespace OpenLiveWriter.WebView2Shim
             if (color.HasValue)
             {
                 var c = Color.FromArgb(color.Value);
-                ExecuteCommand("hiliteColor", $"#{c.R:X2}{c.G:X2}{c.B:X2}");
+                ExecuteCssCommand("hiliteColor", $"#{c.R:X2}{c.G:X2}{c.B:X2}");
             }
         }
 
         public string SelectionStyleName => _editor?.ContentBridge?.CurrentBlockTag;
         
         /// <summary>
-        /// Applies HTML formatting style (H1, H2, P, etc.) using formatBlock command.
+        /// Applies HTML formatting style (H1, H2, P, etc.) per selected block via
+        /// the olwFormatBlock helper. Raw formatBlock collapses a multi-paragraph
+        /// selection into a single heading joined by br separators.
         /// </summary>
         public void ApplyHtmlFormattingStyle(IHtmlFormattingStyle style)
         {
             if (style == null) return;
             var elementName = style.ElementName?.ToUpperInvariant();
             if (string.IsNullOrEmpty(elementName)) return;
-            
+
             // formatBlock needs angle brackets for the tag
-            ExecuteCommand("formatBlock", $"<{elementName}>");
+            ExecuteScript($"window.olwFormatBlock && window.olwFormatBlock('<{elementName}>')");
         }
 
         public bool SelectionBold => QueryCommandState("bold");
         public void ApplyBold()
         {
             System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] ApplyBold called, _webView null: {_webView == null}");
-            ExecuteCommand("bold");
+            ExecuteFormattingCommand("bold");
         }
 
         public bool SelectionItalic => QueryCommandState("italic");
         public void ApplyItalic()
         {
             System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] ApplyItalic called, _webView null: {_webView == null}");
-            ExecuteCommand("italic");
+            ExecuteFormattingCommand("italic");
         }
 
         public bool SelectionUnderlined => QueryCommandState("underline");
         public void ApplyUnderline()
         {
             System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] ApplyUnderline called, _webView null: {_webView == null}");
-            ExecuteCommand("underline");
+            ExecuteFormattingCommand("underline");
         }
 
         public bool SelectionStrikethrough => QueryCommandState("strikeThrough");
-        public void ApplyStrikethrough() => ExecuteCommand("strikeThrough");
+        public void ApplyStrikethrough() => ExecuteFormattingCommand("strikeThrough");
 
         public bool SelectionSuperscript => QueryCommandState("superscript");
-        public void ApplySuperscript() => ExecuteCommand("superscript");
+        public void ApplySuperscript() => ExecuteFormattingCommand("superscript");
 
         public bool SelectionSubscript => QueryCommandState("subscript");
-        public void ApplySubscript() => ExecuteCommand("subscript");
+        public void ApplySubscript() => ExecuteFormattingCommand("subscript");
 
         public bool SelectionIsLTR => true;
         public void InsertLTRTextBlock() { /* TODO */ }
@@ -1097,39 +1530,41 @@ namespace OpenLiveWriter.WebView2Shim
         {
             switch (alignment)
             {
-                case EditorTextAlignment.Left: ExecuteCommand("justifyLeft"); break;
-                case EditorTextAlignment.Center: ExecuteCommand("justifyCenter"); break;
-                case EditorTextAlignment.Right: ExecuteCommand("justifyRight"); break;
-                case EditorTextAlignment.Justify: ExecuteCommand("justifyFull"); break;
+                case EditorTextAlignment.Left: ExecuteFormattingCommand("justifyLeft"); break;
+                case EditorTextAlignment.Center: ExecuteFormattingCommand("justifyCenter"); break;
+                case EditorTextAlignment.Right: ExecuteFormattingCommand("justifyRight"); break;
+                case EditorTextAlignment.Justify: ExecuteFormattingCommand("justifyFull"); break;
             }
         }
 
         public bool SelectionBulleted => QueryCommandState("insertUnorderedList");
-        public void ApplyBullets() => ExecuteCommand("insertUnorderedList");
+        public void ApplyBullets() => ExecuteScript("window.olwInsertList && window.olwInsertList(false)");
 
         public bool SelectionNumbered => QueryCommandState("insertOrderedList");
-        public void ApplyNumbers() => ExecuteCommand("insertOrderedList");
+        public void ApplyNumbers() => ExecuteScript("window.olwInsertList && window.olwInsertList(true)");
 
         public bool CanIndent => true;
-        public void ApplyIndent() => ExecuteCommand("indent");
+        public void ApplyIndent() => ExecuteFormattingCommand("indent");
 
         public bool CanOutdent => true;
-        public void ApplyOutdent() => ExecuteCommand("outdent");
+        public void ApplyOutdent() => ExecuteFormattingCommand("outdent");
 
         /// <summary>
         /// Toggles blockquote. If already in blockquote, outdents. Otherwise wraps in blockquote.
+        /// Both paths run a cleanup pass that merges the per-item list fragments
+        /// Chromium creates and removes empty paragraph litter.
         /// </summary>
         public void ApplyBlockquote()
         {
             if (SelectionBlockquoted)
             {
                 // Remove blockquote by outdenting
-                ExecuteCommand("outdent");
+                ExecuteScript("window.olwRemoveBlockquote && window.olwRemoveBlockquote()");
             }
             else
             {
                 // Wrap in blockquote using formatBlock
-                ExecuteCommand("formatBlock", "<blockquote>");
+                ExecuteScript("window.olwApplyBlockquote && window.olwApplyBlockquote()");
             }
         }
         

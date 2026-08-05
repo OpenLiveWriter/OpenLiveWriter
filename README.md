@@ -63,6 +63,17 @@ To run from Visual Studio, set the startup project to OpenLiveWriter.
 
 **Architecture:** The build targets x64 (64-bit) only. x86/32-bit is no longer supported.
 
+**Developing on a Mac?** You can build, test, and run the Windows app inside a
+Windows 11 Parallels VM without leaving macOS:
+
+```
+./scripts/vm-test.sh build   # sync sources into the VM and build
+./scripts/vm-test.sh test    # run headless tests in the VM
+./scripts/vm-test.sh run     # launch the app in the VM
+```
+
+See [docs/Developing-on-Mac-Testing-on-Windows.md](docs/Developing-on-Mac-Testing-on-Windows.md) for setup.
+
 ### Configuration
 
 Open Live Writer uses environment variables for runtime configuration:

@@ -55,8 +55,8 @@
 
   <!-- Native Ribbon DLL (built from src/unmanaged/OpenLiveWriter.Ribbon) -->
   <!-- Build with: msbuild OpenLiveWriter.Ribbon.vcxproj /p:PlatformToolset=v145 (or v143 for VS2022) -->
-  <ItemGroup Condition="Exists('..\bin\$(Configuration)\i386\Writer\OpenLiveWriter.Ribbon.dll')">
-    <Content Include="..\bin\$(Configuration)\i386\Writer\OpenLiveWriter.Ribbon.dll">
+  <ItemGroup Condition="Exists('..\bin\$(Configuration)\x64\Writer\OpenLiveWriter.Ribbon.dll')">
+    <Content Include="..\bin\$(Configuration)\x64\Writer\OpenLiveWriter.Ribbon.dll">
       <Link>OpenLiveWriter.Ribbon.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -64,10 +64,7 @@
 
   <!-- NuGet Package References -->
   <ItemGroup>
-    <PackageReference Include="DeltaCompressionDotNet" />
-    <PackageReference Include="Mono.Cecil" />
-    <PackageReference Include="Splat" />
-    <PackageReference Include="squirrel.windows" />
+    <PackageReference Include="Velopack" />
   </ItemGroup>
 
   <!-- Project References -->

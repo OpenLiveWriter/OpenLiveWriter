@@ -60,51 +60,22 @@ jobs:
         # Gates the bundle: no artifacts ship from a red suite.
         run: dotnet test src/managed/OpenLiveWriter.EditorTests.Automated --nologo -v minimal
 
-      - name: Publish macOS app bundle (+ DMG)
+      - name: Publish macOS app bundle
+        # Bundle only — the DMG is created later, after signing/notarization/
+        # stapling, so it ships the final stapled app.
         run: |
           if [[ "$GITHUB_REF" == refs/tags/v* ]]; then
             export OLW_VERSION="${GITHUB_REF_NAME#v}"
           fi
           bash build-mac.sh
         env:
-          OLW_CREATE_DMG: '1'
           OLW_BUILD_NUMBER: ${{ github.run_number }}
 
-      - name: Zip app bundle for upload
-        # .app is a directory; zip preserves the executable bit + symlinks
-        # through artifact upload/download better than a raw folder upload.
-        run: |
-          cd artifacts/mac-arm64
-          ditto -c -k --keepParent "Open Live Writer.app" "Open Live Writer.zip"
-
-      - name: Compute release version
-        id: ver
-        run: echo "version=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
-
-      - name: Create GitHub Release (tag builds)
-        if: startsWith(github.ref, 'refs/tags/v')
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh release create "${{ github.ref_name }}" \
-            --title "Open Live Writer for macOS ${{ steps.ver.outputs.version }}" \
-            --generate-notes \
-            --prerelease \
-            "artifacts/mac-arm64/Open Live Writer.zip" \
-            "artifacts/mac-arm64/Open Live Writer.dmg"
-
-      - name: Upload macOS artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: OpenLiveWriter-macOS-arm64-${{ github.run_number }}
-          path: |
-            artifacts/mac-arm64/Open Live Writer.zip
-            artifacts/mac-arm64/Open Live Writer.dmg
-          if-no-files-found: error
-          retention-days: 30
-
       # --- Optional signing / notarization -------------------------------=
-      # These run only when the repo secrets are configured. Set:
+      # These run only when the repo secrets are configured, and must run
+      # BEFORE the final zip/DMG are created and uploaded: stapling mutates
+      # the .app, so anything packaged earlier would ship the unsigned
+      # bundle. Set:
       #   OLW_CODESIGN_IDENTITY  - "Developer ID Application: Name (TEAMID)"
       #   OLW_NOTARY_PROFILE     - notarytool keychain profile name
       #   OLW_P12_BASE64 / OLW_P12_PASSWORD - signing certificate
@@ -131,14 +102,60 @@ jobs:
         run: |
           codesign --deep --force --options runtime --sign "$OLW_CODESIGN_IDENTITY" \
             "artifacts/mac-arm64/Open Live Writer.app"
-          ditto -c -k --keepParent "artifacts/mac-arm64/Open Live Writer.app" \
-            "artifacts/mac-arm64/Open Live Writer.zip"
 
       - name: Notarize and staple (if configured)
+        # notarytool needs a zip of the (signed) app for submission; it is
+        # temporary — the final zip is created below, after stapling.
         if: env.OLW_NOTARY_PROFILE != ''
         env:
           OLW_NOTARY_PROFILE: ${{ secrets.OLW_NOTARY_PROFILE }}
         run: |
-          xcrun notarytool submit "artifacts/mac-arm64/Open Live Writer.zip" \
+          cd artifacts/mac-arm64
+          ditto -c -k --keepParent "Open Live Writer.app" notarize-submit.zip
+          xcrun notarytool submit notarize-submit.zip \
             --keychain-profile "$OLW_NOTARY_PROFILE" --wait
-          xcrun stapler staple "artifacts/mac-arm64/Open Live Writer.app"
+          rm notarize-submit.zip
+          xcrun stapler staple "Open Live Writer.app"
+
+      - name: Zip app bundle for upload
+        # Runs AFTER signing/notarization/stapling (when configured) so the
+        # shipped zip contains the final stapled bundle. .app is a directory;
+        # zip preserves the executable bit + symlinks through artifact
+        # upload/download better than a raw folder upload.
+        run: |
+          cd artifacts/mac-arm64
+          ditto -c -k --keepParent "Open Live Writer.app" "Open Live Writer.zip"
+
+      - name: Create DMG (final app)
+        # Built after signing/stapling so the DMG ships the same final
+        # bundle as the zip above.
+        run: |
+          bash packaging/mac/create-dmg.sh \
+            "artifacts/mac-arm64/Open Live Writer.app" \
+            "artifacts/mac-arm64/Open Live Writer.dmg"
+
+      - name: Compute release version
+        id: ver
+        run: echo "version=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
+
+      - name: Create GitHub Release (tag builds)
+        if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "${{ github.ref_name }}" \
+            --title "Open Live Writer for macOS ${{ steps.ver.outputs.version }}" \
+            --generate-notes \
+            --prerelease \
+            "artifacts/mac-arm64/Open Live Writer.zip" \
+            "artifacts/mac-arm64/Open Live Writer.dmg"
+
+      - name: Upload macOS artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: OpenLiveWriter-macOS-arm64-${{ github.run_number }}
+          path: |
+            artifacts/mac-arm64/Open Live Writer.zip
+            artifacts/mac-arm64/Open Live Writer.dmg
+          if-no-files-found: error
+          retention-days: 30

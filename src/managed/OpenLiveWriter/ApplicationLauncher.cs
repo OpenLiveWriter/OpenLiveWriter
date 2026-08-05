@@ -121,7 +121,11 @@ namespace OpenLiveWriter
                     case AutoRecoverPromptResult.Recover:
                         foreach (string autoSavedPost in autoSavedPostFiles)
                         {
-                            ExecutePostEditorFile(autoSavedPost, splashScreen);
+                            // The file may have vanished between enumeration and
+                            // recovery (another instance recovered it, the user
+                            // deleted it). Skip missing files instead of crashing.
+                            if (File.Exists(autoSavedPost))
+                                ExecutePostEditorFile(autoSavedPost, splashScreen);
                         }
                         return true;
                     case AutoRecoverPromptResult.Discard:
@@ -252,6 +256,9 @@ namespace OpenLiveWriter
 
         private static bool VerifyPostEditorFileIsEditable(string fileName)
         {
+            if (!File.Exists(fileName))
+                return false;
+
             // determine if the file is read-only (we don't support read-only b/c
             // we need to save the file before publishing it)
             if ((File.GetAttributes(fileName) & FileAttributes.ReadOnly) > 0)

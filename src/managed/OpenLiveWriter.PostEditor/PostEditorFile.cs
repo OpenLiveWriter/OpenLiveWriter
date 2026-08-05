@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Xml;
 using OpenLiveWriter.BlogClient;
 using OpenLiveWriter.CoreServices;
@@ -702,11 +703,38 @@ namespace OpenLiveWriter.PostEditor
 
         private string FileNameForTitle(bool isPage, string postTitle)
         {
+            // reduce the title to plain text before using it as a file name
+            postTitle = SanitizePostTitle(postTitle);
+
             // default name for untitled posts
             if (postTitle == String.Empty)
                 postTitle = isPage ? PostInfo.UntitledPage : PostInfo.UntitledPost;
 
             return Path.ChangeExtension(FileHelper.GetValidFileName(postTitle), Extension);
+        }
+
+        /// <summary>
+        /// Reduces a post title to a single line of plain text that is safe to
+        /// use in a file name: strips any HTML markup and decodes entities,
+        /// then scrubs characters that are invalid in file names. Returns
+        /// String.Empty when nothing usable remains.
+        /// This is only public because the unit test needs to get to it.
+        /// </summary>
+        public static string SanitizePostTitle(string postTitle)
+        {
+            if (String.IsNullOrEmpty(postTitle))
+                return String.Empty;
+
+            // strip HTML tags, then decode entities (&amp;, &nbsp;, ...)
+            string text = Regex.Replace(postTitle, "<[^>]*>", " ");
+            text = System.Net.WebUtility.HtmlDecode(text);
+
+            // scrub characters that are invalid in file names
+            foreach (char c in Path.GetInvalidFileNameChars())
+                text = text.Replace(c, ' ');
+
+            // collapse whitespace runs into single spaces
+            return Regex.Replace(text, @"\s+", " ").Trim();
         }
 
         private class FileInfoByModifiedDateComparer : IComparer

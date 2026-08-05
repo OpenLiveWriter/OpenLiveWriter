@@ -52,4 +52,20 @@
     <ProjectReference Include="..\OpenLiveWriter.Localization\OpenLiveWriter.Localization.csproj" />
   </ItemGroup>
 
+  <!-- Generate Blogger API client secrets at build time.
+       OlwBloggerClientId and OlwBloggerClientSecret come from environment variables on CI,
+       or default to placeholder values for local development builds. -->
+  <PropertyGroup>
+    <BloggerClientSecretsJson>$(MSBuildProjectDirectory)\Clients\GoogleBloggerv3Secrets.json</BloggerClientSecretsJson>
+    <OlwBloggerClientId Condition="'$(OlwBloggerClientId)'==''">PASTE_YOUR_CLIENT_ID_HERE</OlwBloggerClientId>
+    <OlwBloggerClientSecret Condition="'$(OlwBloggerClientSecret)'==''">PASTE_YOUR_CLIENT_SECRET_HERE</OlwBloggerClientSecret>
+  </PropertyGroup>
+
+  <Target Name="GenerateBloggerClientSecrets" BeforeTargets="CoreCompile"
+          Inputs="$(MSBuildProjectFullPath)" Outputs="$(BloggerClientSecretsJson)">
+    <WriteLinesToFile File="$(BloggerClientSecretsJson)"
+                     Lines="{ &quot;installed&quot;: { &quot;client_id&quot;: &quot;$(OlwBloggerClientId)&quot;, &quot;client_secret&quot;: &quot;$(OlwBloggerClientSecret)&quot; } }"
+                     Overwrite="true" />
+  </Target>
+
 </Project>
