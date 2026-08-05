@@ -59,6 +59,9 @@ namespace OpenLiveWriter.App.Avalonia
                 case CommandId.About:
                     await ShowAboutAsync();
                     return true;
+                case CommandId.CheckForUpdates:
+                    await CheckForUpdatesAsync();
+                    return true;
                 case CommandId.Close:
                     Close();
                     return true;
@@ -152,6 +155,27 @@ namespace OpenLiveWriter.App.Avalonia
             await MessageDialog.ShowAsync(this, "About Open Live Writer",
                 $"Open Live Writer for macOS\nVersion {version}\n\n" +
                 "Open-source blog authoring (MetaWeblog), ported to macOS with Avalonia.");
+        }
+
+        // The startup check is silent by design; this one reports, because the
+        // user asked.
+        private async Task CheckForUpdatesAsync()
+        {
+            string staged = await AppUpdater.CheckAsync();
+            if (staged != null)
+            {
+                await MessageDialog.ShowAsync(this, "Check for Updates",
+                    $"Version {staged} has been downloaded and will be installed the next time Open Live Writer starts.");
+                return;
+            }
+
+            // CheckAsync returns null for up-to-date, not-installed and failed
+            // alike, so distinguish them here for the message.
+            await MessageDialog.ShowAsync(this, "Check for Updates",
+                AppUpdater.IsUpdatable
+                    ? "Open Live Writer is up to date."
+                    : "This copy was not installed, so it cannot update itself. "
+                      + "Download an installer to receive updates.");
         }
     }
 }

@@ -47,6 +47,26 @@ namespace OpenLiveWriter.App.Avalonia
         }
 
         /// <summary>
+        /// True when this is a Velopack install, so updating is possible at all.
+        /// Lets the caller tell "up to date" apart from "cannot update".
+        /// </summary>
+        public static bool IsUpdatable
+        {
+            get
+            {
+                try
+                {
+                    return new UpdateManager(
+                        new GithubSource(RepositoryUrl, accessToken: null, prerelease: true)).IsInstalled;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+        }
+
+        /// <summary>
         /// Returns the version that was staged, or null when the app is not a
         /// Velopack install, is already current, or the check failed.
         /// </summary>

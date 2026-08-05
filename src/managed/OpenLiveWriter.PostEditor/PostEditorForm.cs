@@ -5,6 +5,7 @@ using System;
 using System.Diagnostics;
 using System.ComponentModel;
 using System.Drawing;
+using System.Globalization;
 using System.Threading;
 using System.Windows.Forms;
 using OpenLiveWriter.BlogClient;
@@ -462,6 +463,8 @@ Ignore - Do nothing",
 
             _postEditorMainControl.CommandManager.Add(CommandId.Close, commandClose_Execute);
 
+            _postEditorMainControl.CommandManager.Add(CommandId.CheckForUpdates, commandCheckForUpdates_Execute);
+
             Command commandHelp = _postEditorMainControl.CommandManager.Add(CommandId.Help, UrlHandler.Create(GLink.Instance.Help));
             commandHelp.Enabled = MarketizationOptions.IsFeatureEnabled(MarketizationOptions.Feature.Help);
             commandHelp.MenuFormatArgs = new object[] { ApplicationEnvironment.ProductName };
@@ -475,6 +478,38 @@ Ignore - Do nothing",
             _postEditorMainControl.CommandManager.Add(new GroupCommand(CommandId.BlogProviderShortcutsGroup, _postEditorMainControl.CommandManager.Get(CommandId.BlogProviderButtonsGallery)));
 
             _postEditorMainControl.CommandManager.EndUpdate();
+        }
+
+        private async void commandCheckForUpdates_Execute(object sender, EventArgs e)
+        {
+            var (result, version, error) = await Updates.UpdateManager.CheckAsync();
+
+            string message;
+            switch (result)
+            {
+                case Updates.UpdateManager.UpdateCheckResult.Staged:
+                    message = string.Format(CultureInfo.CurrentCulture,
+                        "Version {0} has been downloaded and will be installed the next time {1} starts.",
+                        version, ApplicationEnvironment.ProductName);
+                    break;
+                case Updates.UpdateManager.UpdateCheckResult.UpToDate:
+                    message = string.Format(CultureInfo.CurrentCulture,
+                        "{0} is up to date.", ApplicationEnvironment.ProductName);
+                    break;
+                case Updates.UpdateManager.UpdateCheckResult.NotInstalled:
+                    // A build run from its output folder rather than installed:
+                    // there is no install for Velopack to update.
+                    message = "This copy was not installed, so it cannot update itself. "
+                        + "Download an installer to receive updates.";
+                    break;
+                default:
+                    message = "Could not check for updates.";
+                    if (!string.IsNullOrEmpty(error))
+                        message += Environment.NewLine + Environment.NewLine + error;
+                    break;
+            }
+
+            DisplayMessage.Show(MessageId.None, this, message, "Check for Updates");
         }
 
         private void commandClose_Execute(object sender, EventArgs e)

@@ -102,6 +102,8 @@ namespace OpenLiveWriter.App.Avalonia
 
             var help = new ShellMenu("Help", new[]
             {
+                ShellMenuItem.Command("Check for Updates\u2026", CommandId.CheckForUpdates),
+                ShellMenuItem.Separator(),
                 ShellMenuItem.Command("About Open Live Writer", CommandId.About),
             });
 

@@ -44,6 +44,7 @@ namespace OpenLiveWriter.Localization
         BrowserGroup = 23341,
         Bullets = 1026,
         CellProperties = 23389,
+        CheckForUpdates = 50518,
         CheckSpelling = 1015,
         Clear = 23434,
         ClearCell = 23397,

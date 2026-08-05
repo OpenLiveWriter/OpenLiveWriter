@@ -188,6 +188,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             _menuItems.Add(new AppMenuItem { CommandId = CommandId.PrintPreview, Label = "Print Preview", IsLarge = false });
             _menuItems.Add(new AppMenuItem { CommandId = CommandId.Print, Label = "Print", IsLarge = false });
             _menuItems.Add(new AppMenuItem { IsSeparator = true });
+            _menuItems.Add(new AppMenuItem { CommandId = CommandId.CheckForUpdates, Label = "Check for Updates", IsLarge = false });
             _menuItems.Add(new AppMenuItem { CommandId = CommandId.About, Label = "About", IsLarge = false });
         }
 

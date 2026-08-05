@@ -26,23 +26,52 @@ namespace OpenLiveWriter.PostEditor.Updates
 
         private static async Task CheckForUpdatesAsync()
         {
+            await CheckAsync();
+        }
+
+        /// <summary>The outcome of a check, so a caller can tell the user.</summary>
+        public enum UpdateCheckResult
+        {
+            /// <summary>Not a Velopack install (a dev run, or an unpacked copy).</summary>
+            NotInstalled,
+            /// <summary>Already on the newest release.</summary>
+            UpToDate,
+            /// <summary>A newer release was downloaded; it applies on next launch.</summary>
+            Staged,
+            /// <summary>The check could not complete.</summary>
+            Failed,
+        }
+
+        /// <summary>
+        /// Checks for a newer release and stages it, reporting what happened so
+        /// a menu command can say so. The fire-and-forget startup check ignores
+        /// the result; "Check for Updates" shows it.
+        /// </summary>
+        public static async Task<(UpdateCheckResult Result, string Version, string Error)> CheckAsync()
+        {
             try
             {
                 var source = CreateUpdateSource();
-                if (source == null) return;
+                if (source == null)
+                    return (UpdateCheckResult.Failed, null, "No update source is configured.");
+
                 var mgr = new Velopack.UpdateManager(source);
-                if (!mgr.IsInstalled) return;
+                if (!mgr.IsInstalled)
+                    return (UpdateCheckResult.NotInstalled, null, null);
+
                 var updateInfo = await mgr.CheckForUpdatesAsync();
-                if (updateInfo != null)
-                {
-                    Trace.WriteLine("Velopack update available: " + updateInfo.TargetFullRelease.Version);
-                    await mgr.DownloadUpdatesAsync(updateInfo);
-                    // Will apply on next restart
-                }
+                if (updateInfo == null)
+                    return (UpdateCheckResult.UpToDate, null, null);
+
+                string version = updateInfo.TargetFullRelease.Version.ToString();
+                Trace.WriteLine("Velopack update available: " + version);
+                await mgr.DownloadUpdatesAsync(updateInfo);
+                return (UpdateCheckResult.Staged, version, null);
             }
             catch (Exception ex)
             {
                 Trace.WriteLine("Velopack update check failed: " + ex.Message);
+                return (UpdateCheckResult.Failed, null, ex.Message);
             }
         }
 

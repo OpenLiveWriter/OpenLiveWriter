@@ -65,6 +65,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Configuration
             standardItems.Items.Add(new MenuItemConfig { CommandId = CommandId.Print });
             standardItems.Items.Add(new MenuItemConfig { IsSeparator = true });
             standardItems.Items.Add(new MenuItemConfig { CommandId = CommandId.Options });
+            standardItems.Items.Add(new MenuItemConfig { CommandId = CommandId.CheckForUpdates });
             standardItems.Items.Add(new MenuItemConfig { CommandId = CommandId.About });
             standardItems.Items.Add(new MenuItemConfig { CommandId = CommandId.Close });
             config.ApplicationMenu.MenuGroups.Add(standardItems);

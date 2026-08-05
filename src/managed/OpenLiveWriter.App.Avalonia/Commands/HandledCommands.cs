@@ -84,6 +84,7 @@ namespace OpenLiveWriter.App.Avalonia.Commands
                 CommandId.FindButton,
                 CommandId.FindAndReplace,
                 CommandId.About,
+                CommandId.CheckForUpdates,
                 CommandId.Close,
                 CommandId.ViewNormal,
                 CommandId.ViewSource,
