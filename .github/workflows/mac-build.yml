@@ -45,11 +45,9 @@ jobs:
           restore-keys: |
             nuget-${{ runner.os }}-
 
-      # No "Generate version info" step: GlobalAssemblyVersionInfo.cs is not
-      # compiled by anything any more (writer.build.targets, the only thing
-      # that included it, is imported by no project), and MarketXmlGenerator
-      # explicitly dropped it. Directory.Build.props reads version.txt
-      # directly instead.
+      # No "Generate version info" step: no managed project compiles
+      # GlobalAssemblyVersionInfo.cs, so writing it here achieved nothing.
+      # Directory.Build.props reads version.txt directly.
 
       - name: Build (macOS solution filter)
         run: dotnet build src/managed/writer.macOS.slnf --nologo -v minimal

@@ -84,14 +84,10 @@ do_sync() {
 
 do_build() {
   do_sync
-  # GlobalAssemblyVersionInfo.cs is generated, not committed (see
-  # writer.build.targets). MarketXmlGenerator includes it unconditionally, so
-  # generate it up front: on a fresh VM-local copy the C++ Ribbon project that
-  # normally produces it may build too late (or not at all).
-  local version b64
+  # No GlobalAssemblyVersionInfo.cs: nothing compiles it any more. The version
+  # comes from version.txt via src/managed/Directory.Build.props.
+  local version
   version="$(head -n 1 "$OLW_SRC_ROOT/version.txt" | tr -d '\r')"
-  b64="$(printf '[assembly: System.Reflection.AssemblyVersion("%s")]\n[assembly: System.Reflection.AssemblyFileVersion("%s")]\n' "$version" "$version" | base64)"
-  vm_exec "powershell -NoProfile -Command \"[IO.File]::WriteAllText('${VM_DIR}\\src\\managed\\GlobalAssemblyVersionInfo.cs', [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String('${b64}')))\""
   # GoogleBloggerv3Secrets.json is also generated (gitignored) and embedded by
   # the BlogClient project. Generate a placeholder; override with
   # OLW_BLOGGER_CLIENT_ID / OLW_BLOGGER_CLIENT_SECRET (see

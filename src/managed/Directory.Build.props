@@ -65,10 +65,11 @@
     <Copyright>Copyright (c) .NET Foundation. All rights reserved.</Copyright>
     
     <!-- Version. Single source of truth is version.txt at the repo root.
-         writer.build.targets used to generate GlobalAssemblyVersionInfo.cs from
-         it, but nothing imports that file under the SDK, so every assembly
+         writer.build.targets generates GlobalAssemblyVersionInfo.cs from it and
+         compiles it, but only the native C++ ribbon project imports that targets
+         file, so no managed assembly ever picked the version up and everything
          shipped as 0.0.0.0 - which is what About and the crash reports showed.
-         Read version.txt directly instead: no generated file, so nothing to
+         Read version.txt directly here instead: no generated file, so nothing to
          order or race on, and it works from every entry point (dotnet build,
          vm-test.sh, CI, appveyor). -->
     <OlwVersionFile>$(RepoRoot)version.txt</OlwVersionFile>
