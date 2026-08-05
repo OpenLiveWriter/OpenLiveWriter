@@ -57,8 +57,23 @@ jobs:
 
       - name: Headless test suite
         # 800+ NUnit tests (Avalonia.Headless, AngleSharp, publishing logic).
-        # Gates the bundle: no artifacts ship from a red suite.
-        run: dotnet test src/managed/OpenLiveWriter.EditorTests.Automated --nologo -v minimal
+        # Gates the bundle: no artifacts ship from a red suite. Platform.Tests
+        # is in writer.macOS.slnf and was being built but never run.
+        run: |
+          dotnet test src/managed/OpenLiveWriter.EditorTests.Automated --nologo -v minimal \
+            --logger "trx;LogFileName=EditorTests.Automated.trx" \
+            --results-directory artifacts/test-results
+          dotnet test src/managed/OpenLiveWriter.Platform.Tests --nologo -v minimal \
+            --logger "trx;LogFileName=Platform.Tests.trx" \
+            --results-directory artifacts/test-results
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: TestResults-macOS-${{ github.run_number }}
+          path: artifacts/test-results/
+          if-no-files-found: warn
 
       - name: Publish macOS app bundle
         # Bundle only — the DMG is created later, after signing/notarization/
