@@ -1,0 +1,67 @@
+name: Prepare Open Live Writer build
+description: >
+  Installs the SDK and produces the generated, gitignored files the Windows
+  build needs, then restores. Shared by every Windows job so the setup does not
+  drift between them.
+
+inputs:
+  dotnet-version:
+    description: .NET SDK version to install.
+    required: false
+    default: '10.0.x'
+  solution:
+    description: Solution or solution filter to restore. Skipped when empty.
+    required: false
+    default: ''
+  blogger-client-id:
+    description: Blogger OAuth client id. Empty in forks; Blogger auth is then unusable in that build.
+    required: false
+    default: ''
+  blogger-client-secret:
+    description: Blogger OAuth client secret.
+    required: false
+    default: ''
+
+runs:
+  using: composite
+  steps:
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ inputs.dotnet-version }}
+
+    - name: Generate GoogleBloggerv3Secrets.json
+      # Embedded by BlogClient and gitignored, because it holds OAuth
+      # credentials. Synthesized from CI secrets; empty strings when unset.
+      shell: pwsh
+      env:
+        OLW_BLOGGER_CLIENT_ID: ${{ inputs.blogger-client-id }}
+        OLW_BLOGGER_CLIENT_SECRET: ${{ inputs.blogger-client-secret }}
+      run: |
+        $json = @{
+          installed = @{
+            client_id = "$env:OLW_BLOGGER_CLIENT_ID"
+            project_id = "open-live-writer"
+            auth_uri = "https://accounts.google.com/o/oauth2/auth"
+            token_uri = "https://oauth2.googleapis.com/token"
+            auth_provider_x509_cert_url = "https://www.googleapis.com/oauth2/v1/certs"
+            client_secret = "$env:OLW_BLOGGER_CLIENT_SECRET"
+            redirect_uris = @("http://localhost")
+          }
+        } | ConvertTo-Json -Depth 5
+        Set-Content src/managed/OpenLiveWriter.BlogClient/Clients/GoogleBloggerv3Secrets.json $json
+
+    - name: Generate Markets.xml
+      # CoreServices embeds Marketization/Markets.xml (generated from
+      # intl/markets by MarketXmlGenerator) and Marketization/Master.xml
+      # (copied from intl/markets). Both are gitignored.
+      shell: pwsh
+      run: |
+        dotnet build src/managed/MarketXmlGenerator/MarketXmlGenerator.csproj -c Release --nologo -v minimal
+        dotnet run --project src/managed/MarketXmlGenerator/MarketXmlGenerator.csproj -c Release --no-build -- intl/markets src/managed/OpenLiveWriter.CoreServices/Marketization/Markets.xml
+        Copy-Item intl/markets/Master.xml src/managed/OpenLiveWriter.CoreServices/Marketization/Master.xml
+
+    - name: Restore NuGet packages
+      if: inputs.solution != ''
+      shell: pwsh
+      run: dotnet restore ${{ inputs.solution }}
