@@ -16,9 +16,6 @@ name: Release
 #   CFBundleVersion             1234
 
 on:
-  push:
-    branches:
-      - develop/release-dryrun   # TEMPORARY: verification only, removed before merge
   workflow_dispatch:
     inputs:
       dry_run:
