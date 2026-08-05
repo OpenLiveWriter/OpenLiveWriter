@@ -23,9 +23,17 @@ namespace OpenLiveWriter.PostEditor.Updates
             set { settings.SetBoolean(AUTOUPDATE, value); }
         }
 
+        /// <summary>
+        /// Whether the update check considers prereleases. Defaults to true
+        /// while the project ships alphas: Velopack requires a 3-part SemVer2
+        /// package version, so per-build alphas are versioned
+        /// MAJOR.MINOR.PATCH-alpha.BUILD. GithubSource only returns prerelease
+        /// releases when this is set, so with it off an installed alpha would
+        /// never see a newer alpha. Revisit once a stable channel exists.
+        /// </summary>
         public static bool CheckForBetaUpdates
         {
-            get { return settings.GetBoolean(CHECKFORBETAUPDATES, false); }
+            get { return settings.GetBoolean(CHECKFORBETAUPDATES, true); }
             set { settings.SetBoolean(CHECKFORBETAUPDATES, value); }
         }
 
