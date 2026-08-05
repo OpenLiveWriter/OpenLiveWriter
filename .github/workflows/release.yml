@@ -71,15 +71,13 @@ jobs:
           } >> "$GITHUB_OUTPUT"
           echo "version.txt=$raw -> full=$semver.$build tag=v$semver pack=$semver-alpha.$build"
 
-      - name: Refuse to reuse an existing tag
-        if: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run == false }}
-        run: |
-          if git ls-remote --exit-code --tags origin "refs/tags/${{ steps.v.outputs.tag }}" >/dev/null 2>&1; then
-            echo "::error::${{ steps.v.outputs.tag }} already exists. Bump the semver in version.txt."
-            exit 1
-          fi
-
       - name: Stamp version.txt, commit and tag
+        # One release per semver, updated in place: the tag marks the semver and
+        # is created once, while each build bumps only the build number and
+        # replaces the release's assets. Re-running for the same semver is
+        # therefore expected, not an error, and is how a newer alpha reaches
+        # clients already on an older one. Bump the semver in version.txt when
+        # you want a genuinely new release.
         if: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run == false }}
         run: |
           printf '%s\n' "${{ steps.v.outputs.full }}" > version.txt
@@ -87,9 +85,14 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add version.txt
           git commit -m "release: ${{ steps.v.outputs.full }}"
-          git tag -a "${{ steps.v.outputs.tag }}" -m "Open Live Writer ${{ steps.v.outputs.full }}"
           git push origin "HEAD:${{ github.ref_name }}"
-          git push origin "${{ steps.v.outputs.tag }}"
+
+          if git ls-remote --exit-code --tags origin "refs/tags/${{ steps.v.outputs.tag }}" >/dev/null 2>&1; then
+            echo "${{ steps.v.outputs.tag }} already exists; leaving it in place and refreshing the release."
+          else
+            git tag -a "${{ steps.v.outputs.tag }}" -m "Open Live Writer ${{ steps.v.outputs.full }}"
+            git push origin "${{ steps.v.outputs.tag }}"
+          fi
 
   windows:
     name: Windows (${{ needs.prepare.outputs.full }})
