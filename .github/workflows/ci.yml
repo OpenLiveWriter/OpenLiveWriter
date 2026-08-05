@@ -90,6 +90,17 @@ jobs:
             /p:Configuration=${{ env.OLW_CONFIG }} `
             /p:PlatformToolset=v143
 
+      - name: Verify the build is not a Debug build
+        # The installer artifact is what people install, so assert it from the
+        # assembly itself rather than trusting the configuration plumbing.
+        shell: pwsh
+        run: |
+          if ($env:OLW_CONFIG -ne 'Release') {
+            throw "OLW_CONFIG is '$env:OLW_CONFIG'; installers must be packed from Release binaries."
+          }
+          dotnet run scripts/AssertReleaseBuild.cs -- "src/managed/OpenLiveWriter/bin/$env:OLW_CONFIG/OpenLiveWriter.dll"
+          if ($LASTEXITCODE -ne 0) { throw "Refusing to package: the built app is not a Release build." }
+
       - name: Package with Velopack (signed)
         # vpk signs the app binaries and the Setup.exe via SignClient when the
         # secrets are available (not the case for fork PRs). Releases/ is
