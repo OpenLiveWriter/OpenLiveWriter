@@ -16,6 +16,9 @@ name: Release
 #   CFBundleVersion             1234
 
 on:
+  push:
+    branches:
+      - develop/release-dryrun   # TEMPORARY: verification only, removed before merge
   workflow_dispatch:
     inputs:
       dry_run:
@@ -72,7 +75,7 @@ jobs:
           echo "version.txt=$raw -> full=$semver.$build tag=v$semver pack=$semver-alpha.$build"
 
       - name: Refuse to reuse an existing tag
-        if: ${{ !inputs.dry_run }}
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run == false }}
         run: |
           if git ls-remote --exit-code --tags origin "refs/tags/${{ steps.v.outputs.tag }}" >/dev/null 2>&1; then
             echo "::error::${{ steps.v.outputs.tag }} already exists. Bump the semver in version.txt."
@@ -80,7 +83,7 @@ jobs:
           fi
 
       - name: Stamp version.txt, commit and tag
-        if: ${{ !inputs.dry_run }}
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run == false }}
         run: |
           printf '%s\n' "${{ steps.v.outputs.full }}" > version.txt
           git config user.name "github-actions[bot]"
@@ -260,7 +263,7 @@ jobs:
   publish:
     name: Publish ${{ needs.prepare.outputs.tag }}
     needs: [prepare, windows, macos]
-    if: ${{ !inputs.dry_run }}
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run == false }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
