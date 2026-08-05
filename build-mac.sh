@@ -17,8 +17,12 @@ EXE_NAME="OpenLiveWriter.App.Avalonia"
 
 # Versioning: OLW_VERSION is the marketing version (CFBundleShortVersionString);
 # OLW_BUILD_NUMBER is the monotonic build id (CFBundleVersion). CI stamps both
-# from the tag / run number; local builds default sensibly.
-VERSION="${OLW_VERSION:-0.1.1}"
+# from the tag / run number; local builds fall back to version.txt, the same
+# source the managed assemblies use, so the two platforms agree instead of the
+# Mac bundle reporting a stale hardcoded number. CFBundleShortVersionString
+# takes at most three components, so trim a fourth if version.txt has one.
+DEFAULT_VERSION="$(head -n 1 "$ROOT/version.txt" 2>/dev/null | tr -d '\r' | cut -d. -f1-3)"
+VERSION="${OLW_VERSION:-${DEFAULT_VERSION:-0.0.0}}"
 BUILD_NUMBER="${OLW_BUILD_NUMBER:-$(git -C "$ROOT" rev-list --count HEAD 2>/dev/null || echo 1)}"
 
 echo "==> Building Open Live Writer for $RID ($CONFIG)"

@@ -64,9 +64,36 @@
     <Company>.NET Foundation</Company>
     <Copyright>Copyright (c) .NET Foundation. All rights reserved.</Copyright>
     
-    <!-- Disable auto-generation of assembly info (using existing GlobalAssemblyInfo.cs) -->
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    
+    <!-- Version. Single source of truth is version.txt at the repo root.
+         writer.build.targets used to generate GlobalAssemblyVersionInfo.cs from
+         it, but nothing imports that file under the SDK, so every assembly
+         shipped as 0.0.0.0 - which is what About and the crash reports showed.
+         Read version.txt directly instead: no generated file, so nothing to
+         order or race on, and it works from every entry point (dotnet build,
+         vm-test.sh, CI, appveyor). -->
+    <OlwVersionFile>$(RepoRoot)version.txt</OlwVersionFile>
+    <OlwVersion Condition="'$(OlwVersion)' == '' And Exists('$(OlwVersionFile)')">$([System.IO.File]::ReadAllText('$(OlwVersionFile)').Trim())</OlwVersion>
+    <OlwVersion Condition="'$(OlwVersion)' == ''">0.0.0.0</OlwVersion>
+    <AssemblyVersion>$(OlwVersion)</AssemblyVersion>
+    <FileVersion>$(OlwVersion)</FileVersion>
+    <Version>$(OlwVersion)</Version>
+    <InformationalVersion>$(OlwVersion)</InformationalVersion>
+    <!-- ApplicationEnvironment parses FileVersionInfo.Product*Part, and the Mac
+         About box reads AssemblyInformationalVersion; keep the string numeric
+         rather than letting the SDK append "+<commit sha>". -->
+    <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
+
+    <!-- Only the version attributes are generated; product/company/copyright
+         stay wherever each project already declares them. -->
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
+    <GenerateAssemblyDescriptionAttribute>false</GenerateAssemblyDescriptionAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
+    <GenerateNeutralResourcesLanguageAttribute>false</GenerateNeutralResourcesLanguageAttribute>
+
     <!-- Suppress specific analyzers that may cause issues during migration -->
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
     <AnalysisLevel>latest</AnalysisLevel>
