@@ -90,19 +90,25 @@ jobs:
             /p:Configuration=${{ env.OLW_CONFIG }} `
             /p:PlatformToolset=v143
 
-      - name: Test
+      # One step per project on purpose: pwsh does not stop on a native
+      # non-zero exit, so two dotnet test calls in a single step report only
+      # the last exit code and a failing suite would pass the build silently.
+      - name: Test (OpenLiveWriter.Tests)
         # Gates packaging: no installer ships from a red suite. Live WebView2
         # tests self-skip when the session is not interactive
         # (WebView2TestSession), so they degrade rather than fail here.
-        run: |
-          dotnet test src/managed/OpenLiveWriter.Tests/OpenLiveWriter.Tests.csproj `
-            --no-build --nologo -v minimal -c ${{ env.OLW_CONFIG }} `
-            --logger "trx;LogFileName=OpenLiveWriter.Tests.trx" `
-            --results-directory artifacts/test-results
-          dotnet test src/managed/OpenLiveWriter.UnitTest/OpenLiveWriter.UnitTest.csproj `
-            --no-build --nologo -v minimal -c ${{ env.OLW_CONFIG }} `
-            --logger "trx;LogFileName=OpenLiveWriter.UnitTest.trx" `
-            --results-directory artifacts/test-results
+        run: >
+          dotnet test src/managed/OpenLiveWriter.Tests/OpenLiveWriter.Tests.csproj
+          --no-build --nologo -v minimal -c ${{ env.OLW_CONFIG }}
+          --logger "trx;LogFileName=OpenLiveWriter.Tests.trx"
+          --results-directory artifacts/test-results
+
+      - name: Test (OpenLiveWriter.UnitTest)
+        run: >
+          dotnet test src/managed/OpenLiveWriter.UnitTest/OpenLiveWriter.UnitTest.csproj
+          --no-build --nologo -v minimal -c ${{ env.OLW_CONFIG }}
+          --logger "trx;LogFileName=OpenLiveWriter.UnitTest.trx"
+          --results-directory artifacts/test-results
 
       - name: Upload test results
         if: always()
@@ -252,19 +258,23 @@ jobs:
             /p:Configuration=Debug `
             /p:PlatformToolset=v143
 
-      - name: Test (Debug)
+      # One step per project: see the note in the Release job.
+      - name: Test (OpenLiveWriter.Tests, Debug)
         # Worth running in both configurations: Debug.Assert is compiled out of
         # Release, and several regression tests (the sidebar editor cache, the
         # Debug tab dialogs) exist precisely to catch assertions firing.
-        run: |
-          dotnet test src/managed/OpenLiveWriter.Tests/OpenLiveWriter.Tests.csproj `
-            --no-build --nologo -v minimal -c Debug `
-            --logger "trx;LogFileName=OpenLiveWriter.Tests.trx" `
-            --results-directory artifacts/test-results
-          dotnet test src/managed/OpenLiveWriter.UnitTest/OpenLiveWriter.UnitTest.csproj `
-            --no-build --nologo -v minimal -c Debug `
-            --logger "trx;LogFileName=OpenLiveWriter.UnitTest.trx" `
-            --results-directory artifacts/test-results
+        run: >
+          dotnet test src/managed/OpenLiveWriter.Tests/OpenLiveWriter.Tests.csproj
+          --no-build --nologo -v minimal -c Debug
+          --logger "trx;LogFileName=OpenLiveWriter.Tests.trx"
+          --results-directory artifacts/test-results
+
+      - name: Test (OpenLiveWriter.UnitTest, Debug)
+        run: >
+          dotnet test src/managed/OpenLiveWriter.UnitTest/OpenLiveWriter.UnitTest.csproj
+          --no-build --nologo -v minimal -c Debug
+          --logger "trx;LogFileName=OpenLiveWriter.UnitTest.trx"
+          --results-directory artifacts/test-results
 
       - name: Upload test results (Debug)
         if: always()

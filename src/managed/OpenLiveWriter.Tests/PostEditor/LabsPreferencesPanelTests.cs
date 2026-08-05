@@ -34,6 +34,19 @@ namespace OpenLiveWriter.Tests.PostEditor
                     System.IO.Path.GetDirectoryName(assembly.Location),
                     "Software\\OpenLiveWriter.Tests", "Open Live Writer Tests");
             }
+
+            // LoadPreferencesPanels walks LiveClipboardManager, which enumerates
+            // ContentSourceManager.ActiveContentSources. That array is null until
+            // Initialize runs, so the panel test threw NullReferenceException
+            // whenever it happened to run before whichever other test initializes
+            // the manager: it passed under Debug and failed under Release purely
+            // on NUnit ordering. Initialize here rather than rely on luck.
+            // Plug-ins are off: loading external assemblies is not this fixture's
+            // concern and would make the run machine-dependent.
+            if (OpenLiveWriter.PostEditor.ContentSources.ContentSourceManager.ActiveContentSources == null)
+            {
+                OpenLiveWriter.PostEditor.ContentSources.ContentSourceManager.Initialize(false);
+            }
         }
 
         private static IEnumerable<T> GetAll<T>(Control root) where T : Control
