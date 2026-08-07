@@ -13,11 +13,16 @@ on:
 env:
   SOLUTION_PATH: src/managed/writer.sln
   OLW_CONFIG: Release
+  OlwBloggerClientId: 597389294595-271ukaucs8ghmc6c6cnhrbef2c02g5qa.apps.googleusercontent.com
 
 jobs:
   build:
     name: Build Open Live Writer
     runs-on: windows-latest
+    env:
+      OlwBloggerClientSecret: ${{ secrets.OLW_BLOGGER_CLIENT_SECRET }}
+      SignClientSecret: ${{ secrets.SIGN_CLIENT_SECRET }}
+      SignClientUser: ${{ secrets.SIGN_CLIENT_USER }}
 
     steps:
       - name: Checkout repository
@@ -33,6 +38,19 @@ jobs:
       - name: Setup NuGet
         uses: nuget/setup-nuget@v2
 
+      # The PostBuild.CreateInstaller post-build step looks for nuget.exe at
+      # %LocalAppData%\Nuget\Nuget.exe; if it's missing the step no-ops. For
+      # master pushes (where we need the installer output to sign and deploy)
+      # we prime it here. PRs skip this so their builds stay fast and don't
+      # depend on the prior-release blob the installer script pulls from.
+      - name: Prepare nuget.exe for installer (master only)
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        shell: pwsh
+        run: |
+          $nugetDir = Join-Path $env:LocalAppData 'NuGet'
+          New-Item -ItemType Directory -Force -Path $nugetDir | Out-Null
+          Invoke-WebRequest 'https://dist.nuget.org/win-x86-commandline/latest/nuget.exe' -OutFile (Join-Path $nugetDir 'NuGet.exe')
+
       - name: Restore NuGet packages
         run: nuget restore ${{ env.SOLUTION_PATH }}
 
@@ -45,6 +63,41 @@ jobs:
             /p:Configuration=${{ env.OLW_CONFIG }} `
             /p:PlatformToolset=v143
 
+      - name: Locate VSTest
+        id: vstest
+        shell: pwsh
+        run: |
+          $vswhere = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe"
+          $vsPath = & $vswhere -latest -products * -property installationPath
+          $vstestPath = Join-Path $vsPath "Common7\IDE\Extensions\TestPlatform\vstest.console.exe"
+          if (-not (Test-Path $vstestPath)) { throw "vstest.console.exe not found at $vstestPath" }
+          "path=$vstestPath" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+
+      - name: Run unit tests
+        shell: pwsh
+        env:
+          VSTEST_PATH: ${{ steps.vstest.outputs.path }}
+        run: |
+          $testDll = Get-ChildItem -Recurse -Filter OpenLiveWriter.Tests.dll `
+            -Path src\managed `
+            -ErrorAction SilentlyContinue |
+            Where-Object { $_.FullName -match '\\bin\\Release\\' } |
+            Select-Object -First 1
+          if (-not $testDll) { throw "OpenLiveWriter.Tests.dll not found under src\managed\**\bin\Release" }
+          Write-Host "Running tests: $($testDll.FullName)"
+          New-Item -ItemType Directory -Force -Path TestResults | Out-Null
+          & $env:VSTEST_PATH $testDll.FullName `
+            /Logger:"trx;LogFileName=test-results.trx" `
+            /ResultsDirectory:TestResults
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: TestResults/*.trx
+          if-no-files-found: ignore
+
       - name: Upload binaries
         uses: actions/upload-artifact@v4
         with:
@@ -52,10 +105,44 @@ jobs:
           path: src/managed/bin/${{ env.OLW_CONFIG }}/i386/Writer/
           if-no-files-found: warn
 
+      # The following steps replicate AppVeyor's sign + deploy pipeline and
+      # only run on pushes to master (equivalent to AppVeyor's
+      # `disable_publish_on_pr: true` and `branches: only: master`).
+
+      - name: Install SignClient
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        run: nuget install SignClient -Version 0.9.0 -SolutionDir . -Verbosity quiet -ExcludeVersion
+
+      - name: Sign packages
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        shell: pwsh
+        run: .\SignClient\Sign-Package.ps1
+
+      - name: Upload setup artifacts
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        uses: actions/upload-artifact@v4
+        with:
+          name: Setup
+          path: Releases/*
+          if-no-files-found: error
+
+      - name: Deploy to Azure Blob (nightly)
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        shell: pwsh
+        env:
+          AZURE_STORAGE_KEY: ${{ secrets.AZURE_STORAGE_KEY }}
+        run: |
+          az storage blob upload-batch `
+            --account-name olw `
+            --account-key $env:AZURE_STORAGE_KEY `
+            --destination nightly `
+            --source Releases `
+            --overwrite
+
   build-debug:
     name: Build Debug Configuration
     runs-on: windows-latest
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
