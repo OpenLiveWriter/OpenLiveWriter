@@ -17,26 +17,54 @@ All settings live in the registry under
 | Value | Default | Meaning |
 |---|---|---|
 | `AutoUpdate` | `true` | Check for updates at startup |
-| `CheckForBetaUpdates` | `false` | `true` = GitHub prereleases / nightly website feed |
+| `CheckForBetaUpdates` | `true` | `true` = GitHub prereleases / nightly website feed. Defaults on while the project ships alphas, which are published as prereleases |
 | `UpdateFeedType` | `github` | `github` or `website` |
 | `GitHubRepoUrl` | `https://github.com/OpenLiveWriter/OpenLiveWriter` | Repo whose Releases feed the check |
 | `CheckUpdatesUrl` | `https://openlivewriter.com/releases/stable` | Website feed (stable) |
 | `CheckBetaUpdatesUrl` | `https://openlivewriter.com/releases/nightly` | Website feed (beta/nightly) |
 
-## Publishing a Windows release
+## Publishing a release
 
-Tag with `win-v*` to run `.github/workflows/windows-release.yml`, which
-builds, packs with `vpk pack --channel stable`, and publishes the Velopack
-artifacts (`releases.stable.json`, nupkg, `OpenLiveWriterSetup.exe`) to a
-GitHub Release. The `GithubSource` in the app finds the update there.
+Dispatch `.github/workflows/release.yml` on the org repo against
+`develop/windows`, with `dry_run=false`. One run builds both platforms and
+publishes a single GitHub Release carrying both installers and both update
+feeds. There is no `win-v*` tag trigger any more, and no separate macOS
+release workflow.
 
-Tag names should match the version in `version.txt` (e.g. `win-v0.7.0`
-when `version.txt` is `0.7.0.0`), because Velopack compares release
-versions, not tag names; the tag is just the trigger.
+`version.txt` drives everything; nothing reads a version off a tag. It holds
+`MAJOR.MINOR.PATCH.BUILD`, where you maintain the semver and the workflow
+stamps `BUILD` from the run number, commits it, and tags `v<semver>`:
 
-The workflow signs via SignClient when `SignClientUser`/`SignClientSecret`
-secrets are set; otherwise it publishes unsigned builds (SmartScreen
-warning on install).
+| Derived value | Example | Why it differs |
+|---|---|---|
+| assemblies | `0.7.0.4` | `AssemblyVersion` / `FileVersion` |
+| tag and release | `v0.7.0` | one release per semver, refreshed in place |
+| Velopack package | `0.7.0-alpha.4` | vpk rejects 4-part versions outright |
+| `CFBundleShortVersionString` | `0.7.0` | the key takes at most three components |
+| `CFBundleVersion` | `4` | |
+
+Velopack compares package versions, not tag names, so the `-alpha.<build>`
+suffix is what makes each build sort above the last. That is also why
+`CheckForBetaUpdates` defaults on: with prereleases excluded, an installed
+alpha would never see a newer alpha.
+
+## Signing
+
+Builds are currently **unsigned**, so Windows shows a SmartScreen warning on
+install and macOS Gatekeeper blocks a downloaded `.pkg` outright.
+
+The previous Windows path called the .NET Foundation signing service through
+SignClient. That service is gone (`codesign.dotnetfoundation.org` answers
+HTTP 500), so the plumbing was removed rather than left looking functional.
+
+The intended replacement is SignPath Foundation, which is free for OSS and
+issues an OV-level certificate. Note it submits artifacts to a service and
+signs nested files there, so it will not slot into vpk's `--signTemplate`;
+the release job needs a submit/await/download step around `vpk pack`.
+
+macOS signing is already wired: set `OLW_CODESIGN_IDENTITY`,
+`OLW_INSTALL_IDENTITY` and `OLW_NOTARY_PROFILE` and `build-mac.sh` passes
+them to vpk, which signs the app, signs the `.pkg` and notarizes.
 
 ## Website feed layout
 

@@ -13,10 +13,6 @@ environment:
   OlwBloggerClientId: 597389294595-271ukaucs8ghmc6c6cnhrbef2c02g5qa.apps.googleusercontent.com
   OlwBloggerClientSecret:
     secure: ym7cbPINJz58iEgVlQCDbRz2W1CTYnxWsvMpMvxHFY4=
-  SignClientSecret:
-    secure: Ks35w5ZOk78Bla9953hrhvDm2+t2NY83VgI+IcW92L0=
-  SignClientUser:
-    secure: v2LT5VnPWsq3/aLDN0xsyNjdwCZutUSH8CS/htCB8yXbzmwWrQIWs7TvJdrFqZB+
 nuget:
   disable_publish_on_pr: true
 install:
@@ -30,7 +26,6 @@ install:
       $env:PATH = "C:\Program Files\dotnet;$env:PATH"
       dotnet --version
   - cmd: dotnet tool install -g vpk --version 0.0.1251
-  - cmd: nuget install SignClient -Version 0.9.0 -SolutionDir %APPVEYOR_BUILD_FOLDER% -Verbosity quiet -ExcludeVersion
 build_script:
   - cmd: rmdir C:\Tools\vcpkg /q /s 
   # The .NET 10 install above ran in a separate PowerShell context; cmd.exe
@@ -47,7 +42,7 @@ after_build:
       call getversion.cmd &&
       vpk pack
       --packId OpenLiveWriter
-      --packVersion %dottedVersion%
+      --packVersion %packVersion%
       --packTitle "Open Live Writer"
       --packDir src\managed\OpenLiveWriter\bin\%OLW_CONFIG%
       --mainExe OpenLiveWriter.exe
@@ -56,7 +51,6 @@ after_build:
       --outputDir Releases
       --shortcuts Desktop,StartMenuRoot
       --skipVeloAppCheck
-      --signTemplate "dotnet %APPVEYOR_BUILD_FOLDER%\packages\SignClient\tools\netcoreapp2.0\SignClient.dll sign -c %APPVEYOR_BUILD_FOLDER%\SignClient\appsettings.json -i {{file}} -r %SignClientUser% -s %SignClientSecret% -n \"Open Live Writer\" -d \"Open Live Writer\" -u \"http://openlivewriter.com\""
 artifacts:
 - path: Releases\*
   name: Setup

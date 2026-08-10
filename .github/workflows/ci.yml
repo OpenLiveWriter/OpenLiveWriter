@@ -36,9 +36,6 @@ jobs:
         # vpk version must match the Velopack NuGet package (Directory.Packages.props)
         run: dotnet tool install -g vpk --version 0.0.1251
 
-      - name: Install SignClient
-        run: nuget install SignClient -Version 0.9.0 -SolutionDir ${{ github.workspace }} -Verbosity quiet -ExcludeVersion
-
       - name: Build solution
         # dotnet msbuild == MSBuild with .NET 10 SDK support. The v143 C++
         # toolset (Ribbon project) ships with Visual Studio on windows-latest.
@@ -89,47 +86,24 @@ jobs:
           dotnet run scripts/AssertReleaseBuild.cs -- "src/managed/OpenLiveWriter/bin/$env:OLW_CONFIG/OpenLiveWriter.dll"
           if ($LASTEXITCODE -ne 0) { throw "Refusing to package: the built app is not a Release build." }
 
-      - name: Package with Velopack (signed)
-        # vpk signs the app binaries and the Setup.exe via SignClient when the
-        # secrets are available (not the case for fork PRs). Releases/ is
-        # cleaned first: the PostBuild.CreateInstaller project already packed
-        # this version during the solution build, and vpk refuses to pack an
-        # equal-or-greater version.
-        if: env.SIGN_CLIENT_SECRET != ''
-        shell: cmd
-        env:
-          SIGN_CLIENT_SECRET: ${{ secrets.SignClientSecret }}
-          SIGN_CLIENT_USER: ${{ secrets.SignClientUser }}
-        run: |
-          if exist Releases rd /s /q Releases
-          call getversion.cmd
-          vpk pack ^
-            --packId OpenLiveWriter ^
-            --packVersion %dottedVersion% ^
-            --packTitle "Open Live Writer" ^
-            --packDir src\managed\OpenLiveWriter\bin\%OLW_CONFIG% ^
-            --mainExe OpenLiveWriter.exe ^
-            --icon src\managed\OpenLiveWriter.PostEditor\Images\Writer.ico ^
-            --channel stable ^
-            --outputDir Releases ^
-            --shortcuts Desktop,StartMenuRoot ^
-            --skipVeloAppCheck ^
-            --signTemplate "dotnet %GITHUB_WORKSPACE%\packages\SignClient\tools\netcoreapp2.0\SignClient.dll sign -c %GITHUB_WORKSPACE%\SignClient\appsettings.json -i {{file}} -r %SIGN_CLIENT_USER% -s %SIGN_CLIENT_SECRET% -n ""Open Live Writer"" -d ""Open Live Writer"" -u ""http://openlivewriter.com"""
-
-      - name: Package with Velopack (unsigned)
+      - name: Package with Velopack
+        # Unsigned. This used to branch on SignClient secrets and call the .NET
+        # Foundation signing service, but codesign.dotnetfoundation.org is gone
+        # (it answers HTTP 500), so that path could never run. Signing returns
+        # via SignPath Foundation, which submits artifacts to a service and
+        # signs nested files there rather than shelling out per file, so it will
+        # not come back as a --signTemplate.
+        #
         # Releases/ is cleaned first: the PostBuild.CreateInstaller project
-        # already packed this version during the solution build, and vpk
-        # refuses to pack an equal-or-greater version.
-        if: env.SIGN_CLIENT_SECRET == ''
+        # already packed this version during the solution build, and vpk refuses
+        # to pack an equal-or-greater version.
         shell: cmd
-        env:
-          SIGN_CLIENT_SECRET: ${{ secrets.SignClientSecret }}
         run: |
           if exist Releases rd /s /q Releases
           call getversion.cmd
           vpk pack ^
             --packId OpenLiveWriter ^
-            --packVersion %dottedVersion% ^
+            --packVersion %packVersion% ^
             --packTitle "Open Live Writer" ^
             --packDir src\managed\OpenLiveWriter\bin\%OLW_CONFIG% ^
             --mainExe OpenLiveWriter.exe ^
