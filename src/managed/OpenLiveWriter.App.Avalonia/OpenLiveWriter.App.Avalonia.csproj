@@ -30,6 +30,9 @@
     <PackageReference Include="Avalonia.AvaloniaEdit" />
     <PackageReference Include="WeCantSpell.Hunspell" />
     <PackageReference Include="SkiaSharp" />
+    <!-- Self-update from GitHub Releases. PostEditor's UpdateManager cannot be
+         reused: that project targets net10.0-windows. See AppUpdater.cs. -->
+    <PackageReference Include="Velopack" />
   </ItemGroup>
 
   <ItemGroup>

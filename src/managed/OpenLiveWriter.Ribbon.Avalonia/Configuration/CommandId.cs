@@ -10,6 +10,7 @@ namespace OpenLiveWriter.Localization
     {
         None,
         About = 23395,
+        CheckForUpdates = 50518,
         Accounts = 30022,
         ActivateContextualTab = 23422,
         AddDecorator = 23424,
