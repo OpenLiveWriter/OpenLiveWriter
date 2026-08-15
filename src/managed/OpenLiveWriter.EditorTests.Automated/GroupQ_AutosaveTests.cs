@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 using OpenLiveWriter.App.Avalonia.Editor;
 using OpenLiveWriter.App.Avalonia.Settings;
+using OpenLiveWriter.Publishing;
 using OpenLiveWriter.Publishing.Drafts;
 
 namespace OpenLiveWriter.EditorTests.Automated
@@ -42,6 +43,10 @@ namespace OpenLiveWriter.EditorTests.Automated
         private static AppPreferences Prefs(bool enabled = true, int minutes = 5) =>
             new AppPreferences { AutoSaveDrafts = enabled, AutoSaveMinutes = minutes };
 
+        private static Task<(string Title, ContentFormat BodyFormat, string BodyHtml, string BodyMarkdown)> CaptureHtml(
+            string title, string html) =>
+            Task.FromResult((title, ContentFormat.Html, html, (string)null));
+
         [Test]
         public async Task Tick_DirtyAndEnabled_SavesDraftAndClearsDirty()
         {
@@ -52,7 +57,7 @@ namespace OpenLiveWriter.EditorTests.Automated
             var prefs = Prefs();
             int autosavedCount = 0;
             var controller = new AutosaveController(
-                session, () => prefs, () => Task.FromResult(("My Title", "<p>draft body</p>")));
+                session, () => prefs, () => CaptureHtml("My Title", "<p>draft body</p>"));
             controller.Autosaved += (s, e) => autosavedCount++;
 
             bool saved = await controller.TickAsync();
@@ -70,7 +75,7 @@ namespace OpenLiveWriter.EditorTests.Automated
             DraftSession session = NewSession();
             var prefs = Prefs();
             var controller = new AutosaveController(
-                session, () => prefs, () => Task.FromResult(("T", "<p>x</p>")));
+                session, () => prefs, () => CaptureHtml("T", "<p>x</p>"));
 
             bool saved = await controller.TickAsync();
 
@@ -85,7 +90,7 @@ namespace OpenLiveWriter.EditorTests.Automated
             session.UpdateBody("<p>unsaved</p>");
             var prefs = Prefs(enabled: false);
             var controller = new AutosaveController(
-                session, () => prefs, () => Task.FromResult(("T", "<p>unsaved</p>")));
+                session, () => prefs, () => CaptureHtml("T", "<p>unsaved</p>"));
 
             bool saved = await controller.TickAsync();
 
@@ -99,7 +104,7 @@ namespace OpenLiveWriter.EditorTests.Automated
         {
             var prefs = Prefs(minutes: 7);
             var controller = new AutosaveController(
-                NewSession(), () => prefs, () => Task.FromResult(("T", (string)null)));
+                NewSession(), () => prefs, () => CaptureHtml("T", null));
             Assert.That(controller.Interval, Is.EqualTo(TimeSpan.FromMinutes(7)));
         }
 
@@ -108,7 +113,7 @@ namespace OpenLiveWriter.EditorTests.Automated
         {
             var prefs = Prefs(minutes: 0);
             var controller = new AutosaveController(
-                NewSession(), () => prefs, () => Task.FromResult(("T", (string)null)));
+                NewSession(), () => prefs, () => CaptureHtml("T", null));
             Assert.That(controller.Interval,
                 Is.EqualTo(TimeSpan.FromMinutes(AutosaveController.DefaultIntervalMinutes)));
         }
@@ -122,7 +127,7 @@ namespace OpenLiveWriter.EditorTests.Automated
             session.UpdateBody("<p>last known</p>");
             var prefs = Prefs();
             var controller = new AutosaveController(
-                session, () => prefs, () => Task.FromResult(("T", (string)null)));
+                session, () => prefs, () => CaptureHtml("T", null));
 
             bool saved = await controller.TickAsync();
 

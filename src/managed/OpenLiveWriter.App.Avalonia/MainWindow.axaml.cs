@@ -339,16 +339,16 @@ namespace OpenLiveWriter.App.Avalonia
             if (editorPanel?.IsMarkdownMode == true)
             {
                 string markdown = await editorPanel.GetCanonicalBodyAsync();
-                _draftSession.Current.BodyFormat = ContentFormat.Markdown;
-                _draftSession.Current.BodyMarkdown = markdown;
-                _draftSession.Save(title);
+                _draftSession.Save(title, bodyMarkdown: markdown, bodyFormat: ContentFormat.Markdown);
             }
             else
             {
                 var editor = GetEditor();
                 string html = editor != null ? await editor.GetContentAsync() : null;
-                _draftSession.Current.BodyFormat = ContentFormat.Html;
-                _draftSession.Save(title, html ?? _draftSession.Current.BodyHtml);
+                _draftSession.Save(
+                    title,
+                    bodyHtml: html ?? _draftSession.Current.BodyHtml,
+                    bodyFormat: ContentFormat.Html);
             }
 
             UpdateWindowTitle();

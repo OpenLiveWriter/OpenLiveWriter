@@ -4,6 +4,7 @@
 using System;
 using System.Threading.Tasks;
 using OpenLiveWriter.App.Avalonia.Settings;
+using OpenLiveWriter.Publishing;
 
 namespace OpenLiveWriter.App.Avalonia.Editor
 {
@@ -23,12 +24,12 @@ namespace OpenLiveWriter.App.Avalonia.Editor
 
         private readonly DraftSession _session;
         private readonly Func<AppPreferences> _getPreferences;
-        private readonly Func<Task<(string Title, string BodyHtml)>> _captureContent;
+        private readonly Func<Task<(string Title, ContentFormat BodyFormat, string BodyHtml, string BodyMarkdown)>> _captureContent;
 
         public AutosaveController(
             DraftSession session,
             Func<AppPreferences> getPreferences,
-            Func<Task<(string Title, string BodyHtml)>> captureContent)
+            Func<Task<(string Title, ContentFormat BodyFormat, string BodyHtml, string BodyMarkdown)>> captureContent)
         {
             _session = session ?? throw new ArgumentNullException(nameof(session));
             _getPreferences = getPreferences ?? throw new ArgumentNullException(nameof(getPreferences));
@@ -63,8 +64,16 @@ namespace OpenLiveWriter.App.Avalonia.Editor
             if (!IsEnabled || !_session.IsDirty)
                 return false;
 
-            var (title, bodyHtml) = await _captureContent();
-            _session.Save(title, bodyHtml ?? _session.Current.BodyHtml);
+            var (title, bodyFormat, bodyHtml, bodyMarkdown) = await _captureContent();
+            _session.Save(
+                title,
+                bodyFormat == ContentFormat.Html
+                    ? bodyHtml ?? _session.Current.BodyHtml
+                    : bodyHtml,
+                bodyFormat == ContentFormat.Markdown
+                    ? bodyMarkdown ?? _session.Current.BodyMarkdown
+                    : bodyMarkdown,
+                bodyFormat);
             Autosaved?.Invoke(this, EventArgs.Empty);
             return true;
         }

@@ -49,14 +49,32 @@ namespace OpenLiveWriter.App.Avalonia.Editor
             }
         }
 
-        /// <summary>Updates the body HTML, marking dirty only when the value actually changes.</summary>
-        public void UpdateBody(string html)
+        /// <summary>
+        /// Updates the canonical body for the given format, marking dirty only when
+        /// the value or format actually changes.
+        /// </summary>
+        public void UpdateBody(string body, ContentFormat format = ContentFormat.Html)
         {
-            html ??= string.Empty;
-            if (!string.Equals(Current.BodyHtml, html, StringComparison.Ordinal))
+            body ??= string.Empty;
+            if (format == ContentFormat.Markdown)
             {
-                Current.BodyHtml = html;
-                Current.IsDirty = true;
+                if (Current.BodyFormat != ContentFormat.Markdown
+                    || !string.Equals(Current.BodyMarkdown, body, StringComparison.Ordinal))
+                {
+                    Current.BodyFormat = ContentFormat.Markdown;
+                    Current.BodyMarkdown = body;
+                    Current.IsDirty = true;
+                }
+            }
+            else
+            {
+                if (Current.BodyFormat != ContentFormat.Html
+                    || !string.Equals(Current.BodyHtml, body, StringComparison.Ordinal))
+                {
+                    Current.BodyFormat = ContentFormat.Html;
+                    Current.BodyHtml = body;
+                    Current.IsDirty = true;
+                }
             }
         }
 
@@ -70,11 +88,32 @@ namespace OpenLiveWriter.App.Avalonia.Editor
         /// <summary>
         /// Persists the current document (creating a new draft or overwriting an
         /// existing one). Optionally sets the title/body first. Returns the saved doc.
+        /// When <paramref name="bodyFormat"/> is Markdown, <paramref name="bodyMarkdown"/>
+        /// is authoritative; otherwise <paramref name="bodyHtml"/> is authoritative.
         /// </summary>
-        public PostDocument Save(string title = null, string bodyHtml = null)
+        public PostDocument Save(
+            string title = null,
+            string bodyHtml = null,
+            string bodyMarkdown = null,
+            ContentFormat? bodyFormat = null)
         {
             if (title != null) Current.Title = title;
-            if (bodyHtml != null) Current.BodyHtml = bodyHtml;
+
+            ContentFormat format = bodyFormat ?? Current.BodyFormat;
+            Current.BodyFormat = format;
+
+            if (format == ContentFormat.Markdown)
+            {
+                if (bodyMarkdown != null)
+                    Current.BodyMarkdown = bodyMarkdown;
+                if (bodyHtml != null)
+                    Current.BodyHtml = bodyHtml;
+            }
+            else if (bodyHtml != null)
+            {
+                Current.BodyHtml = bodyHtml;
+            }
+
             return _store.Save(Current);
         }
 
