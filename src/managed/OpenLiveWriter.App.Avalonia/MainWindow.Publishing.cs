@@ -11,6 +11,7 @@ using OpenLiveWriter.App.Avalonia.Dialogs;
 using OpenLiveWriter.App.Avalonia.Editor;
 using OpenLiveWriter.App.Avalonia.Settings;
 using OpenLiveWriter.Localization;
+using OpenLiveWriter.Markdown;
 using OpenLiveWriter.Publishing;
 using OpenLiveWriter.Publishing.Accounts;
 using OpenLiveWriter.Ribbon.Avalonia.Controls;
@@ -24,6 +25,8 @@ namespace OpenLiveWriter.App.Avalonia
     /// </summary>
     public partial class MainWindow
     {
+        private readonly IMarkdownService _markdownService = new MarkdownService();
+
         private void InitializeAccounts()
         {
             try
@@ -332,15 +335,21 @@ namespace OpenLiveWriter.App.Avalonia
             try
             {
                 IBlogClient client = _accountService.CreateClient(account);
+                PostDocument document = _draftSession?.Current;
+                ContentFormat bodyFormat = document?.BodyFormat ?? ContentFormat.Html;
+                ContentFormat publishFormat = account.PublishFormat;
+                string canonicalBody = EditorContentPublisher.GetCanonicalBody(
+                    html, bodyFormat, document?.BodyMarkdown, _markdownService);
                 // Pages go through wp.newPage/wp.editPage so they stay pages on the
                 // server; posts use metaWeblog.newPost/editPost (PublishOrEdit decides).
                 string postId = await EditorContentPublisher.PublishOrEditAsync(
-                    client, account.BlogId, existingPostId, title, html, publish, categories, keywords,
-                    isPage: _draftSession?.Current.IsPage == true,
-                    publishDateUtc: _draftSession?.Current.PublishDateUtc,
-                    slug: _draftSession?.Current.Slug,
-                    excerpt: _draftSession?.Current.Excerpt,
-                    pingUrls: _draftSession?.Current.PingUrls,
+                    client, account.BlogId, existingPostId, title, canonicalBody, bodyFormat, publishFormat,
+                    _markdownService, publish, categories, keywords,
+                    isPage: document?.IsPage == true,
+                    publishDateUtc: document?.PublishDateUtc,
+                    slug: document?.Slug,
+                    excerpt: document?.Excerpt,
+                    pingUrls: document?.PingUrls,
                     imageResizer: ImageEditing.PublishImageResizerFactory.Create());
 
                 if (_draftSession != null)

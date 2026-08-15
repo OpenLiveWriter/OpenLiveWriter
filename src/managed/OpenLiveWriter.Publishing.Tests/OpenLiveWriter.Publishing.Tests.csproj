@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\OpenLiveWriter.Markdown\OpenLiveWriter.Markdown.csproj" />
     <ProjectReference Include="..\OpenLiveWriter.Publishing\OpenLiveWriter.Publishing.csproj" />
   </ItemGroup>
 

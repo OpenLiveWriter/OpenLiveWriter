@@ -46,5 +46,6 @@
     <ProjectReference Include="..\OpenLiveWriter.Platform.Mac\OpenLiveWriter.Platform.Mac.csproj" />
     <ProjectReference Include="..\OpenLiveWriter.Ribbon.Avalonia\OpenLiveWriter.Ribbon.Avalonia.csproj" />
     <ProjectReference Include="..\OpenLiveWriter.Publishing\OpenLiveWriter.Publishing.csproj" />
+    <ProjectReference Include="..\OpenLiveWriter.Markdown\OpenLiveWriter.Markdown.csproj" />
   </ItemGroup>
 </Project>

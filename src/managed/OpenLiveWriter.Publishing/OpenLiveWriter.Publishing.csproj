@@ -24,4 +24,8 @@
     <Compile Include="..\GlobalAssemblyInfo.cs" Link="GlobalAssemblyInfo.cs" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\OpenLiveWriter.Markdown\OpenLiveWriter.Markdown.csproj" />
+  </ItemGroup>
+
 </Project>

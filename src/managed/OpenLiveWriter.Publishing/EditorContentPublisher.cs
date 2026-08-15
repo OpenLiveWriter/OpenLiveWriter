@@ -4,6 +4,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using OpenLiveWriter.Markdown;
 
 namespace OpenLiveWriter.Publishing
 {
@@ -60,6 +61,47 @@ namespace OpenLiveWriter.Publishing
         }
 
         /// <summary>
+        /// Resolves the canonical publish body from live editor HTML and persisted document
+        /// fields. When the document is Markdown, <paramref name="bodyMarkdown"/> is preferred;
+        /// otherwise the editor HTML is converted to Markdown.
+        /// </summary>
+        public static string GetCanonicalBody(string editorHtml, ContentFormat bodyFormat, string bodyMarkdown,
+            IMarkdownService markdown)
+        {
+            editorHtml ??= string.Empty;
+            if (bodyFormat == ContentFormat.Html)
+                return editorHtml;
+
+            bodyMarkdown ??= string.Empty;
+            if (!string.IsNullOrEmpty(bodyMarkdown))
+                return bodyMarkdown;
+
+            if (markdown == null)
+                throw new System.ArgumentNullException(nameof(markdown));
+            return markdown.ToMarkdown(editorHtml);
+        }
+
+        /// <summary>
+        /// Uploads inline images (when publishing as HTML), resolves the body for the account's
+        /// publish format, and then either creates a new post or edits an existing server post.
+        /// </summary>
+        public static Task<string> PublishOrEditAsync(IBlogClient client, string blogId, string existingPostId,
+            string title, string canonicalBody, ContentFormat bodyFormat, ContentFormat publishFormat,
+            IMarkdownService markdown, bool publish, IEnumerable<string> categories,
+            string keywords = null, bool isPage = false, System.DateTime? publishDateUtc = null,
+            string slug = null, string excerpt = null, IEnumerable<string> pingUrls = null,
+            PublishImageResizer imageResizer = null)
+        {
+            if (markdown == null)
+                throw new System.ArgumentNullException(nameof(markdown));
+
+            string resolved = PublishBodyResolver.Resolve(canonicalBody, bodyFormat, publishFormat, markdown);
+            return PublishOrEditAsync(
+                client, blogId, existingPostId, title, resolved, publishFormat, publish, categories,
+                keywords, isPage, publishDateUtc, slug, excerpt, pingUrls, imageResizer);
+        }
+
+        /// <summary>
         /// Uploads inline images (rewriting the body to hosted URLs) and then either creates
         /// a new post or, when <paramref name="existingPostId"/> is supplied, edits the
         /// existing server post. Returns the server post id (the existing id on an edit).
@@ -78,16 +120,21 @@ namespace OpenLiveWriter.Publishing
         /// single-upload behavior. See <see cref="ImagePublisher"/>.
         /// </summary>
         public static async Task<string> PublishOrEditAsync(IBlogClient client, string blogId, string existingPostId,
-            string title, string editorHtml, bool publish, IEnumerable<string> categories,
+            string title, string bodyContents, ContentFormat publishFormat, bool publish, IEnumerable<string> categories,
             string keywords = null, bool isPage = false, System.DateTime? publishDateUtc = null,
             string slug = null, string excerpt = null, IEnumerable<string> pingUrls = null,
             PublishImageResizer imageResizer = null)
         {
-            string hosted = await ImagePublisher.RewriteInlineImagesAsync(
-                client, blogId, editorHtml ?? string.Empty, readLocalFile: null, resizer: imageResizer).ConfigureAwait(false);
+            string contents = bodyContents ?? string.Empty;
+            if (publishFormat == ContentFormat.Html)
+            {
+                contents = await ImagePublisher.RewriteInlineImagesAsync(
+                    client, blogId, contents, readLocalFile: null, resizer: imageResizer).ConfigureAwait(false);
+            }
+
             string[] categoryArray = categories?.Where(c => !string.IsNullOrEmpty(c)).ToArray()
                 ?? System.Array.Empty<string>();
-            BlogPost post = BuildPost(title, hosted, publish, categoryArray);
+            BlogPost post = BuildPost(title, contents, publish, categoryArray);
             post.IsPage = isPage;
             post.DateCreatedUtc = publishDateUtc;
             post.Slug = slug ?? string.Empty;
@@ -119,6 +166,23 @@ namespace OpenLiveWriter.Publishing
             return post.IsPage
                 ? await client.NewPageAsync(blogId, post, publish).ConfigureAwait(false)
                 : await client.NewPostAsync(blogId, post, publish).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Uploads inline images (rewriting the body to hosted URLs) and then either creates
+        /// a new post or, when <paramref name="existingPostId"/> is supplied, edits the
+        /// existing server post. Returns the server post id (the existing id on an edit).
+        /// Assumes HTML body content (legacy entry point).
+        /// </summary>
+        public static Task<string> PublishOrEditAsync(IBlogClient client, string blogId, string existingPostId,
+            string title, string editorHtml, bool publish, IEnumerable<string> categories,
+            string keywords = null, bool isPage = false, System.DateTime? publishDateUtc = null,
+            string slug = null, string excerpt = null, IEnumerable<string> pingUrls = null,
+            PublishImageResizer imageResizer = null)
+        {
+            return PublishOrEditAsync(
+                client, blogId, existingPostId, title, editorHtml, ContentFormat.Html, publish, categories,
+                keywords, isPage, publishDateUtc, slug, excerpt, pingUrls, imageResizer);
         }
 
         /// <summary>
