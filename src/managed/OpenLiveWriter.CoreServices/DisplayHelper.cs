@@ -383,6 +383,17 @@ namespace OpenLiveWriter.CoreServices
                 return intValue;
             return (int)floatValue + 1;
         }
+
+        /// <summary>
+        /// Cloaks or uncloaks a top-level window from DWM composition. While
+        /// cloaked the window is not presented on screen but still paints
+        /// normally, so a fully-rendered surface can be built up before the
+        /// window appears. Safe to call on any OS version (no-op on failure).
+        /// </summary>
+        public static void SetWindowCloaked(IntPtr hwnd, bool cloaked)
+        {
+            DwmHelper.SetCloaked(hwnd, cloaked);
+        }
     }
 
     internal class DwmHelper
@@ -438,6 +449,37 @@ namespace OpenLiveWriter.CoreServices
 
         [DllImport("dwmapi.dll")]
         private static extern int DwmIsCompositionEnabled(out bool isEnabled);
+
+        // DWMWA_CLOAK: hides a window from DWM composition while leaving it
+        // fully "visible" to Win32, so it still receives and renders WM_PAINT.
+        // Supported on Windows 8 and later; the call simply fails elsewhere.
+        private const int DWMWA_CLOAK = 14;
+
+        [DllImport("dwmapi.dll")]
+        private static extern int DwmSetWindowAttribute(IntPtr hwnd, int dwAttribute, ref int pvAttribute, int cbAttribute);
+
+        /// <summary>
+        /// Cloaks or uncloaks a top-level window. While cloaked the window is
+        /// not composed by DWM (nothing is presented for it) but it paints
+        /// normally, which lets a caller build up a fully-rendered surface
+        /// before the window ever appears on screen. Never throws: failures
+        /// (pre-Windows 8, DWM unavailable) leave the window uncloaked.
+        /// </summary>
+        public static void SetCloaked(IntPtr hwnd, bool cloaked)
+        {
+            if (hwnd == IntPtr.Zero)
+                return;
+
+            try
+            {
+                int value = cloaked ? 1 : 0;
+                DwmSetWindowAttribute(hwnd, DWMWA_CLOAK, ref value, Marshal.SizeOf(typeof(int)));
+            }
+            catch (Exception e)
+            {
+                Debug.Fail(e.ToString());
+            }
+        }
 
         public static bool GetCompositionEnabled(bool flush)
         {

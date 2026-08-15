@@ -692,6 +692,14 @@ namespace OpenLiveWriter.Interop.Windows
 
         [DllImport("user32.dll")]
         public static extern int SetMenuInfo(IntPtr hmenu, ref MENUINFO mi);
+
+        public const uint RDW_INVALIDATE = 0x0001;
+        public const uint RDW_ERASE = 0x0004;
+        public const uint RDW_ALLCHILDREN = 0x0080;
+        public const uint RDW_UPDATENOW = 0x0100;
+
+        [DllImport("user32.dll")]
+        public static extern bool RedrawWindow(IntPtr hWnd, IntPtr lprcUpdate, IntPtr hrgnUpdate, uint flags);
     }
 
     public struct SM

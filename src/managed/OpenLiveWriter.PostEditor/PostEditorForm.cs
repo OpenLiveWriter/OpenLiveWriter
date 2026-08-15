@@ -12,6 +12,7 @@ using OpenLiveWriter.BlogClient;
 using OpenLiveWriter.CoreServices.Diagnostics;
 using OpenLiveWriter.CoreServices.Marketization;
 using OpenLiveWriter.Extensibility.BlogClient;
+using OpenLiveWriter.Interop.Windows;
 using OpenLiveWriter.Localization;
 using OpenLiveWriter.PostEditor.BlogProviderButtons;
 using OpenLiveWriter.ApplicationFramework;
@@ -170,6 +171,18 @@ namespace OpenLiveWriter.PostEditor
             //_framelessManager.RemoveOwnedForm(f);
         }
 
+        protected override void OnHandleCreated(EventArgs e)
+        {
+            base.OnHandleCreated(e);
+            // Cloak the window from DWM composition until OnLoad has finished
+            // building the UI and forced a full paint (see OnLoad). Without
+            // this the window spends its first visible frames with no rendered
+            // surface, which DWM presents as fully transparent: the desktop
+            // shows through the ribbon strip and the ribbon icons then appear
+            // to flash in one by one as they paint.
+            DisplayHelper.SetWindowCloaked(Handle, true);
+        }
+
         protected override void OnLoad(EventArgs e)
         {
             Hide();
@@ -202,11 +215,33 @@ namespace OpenLiveWriter.PostEditor
 
             //UpdateChecker.UpdateFound += new EventHandler(_postEditorMainControl.ShowUpdatesAvailable);
 
-            // close splash screen
-            CloseSplashScreen();
-
             ResumeLayout();
             Show();
+
+            // The window has been hidden for all of OnLoad, so DWM holds no
+            // rendered surface for it. It is still cloaked (see
+            // OnHandleCreated), meaning nothing is presented yet: paint the
+            // entire control tree synchronously now, then close the splash
+            // screen and uncloak, so the window appears fully rendered
+            // instead of ghosting through to the desktop and flashing its
+            // ribbon icons in piecemeal.
+            try
+            {
+                // Control.Refresh()/Update() only forces WM_PAINT for the form
+                // itself; child controls would still paint piecemeal over the
+                // next message-loop turns. RedrawWindow with ALLCHILDREN +
+                // UPDATENOW repaints the entire window tree synchronously.
+                User32.RedrawWindow(Handle, IntPtr.Zero, IntPtr.Zero,
+                    User32.RDW_INVALIDATE | User32.RDW_ERASE |
+                    User32.RDW_ALLCHILDREN | User32.RDW_UPDATENOW);
+
+                // close splash screen
+                CloseSplashScreen();
+            }
+            finally
+            {
+                DisplayHelper.SetWindowCloaked(Handle, false);
+            }
         }
 
         protected override void OnActivated(EventArgs e)
