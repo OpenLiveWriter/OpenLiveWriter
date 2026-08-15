@@ -44,6 +44,7 @@ namespace OpenLiveWriter.App.Avalonia
             RefreshBlogSelector();
             UpdateStatusBarExtras();
             RefreshThemeToggleState();
+            ApplyEditingFormatToShell();
         }
 
         // Fills the ribbon's blog-selector dropdown from the stored accounts and
@@ -79,6 +80,7 @@ namespace OpenLiveWriter.App.Avalonia
             UpdateStatus($"Current blog: {_accountService.CurrentAccount?.DisplayLabel}");
             UpdateStatusBarExtras();
             RefreshThemeToggleState();
+            ApplyEditingFormatToShell();
         }
 
         private async Task<bool> TryHandlePublishCommandAsync(CommandId commandId)
@@ -301,6 +303,7 @@ namespace OpenLiveWriter.App.Avalonia
                 return;
             }
 
+            var editorPanel = this.FindControl<EditorPanel>("EditorPanel");
             string title = _titleEditor?.Text ?? _draftSession?.Current.Title ?? string.Empty;
             string[] categories = _draftSession?.Current.Categories?.ToArray() ?? Array.Empty<string>();
             string keywords = PostDocument.JoinKeywords(_draftSession?.Current.Keywords);
@@ -338,8 +341,12 @@ namespace OpenLiveWriter.App.Avalonia
                 PostDocument document = _draftSession?.Current;
                 ContentFormat bodyFormat = document?.BodyFormat ?? ContentFormat.Html;
                 ContentFormat publishFormat = account.PublishFormat;
-                string canonicalBody = EditorContentPublisher.GetCanonicalBody(
-                    html, bodyFormat, document?.BodyMarkdown, _markdownService);
+                string canonicalBody = editorPanel?.IsMarkdownMode == true
+                    ? await editorPanel.GetCanonicalBodyAsync()
+                    : EditorContentPublisher.GetCanonicalBody(
+                        html, bodyFormat, document?.BodyMarkdown, _markdownService);
+                if (editorPanel?.IsMarkdownMode == true)
+                    bodyFormat = ContentFormat.Markdown;
                 // Pages go through wp.newPage/wp.editPage so they stay pages on the
                 // server; posts use metaWeblog.newPost/editPost (PublishOrEdit decides).
                 string postId = await EditorContentPublisher.PublishOrEditAsync(

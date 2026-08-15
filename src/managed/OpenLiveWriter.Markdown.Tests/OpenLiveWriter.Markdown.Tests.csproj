@@ -16,7 +16,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\OpenLiveWriter.App.Avalonia\OpenLiveWriter.App.Avalonia.csproj" />
     <ProjectReference Include="..\OpenLiveWriter.Markdown\OpenLiveWriter.Markdown.csproj" />
+    <ProjectReference Include="..\OpenLiveWriter.Publishing\OpenLiveWriter.Publishing.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -12,12 +12,15 @@ using OpenLiveWriter.App.Avalonia.Commands;
 using OpenLiveWriter.App.Avalonia.Dialogs;
 using OpenLiveWriter.App.Avalonia.Theming;
 using OpenLiveWriter.Localization;
+using OpenLiveWriter.Markdown;
+using OpenLiveWriter.Publishing;
 
 namespace OpenLiveWriter.App.Avalonia.Editor
 {
     public partial class EditorPanel : UserControl
     {
         private readonly CommandBridge _commandBridge;
+        private readonly MarkdownEditingController _markdownController;
         private WebViewEditor _webViewEditor;
         private string _currentView = "edit"; // "edit", "source", "preview"
 
@@ -33,6 +36,7 @@ namespace OpenLiveWriter.App.Avalonia.Editor
         {
             InitializeComponent();
             _commandBridge = new CommandBridge();
+            _markdownController = new MarkdownEditingController(new MarkdownService());
 
             // Syntax highlighting for the Source view (HTML spans -> dark palette).
             var sourceEditor = this.FindControl<global::AvaloniaEdit.TextEditor>("SourceEditor");
@@ -45,6 +49,18 @@ namespace OpenLiveWriter.App.Avalonia.Editor
 
         public CommandBridge CommandBridge => _commandBridge;
         public WebViewEditor WebViewEditor => _webViewEditor;
+
+        /// <summary>Markdown view-sync helpers (pure conversion at view boundaries).</summary>
+        public MarkdownEditingController MarkdownController => _markdownController;
+
+        /// <summary>True when the panel is editing Markdown as the canonical body.</summary>
+        public bool IsMarkdownMode => _markdownController.IsMarkdownMode;
+
+        /// <summary>
+        /// Switches between HTML and Markdown editing based on the blog or document format.
+        /// </summary>
+        public void SetContentFormat(ContentFormat format) =>
+            _markdownController.SetContentFormat(format);
 
         private void InitializeWebViewEditor()
         {
@@ -121,24 +137,27 @@ namespace OpenLiveWriter.App.Avalonia.Editor
 
             if (view == "source")
             {
-                // Get HTML from WebView and show in source editor. Long base64
-                // data-URIs (embedded images) are elided to short tokens — a
-                // multi-MB single line stalls text layout and the pane renders
-                // blank; tokens are re-expanded on the way back to Edit.
+                // Get HTML from WebView and show in source editor. In Markdown mode the
+                // canonical body is Markdown; otherwise long base64 data-URIs (embedded
+                // images) are elided to short tokens — a multi-MB single line stalls text
+                // layout and the pane renders blank; tokens are re-expanded on the way
+                // back to Edit.
                 if (_webViewEditor != null)
                 {
                     var html = await _webViewEditor.GetContentAsync();
                     if (sourceEditor != null)
                     {
-                        string display = SourceViewSanitizer.ElideDataUris(html ?? "", _sourceDataUris);
-                        sourceEditor.Text = FormatHtml(display);
+                        string display = _markdownController.IsMarkdownMode
+                            ? _markdownController.CanonicalFromHtml(html ?? string.Empty)
+                            : FormatHtml(SourceViewSanitizer.ElideDataUris(html ?? string.Empty, _sourceDataUris));
+                        sourceEditor.Text = display;
                     }
                 }
                 StatusChanged?.Invoke(this, "Source view");
             }
             else if (view == "edit")
             {
-                // Coming from Source view: push the (possibly hand-edited) HTML back
+                // Coming from Source view: push the (possibly hand-edited) source back
                 // into the WebView. ONLY from source — the SourceEditor holds a stale
                 // snapshot after any further editing, so pushing it on a Preview->Edit
                 // switch would wipe real content (including inserted images).
@@ -147,15 +166,17 @@ namespace OpenLiveWriter.App.Avalonia.Editor
                     var source = this.FindControl<global::AvaloniaEdit.TextEditor>("SourceEditor");
                     if (source != null && !string.IsNullOrEmpty(source.Text) && _webViewEditor != null)
                     {
-                        string restored = SourceViewSanitizer.RestoreDataUris(source.Text, _sourceDataUris);
-                        await _webViewEditor.SetContentAsync(restored);
+                        string html = _markdownController.IsMarkdownMode
+                            ? _markdownController.HtmlFromCanonical(source.Text)
+                            : SourceViewSanitizer.RestoreDataUris(source.Text, _sourceDataUris);
+                        await _webViewEditor.SetContentAsync(html);
                     }
                 }
                 StatusChanged?.Invoke(this, "Edit view");
             }
             else if (view == "preview")
             {
-                await PopulatePreviewAsync(previewHost);
+                await PopulatePreviewAsync(previewHost, previousView);
                 StatusChanged?.Invoke(this, "Preview view");
             }
 
@@ -180,7 +201,7 @@ namespace OpenLiveWriter.App.Avalonia.Editor
         /// file-load path). Failure to create/navigate the WebView — or to fetch the
         /// theme — is non-fatal: the neutral composition still renders.
         /// </summary>
-        private async Task PopulatePreviewAsync(ContentControl previewHost)
+        private async Task PopulatePreviewAsync(ContentControl previewHost, string previousView)
         {
             if (previewHost == null || _webViewEditor == null)
                 return;
@@ -198,7 +219,16 @@ namespace OpenLiveWriter.App.Avalonia.Editor
                 }
             }
 
-            string body = await _webViewEditor.GetContentAsync() ?? string.Empty;
+            string body;
+            if (_markdownController.IsMarkdownMode && previousView == "source")
+            {
+                var sourceEditor = this.FindControl<global::AvaloniaEdit.TextEditor>("SourceEditor");
+                body = _markdownController.HtmlFromCanonical(sourceEditor?.Text ?? string.Empty);
+            }
+            else
+            {
+                body = await _webViewEditor.GetContentAsync() ?? string.Empty;
+            }
             string document = PreviewRenderer.BuildPreviewDocument(body, PreviewTitle, theme: theme);
 
             try
@@ -286,6 +316,43 @@ namespace OpenLiveWriter.App.Avalonia.Editor
                 Console.WriteLine($"[OLW-Print] Document load failed: {ex.Message}");
                 return null;
             }
+        }
+
+        /// <summary>
+        /// Returns the canonical body for save/publish: Markdown text in Markdown mode
+        /// (from Source when visible, otherwise converted from Design HTML), or HTML
+        /// otherwise.
+        /// </summary>
+        public async Task<string> GetCanonicalBodyAsync()
+        {
+            if (_markdownController.IsMarkdownMode)
+            {
+                if (_currentView == "source")
+                {
+                    var sourceEditor = this.FindControl<global::AvaloniaEdit.TextEditor>("SourceEditor");
+                    return sourceEditor?.Text ?? string.Empty;
+                }
+
+                if (_webViewEditor != null)
+                {
+                    string html = await _webViewEditor.GetContentAsync() ?? string.Empty;
+                    return _markdownController.CanonicalFromHtml(html);
+                }
+
+                return string.Empty;
+            }
+
+            if (_currentView == "source")
+            {
+                var sourceEditor = this.FindControl<global::AvaloniaEdit.TextEditor>("SourceEditor");
+                string source = sourceEditor?.Text ?? string.Empty;
+                return SourceViewSanitizer.RestoreDataUris(source, _sourceDataUris);
+            }
+
+            if (_webViewEditor != null)
+                return await _webViewEditor.GetContentAsync() ?? string.Empty;
+
+            return string.Empty;
         }
 
         internal static string FormatHtml(string html)

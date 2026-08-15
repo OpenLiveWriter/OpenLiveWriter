@@ -8,6 +8,7 @@ using OpenLiveWriter.App.Avalonia.Commands;
 using OpenLiveWriter.App.Avalonia.Dialogs;
 using OpenLiveWriter.App.Avalonia.Editor;
 using OpenLiveWriter.Localization;
+using OpenLiveWriter.Publishing;
 using OpenLiveWriter.Publishing.Drafts;
 using OpenLiveWriter.Ribbon.Avalonia.Controls;
 using OpenLiveWriter.Ribbon.Managed.Configuration;
@@ -86,10 +87,14 @@ namespace OpenLiveWriter.App.Avalonia
                 switch (args.CommandId)
                 {
                     case CommandId.FontFamily:
+                        if (editorPanel.IsMarkdownMode)
+                            return;
                         await editor.SetFontFamilyAsync(args.Value);
                         UpdateStatus($"Font: {args.Value}");
                         break;
                     case CommandId.FontSize:
+                        if (editorPanel.IsMarkdownMode)
+                            return;
                         await editor.SetFontSizeAsync(args.Value);
                         UpdateStatus($"Font size: {args.Value}");
                         break;
@@ -320,17 +325,32 @@ namespace OpenLiveWriter.App.Avalonia
                 return;
 
             _draftSession.NewPost(isPage);
+            ContentFormat format = _accountService?.CurrentAccount?.EditingFormat ?? ContentFormat.Html;
+            _draftSession.Current.BodyFormat = format;
             await LoadCurrentIntoEditorAsync();
             UpdateStatus(isPage ? "New page" : "New post");
         }
 
         private async Task SaveCurrentAsync()
         {
-            var editor = GetEditor();
-            string html = editor != null ? await editor.GetContentAsync() : null;
+            var editorPanel = this.FindControl<EditorPanel>("EditorPanel");
             string title = _titleEditor?.Text ?? string.Empty;
 
-            _draftSession.Save(title, html ?? _draftSession.Current.BodyHtml);
+            if (editorPanel?.IsMarkdownMode == true)
+            {
+                string markdown = await editorPanel.GetCanonicalBodyAsync();
+                _draftSession.Current.BodyFormat = ContentFormat.Markdown;
+                _draftSession.Current.BodyMarkdown = markdown;
+                _draftSession.Save(title);
+            }
+            else
+            {
+                var editor = GetEditor();
+                string html = editor != null ? await editor.GetContentAsync() : null;
+                _draftSession.Current.BodyFormat = ContentFormat.Html;
+                _draftSession.Save(title, html ?? _draftSession.Current.BodyHtml);
+            }
+
             UpdateWindowTitle();
             UpdateStatus($"Saved draft: {DisplayTitle()}");
         }
@@ -446,9 +466,17 @@ namespace OpenLiveWriter.App.Avalonia
                 if (_titleEditor != null)
                     _titleEditor.Text = _draftSession.Current.Title ?? string.Empty;
 
+                ApplyEditingFormatToShell();
+
                 var editor = GetEditor();
                 if (editor != null)
-                    await editor.SetContentAsync(_draftSession.Current.BodyHtml ?? string.Empty);
+                {
+                    ContentFormat format = ResolveDocumentContentFormat();
+                    string bodyHtml = format == ContentFormat.Markdown
+                        ? ResolveDesignHtmlFromMarkdownDocument()
+                        : _draftSession.Current.BodyHtml ?? string.Empty;
+                    await editor.SetContentAsync(bodyHtml);
+                }
 
                 _draftSession.Current.IsDirty = false;
                 UpdateWindowTitle();
@@ -457,6 +485,51 @@ namespace OpenLiveWriter.App.Avalonia
             {
                 _suppressDirty = false;
             }
+        }
+
+        /// <summary>
+        /// Applies the active document/blog content format to the editor panel and
+        /// ribbon font controls.
+        /// </summary>
+        private void ApplyEditingFormatToShell()
+        {
+            var editorPanel = this.FindControl<EditorPanel>("EditorPanel");
+            if (editorPanel == null)
+                return;
+
+            ContentFormat format = ResolveDocumentContentFormat();
+            editorPanel.SetContentFormat(format);
+            ApplyFontCommandsForMarkdownMode(editorPanel.IsMarkdownMode);
+        }
+
+        private ContentFormat ResolveDocumentContentFormat()
+        {
+            if (_draftSession?.Current == null)
+                return ContentFormat.Html;
+
+            if (!_draftSession.Current.IsSaved && _accountService?.CurrentAccount != null)
+                return _accountService.CurrentAccount.EditingFormat;
+
+            return _draftSession.Current.BodyFormat;
+        }
+
+        private string ResolveDesignHtmlFromMarkdownDocument()
+        {
+            string markdown = _draftSession.Current.BodyMarkdown;
+            if (string.IsNullOrEmpty(markdown) && !string.IsNullOrEmpty(_draftSession.Current.BodyHtml))
+                markdown = _markdownService.ToMarkdown(_draftSession.Current.BodyHtml);
+
+            return _markdownService.ToHtml(markdown ?? string.Empty);
+        }
+
+        private void ApplyFontCommandsForMarkdownMode(bool markdownMode)
+        {
+            if (_ribbon == null)
+                return;
+
+            string tooltip = MarkdownEditingController.FontFamilySizeDisabledTooltip;
+            _ribbon.SetComboEnabled(CommandId.FontFamily, !markdownMode, tooltip);
+            _ribbon.SetComboEnabled(CommandId.FontSize, !markdownMode, tooltip);
         }
 
         private WebViewEditor GetEditor() =>

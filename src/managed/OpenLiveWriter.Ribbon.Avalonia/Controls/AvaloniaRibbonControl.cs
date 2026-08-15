@@ -48,6 +48,8 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
         private readonly Dictionary<CommandId, decimal?> _spinnerValues = new();
         // Last-known dropdown item data, re-applied when the active tab changes.
         private readonly Dictionary<CommandId, (IReadOnlyList<RibbonGalleryItem> Items, string SelectedId)> _dropDownData = new();
+        // Per-combo enable state and optional disabled tooltip (e.g. font controls in Markdown mode).
+        private readonly Dictionary<CommandId, (bool Enabled, string DisabledTooltip)> _comboEnabled = new();
         // Guards against re-entrant ComboSelectionChanged while we populate items.
         private bool _populatingDropDowns;
         // Guards against re-entrant SpinnerValueChanged while we reflect editor state.
@@ -168,6 +170,37 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
         {
             _comboSelections[commandId] = value;
             ApplyComboSelection(commandId, value);
+        }
+
+        /// <summary>
+        /// Enables or disables ribbon editor combos (e.g. Font family/size). When
+        /// disabled, <paramref name="disabledTooltip"/> is shown on hover. State is
+        /// remembered across tab switches.
+        /// </summary>
+        public void SetComboEnabled(CommandId commandId, bool enabled, string disabledTooltip = null)
+        {
+            _comboEnabled[commandId] = (enabled, disabledTooltip);
+            ApplyComboEnabled(commandId);
+        }
+
+        private void ApplyComboEnabled(CommandId commandId)
+        {
+            if (!_dropDownsByCommand.TryGetValue(commandId, out var combos))
+                return;
+
+            bool enabled = true;
+            string tooltip = null;
+            if (_comboEnabled.TryGetValue(commandId, out var state))
+            {
+                enabled = state.Enabled;
+                tooltip = state.DisabledTooltip;
+            }
+
+            foreach (var combo in combos)
+            {
+                combo.IsEnabled = enabled;
+                ToolTip.SetTip(combo, enabled ? null : tooltip);
+            }
         }
 
         private void ApplyComboSelection(CommandId commandId, string value)
@@ -500,6 +533,10 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
             // Re-apply remembered editor combo selections (font/size/style).
             foreach (var kvp in _comboSelections)
                 ApplyComboSelection(kvp.Key, kvp.Value);
+
+            // Re-apply remembered combo enable/tooltip state (font gating in Markdown mode).
+            foreach (var kvp in _comboEnabled)
+                ApplyComboEnabled(kvp.Key);
 
             // Re-apply remembered spinner values (e.g. the selected image's size).
             foreach (var kvp in _spinnerValues)
