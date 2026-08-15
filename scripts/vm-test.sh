@@ -84,14 +84,10 @@ do_sync() {
 
 do_build() {
   do_sync
-  # GlobalAssemblyVersionInfo.cs is generated, not committed (see
-  # writer.build.targets). MarketXmlGenerator includes it unconditionally, so
-  # generate it up front: on a fresh VM-local copy the C++ Ribbon project that
-  # normally produces it may build too late (or not at all).
-  local version b64
+  # No GlobalAssemblyVersionInfo.cs: nothing compiles it any more. The version
+  # comes from version.txt via src/managed/Directory.Build.props.
+  local version
   version="$(head -n 1 "$OLW_SRC_ROOT/version.txt" | tr -d '\r')"
-  b64="$(printf '[assembly: System.Reflection.AssemblyVersion("%s")]\n[assembly: System.Reflection.AssemblyFileVersion("%s")]\n' "$version" "$version" | base64)"
-  vm_exec "powershell -NoProfile -Command \"[IO.File]::WriteAllText('${VM_DIR}\\src\\managed\\GlobalAssemblyVersionInfo.cs', [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String('${b64}')))\""
   # GoogleBloggerv3Secrets.json is also generated (gitignored) and embedded by
   # the BlogClient project. Generate a placeholder; override with
   # OLW_BLOGGER_CLIENT_ID / OLW_BLOGGER_CLIENT_SECRET (see
@@ -100,12 +96,27 @@ do_build() {
   secrets_b64="$(printf '{ "installed": { "client_id": "%s", "client_secret": "%s" } }\n' "${OLW_BLOGGER_CLIENT_ID:-PASTE_YOUR_CLIENT_ID_HERE}" "${OLW_BLOGGER_CLIENT_SECRET:-PASTE_YOUR_CLIENT_SECRET_HERE}" | base64)"
   vm_exec "powershell -NoProfile -Command \"[IO.File]::WriteAllText('${VM_DIR}\\src\\managed\\OpenLiveWriter.BlogClient\\Clients\\GoogleBloggerv3Secrets.json', [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String('${secrets_b64}')))\""
   echo "==> Building $SOLUTION ($OLW_CONFIG) in the VM"
+  # Kill any running instance first: it locks the dlls in bin, which makes the
+  # copy step fail (MSB3021/MSB3027) or, worse, silently leaves stale dlls that
+  # you then test by mistake.
+  prlctl exec "$OLW_VM_NAME" cmd /c "taskkill /f /im OpenLiveWriter.exe" >/dev/null 2>&1 || true
   # CoreServices embeds Marketization\Markets.xml and Master.xml, which are
   # generated (gitignored): Master.xml is copied from intl\markets and
   # Markets.xml is produced by MarketXmlGenerator. No build target does this
   # yet on this branch, so do it here before the solution build.
   vm_exec "cd /d \"$VM_DIR\" && dotnet build src\\managed\\MarketXmlGenerator\\MarketXmlGenerator.csproj --nologo --verbosity minimal --configuration $OLW_CONFIG && src\\managed\\MarketXmlGenerator\\bin\\$OLW_CONFIG\\MarketXmlGenerator.exe intl\\markets src\\managed\\OpenLiveWriter.CoreServices\\Marketization\\Markets.xml && copy /y intl\\markets\\Master.xml src\\managed\\OpenLiveWriter.CoreServices\\Marketization\\ >nul"
   vm_exec "cd /d \"$VM_DIR\" && dotnet restore $SOLUTION && dotnet msbuild $SOLUTION /nologo /maxcpucount /verbosity:minimal /p:Configuration=$OLW_CONFIG"
+  # The solution build can skip the app project as up-to-date, leaving stale
+  # dependency dlls in its output. Force the app project's copy step so the
+  # exe always runs against the dlls just built.
+  vm_exec "cd /d \"$VM_DIR\" && dotnet msbuild src\\managed\\OpenLiveWriter\\OpenLiveWriter.csproj /t:Build /p:BuildProjectReferences=false /nologo /verbosity:quiet /p:Configuration=$OLW_CONFIG"
+  # Native ribbon resource DLL (OpenLiveWriter.Ribbon.dll): needed by the Labs
+  # "classic Windows ribbon" option. Best effort: requires a C++ toolset and
+  # UICC in the VM; skip with a warning when unavailable.
+  local version_h_b64
+  version_h_b64="$(printf '#define FILE_VERSION %s\n#define PRODUCT_VERSION %s\n' "${version//./,}" "$version" | base64)"
+  vm_exec "powershell -NoProfile -Command \"[IO.File]::WriteAllText('${VM_DIR}\\src\\unmanaged\\version.h', [Text.Encoding]::ASCII.GetString([Convert]::FromBase64String('${version_h_b64}')))\""
+  vm_exec "cd /d \"$VM_DIR\" && if exist \"C:\\Program Files\\Microsoft Visual Studio\\2022\\Professional\\MSBuild\\Current\\Bin\\MSBuild.exe\" (\"C:\\Program Files\\Microsoft Visual Studio\\2022\\Professional\\MSBuild\\Current\\Bin\\MSBuild.exe\" src\\unmanaged\\OpenLiveWriter.Ribbon\\OpenLiveWriter.Ribbon.vcxproj /nologo /verbosity:minimal /p:Configuration=$OLW_CONFIG /p:Platform=x64 && copy /y src\\managed\\bin\\$OLW_CONFIG\\x64\\Writer\\OpenLiveWriter.Ribbon.dll src\\managed\\OpenLiveWriter\\bin\\$OLW_CONFIG\\ >nul) else (echo WARNING: no C++ MSBuild found, skipping OpenLiveWriter.Ribbon.dll)"
   echo "==> Build complete: $GUEST_EXE"
 }
 
@@ -129,6 +140,8 @@ do_test() {
 
 do_run() {
   echo "==> Launching $GUEST_EXE in the VM (as the logged-on user)"
+  # Kill any running instance so the fresh binary is what actually launches.
+  prlctl exec "$OLW_VM_NAME" cmd /c "taskkill /f /im OpenLiveWriter.exe" >/dev/null 2>&1 || true
   # prlctl exec runs as SYSTEM in session 0 by default: GUI windows are
   # invisible there, and Open Live Writer exits because the SYSTEM profile
   # has no Personal (Documents) folder. --current-user authenticates as the
