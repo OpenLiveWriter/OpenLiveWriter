@@ -1429,7 +1429,36 @@ namespace OpenLiveWriter.WebView2Shim
 #pragma warning restore CS0067
 
         // IHtmlEditorCommandSource
-        public void ViewSource() { /* TODO */ }
+        public void ViewSource()
+        {
+            // Equivalent of the MSHTML IDM_VIEWSOURCE command: show the current
+            // document HTML in a read-only dialog.
+            string html = _editor.GetEditedHtml(true) ?? string.Empty;
+            using (var form = new Form
+            {
+                Text = "HTML Source",
+                Width = 900,
+                Height = 600,
+                StartPosition = FormStartPosition.CenterParent,
+                ShowInTaskbar = false
+            })
+            {
+                var textBox = new TextBox
+                {
+                    Multiline = true,
+                    ReadOnly = true,
+                    ScrollBars = ScrollBars.Both,
+                    Dock = DockStyle.Fill,
+                    WordWrap = false,
+                    Font = new Font("Consolas", 9f),
+                    Text = html
+                };
+                textBox.SelectionStart = 0;
+                textBox.SelectionLength = 0;
+                form.Controls.Add(textBox);
+                form.ShowDialog(_editor.FindForm());
+            }
+        }
         public void ClearFormatting() => ExecuteScript("window.olwClearFormatting && window.olwClearFormatting()");
         public bool CanApplyFormatting(CommandId? commandId) => _webView?.CoreWebView2 != null;
 
@@ -1734,9 +1763,23 @@ namespace OpenLiveWriter.WebView2Shim
             }
         }
 
-        public bool CanPrint => false;
-        public void Print() { /* TODO */ }
-        public void PrintPreview() { /* TODO */ }
+        public bool CanPrint => _webView?.CoreWebView2 != null;
+
+        /// <summary>
+        /// Shows the system print dialog. Chromium's print UI includes a
+        /// preview, matching the classic print-and-preview behavior.
+        /// </summary>
+        public void Print() => PrintPreview();
+
+        /// <summary>
+        /// Shows Chromium's print preview dialog (with print options), the
+        /// WebView2 equivalent of the old MSHTML OLECMDID_PRINTPREVIEW.
+        /// </summary>
+        public void PrintPreview()
+        {
+            // ShowPrintUI() is synchronous void in WebView2 SDK 1.0.2903.40.
+            _webView?.CoreWebView2?.ShowPrintUI();
+        }
 
         /// <summary>
         /// Returns information about the current link at cursor position.

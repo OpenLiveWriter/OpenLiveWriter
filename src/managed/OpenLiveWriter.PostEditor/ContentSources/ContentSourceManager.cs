@@ -463,8 +463,8 @@ namespace OpenLiveWriter.PostEditor.ContentSources
                 ArrayList builtInContentSources = new ArrayList();
                 if (MarketizationOptions.IsFeatureEnabled(MarketizationOptions.Feature.VideoProviders))
                     AddContentSource(builtInContentSources, typeof(VideoContentSource), showErrors);
-                if (MarketizationOptions.IsFeatureEnabled(MarketizationOptions.Feature.Maps))
-                    AddContentSource(builtInContentSources, typeof(MapContentSource), showErrors);
+                // The deprecated Map content source is no longer registered: its
+                // Bing Maps API is gone and its only action was a deprecation modal.
                 if (MarketizationOptions.IsFeatureEnabled(MarketizationOptions.Feature.TagProviders))
                     AddContentSource(builtInContentSources, typeof(TagContentSource), showErrors);
 

@@ -61,11 +61,15 @@ date: 2019-01-01 00:00:00");
         [Test]
         public void Serialize_Basic()
         {
-            // Expected
+            // Expected. Normalized because a verbatim literal carries whatever
+            // line endings the working copy was checked out with, while
+            // Serialize always emits LF by contract: front matter is read by
+            // static site generators cross-platform. Without this the test
+            // passes on an LF checkout and fails on a CRLF one.
             var expected = @"title: Test title
 date: 2019-01-01 00:00:00
 layout: post
-";
+".Replace("\r\n", "\n");
 
             // Act
             var fm = new StaticSiteItemFrontMatter(new StaticSiteConfigFrontMatterKeys())
@@ -83,14 +87,14 @@ layout: post
         [Test]
         public void Serialize_WithTags()
         {
-            // Expected
+            // Expected (normalized to LF; see Serialize_Basic).
             var expected = @"title: Test title
 date: 2019-01-01 00:00:00
 layout: post
 tags:
 - hello
 - world
-";
+".Replace("\r\n", "\n");
 
             // Act
             var fm = new StaticSiteItemFrontMatter(new StaticSiteConfigFrontMatterKeys())

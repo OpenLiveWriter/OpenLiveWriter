@@ -304,14 +304,19 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
             {
                 _contentSource = (SmartContentSource)contentSource.Instance;
                 smartContentEditor = _contentSource.CreateEditor(this);
-                _contentSourceControls[contentSourceId] = smartContentEditor;
 
-                if (smartContentEditor is IActiveSmartContentEditor)
-                    ((IActiveSmartContentEditor)smartContentEditor).ForceContentEdited += new EventHandler(ContentSourceSidebarControl_ForceContentEdited);
-
-                //apply the current scale the new control
+                // Sources without an editor (deprecated sources such as Video)
+                // return null; retrying creation on a later call is expected, so
+                // do not cache them (a cached null re-entered here and tripped
+                // the assert above).
                 if (smartContentEditor != null)
                 {
+                    _contentSourceControls[contentSourceId] = smartContentEditor;
+
+                    if (smartContentEditor is IActiveSmartContentEditor)
+                        ((IActiveSmartContentEditor)smartContentEditor).ForceContentEdited += new EventHandler(ContentSourceSidebarControl_ForceContentEdited);
+
+                    //apply the current scale the new control
                     smartContentEditor.Scale(new SizeF(scale.Width, scale.Height));
                 }
             }

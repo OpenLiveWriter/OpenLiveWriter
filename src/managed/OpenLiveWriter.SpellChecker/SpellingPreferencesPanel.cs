@@ -83,7 +83,10 @@ namespace OpenLiveWriter.SpellChecker
             {
                 if (!string.IsNullOrEmpty(currentLanguage))
                 {
-                    Debug.Fail("Language in registry not supported!");
+                    // The saved language is not installed on this machine (e.g. the
+                    // setting roamed from another PC or a language pack was removed).
+                    // Fall back to "None" instead of asserting: this is recoverable.
+                    Trace.TraceWarning("Spelling language in registry not installed: " + currentLanguage);
                 }
                 _comboBoxLanguage.SelectedIndex = 0; // "None"
             }

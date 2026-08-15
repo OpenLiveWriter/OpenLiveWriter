@@ -362,6 +362,13 @@ namespace OpenLiveWriter.PostEditor
             commandInsertVideoFromWeb.Execute += new EventHandler(commandInsertVideoFromWeb_Execute);
             CommandManager.Add(commandInsertVideoFromWeb);
 
+            // The web-image inserter is a plugin content source whose command is keyed by
+            // plugin GUID, so register a CommandId.WebImage alias that the ribbon's
+            // Picture > From Web menu item can resolve and execute.
+            commandInsertWebImage = new Command(CommandId.WebImage);
+            commandInsertWebImage.Execute += new EventHandler(commandInsertWebImage_Execute);
+            CommandManager.Add(commandInsertWebImage);
+
             bool tagProvidersFeatureEnabled = MarketizationOptions.IsFeatureEnabled(MarketizationOptions.Feature.TagProviders);
             CommandManager.Add(CommandId.InsertTags, commandInsertTags_Execute, tagProvidersFeatureEnabled);
 
@@ -372,12 +379,6 @@ namespace OpenLiveWriter.PostEditor
             commandInsertVideoFromService.Enabled = _videoProvidersFeatureEnabled;
             commandInsertVideoFromService.Execute += new EventHandler(commandInsertVideoFromService_Execute);
             CommandManager.Add(commandInsertVideoFromService);
-
-            _mapsFeatureEnabled = MarketizationOptions.IsFeatureEnabled(MarketizationOptions.Feature.Maps);
-            commandInsertMap = new Command(CommandId.InsertMap);
-            commandInsertMap.Enabled = _mapsFeatureEnabled;
-            commandInsertMap.Execute += commandInsertMap_Execute;
-            CommandManager.Add(commandInsertMap);
 
             _tagProvidersFeatureEnabled = MarketizationOptions.IsFeatureEnabled(MarketizationOptions.Feature.TagProviders);
             commandInsertTags = new Command(CommandId.InsertTags);
@@ -578,11 +579,6 @@ namespace OpenLiveWriter.PostEditor
         private void commandInsertVideoFromFile_Execute(object sender, EventArgs e)
         {
             InsertSmartContentFromTabbedDialog(VideoContentSource.ID, Convert.ToInt32(VideoContentSource.Tab.File, CultureInfo.InvariantCulture));
-        }
-
-        private void commandInsertMap_Execute(object sender, EventArgs e)
-        {
-            CommandManager.Get(MapContentSource.ID).PerformExecute();
         }
 
         private void commandInsertTags_Execute(object sender, EventArgs e)
@@ -1848,9 +1844,9 @@ namespace OpenLiveWriter.PostEditor
             bool inSourceOrWysiwygModeAndEditFieldNotSelected = InSourceOrWysiwygModeAndEditFieldIsNotSelected();
 
             commandInsertPicture.Enabled = inSourceOrWysiwygModeAndEditFieldNotSelected;
+            commandInsertWebImage.Enabled = inSourceOrWysiwygModeAndEditFieldNotSelected;
             commandInsertEmoticon.Enabled = inSourceOrWysiwygModeAndEditFieldNotSelected;
             commandInsertTable.Enabled = inSourceOrWysiwygModeAndEditFieldNotSelected;
-            commandInsertMap.Enabled = _mapsFeatureEnabled && inSourceOrWysiwygModeAndEditFieldNotSelected;
             commandInsertTable.Enabled = inSourceOrWysiwygModeAndEditFieldNotSelected;
             commandInsertTags.Enabled = _tagProvidersFeatureEnabled && inSourceOrWysiwygModeAndEditFieldNotSelected;
             commandInsertVideoFromFile.Enabled = _videoProvidersFeatureEnabled && inSourceOrWysiwygModeAndEditFieldNotSelected;
@@ -2177,6 +2173,18 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
+        private void commandInsertWebImage_Execute(object sender, EventArgs e)
+        {
+            foreach (ContentSourceInfo contentSourceInfo in ContentSourceManager.PluginInsertableContentSources)
+            {
+                if (contentSourceInfo.Id == WebImageContentSource.ID)
+                {
+                    ContentSourceManager.PerformInsertion(this, contentSourceInfo);
+                    return;
+                }
+            }
+        }
+
         private void commandInsertPicture_Execute(object sender, EventArgs e)
         {
             // WinLive 222100: Writer crash: Access violation
@@ -2397,12 +2405,12 @@ namespace OpenLiveWriter.PostEditor
             commandInsertTable.Enabled = allowInsertCommands;
             commandInsertTable2.Enabled = allowInsertCommands;
             commandInsertPicture.Enabled = allowInsertCommands;
+            commandInsertWebImage.Enabled = allowInsertCommands;
 #if SUPPORT_FILES
             commandInsertFile.Enabled = allowInsertCommands;
 #endif
             CommandManager.Get(CommandId.TableMenu).Enabled = allowInsertCommands;
             commandInsertTags.Enabled = allowInsertCommands;
-            commandInsertMap.Enabled = allowInsertCommands;
             commandInsertEmoticon.Enabled = allowInsertCommands;
             commandInsertVideoFromFile.Enabled = allowInsertCommands;
             commandInsertVideoFromService.Enabled = allowInsertCommands;
@@ -2868,6 +2876,7 @@ namespace OpenLiveWriter.PostEditor
 
         private Command commandViewSidebar;
         private Command commandInsertPicture;
+        private Command commandInsertWebImage;
 
         private Command commandInsertHorizontalLine;
         private Command commandInsertClearBreak;
@@ -3801,8 +3810,6 @@ namespace OpenLiveWriter.PostEditor
 
         private int _editorLoadSuppressCount;
         private string _autoCorrectLexiconFile;
-        private Command commandInsertMap;
-        private bool _mapsFeatureEnabled;
         private bool _videoProvidersFeatureEnabled;
         private bool _tagProvidersFeatureEnabled;
         private Command commandInsertVideoFromFile;

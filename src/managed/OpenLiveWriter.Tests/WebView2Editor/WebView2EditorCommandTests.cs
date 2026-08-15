@@ -30,6 +30,8 @@ namespace OpenLiveWriter.Tests.WebView2Editor
         [OneTimeSetUp]
         public void ConfigureWebView2UserDataFolder()
         {
+            WebView2TestSession.RequireInteractiveSession();
+
             // See WebView2EditorTypingTests: the loader needs a writable
             // user-data folder under testhost.
             if (string.IsNullOrEmpty(Environment.GetEnvironmentVariable("WEBVIEW2_USER_DATA_FOLDER")))

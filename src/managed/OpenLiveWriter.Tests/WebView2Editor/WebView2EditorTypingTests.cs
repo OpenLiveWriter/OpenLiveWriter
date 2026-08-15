@@ -33,6 +33,8 @@ namespace OpenLiveWriter.Tests.WebView2Editor
         [OneTimeSetUp]
         public void ConfigureWebView2UserDataFolder()
         {
+            WebView2TestSession.RequireInteractiveSession();
+
             // The WebView2 default user-data folder is derived from the host exe,
             // which fails under testhost (controller creation returns
             // CO_E_SERVER_EXEC_FAILURE). Point the loader at a writable temp
@@ -58,6 +60,20 @@ namespace OpenLiveWriter.Tests.WebView2Editor
                 string body = WaitForValue(() => editor.GetEditedHtml(true), "Hello WebView2 world");
                 StringAssert.Contains("Hello WebView2 world", body);
                 Assert.IsTrue(editor.IsDirty, "editor should be dirty after inserting content");
+            }
+        }
+
+        [Test]
+        public void PrintPreview_IsAvailableAndInvocable()
+        {
+            using (var form = CreateEditorForm(out WebView2HtmlEditorControl editor))
+            {
+                EnsureReadyOrIgnore(editor);
+
+                Assert.IsTrue(editor.CommandSource.CanPrint,
+                    "CanPrint should be true once WebView2 is initialized");
+                // ShowPrintUI is async fire-and-forget; this must not throw.
+                Assert.DoesNotThrow(() => editor.CommandSource.PrintPreview());
             }
         }
 

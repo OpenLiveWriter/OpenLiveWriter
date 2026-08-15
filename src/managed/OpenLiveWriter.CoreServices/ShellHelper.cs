@@ -234,7 +234,10 @@ namespace OpenLiveWriter.CoreServices
         {
             try
             {
-                Process.Start(url);
+                // UseShellExecute must be set explicitly: it defaulted to true on
+                // .NET Framework but defaults to false on modern .NET, where
+                // starting a bare URL string otherwise fails to launch a browser.
+                Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
             }
             catch (Win32Exception w32e)
             {

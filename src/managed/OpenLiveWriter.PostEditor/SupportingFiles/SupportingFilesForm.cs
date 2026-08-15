@@ -21,7 +21,7 @@ namespace OpenLiveWriter.PostEditor.SupportingFiles
     public class SupportingFilesForm : System.Windows.Forms.Form
     {
         private System.Windows.Forms.ListBox listBoxFiles;
-        private System.Windows.Forms.DataGrid dataGridProperties;
+        private System.Windows.Forms.DataGridView dataGridProperties;
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -127,7 +127,7 @@ namespace OpenLiveWriter.PostEditor.SupportingFiles
         private void InitializeComponent()
         {
             this.listBoxFiles = new System.Windows.Forms.ListBox();
-            this.dataGridProperties = new System.Windows.Forms.DataGrid();
+            this.dataGridProperties = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridProperties)).BeginInit();
             this.SuspendLayout();
             //
@@ -143,16 +143,15 @@ namespace OpenLiveWriter.PostEditor.SupportingFiles
             //
             // dataGridProperties
             //
-            this.dataGridProperties.AlternatingBackColor = System.Drawing.SystemColors.Control;
+            this.dataGridProperties.AlternatingRowsDefaultCellStyle.BackColor = System.Drawing.SystemColors.Control;
             this.dataGridProperties.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                 | System.Windows.Forms.AnchorStyles.Left)
                 | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridProperties.CaptionVisible = false;
+            this.dataGridProperties.AllowUserToAddRows = false;
+            this.dataGridProperties.AllowUserToDeleteRows = false;
             this.dataGridProperties.DataMember = "";
-            this.dataGridProperties.HeaderForeColor = System.Drawing.SystemColors.ControlText;
             this.dataGridProperties.Location = new System.Drawing.Point(8, 149);
             this.dataGridProperties.Name = "dataGridProperties";
-            this.dataGridProperties.ParentRowsVisible = false;
             this.dataGridProperties.ReadOnly = true;
             this.dataGridProperties.RowHeadersVisible = false;
             this.dataGridProperties.Size = new System.Drawing.Size(648, 260);
@@ -229,14 +228,10 @@ namespace OpenLiveWriter.PostEditor.SupportingFiles
                 valueColumn = dataTable.Columns.Add("value");
                 dataGridProperties.DataMember = "properties";
 
-                // Create new Table Style
-                dataGridProperties.TableStyles.Clear();
-                DataGridTableStyle ts = new DataGridTableStyle();
-                ts.MappingName = dataTable.TableName;
-                dataGridProperties.TableStyles.Add(ts);
-
-                //set the width of the name column
-                dataGridProperties.TableStyles[dataTable.TableName].GridColumnStyles[nameColumn.ColumnName].Width = 200;
+                // Set the width of the name column (the value column is sized
+                // dynamically in UpdateTableSize)
+                if (dataGridProperties.Columns[nameColumn.ColumnName] != null)
+                    dataGridProperties.Columns[nameColumn.ColumnName].Width = 200;
                 UpdateTableSize();
             }
 
@@ -282,8 +277,11 @@ namespace OpenLiveWriter.PostEditor.SupportingFiles
 
         private void UpdateTableSize()
         {
-            int nameWidth = dataGridProperties.TableStyles[dataTable.TableName].GridColumnStyles[nameColumn.ColumnName].Width;
-            dataGridProperties.TableStyles[dataTable.TableName].GridColumnStyles[valueColumn.ColumnName].Width = dataGridProperties.Width - nameWidth - 40;
+            if (dataGridProperties.Columns[nameColumn.ColumnName] == null ||
+                dataGridProperties.Columns[valueColumn.ColumnName] == null)
+                return;
+            int nameWidth = dataGridProperties.Columns[nameColumn.ColumnName].Width;
+            dataGridProperties.Columns[valueColumn.ColumnName].Width = dataGridProperties.Width - nameWidth - 40;
         }
 
         private void _editingContext_BlogChanged(object sender, EventArgs e)

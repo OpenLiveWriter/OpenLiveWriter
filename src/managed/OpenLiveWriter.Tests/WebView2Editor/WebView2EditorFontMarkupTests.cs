@@ -34,6 +34,8 @@ namespace OpenLiveWriter.Tests.WebView2Editor
         [OneTimeSetUp]
         public void ConfigureWebView2UserDataFolder()
         {
+            WebView2TestSession.RequireInteractiveSession();
+
             // The WebView2 default user-data folder is derived from the host exe,
             // which fails under testhost (controller creation returns
             // CO_E_SERVER_EXEC_FAILURE). Point the loader at a writable temp
