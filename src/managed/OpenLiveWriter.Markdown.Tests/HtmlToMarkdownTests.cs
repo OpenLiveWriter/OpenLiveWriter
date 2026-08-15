@@ -60,6 +60,19 @@ namespace OpenLiveWriter.Markdown.Tests
         }
 
         [Test]
+        public void ToMarkdown_NestedList_ConvertsToIndentedMarkdown()
+        {
+            var html = "<ul><li>a<ul><li>b</li><li>c</li></ul></li><li>d</li></ul>";
+            var markdown = _service.ToMarkdown(html);
+
+            Assert.That(markdown, Does.Contain("- a"));
+            Assert.That(markdown, Does.Contain("  - b"));
+            Assert.That(markdown, Does.Contain("  - c"));
+            Assert.That(markdown, Does.Contain("- d"));
+            Assert.That(markdown, Does.Not.Contain("<li>"));
+        }
+
+        [Test]
         public void ToMarkdown_Link_ConvertsToMarkdownLink()
         {
             var markdown = _service.ToMarkdown("<p><a href=\"https://example.com\">Example</a></p>");

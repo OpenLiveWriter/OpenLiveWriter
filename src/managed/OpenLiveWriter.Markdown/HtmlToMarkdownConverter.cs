@@ -181,7 +181,11 @@ namespace OpenLiveWriter.Markdown
                         pendingNewline = false;
                     }
 
-                    ConvertList(element, output, ordered: string.Equals(tag, "ol", StringComparison.OrdinalIgnoreCase));
+                    ConvertList(
+                        element,
+                        output,
+                        ordered: string.Equals(tag, "ol", StringComparison.OrdinalIgnoreCase),
+                        indent: 0);
                     pendingNewline = true;
                     continue;
                 }
@@ -398,8 +402,9 @@ namespace OpenLiveWriter.Markdown
             output.AppendLine("```");
         }
 
-        private void ConvertList(IElement listElement, StringBuilder output, bool ordered)
+        private void ConvertList(IElement listElement, StringBuilder output, bool ordered, int indent)
         {
+            var indentPrefix = indent > 0 ? new string(' ', indent) : string.Empty;
             var index = 1;
             foreach (var child in listElement.Children)
             {
@@ -413,6 +418,7 @@ namespace OpenLiveWriter.Markdown
                 if (checkbox != null)
                 {
                     var isChecked = checkbox.HasAttribute("checked");
+                    output.Append(indentPrefix);
                     output.Append("- [");
                     output.Append(isChecked ? 'x' : ' ');
                     output.Append("] ");
@@ -434,6 +440,7 @@ namespace OpenLiveWriter.Markdown
                     continue;
                 }
 
+                output.Append(indentPrefix);
                 if (ordered)
                 {
                     output.Append(index).Append(". ");
@@ -444,18 +451,30 @@ namespace OpenLiveWriter.Markdown
                     output.Append("- ");
                 }
 
-                ConvertListItemContent(child, output);
+                ConvertListItemContent(child, output, indent);
                 output.AppendLine();
             }
         }
 
-        private void ConvertListItemContent(IElement li, StringBuilder output)
+        private void ConvertListItemContent(IElement li, StringBuilder output, int indent)
         {
             foreach (var node in li.ChildNodes)
             {
                 if (node.NodeType == NodeType.Element)
                 {
                     var childElement = (IElement)node;
+                    if (string.Equals(childElement.TagName, "ul", StringComparison.OrdinalIgnoreCase) ||
+                        string.Equals(childElement.TagName, "ol", StringComparison.OrdinalIgnoreCase))
+                    {
+                        output.AppendLine();
+                        ConvertList(
+                            childElement,
+                            output,
+                            ordered: string.Equals(childElement.TagName, "ol", StringComparison.OrdinalIgnoreCase),
+                            indent: indent + 2);
+                        continue;
+                    }
+
                     if (IsBlockContainer(childElement))
                     {
                         output.AppendLine();
