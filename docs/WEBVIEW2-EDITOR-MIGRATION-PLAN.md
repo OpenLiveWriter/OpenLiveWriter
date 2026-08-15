@@ -454,7 +454,7 @@ const OLW = {
 
 1. Create `HtmlEditorFactory` to choose implementation
 2. Update `HtmlEditorControl` to work with `WebView2HtmlEditorControl`
-3. Add `OLW_USE_WEBVIEW2_EDITOR` environment variable toggle
+3. WebView2 is the default; `OLW_USE_MSHTML=1` env var opts out to legacy IE engine
 4. Extensive testing:
    - New post creation
    - Edit existing post

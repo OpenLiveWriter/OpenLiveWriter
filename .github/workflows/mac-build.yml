@@ -6,16 +6,11 @@ on:
       - master
       - develop/**
       - milestone4/**
-    tags:
-      - 'v*'
   pull_request:
     branches:
       - master
       - develop/**
   workflow_dispatch:
-
-permissions:
-  contents: write # create GitHub Releases on tags
 
 env:
   OLW_CONFIG: Release
@@ -45,117 +40,54 @@ jobs:
           restore-keys: |
             nuget-${{ runner.os }}-
 
-      - name: Generate version info
-        # GlobalAssemblyVersionInfo.cs is generated, not committed (needed by
-        # MarketXmlGenerator, pulled in transitively via CoreServices).
-        run: |
-          v=$(tr -d '[:space:]' < version.txt)
-          printf '[assembly: System.Reflection.AssemblyVersion("%s")]\n[assembly: System.Reflection.AssemblyFileVersion("%s")]\n' "$v" "$v" > src/managed/GlobalAssemblyVersionInfo.cs
+      # No "Generate version info" step: no managed project compiles
+      # GlobalAssemblyVersionInfo.cs, so writing it here achieved nothing.
+      # Directory.Build.props reads version.txt directly.
 
       - name: Build (macOS solution filter)
         run: dotnet build src/managed/writer.macOS.slnf --nologo -v minimal
 
       - name: Headless test suite
         # 800+ NUnit tests (Avalonia.Headless, AngleSharp, publishing logic).
-        # Gates the bundle: no artifacts ship from a red suite.
-        run: dotnet test src/managed/OpenLiveWriter.EditorTests.Automated --nologo -v minimal
-
-      - name: Publish macOS app bundle
-        # Bundle only — the DMG is created later, after signing/notarization/
-        # stapling, so it ships the final stapled app.
+        # Gates the bundle: no artifacts ship from a red suite. Platform.Tests
+        # is in writer.macOS.slnf and was being built but never run.
         run: |
-          if [[ "$GITHUB_REF" == refs/tags/v* ]]; then
-            export OLW_VERSION="${GITHUB_REF_NAME#v}"
-          fi
-          bash build-mac.sh
+          dotnet test src/managed/OpenLiveWriter.EditorTests.Automated --nologo -v minimal \
+            --logger "trx;LogFileName=EditorTests.Automated.trx" \
+            --results-directory artifacts/test-results
+          dotnet test src/managed/OpenLiveWriter.Platform.Tests --nologo -v minimal \
+            --logger "trx;LogFileName=Platform.Tests.trx" \
+            --results-directory artifacts/test-results
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: TestResults-macOS-${{ github.run_number }}
+          path: artifacts/test-results/
+          if-no-files-found: warn
+
+      - name: Install Velopack CLI
+        # vpk 0.0.1251 targets .NET 9 and the runner has 10; build-mac.sh sets
+        # DOTNET_ROLL_FORWARD so the tool starts anyway.
+        run: dotnet tool install -g vpk --version 0.0.1251
+
+      - name: Build the app bundle and installer
         env:
           OLW_BUILD_NUMBER: ${{ github.run_number }}
-
-      # --- Optional signing / notarization -------------------------------=
-      # These run only when the repo secrets are configured, and must run
-      # BEFORE the final zip/DMG are created and uploaded: stapling mutates
-      # the .app, so anything packaged earlier would ship the unsigned
-      # bundle. Set:
-      #   OLW_CODESIGN_IDENTITY  - "Developer ID Application: Name (TEAMID)"
-      #   OLW_NOTARY_PROFILE     - notarytool keychain profile name
-      #   OLW_P12_BASE64 / OLW_P12_PASSWORD - signing certificate
-      #   OLW_KEYCHAIN_PASSWORD  - password for the temporary CI keychain
-      - name: Import signing certificate (if configured)
-        if: env.OLW_P12_BASE64 != ''
-        env:
-          OLW_P12_BASE64: ${{ secrets.OLW_P12_BASE64 }}
-          OLW_P12_PASSWORD: ${{ secrets.OLW_P12_PASSWORD }}
-          OLW_KEYCHAIN_PASSWORD: ${{ secrets.OLW_KEYCHAIN_PASSWORD }}
         run: |
-          echo "$OLW_P12_BASE64" | base64 --decode > signing.p12
-          security create-keychain -p "$OLW_KEYCHAIN_PASSWORD" build.keychain
-          security default-keychain -s build.keychain
-          security unlock-keychain -p "$OLW_KEYCHAIN_PASSWORD" build.keychain
-          security import signing.p12 -k build.keychain -P "$OLW_P12_PASSWORD" -T /usr/bin/codesign
-          security set-key-partition-list -S apple-tool:,apple: -s -k "$OLW_KEYCHAIN_PASSWORD" build.keychain
-          rm signing.p12
+          export PATH="$PATH:$HOME/.dotnet/tools"
+          bash build-mac.sh
 
-      - name: Sign app bundle (if configured)
-        if: env.OLW_CODESIGN_IDENTITY != ''
-        env:
-          OLW_CODESIGN_IDENTITY: ${{ secrets.OLW_CODESIGN_IDENTITY }}
-        run: |
-          codesign --deep --force --options runtime --sign "$OLW_CODESIGN_IDENTITY" \
-            "artifacts/mac-arm64/Open Live Writer.app"
-
-      - name: Notarize and staple (if configured)
-        # notarytool needs a zip of the (signed) app for submission; it is
-        # temporary — the final zip is created below, after stapling.
-        if: env.OLW_NOTARY_PROFILE != ''
-        env:
-          OLW_NOTARY_PROFILE: ${{ secrets.OLW_NOTARY_PROFILE }}
-        run: |
-          cd artifacts/mac-arm64
-          ditto -c -k --keepParent "Open Live Writer.app" notarize-submit.zip
-          xcrun notarytool submit notarize-submit.zip \
-            --keychain-profile "$OLW_NOTARY_PROFILE" --wait
-          rm notarize-submit.zip
-          xcrun stapler staple "Open Live Writer.app"
-
-      - name: Zip app bundle for upload
-        # Runs AFTER signing/notarization/stapling (when configured) so the
-        # shipped zip contains the final stapled bundle. .app is a directory;
-        # zip preserves the executable bit + symlinks through artifact
-        # upload/download better than a raw folder upload.
-        run: |
-          cd artifacts/mac-arm64
-          ditto -c -k --keepParent "Open Live Writer.app" "Open Live Writer.zip"
-
-      - name: Create DMG (final app)
-        # Built after signing/stapling so the DMG ships the same final
-        # bundle as the zip above.
-        run: |
-          bash packaging/mac/create-dmg.sh \
-            "artifacts/mac-arm64/Open Live Writer.app" \
-            "artifacts/mac-arm64/Open Live Writer.dmg"
-
-      - name: Compute release version
-        id: ver
-        run: echo "version=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
-
-      - name: Create GitHub Release (tag builds)
-        if: startsWith(github.ref, 'refs/tags/v')
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh release create "${{ github.ref_name }}" \
-            --title "Open Live Writer for macOS ${{ steps.ver.outputs.version }}" \
-            --generate-notes \
-            --prerelease \
-            "artifacts/mac-arm64/Open Live Writer.zip" \
-            "artifacts/mac-arm64/Open Live Writer.dmg"
+      # Signing, notarization and release publishing all moved to release.yml,
+      # which packs with the same script. This workflow is CI only: build and
+      # run the suites on every push and PR.
 
       - name: Upload macOS artifacts
         uses: actions/upload-artifact@v4
         with:
           name: OpenLiveWriter-macOS-arm64-${{ github.run_number }}
-          path: |
-            artifacts/mac-arm64/Open Live Writer.zip
-            artifacts/mac-arm64/Open Live Writer.dmg
+          # The .pkg installer plus the update-feed assets vpk emits.
+          path: artifacts/mac-arm64/Releases/
           if-no-files-found: error
           retention-days: 30

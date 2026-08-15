@@ -24,60 +24,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
+      - name: Prepare build
+        uses: ./.github/actions/prepare-build
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
+          solution: ${{ env.SOLUTION_PATH }}
+          blogger-client-id: ${{ secrets.OLW_BLOGGER_CLIENT_ID }}
+          blogger-client-secret: ${{ secrets.OLW_BLOGGER_CLIENT_SECRET }}
 
       - name: Install Velopack CLI
         # vpk version must match the Velopack NuGet package (Directory.Packages.props)
         run: dotnet tool install -g vpk --version 0.0.1251
-
-      - name: Install SignClient
-        run: nuget install SignClient -Version 0.9.0 -SolutionDir ${{ github.workspace }} -Verbosity quiet -ExcludeVersion
-
-      - name: Generate version info
-        # GlobalAssemblyVersionInfo.cs is generated, not committed; the build
-        # fails without it on a fresh checkout. getversion.cmd only sets cmd
-        # variables, so generate the file directly from version.txt.
-        run: |
-          $v = (Get-Content version.txt -Raw).Trim()
-          Set-Content src/managed/GlobalAssemblyVersionInfo.cs `
-            "[assembly: System.Reflection.AssemblyVersion(`"$v`")]", `
-            "[assembly: System.Reflection.AssemblyFileVersion(`"$v`")]"
-
-      - name: Generate GoogleBloggerv3Secrets.json
-        # Embedded by BlogClient, gitignored (contains OAuth credentials).
-        # Synthesized from CI secrets; empty strings when unset (dev builds
-        # simply can't use Blogger auth).
-        env:
-          OLW_BLOGGER_CLIENT_ID: ${{ secrets.OLW_BLOGGER_CLIENT_ID }}
-          OLW_BLOGGER_CLIENT_SECRET: ${{ secrets.OLW_BLOGGER_CLIENT_SECRET }}
-        run: |
-          $json = @{
-            installed = @{
-              client_id = "$env:OLW_BLOGGER_CLIENT_ID"
-              project_id = "open-live-writer"
-              auth_uri = "https://accounts.google.com/o/oauth2/auth"
-              token_uri = "https://oauth2.googleapis.com/token"
-              auth_provider_x509_cert_url = "https://www.googleapis.com/oauth2/v1/certs"
-              client_secret = "$env:OLW_BLOGGER_CLIENT_SECRET"
-              redirect_uris = @("http://localhost")
-            }
-          } | ConvertTo-Json -Depth 5
-          Set-Content src/managed/OpenLiveWriter.BlogClient/Clients/GoogleBloggerv3Secrets.json $json
-
-      - name: Generate Markets.xml
-        # CoreServices embeds Marketization/Markets.xml (gitignored, generated
-        # from intl/markets by MarketXmlGenerator) and Marketization/Master.xml
-        # (gitignored, copied from intl/markets). Produce both before build.
-        run: |
-          dotnet build src/managed/MarketXmlGenerator/MarketXmlGenerator.csproj -c Release --nologo -v minimal
-          dotnet run --project src/managed/MarketXmlGenerator/MarketXmlGenerator.csproj -c Release --no-build -- intl/markets src/managed/OpenLiveWriter.CoreServices/Marketization/Markets.xml
-          Copy-Item intl/markets/Master.xml src/managed/OpenLiveWriter.CoreServices/Marketization/Master.xml
-
-      - name: Restore NuGet packages
-        run: dotnet restore ${{ env.SOLUTION_PATH }}
 
       - name: Build solution
         # dotnet msbuild == MSBuild with .NET 10 SDK support. The v143 C++
@@ -90,39 +47,63 @@ jobs:
             /p:Configuration=${{ env.OLW_CONFIG }} `
             /p:PlatformToolset=v143
 
-      - name: Package with Velopack (signed)
-        # vpk signs the app binaries and the Setup.exe via SignClient when the
-        # secrets are available (not the case for fork PRs).
-        if: env.SIGN_CLIENT_SECRET != ''
-        shell: cmd
-        env:
-          SIGN_CLIENT_SECRET: ${{ secrets.SignClientSecret }}
-          SIGN_CLIENT_USER: ${{ secrets.SignClientUser }}
-        run: |
-          call getversion.cmd
-          vpk pack ^
-            --packId OpenLiveWriter ^
-            --packVersion %dottedVersion% ^
-            --packTitle "Open Live Writer" ^
-            --packDir src\managed\OpenLiveWriter\bin\%OLW_CONFIG% ^
-            --mainExe OpenLiveWriter.exe ^
-            --icon src\managed\OpenLiveWriter.PostEditor\Images\Writer.ico ^
-            --channel stable ^
-            --outputDir Releases ^
-            --shortcuts Desktop,StartMenuRoot ^
-            --skipVeloAppCheck ^
-            --signTemplate "dotnet %GITHUB_WORKSPACE%\packages\SignClient\tools\netcoreapp2.0\SignClient.dll sign -c %GITHUB_WORKSPACE%\SignClient\appsettings.json -i {{file}} -r %SIGN_CLIENT_USER% -s %SIGN_CLIENT_SECRET% -n ""Open Live Writer"" -d ""Open Live Writer"" -u ""http://openlivewriter.com"""
+      # One step per project on purpose: pwsh does not stop on a native
+      # non-zero exit, so two dotnet test calls in a single step report only
+      # the last exit code and a failing suite would pass the build silently.
+      - name: Test (OpenLiveWriter.Tests)
+        # Gates packaging: no installer ships from a red suite. Live WebView2
+        # tests self-skip when the session is not interactive
+        # (WebView2TestSession), so they degrade rather than fail here.
+        run: >
+          dotnet test src/managed/OpenLiveWriter.Tests/OpenLiveWriter.Tests.csproj
+          --no-build --nologo -v minimal -c ${{ env.OLW_CONFIG }}
+          --logger "trx;LogFileName=OpenLiveWriter.Tests.trx"
+          --results-directory artifacts/test-results
 
-      - name: Package with Velopack (unsigned)
-        if: env.SIGN_CLIENT_SECRET == ''
-        shell: cmd
-        env:
-          SIGN_CLIENT_SECRET: ${{ secrets.SignClientSecret }}
+      - name: Test (OpenLiveWriter.UnitTest)
+        run: >
+          dotnet test src/managed/OpenLiveWriter.UnitTest/OpenLiveWriter.UnitTest.csproj
+          --no-build --nologo -v minimal -c ${{ env.OLW_CONFIG }}
+          --logger "trx;LogFileName=OpenLiveWriter.UnitTest.trx"
+          --results-directory artifacts/test-results
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: TestResults-${{ env.OLW_CONFIG }}-${{ github.run_number }}
+          path: artifacts/test-results/
+          if-no-files-found: warn
+
+      - name: Verify the build is not a Debug build
+        # The installer artifact is what people install, so assert it from the
+        # assembly itself rather than trusting the configuration plumbing.
+        shell: pwsh
         run: |
+          if ($env:OLW_CONFIG -ne 'Release') {
+            throw "OLW_CONFIG is '$env:OLW_CONFIG'; installers must be packed from Release binaries."
+          }
+          dotnet run scripts/AssertReleaseBuild.cs -- "src/managed/OpenLiveWriter/bin/$env:OLW_CONFIG/OpenLiveWriter.dll"
+          if ($LASTEXITCODE -ne 0) { throw "Refusing to package: the built app is not a Release build." }
+
+      - name: Package with Velopack
+        # Unsigned. This used to branch on SignClient secrets and call the .NET
+        # Foundation signing service, but codesign.dotnetfoundation.org is gone
+        # (it answers HTTP 500), so that path could never run. Signing returns
+        # via SignPath Foundation, which submits artifacts to a service and
+        # signs nested files there rather than shelling out per file, so it will
+        # not come back as a --signTemplate.
+        #
+        # Releases/ is cleaned first: the PostBuild.CreateInstaller project
+        # already packed this version during the solution build, and vpk refuses
+        # to pack an equal-or-greater version.
+        shell: cmd
+        run: |
+          if exist Releases rd /s /q Releases
           call getversion.cmd
           vpk pack ^
             --packId OpenLiveWriter ^
-            --packVersion %dottedVersion% ^
+            --packVersion %packVersion% ^
             --packTitle "Open Live Writer" ^
             --packDir src\managed\OpenLiveWriter\bin\%OLW_CONFIG% ^
             --mainExe OpenLiveWriter.exe ^
@@ -154,53 +135,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
+      - name: Prepare build
+        uses: ./.github/actions/prepare-build
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
-
-      - name: Generate version info
-        # GlobalAssemblyVersionInfo.cs is generated, not committed; the build
-        # fails without it on a fresh checkout. getversion.cmd only sets cmd
-        # variables, so generate the file directly from version.txt.
-        run: |
-          $v = (Get-Content version.txt -Raw).Trim()
-          Set-Content src/managed/GlobalAssemblyVersionInfo.cs `
-            "[assembly: System.Reflection.AssemblyVersion(`"$v`")]", `
-            "[assembly: System.Reflection.AssemblyFileVersion(`"$v`")]"
-
-      - name: Generate GoogleBloggerv3Secrets.json
-        # Embedded by BlogClient, gitignored (contains OAuth credentials).
-        # Synthesized from CI secrets; empty strings when unset (dev builds
-        # simply can't use Blogger auth).
-        env:
-          OLW_BLOGGER_CLIENT_ID: ${{ secrets.OLW_BLOGGER_CLIENT_ID }}
-          OLW_BLOGGER_CLIENT_SECRET: ${{ secrets.OLW_BLOGGER_CLIENT_SECRET }}
-        run: |
-          $json = @{
-            installed = @{
-              client_id = "$env:OLW_BLOGGER_CLIENT_ID"
-              project_id = "open-live-writer"
-              auth_uri = "https://accounts.google.com/o/oauth2/auth"
-              token_uri = "https://oauth2.googleapis.com/token"
-              auth_provider_x509_cert_url = "https://www.googleapis.com/oauth2/v1/certs"
-              client_secret = "$env:OLW_BLOGGER_CLIENT_SECRET"
-              redirect_uris = @("http://localhost")
-            }
-          } | ConvertTo-Json -Depth 5
-          Set-Content src/managed/OpenLiveWriter.BlogClient/Clients/GoogleBloggerv3Secrets.json $json
-
-      - name: Generate Markets.xml
-        # CoreServices embeds Marketization/Markets.xml (gitignored, generated
-        # from intl/markets by MarketXmlGenerator) and Marketization/Master.xml
-        # (gitignored, copied from intl/markets). Produce both before build.
-        run: |
-          dotnet build src/managed/MarketXmlGenerator/MarketXmlGenerator.csproj -c Release --nologo -v minimal
-          dotnet run --project src/managed/MarketXmlGenerator/MarketXmlGenerator.csproj -c Release --no-build -- intl/markets src/managed/OpenLiveWriter.CoreServices/Marketization/Markets.xml
-          Copy-Item intl/markets/Master.xml src/managed/OpenLiveWriter.CoreServices/Marketization/Master.xml
-
-      - name: Restore NuGet packages
-        run: dotnet restore ${{ env.SOLUTION_PATH }}
+          solution: ${{ env.SOLUTION_PATH }}
+          blogger-client-id: ${{ secrets.OLW_BLOGGER_CLIENT_ID }}
+          blogger-client-secret: ${{ secrets.OLW_BLOGGER_CLIENT_SECRET }}
 
       - name: Build solution (Debug)
         run: |
@@ -210,3 +151,29 @@ jobs:
             /verbosity:minimal `
             /p:Configuration=Debug `
             /p:PlatformToolset=v143
+
+      # One step per project: see the note in the Release job.
+      - name: Test (OpenLiveWriter.Tests, Debug)
+        # Worth running in both configurations: Debug.Assert is compiled out of
+        # Release, and several regression tests (the sidebar editor cache, the
+        # Debug tab dialogs) exist precisely to catch assertions firing.
+        run: >
+          dotnet test src/managed/OpenLiveWriter.Tests/OpenLiveWriter.Tests.csproj
+          --no-build --nologo -v minimal -c Debug
+          --logger "trx;LogFileName=OpenLiveWriter.Tests.trx"
+          --results-directory artifacts/test-results
+
+      - name: Test (OpenLiveWriter.UnitTest, Debug)
+        run: >
+          dotnet test src/managed/OpenLiveWriter.UnitTest/OpenLiveWriter.UnitTest.csproj
+          --no-build --nologo -v minimal -c Debug
+          --logger "trx;LogFileName=OpenLiveWriter.UnitTest.trx"
+          --results-directory artifacts/test-results
+
+      - name: Upload test results (Debug)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: TestResults-Debug-${{ github.run_number }}
+          path: artifacts/test-results/
+          if-no-files-found: warn

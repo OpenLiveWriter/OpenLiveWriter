@@ -49,7 +49,10 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>"$(ProjectDir)createinstaller.cmd"</PostBuildEvent>
+    <!-- Pass the configuration MSBuild actually built: the script used to take
+         it from %OLW_CONFIG% and silently fell back to Debug when that was
+         unset, packaging bin\Debug out of a Release build. -->
+    <PostBuildEvent>"$(ProjectDir)createinstaller.cmd" $(Configuration)</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.

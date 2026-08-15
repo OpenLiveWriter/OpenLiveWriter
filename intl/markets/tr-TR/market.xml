@@ -62,7 +62,7 @@
             <parameter name="Glink" value="http://openlivewriter.com/WriterRedirect/WriterFTPHelpV3" />
         </feature>
         <feature name="Gallery" enabled="true">
-            <parameter name="Glink" value="http://openlivewriter.com/WriterRedirect/WriterDownloadPluginsURL" />
+            <parameter name="Glink" value="https://openlivewriter.com/plugins/" />
         </feature>
         <feature name="Dot Net 20" enabled="true">
             <parameter name="Glink" value="http://openlivewriter.com/WriterRedirect/WriterDotNet20Download?displayLang=tr" />

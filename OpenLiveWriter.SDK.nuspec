@@ -11,12 +11,28 @@
         <requireLicenseAcceptance>true</requireLicenseAcceptance>
         <description>The SDK required to create plug-ins for Open Live Writer.</description>
         <copyright>(c) .NET  Foundation</copyright>
-        <frameworkAssemblies>
-            <frameworkAssembly assemblyName="System.Windows.Forms" targetFramework=".NETFramework4.6.1" />
-            <frameworkAssembly assemblyName="System.Drawing" targetFramework=".NETFramework4.6.1" />
-        </frameworkAssemblies>
+        <!--
+            No <frameworkAssemblies>. Those entries only apply to .NET Framework
+            consumers, and this package ships a single lib\net10.0-windows
+            folder, so a .NETFramework4.6.1 group could never be selected: the
+            System.Windows.Forms and System.Drawing declarations that used to
+            sit here were dead weight left over from the .NET Framework build.
+            On net10.0-windows both assemblies come from the Windows Desktop
+            targeting pack, which a consuming plug-in project pulls in with
+            <UseWindowsForms>true</UseWindowsForms>, not from NuGet.
+        -->
+        <dependencies>
+            <!-- Declares the one framework this package supports, so a .NET
+                 Framework consumer gets a clear "not compatible" error rather
+                 than a package that resolves but has nothing to offer. -->
+            <group targetFramework="net10.0-windows7.0" />
+        </dependencies>
     </metadata>
     <files>
-        <file src="src\managed\OpenLiveWriter.Api\bin\Release\OpenLiveWriter.Api.dll" target="lib\net10.0-windows\OpenLiveWriter.Api.dll" />
+        <!-- The platform version is mandatory: with a bare "net10.0-windows"
+             folder nuget pack fails outright with NU1012, so BuildNuget.cmd
+             has not been able to produce this package since the .NET 10
+             retarget. -->
+        <file src="src\managed\OpenLiveWriter.Api\bin\Release\OpenLiveWriter.Api.dll" target="lib\net10.0-windows7.0\OpenLiveWriter.Api.dll" />
     </files>
 </package>

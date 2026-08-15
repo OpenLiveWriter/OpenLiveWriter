@@ -142,15 +142,14 @@ docs/
 
 ## Environment Variables
 
-```powershell
-# Use WebView2 for browser controls (downloads, previews)
-$env:OLW_USE_WEBVIEW2 = "1"
+WebView2 is now the **default** engine for both the editor and browser controls. No environment variable is needed to enable it.
 
-# Use WebView2 for the editor (the main editing experience)
-$env:OLW_USE_WEBVIEW2_EDITOR = "1"
+```powershell
+# To fall back to legacy MSHTML/IE engine (for both editor and browser controls):
+$env:OLW_USE_MSHTML = "1"
 ```
 
-Both can be enabled independently for gradual testing.
+> **Note:** The old `OLW_USE_WEBVIEW2` and `OLW_USE_WEBVIEW2_EDITOR` variables are no longer used.
 
 ---
 
@@ -160,9 +159,12 @@ Both can be enabled independently for gradual testing.
 # Build (requires VS 2022 C++ tools for Ribbon)
 .\build.ps1 /p:PlatformToolset=v145
 
-# Run with WebView2 editor
-$env:OLW_USE_WEBVIEW2_EDITOR = "1"
-.\src\managed\bin\Debug\i386\Writer\OpenLiveWriter.exe
+# Run (WebView2 is the default engine)
+.\src\managed\bin\Debug\x64\Writer\OpenLiveWriter.exe
+
+# To fall back to MSHTML/IE:
+$env:OLW_USE_MSHTML = "1"
+.\src\managed\bin\Debug\x64\Writer\OpenLiveWriter.exe
 
 # Debug logging - use DebugView, filter by [OLW-DEBUG]
 ```
