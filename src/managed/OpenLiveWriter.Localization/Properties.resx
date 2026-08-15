@@ -3492,4 +3492,7 @@ Would you like launch a browser to link your account now?</value>
   <data name="Sidebar.WidthInPixels" xml:space="preserve">
     <value>200</value>
   <comment>The width of the sidebar, in pixels.</comment></data>
+  <data name="Command.CheckForUpdates.LabelTitle" xml:space="preserve">
+    <value>Check for updates</value>
+  </data>
 </root>

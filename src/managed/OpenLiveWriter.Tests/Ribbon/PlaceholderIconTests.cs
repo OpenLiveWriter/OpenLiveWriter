@@ -101,5 +101,20 @@ namespace OpenLiveWriter.Tests.Ribbon
                     $"{id} popup icon should be native 32px artwork, not an upscale");
             }
         }
+    
+        [Test]
+        public void CheckForUpdates_HasLabelAndIcons()
+        {
+            // The File menu's Check for Updates item shipped with the enum-name
+            // label and no icon; it must resolve the real label and artwork.
+            var commandManager = new CommandManager();
+            commandManager.Add(new Command(CommandId.CheckForUpdates));
+
+            var bridge = new CommandManagerBridge(commandManager);
+            var command = bridge.GetOrCreateBridgedCommand(CommandId.CheckForUpdates);
+
+            Assert.AreEqual("Check for updates", command.Label);
+            Assert.NotNull(command.SmallImage, "Check for updates should have a menu icon");
+        }
     }
 }
