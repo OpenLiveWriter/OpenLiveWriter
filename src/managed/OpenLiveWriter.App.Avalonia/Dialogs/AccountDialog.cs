@@ -6,7 +6,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using global::Avalonia.Controls;
 using global::Avalonia.Layout;
+using OpenLiveWriter.App.Avalonia.Editor;
+using OpenLiveWriter.Markdown;
+using OpenLiveWriter.Publishing;
 using OpenLiveWriter.Publishing.Accounts;
+using OpenLiveWriter.Publishing.Drafts;
 
 namespace OpenLiveWriter.App.Avalonia.Dialogs
 {
@@ -38,6 +42,8 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
         private readonly TextBox _blogIdBox;
         private readonly TextBox _usernameBox;
         private readonly TextBox _passwordBox;
+        private readonly ComboBox _editingFormatCombo;
+        private readonly ComboBox _publishFormatCombo;
         private readonly Button _saveButton;
         private readonly Button _detectButton;
         private readonly Button _testButton;
@@ -45,6 +51,10 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
         private readonly TextBlock _providerLabel;
         private readonly IRsdHttpFetcher _fetcher;
         private readonly IBlogConnectionVerifier _verifier;
+        private readonly IDraftStore _draftStore;
+        private readonly IMarkdownService _markdown;
+        private readonly BlogAccount _existing;
+        private readonly ContentFormat _originalEditingFormat;
         private readonly string _existingId;
         private readonly bool _isEdit;
         private string _providerType;
@@ -53,12 +63,17 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
         public AccountDialogResult Result { get; private set; }
 
         public AccountDialog(BlogAccount existing = null, IRsdHttpFetcher fetcher = null,
-            IBlogConnectionVerifier verifier = null)
+            IBlogConnectionVerifier verifier = null, IDraftStore draftStore = null,
+            IMarkdownService markdown = null)
         {
             _fetcher = fetcher ?? new HttpRsdFetcher();
             _verifier = verifier ?? new MetaWeblogConnectionVerifier();
+            _draftStore = draftStore;
+            _markdown = markdown;
+            _existing = existing;
             _isEdit = existing != null;
             _existingId = existing?.Id ?? string.Empty;
+            _originalEditingFormat = existing?.EditingFormat ?? ContentFormat.Html;
             _providerType = existing?.ProviderType ?? BlogAccount.DefaultProviderType;
 
             Title = _isEdit ? "Blog Account Settings" : "Add a Blog Account";
@@ -87,6 +102,11 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
                 Text = string.Empty
             };
 
+            _editingFormatCombo = CreateFormatCombo(existing?.EditingFormat ?? ContentFormat.Html);
+            _publishFormatCombo = CreateFormatCombo(existing?.PublishFormat ?? ContentFormat.Html);
+            _editingFormatCombo.SelectionChanged += (s, e) => UpdatePublishFormatState();
+            UpdatePublishFormatState();
+
             _saveButton = new Button
             {
                 Content = "Save",
@@ -111,30 +131,7 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
             _testButton = new Button { Content = "Test Connection", MinWidth = 110, IsEnabled = false };
             _testButton.Click += async (s, e) => await TestConnectionAsync();
 
-            _saveButton.Click += (s, e) =>
-            {
-                Result = new AccountDialogResult
-                {
-                    Account = new BlogAccount
-                    {
-                        Id = _existingId,
-                        DisplayName = _displayNameBox.Text?.Trim() ?? string.Empty,
-                        HomepageUrl = _homepageBox.Text?.Trim() ?? string.Empty,
-                        ApiEndpointUrl = _endpointBox.Text?.Trim() ?? string.Empty,
-                        BlogId = _blogIdBox.Text?.Trim() ?? string.Empty,
-                        Username = _usernameBox.Text?.Trim() ?? string.Empty,
-                        ProviderType = _providerType ?? BlogAccount.DefaultProviderType,
-                        SupportsPages = existing?.SupportsPages ?? true,
-                        SupportsCategories = existing?.SupportsCategories ?? true,
-                        SupportsExtendedEntries = existing?.SupportsExtendedEntries ?? true
-                    },
-                    // On edit, an empty password means "keep the existing secret".
-                    Password = string.IsNullOrEmpty(_passwordBox.Text)
-                        ? (_isEdit ? null : string.Empty)
-                        : _passwordBox.Text
-                };
-                Close(Result);
-            };
+            _saveButton.Click += async (s, e) => await SaveAsync();
             cancelButton.Click += (s, e) => Close(null);
 
             void Revalidate(object s, EventArgs e)
@@ -153,7 +150,7 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
             var grid = new Grid
             {
                 Margin = new global::Avalonia.Thickness(16),
-                RowDefinitions = new RowDefinitions("Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"),
+                RowDefinitions = new RowDefinitions("Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"),
                 ColumnDefinitions = new ColumnDefinitions("Auto,*")
             };
 
@@ -172,6 +169,8 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
                 VerticalAlignment = VerticalAlignment.Center
             };
             AddRow(grid, 6, "Provider:", _providerLabel);
+            AddRow(grid, 7, "Content format:", _editingFormatCombo);
+            AddRow(grid, 8, "Publish as:", _publishFormatCombo);
 
             // Detect/Test row: pull the endpoint/blog id from the Blog URL via RSD
             // discovery, or verify the entered endpoint + credentials live.
@@ -184,7 +183,7 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
             detectRow.Children.Add(_detectButton);
             detectRow.Children.Add(_testButton);
             detectRow.Children.Add(_detectStatus);
-            Grid.SetRow(detectRow, 7);
+            Grid.SetRow(detectRow, 9);
             Grid.SetColumn(detectRow, 0);
             Grid.SetColumnSpan(detectRow, 2);
             grid.Children.Add(detectRow);
@@ -199,7 +198,7 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
                     global::Avalonia.Media.Color.FromRgb(0x66, 0x66, 0x66)),
                 Margin = new global::Avalonia.Thickness(0, 8, 0, 0)
             };
-            Grid.SetRow(hint, 8);
+            Grid.SetRow(hint, 10);
             Grid.SetColumn(hint, 0);
             Grid.SetColumnSpan(hint, 2);
             grid.Children.Add(hint);
@@ -213,7 +212,7 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
             };
             buttonRow.Children.Add(cancelButton);
             buttonRow.Children.Add(_saveButton);
-            Grid.SetRow(buttonRow, 9);
+            Grid.SetRow(buttonRow, 11);
             Grid.SetColumn(buttonRow, 0);
             Grid.SetColumnSpan(buttonRow, 2);
             grid.Children.Add(buttonRow);
@@ -326,6 +325,90 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
                 global::Avalonia.Media.Color.FromRgb(r, g, b));
         }
 
+        private async Task SaveAsync()
+        {
+            BlogAccount account = BuildAccountFromFields();
+            ContentFormat newEditingFormat = account.EditingFormat;
+
+            if (_isEdit
+                && _originalEditingFormat == ContentFormat.Html
+                && newEditingFormat == ContentFormat.Markdown
+                && _draftStore != null
+                && _markdown != null
+                && DraftConversion.HasDraftsForBlog(_draftStore, account.BlogId))
+            {
+                YesNoCancelResult choice = await ConfirmDialog.ShowYesNoCancelAsync(
+                    this,
+                    "Convert Drafts to Markdown",
+                    "This blog has saved local drafts in HTML format. "
+                    + "Convert them to Markdown now?\n\n"
+                    + "Yes converts existing drafts. No keeps them as HTML until opened. "
+                    + "Cancel returns to the account settings without saving.");
+
+                if (choice == YesNoCancelResult.Cancel)
+                    return;
+
+                if (choice == YesNoCancelResult.Yes)
+                    DraftConversion.ConvertBlogDraftsToMarkdown(_draftStore, account.BlogId, _markdown);
+            }
+
+            Result = new AccountDialogResult
+            {
+                Account = account,
+                Password = string.IsNullOrEmpty(_passwordBox.Text)
+                    ? (_isEdit ? null : string.Empty)
+                    : _passwordBox.Text
+            };
+            Close(Result);
+        }
+
+        private BlogAccount BuildAccountFromFields()
+        {
+            return new BlogAccount
+            {
+                Id = _existingId,
+                DisplayName = _displayNameBox.Text?.Trim() ?? string.Empty,
+                HomepageUrl = _homepageBox.Text?.Trim() ?? string.Empty,
+                ApiEndpointUrl = _endpointBox.Text?.Trim() ?? string.Empty,
+                BlogId = _blogIdBox.Text?.Trim() ?? string.Empty,
+                Username = _usernameBox.Text?.Trim() ?? string.Empty,
+                ProviderType = _providerType ?? BlogAccount.DefaultProviderType,
+                SupportsPages = _existing?.SupportsPages ?? true,
+                SupportsCategories = _existing?.SupportsCategories ?? true,
+                SupportsExtendedEntries = _existing?.SupportsExtendedEntries ?? true,
+                UseThemeForPreview = _existing?.UseThemeForPreview ?? false,
+                EditingFormat = GetFormatFromCombo(_editingFormatCombo),
+                PublishFormat = GetFormatFromCombo(_publishFormatCombo)
+            };
+        }
+
+        private void UpdatePublishFormatState()
+        {
+            if (GetFormatFromCombo(_editingFormatCombo) == ContentFormat.Html)
+            {
+                _publishFormatCombo.SelectedIndex = 0;
+                _publishFormatCombo.IsEnabled = false;
+            }
+            else
+            {
+                _publishFormatCombo.IsEnabled = true;
+            }
+        }
+
+        private static ComboBox CreateFormatCombo(ContentFormat selected)
+        {
+            var combo = new ComboBox { MinWidth = 160 };
+            combo.Items.Add("HTML");
+            combo.Items.Add("Markdown");
+            combo.SelectedIndex = selected == ContentFormat.Markdown ? 1 : 0;
+            return combo;
+        }
+
+        private static ContentFormat GetFormatFromCombo(ComboBox combo)
+        {
+            return combo?.SelectedIndex == 1 ? ContentFormat.Markdown : ContentFormat.Html;
+        }
+
         /// <summary>
         /// Test Connection is enabled only when all three inputs are present — a blank
         /// endpoint, username, or password could never succeed (on edit, a blank
@@ -391,9 +474,16 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
             Window owner,
             BlogAccount existing = null,
             IRsdHttpFetcher fetcher = null,
-            IBlogConnectionVerifier verifier = null)
+            IBlogConnectionVerifier verifier = null,
+            IDraftStore draftStore = null,
+            IMarkdownService markdown = null)
         {
-            var dialog = new AccountDialog(existing, fetcher, verifier);
+            var dialog = new AccountDialog(
+                existing,
+                fetcher,
+                verifier,
+                draftStore ?? DraftStoreFactory.CreateDefault(),
+                markdown ?? new MarkdownService());
             if (owner != null)
                 return await dialog.ShowDialog<AccountDialogResult>(owner);
 

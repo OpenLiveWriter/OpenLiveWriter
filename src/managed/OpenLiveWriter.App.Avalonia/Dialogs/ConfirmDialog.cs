@@ -18,6 +18,14 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
         Cancel
     }
 
+    /// <summary>Result of a Yes / No / Cancel confirmation.</summary>
+    public enum YesNoCancelResult
+    {
+        Yes,
+        No,
+        Cancel
+    }
+
     /// <summary>
     /// Small modal used for confirmations. Two flavors are offered via factory
     /// methods: a three-way Save/Discard/Cancel unsaved-changes prompt (used by
@@ -109,6 +117,66 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
             if (owner == null) return false;
             var result = await dialog.ShowDialog<ConfirmResult>(owner);
             return result == ConfirmResult.Save;
+        }
+
+        /// <summary>
+        /// Shows a Yes / No / Cancel confirmation. A null owner (headless) returns
+        /// <see cref="YesNoCancelResult.Cancel"/> so callers default to aborting.
+        /// </summary>
+        public static async Task<YesNoCancelResult> ShowYesNoCancelAsync(Window owner, string title, string message)
+        {
+            var dialog = new YesNoCancelDialog(title, message);
+            if (owner == null)
+                return YesNoCancelResult.Cancel;
+            return await dialog.ShowDialog<YesNoCancelResult>(owner);
+        }
+    }
+
+    internal sealed class YesNoCancelDialog : Window
+    {
+        public YesNoCancelDialog(string title, string message)
+        {
+            Title = title;
+            Width = 420;
+            SizeToContent = SizeToContent.Height;
+            CanResize = false;
+            WindowStartupLocation = WindowStartupLocation.CenterOwner;
+
+            var panel = new StackPanel { Margin = new global::Avalonia.Thickness(16), Spacing = 16 };
+            panel.Children.Add(new TextBlock
+            {
+                Text = message,
+                TextWrapping = global::Avalonia.Media.TextWrapping.Wrap
+            });
+
+            var buttonRow = new StackPanel
+            {
+                Orientation = Orientation.Horizontal,
+                HorizontalAlignment = HorizontalAlignment.Right,
+                Spacing = 8
+            };
+
+            foreach (var (label, result, isDefault, isCancel) in new[]
+            {
+                ("Yes", YesNoCancelResult.Yes, true, false),
+                ("No", YesNoCancelResult.No, false, false),
+                ("Cancel", YesNoCancelResult.Cancel, false, true)
+            })
+            {
+                var button = new Button
+                {
+                    Content = label,
+                    MinWidth = 80,
+                    IsDefault = isDefault,
+                    IsCancel = isCancel
+                };
+                var captured = result;
+                button.Click += (s, e) => Close(captured);
+                buttonRow.Children.Add(button);
+            }
+
+            panel.Children.Add(buttonRow);
+            Content = panel;
         }
     }
 }
