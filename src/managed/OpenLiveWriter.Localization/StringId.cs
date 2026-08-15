@@ -5629,6 +5629,26 @@ namespace OpenLiveWriter.Localization
         /// <summary>
         /// File Upload Not Supported
         /// </summary>
-        NoFileUploadTitle
+        NoFileUploadTitle,
+        /// <summary>
+        /// Labs
+        /// </summary>
+        LabsPreferencesPanelName,
+        /// <summary>
+        /// Try out experimental features. Changes on this page take effect after you restart Open Live Writer.
+        /// </summary>
+        LabsPreferencesExplanation,
+        /// <summary>
+        /// Ribbon
+        /// </summary>
+        LabsRibbonGroup,
+        /// <summary>
+        /// Use the new managed ribbon (default)
+        /// </summary>
+        LabsRibbonManaged,
+        /// <summary>
+        /// Use the classic Windows ribbon (as in 0.6.2)
+        /// </summary>
+        LabsRibbonNative
     }
 }

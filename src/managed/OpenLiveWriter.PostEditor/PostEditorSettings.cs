@@ -130,6 +130,13 @@ namespace OpenLiveWriter.PostEditor
         }
         private const string POST_EDITOR_WINDOW_MAXIMIZED = "MainWindowMaximized";
 
+        public static bool UseNativeRibbon
+        {
+            get { return SettingsKey.GetBoolean(USE_NATIVE_RIBBON, false); }
+            set { SettingsKey.SetBoolean(USE_NATIVE_RIBBON, value); }
+        }
+        private const string USE_NATIVE_RIBBON = "UseNativeRibbon";
+
         public static Rectangle PostEditorWindowBounds
         {
             get { return SettingsKey.GetRectangle(POST_EDITOR_WINDOW_BOUNDS, DefaultWindowBounds); }

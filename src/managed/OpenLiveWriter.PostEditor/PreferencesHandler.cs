@@ -189,6 +189,11 @@ namespace OpenLiveWriter.PostEditor
             preferencesPanelTypeTable["privacy"] = type;
             types.Add(type);
 
+            // Labs (experimental features)
+            type = typeof(LabsPreferencesPanel);
+            preferencesPanelTypeTable["labs"] = type;
+            types.Add(type);
+
             //	Set the preferences panels type array.
             preferencesPanelTypes = (Type[])types.ToArray(typeof(Type));
         }

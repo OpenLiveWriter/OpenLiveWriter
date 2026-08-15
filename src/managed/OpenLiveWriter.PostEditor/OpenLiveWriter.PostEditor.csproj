@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net10.0-windows</TargetFramework>
@@ -22,12 +22,12 @@
     <Compile Remove="PostHtmlEditing\IBlogPostSpellCheckingContext.cs" />
   </ItemGroup>
 
-  <!-- Embedded Resources - images -->
+  <!-- Embedded Resources - images (** matches subdirectories too, e.g. Images\PublishAnimation) -->
   <ItemGroup>
-    <EmbeddedResource Include="**\Images\*.png" />
-    <EmbeddedResource Include="**\Images\*.gif" />
-    <EmbeddedResource Include="**\Images\*.bmp" />
-    <EmbeddedResource Include="**\Images\*.ico" />
+    <EmbeddedResource Include="**\Images\**\*.png" />
+    <EmbeddedResource Include="**\Images\**\*.gif" />
+    <EmbeddedResource Include="**\Images\**\*.bmp" />
+    <EmbeddedResource Include="**\Images\**\*.ico" />
     <EmbeddedResource Include="**\*.htm" />
     <EmbeddedResource Include="**\*.html" />
     <EmbeddedResource Include="Configuration\**\*.xml" />

@@ -44,6 +44,8 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             // This call is required by the Windows.Forms Form Designer.
             InitializeComponent();
 
+            textBoxHomepageUrl.Text = DefaultUrlPlaceholder;
+
             this.textBoxHomepageUrl.RightToLeft = RightToLeft.No;
             if (BidiHelper.IsRightToLeft)
                 textBoxHomepageUrl.TextAlign = HorizontalAlignment.Right;
@@ -102,8 +104,21 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         public string HomepageUrl
         {
             get { return UrlHelper.FixUpUrl(textBoxHomepageUrl.Text); }
-            set { textBoxHomepageUrl.Text = value; }
+            set
+            {
+                // Offer "https://" as the default start for new blogs so users do
+                // not have to type the scheme; an empty value means the field has
+                // no real URL yet, so show the placeholder instead.
+                textBoxHomepageUrl.Text = string.IsNullOrWhiteSpace(value) ? DefaultUrlPlaceholder : value;
+                textBoxHomepageUrl.SelectionStart = textBoxHomepageUrl.TextLength;
+                textBoxHomepageUrl.SelectionLength = 0;
+            }
         }
+
+        /// <summary>
+        /// The placeholder scheme shown in the homepage URL field for new blogs.
+        /// </summary>
+        public const string DefaultUrlPlaceholder = "https://";
 
         public bool SavePassword
         {
@@ -148,11 +163,20 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             }
         }
 
+        /// <summary>
+        /// True when the entered homepage URL counts as empty: blank or a bare
+        /// scheme (the placeholder default, or the user deleting everything else).
+        /// </summary>
+        internal static bool IsEmptyHomepageUrl(string homepageUrl)
+        {
+            return string.IsNullOrEmpty(homepageUrl) || homepageUrl == "http://" || homepageUrl == "https://";
+        }
+
         public override bool ValidatePanel()
         {
             string homepageUrl = HomepageUrl;
 
-            if (homepageUrl == String.Empty)
+            if (IsEmptyHomepageUrl(homepageUrl))
             {
                 ShowValidationError(textBoxHomepageUrl, MessageId.HomepageUrlRequired);
                 return false;
