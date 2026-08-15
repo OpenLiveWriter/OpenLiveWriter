@@ -205,3 +205,7 @@ FakesAssemblies/
 *.VC.db
 # macOS publish output
 artifacts/
+
+# Agent/git worktrees
+.worktrees/
+
