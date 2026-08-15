@@ -225,13 +225,12 @@ namespace OpenLiveWriter
 
         private static void OnUninstall()
         {
-            try { Registry.CurrentUser.DeleteSubKeyTree(@"SOFTWARE\OpenLiveWriter", false); } catch { }
-            string localAppData = Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "OpenLiveWriter");
-            string roamingAppData = Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "OpenLiveWriter");
-            try { if (Directory.Exists(localAppData)) Directory.Delete(localAppData, true); } catch { }
-            try { if (Directory.Exists(roamingAppData)) Directory.Delete(roamingAppData, true); } catch { }
+            // Remove only what the app itself registered. User data (blog
+            // accounts, credentials, preferences under HKCU\Software\OpenLiveWriter,
+            // and drafts/AutoRecover under AppData) is deliberately preserved:
+            // Velopack also runs this hook when replacing versions during update
+            // testing, and wiping user state there loses blog accounts and drafts.
+            RemoveAssociation(".wpost", "OPEN_LIVE_WRITER");
         }
 
         public static void SetAssociation(string extension, string keyName, string openWith, string fileDescription)
@@ -260,6 +259,27 @@ namespace OpenLiveWriter
 
             // Tell explorer the file association has been changed
             SHChangeNotify(0x08000000, 0x0000, IntPtr.Zero, IntPtr.Zero);
+        }
+
+        /// <summary>
+        /// Removes the per-user file association registered by SetAssociation.
+        /// </summary>
+        public static void RemoveAssociation(string extension, string keyName)
+        {
+            try
+            {
+                var classesRoot = Registry.CurrentUser.OpenSubKey(@"Software\Classes", true);
+                classesRoot?.DeleteSubKeyTree(extension, false);
+                classesRoot?.DeleteSubKeyTree(keyName, false);
+                classesRoot?.Close();
+
+                // Tell explorer the file association has been removed
+                SHChangeNotify(0x08000000, 0x0000, IntPtr.Zero, IntPtr.Zero);
+            }
+            catch
+            {
+                // Best effort cleanup only
+            }
         }
 
         [DllImport("shell32.dll", CharSet = CharSet.Auto, SetLastError = true)]
