@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <AssemblyName>OpenLiveWriter.Markdown</AssemblyName>
+    <RootNamespace>OpenLiveWriter.Markdown</RootNamespace>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <OutputType>Library</OutputType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\GlobalAssemblyInfo.cs" Link="GlobalAssemblyInfo.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Markdig" />
+    <PackageReference Include="AngleSharp" />
+  </ItemGroup>
+
+</Project>
