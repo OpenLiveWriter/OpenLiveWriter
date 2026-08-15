@@ -3,6 +3,7 @@
 
 using System;
 using System.Text.Json.Serialization;
+using OpenLiveWriter.Publishing;
 
 namespace OpenLiveWriter.Publishing.Accounts
 {
@@ -68,6 +69,17 @@ namespace OpenLiveWriter.Publishing.Accounts
         /// </summary>
         public bool UseThemeForPreview { get; set; }
 
+        /// <summary>
+        /// Format used when editing posts for this blog (Source tab and on-disk draft body).
+        /// </summary>
+        public ContentFormat EditingFormat { get; set; } = ContentFormat.Html;
+
+        /// <summary>
+        /// Format sent to the blog on publish. Defaults to HTML even when
+        /// <see cref="EditingFormat"/> is Markdown.
+        /// </summary>
+        public ContentFormat PublishFormat { get; set; } = ContentFormat.Html;
+
         /// <summary>The default provider type.</summary>
         public const string DefaultProviderType = "MetaWeblog";
 
@@ -95,7 +107,9 @@ namespace OpenLiveWriter.Publishing.Accounts
             SupportsPages = SupportsPages,
             SupportsCategories = SupportsCategories,
             SupportsExtendedEntries = SupportsExtendedEntries,
-            UseThemeForPreview = UseThemeForPreview
+            UseThemeForPreview = UseThemeForPreview,
+            EditingFormat = EditingFormat,
+            PublishFormat = PublishFormat
         };
     }
 }

@@ -42,6 +42,7 @@
       "OpenLiveWriter.EditorTests/OpenLiveWriter.EditorTests.csproj",
       "OpenLiveWriter.EditorTests.Automated/OpenLiveWriter.EditorTests.Automated.csproj",
       "OpenLiveWriter.Publishing/OpenLiveWriter.Publishing.csproj",
+      "OpenLiveWriter.Publishing.Tests/OpenLiveWriter.Publishing.Tests.csproj",
       "OpenLiveWriter.Markdown/OpenLiveWriter.Markdown.csproj",
       "OpenLiveWriter.Markdown.Tests/OpenLiveWriter.Markdown.Tests.csproj"
     ]

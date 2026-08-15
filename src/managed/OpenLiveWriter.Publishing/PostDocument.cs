@@ -52,8 +52,23 @@ namespace OpenLiveWriter.Publishing
         /// <summary>
         /// Full editor body HTML, including the <c>&lt;!--more--&gt;</c> extended-entry
         /// break if present. Stored faithfully so a load round-trips the editor content.
+        /// When <see cref="BodyFormat"/> is <see cref="ContentFormat.Markdown"/>,
+        /// <see cref="BodyMarkdown"/> is authoritative and this field may hold a cached
+        /// HTML snapshot from the last Design view or remain empty.
         /// </summary>
         public string BodyHtml { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Canonical Markdown body when <see cref="BodyFormat"/> is
+        /// <see cref="ContentFormat.Markdown"/>; otherwise empty.
+        /// </summary>
+        public string BodyMarkdown { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Format of the persisted body. When Markdown, <see cref="BodyMarkdown"/> is
+        /// authoritative; when HTML, <see cref="BodyHtml"/> is authoritative.
+        /// </summary>
+        public ContentFormat BodyFormat { get; set; } = ContentFormat.Html;
 
         /// <summary>Assigned categories (server category names).</summary>
         public List<string> Categories { get; set; } = new List<string>();

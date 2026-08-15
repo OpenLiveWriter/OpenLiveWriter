@@ -8,6 +8,7 @@
       "OpenLiveWriter.Platform.Mac/OpenLiveWriter.Platform.Mac.csproj",
       "OpenLiveWriter.Platform.Tests/OpenLiveWriter.Platform.Tests.csproj",
       "OpenLiveWriter.Publishing/OpenLiveWriter.Publishing.csproj",
+      "OpenLiveWriter.Publishing.Tests/OpenLiveWriter.Publishing.Tests.csproj",
       "OpenLiveWriter.Markdown/OpenLiveWriter.Markdown.csproj",
       "OpenLiveWriter.Markdown.Tests/OpenLiveWriter.Markdown.Tests.csproj",
       "OpenLiveWriter.Localization/OpenLiveWriter.Localization.csproj",
