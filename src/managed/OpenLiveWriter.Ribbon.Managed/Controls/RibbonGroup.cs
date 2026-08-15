@@ -38,6 +38,11 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
 
         private bool _isPopupMode;
         private ToolStripDropDown _popupDropDown;
+        private ToolStripControlHost _popupHost;
+        private Panel _popupPanel;
+        private DropDownMouseHook _popupMouseHook;
+        private RibbonGroupSize _expandedSize = RibbonGroupSize.Large;
+        private int _expandedWidth;
 
         /// <summary>
         /// Gets or sets the command ID for this group.
@@ -114,6 +119,13 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             {
                 if (_currentSize != value)
                 {
+                    if (value == RibbonGroupSize.Popup)
+                    {
+                        // Remember the expanded presentation so the collapsed-group
+                        // popup can show the group's controls laid out the same way.
+                        _expandedSize = _currentSize;
+                        _expandedWidth = Width;
+                    }
                     _currentSize = value;
                     UpdateLayout();
                 }
@@ -273,7 +285,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
 
             if (SizeDefinition == "FourButtons" && _controls.Count >= 4)
             {
-                return GetStackedMediumButtonsWidth();
+                return GetFourButtonsGridWidth();
             }
 
             if (SizeDefinition == "SevenSmallButtons" && _controls.Count >= 7)
@@ -299,6 +311,41 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             if (SizeDefinition == "ThreeMediumButtons" && _controls.Count >= 3)
             {
                 return GetStackedMediumButtonsWidth();
+            }
+
+            // Native WRF templates used by the Debug tab
+            if (SizeDefinition == "ThreeButtons" && _controls.Count >= 3)
+            {
+                return GetGridButtonsWidth(1);
+            }
+            if (SizeDefinition == "FiveButtons" && _controls.Count >= 5)
+            {
+                return GetGridButtonsWidth(2);
+            }
+            if (SizeDefinition == "EightButtons" && _controls.Count >= 8)
+            {
+                return GetGridButtonsWidth(3);
+            }
+            if (SizeDefinition == "OneButton" && _controls.Count >= 1)
+            {
+                return GetNLargeButtonsWidth(1);
+            }
+            // OneLargeButton is an alias of OneButton (single large button).
+            if (SizeDefinition == "OneLargeButton" && _controls.Count >= 1)
+            {
+                return GetNLargeButtonsWidth(1);
+            }
+            // SixLargeButtons: six large buttons in a row (native SixButtons,
+            // used by the Insert tab's Media group).
+            if (SizeDefinition == "SixLargeButtons" && _controls.Count >= 6)
+            {
+                return GetNLargeButtonsWidth(6);
+            }
+            // In-ribbon gallery on the left, two stacked medium buttons on the
+            // right (native InRibbonGalleryAndButtons, used by the Plug-ins group).
+            if (SizeDefinition == "GalleryAndTwoButtons" && _controls.Count >= 3)
+            {
+                return GetGalleryAndTwoButtonsWidth();
             }
 
             if (SizeDefinition == "FontGroup")
@@ -638,6 +685,103 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
         }
 
         /// <summary>
+        /// Measures the width needed for a medium (icon + text) button based on
+        /// the labels of the stacked small buttons in this group.
+        /// </summary>
+        private int MeasureMediumButtonWidth()
+        {
+            var buttonWidth = 48; // minimum width for medium buttons with text
+            using (var g = CreateGraphics())
+            {
+                for (var i = 1; i < _controls.Count && i <= 2; i++)
+                {
+                    var label = _controls[i].CommandLabel;
+                    if (!string.IsNullOrEmpty(label))
+                    {
+                        var textWidth = TextRenderer.MeasureText(g, label, SystemFonts.MenuFont).Width;
+                        buttonWidth = Math.Max(buttonWidth, 2 + 16 + 2 + textWidth + 2);
+                    }
+                }
+            }
+            return buttonWidth;
+        }
+
+        /// <summary>
+        /// Width for the "FourButtons" SizeDefinition: a 2x2 grid of medium
+        /// buttons (native Editing group layout), so two columns of the
+        /// stacked medium button width.
+        /// </summary>
+        private int GetFourButtonsGridWidth()
+        {
+            var buttonWidth = 48; // minimum width for medium buttons with text
+            using (var g = CreateGraphics())
+            {
+                foreach (var control in _controls)
+                {
+                    var label = control.CommandLabel;
+                    if (!string.IsNullOrEmpty(label))
+                    {
+                        var textWidth = TextRenderer.MeasureText(g, label, SystemFonts.MenuFont).Width;
+                        buttonWidth = Math.Max(buttonWidth, 2 + 16 + 2 + textWidth + 2);
+                    }
+                }
+
+                var width = (buttonWidth * 2) + (PADDING * 2) + LayoutConstants.GroupSeparatorMargin;
+                var labelWidth = (int)g.MeasureString(_label ?? "", _labelControl.Font).Width + PADDING * 2;
+                width = Math.Max(width, labelWidth);
+                return Math.Max(width, MIN_WIDTH);
+            }
+        }
+
+        /// <summary>
+        /// Width for "GalleryAndTwoButtons": in-ribbon gallery on the left plus
+        /// one column of medium buttons on the right, including the group
+        /// separator margin so the rightmost button does not overhang it.
+        /// </summary>
+        private int GetGalleryAndTwoButtonsWidth()
+        {
+            var width = PADDING;
+            if (_controls.Count > 0 && _controls[0] is RibbonGallery gallery)
+            {
+                width += gallery.GetPreferredWidth() + 2;
+            }
+            width += MeasureMediumButtonWidth() + PADDING + LayoutConstants.GroupSeparatorMargin;
+
+            using (var g = CreateGraphics())
+            {
+                var labelWidth = (int)g.MeasureString(_label ?? "", _labelControl.Font).Width + PADDING * 2;
+                width = Math.Max(width, labelWidth);
+            }
+            return Math.Max(width, MIN_WIDTH);
+        }
+
+        /// <summary>
+        /// Width for the native WRF grid templates (ThreeButtons, FiveButtons,
+        /// EightButtons): N columns of medium (icon + text) buttons.
+        /// </summary>
+        private int GetGridButtonsWidth(int columns)
+        {
+            var buttonWidth = 48;
+            using (var g = CreateGraphics())
+            {
+                foreach (var control in _controls)
+                {
+                    var label = control.CommandLabel;
+                    if (!string.IsNullOrEmpty(label))
+                    {
+                        var textWidth = TextRenderer.MeasureText(g, label, SystemFonts.MenuFont).Width;
+                        buttonWidth = Math.Max(buttonWidth, 2 + 16 + 2 + textWidth + 2);
+                    }
+                }
+
+                var width = (buttonWidth * columns) + (PADDING * 2) + LayoutConstants.GroupSeparatorMargin;
+                var labelWidth = (int)g.MeasureString(_label ?? "", _labelControl.Font).Width + PADDING * 2;
+                width = Math.Max(width, labelWidth);
+                return Math.Max(width, MIN_WIDTH);
+            }
+        }
+
+        /// <summary>
         /// Calculate the preferred width for N large buttons arranged horizontally.
         /// Used by ThreeLargeButtons (Insert group) and TwoLargeButtons (Plugins group).
         /// </summary>
@@ -688,13 +832,18 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
         }
 
         /// <summary>
+        /// Column pitch for the SevenSmallButtons layout (~24px logical),
+        /// matching the native ribbon's small-button column width.
+        /// </summary>
+        private static int SevenSmallButtonsCellSize => OpenLiveWriter.CoreServices.DisplayHelper.ScaleXCeil(24);
+
+        /// <summary>
         /// Calculate the preferred width for the "SevenSmallButtons" SizeDefinition.
         /// Layout: 7 small icon-only buttons in 2 rows (3 top, 4 bottom) matching native ribbon.
-        /// Uses compact 20px buttons packed tight with no gaps.
         /// </summary>
         private int GetSevenSmallButtonsWidth()
         {
-            var btnSize = (int)(LayoutConstants.SmallButtonSize * 16.0 / 22.0); // compact button size for paragraph toolbar
+            var btnSize = SevenSmallButtonsCellSize;
             var numColumns = 4;
             // Include the group separator margin on the right so the bottom row's
             // fourth button does not overhang the separator (the layout places
@@ -745,8 +894,8 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                 x += buttonWidth + LayoutConstants.ControlSpacing;
             }
 
-            // Small buttons column width
-            x += LayoutConstants.SmallButtonSize + PADDING;
+            // Small buttons column width (medium buttons with icon + text)
+            x += MeasureMediumButtonWidth() + PADDING + LayoutConstants.GroupSeparatorMargin;
 
             // Ensure label fits
             using (var g = CreateGraphics())
@@ -823,6 +972,16 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             }
             else
             {
+                // The content panel may still be hosted in the collapsed-group
+                // popup dropdown; take it back before laying out.
+                if (_popupDropDown != null && _popupDropDown.Visible)
+                    _popupDropDown.Close();
+                if (_contentPanel.Parent != this)
+                {
+                    base.Controls.Add(_contentPanel);
+                    _contentPanel.Dock = DockStyle.Fill;
+                    _contentPanel.BackColor = Color.Transparent;
+                }
                 _contentPanel.Visible = true;
                 _isPopupMode = false;
 
@@ -878,7 +1037,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
 
             if (SizeDefinition == "FourButtons" && _controls.Count >= 4)
             {
-                LayoutStackedMediumButtons(availableHeight, 4, maxButtonHeight: 20);
+                LayoutFourButtonsGrid(availableHeight);
                 return;
             }
 
@@ -914,6 +1073,49 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             if (SizeDefinition == "ThreeMediumButtons" && _controls.Count >= 3)
             {
                 LayoutStackedMediumButtons(availableHeight, 3);
+                return;
+            }
+
+            // Native WRF templates used by the Debug tab: column-major grids of
+            // medium buttons (3), (3+2), and (3+3+2).
+            if (SizeDefinition == "ThreeButtons" && _controls.Count >= 3)
+            {
+                LayoutGridButtons(availableHeight, new[] { 3 });
+                return;
+            }
+            if (SizeDefinition == "FiveButtons" && _controls.Count >= 5)
+            {
+                LayoutGridButtons(availableHeight, new[] { 3, 2 });
+                return;
+            }
+            if (SizeDefinition == "EightButtons" && _controls.Count >= 8)
+            {
+                LayoutGridButtons(availableHeight, new[] { 3, 3, 2 });
+                return;
+            }
+            if (SizeDefinition == "OneButton" && _controls.Count >= 1)
+            {
+                LayoutNLargeButtons(availableHeight, 1);
+                return;
+            }
+            // OneLargeButton is an alias of OneButton (single large button).
+            if (SizeDefinition == "OneLargeButton" && _controls.Count >= 1)
+            {
+                LayoutNLargeButtons(availableHeight, 1);
+                return;
+            }
+            // SixLargeButtons: six large buttons in a row (native SixButtons,
+            // used by the Insert tab's Media group).
+            if (SizeDefinition == "SixLargeButtons" && _controls.Count >= 6)
+            {
+                LayoutNLargeButtons(availableHeight, 6);
+                return;
+            }
+            // In-ribbon gallery on the left, two stacked medium buttons on the
+            // right (native InRibbonGalleryAndButtons, used by the Plug-ins group).
+            if (SizeDefinition == "GalleryAndTwoButtons" && _controls.Count >= 3)
+            {
+                LayoutGalleryAndTwoButtons(availableHeight);
                 return;
             }
 
@@ -1301,6 +1503,101 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
         }
 
         /// <summary>
+        /// Layout for "GalleryAndTwoButtons": in-ribbon gallery on the left,
+        /// two medium (icon + text) buttons stacked on the right.
+        /// </summary>
+        private void LayoutGalleryAndTwoButtons(int availableHeight)
+        {
+            var x = PADDING;
+            var y = PADDING;
+
+            if (_controls.Count > 0 && _controls[0] is RibbonGallery gallery)
+            {
+                gallery.CurrentSize = RibbonGroupSize.Large;
+                gallery.Size = new Size(gallery.GetPreferredWidth(), availableHeight);
+                gallery.Location = new Point(x, y);
+                x += gallery.Width + 2;
+            }
+
+            var buttonWidth = MeasureMediumButtonWidth();
+            var buttonGap = 1;
+            var buttonHeight = Math.Max(14, (availableHeight - buttonGap) / 2);
+            for (var i = 1; i < _controls.Count && i <= 2; i++)
+            {
+                var control = _controls[i];
+                if (!control.Visible) continue;
+                control.CurrentSize = RibbonGroupSize.Medium;
+                control.Size = new Size(buttonWidth, buttonHeight);
+                control.Location = new Point(x, y + (i - 1) * (buttonHeight + buttonGap));
+            }
+        }
+
+        /// <summary>
+        /// Layout for the native WRF grid templates (ThreeButtons, FiveButtons,
+        /// EightButtons): medium buttons placed column by column using the
+        /// given per-column heights, e.g. (3+2) for FiveButtons and (3+3+2)
+        /// for EightButtons.
+        /// </summary>
+        private void LayoutGridButtons(int availableHeight, int[] columnHeights)
+        {
+            var x = PADDING;
+            var y = PADDING;
+
+            var cellWidth = Math.Max(48, (_contentPanel.Width - PADDING * 2) / columnHeights.Length);
+            var i = 0;
+            foreach (var rows in columnHeights)
+            {
+                var buttonGap = 1;
+                var buttonHeight = Math.Max(14, (availableHeight - ((rows - 1) * buttonGap)) / rows);
+                for (var row = 0; row < rows; row++)
+                {
+                    if (i >= _controls.Count) return;
+                    var control = _controls[i];
+                    if (!control.Visible)
+                    {
+                        i++;
+                        row--;
+                        continue;
+                    }
+                    control.CurrentSize = RibbonGroupSize.Medium;
+                    control.Size = new Size(cellWidth, buttonHeight);
+                    control.Location = new Point(x, y + row * (buttonHeight + buttonGap));
+                    i++;
+                }
+                x += cellWidth;
+            }
+        }
+
+        /// <summary>
+        /// Layout for the "FourButtons" SizeDefinition: four medium buttons in a
+        /// 2x2 grid (native Editing group: CheckSpelling, WordCount, Find,
+        /// SelectAll), instead of a single stacked column.
+        /// </summary>
+        private void LayoutFourButtonsGrid(int availableHeight)
+        {
+            var x = PADDING;
+            var y = PADDING;
+
+            var cellWidth = Math.Max(48, (_contentPanel.Width - PADDING * 2) / 2);
+            var buttonGap = 1;
+            var buttonHeight = Math.Max(14, (availableHeight - buttonGap) / 2);
+
+            var i = 0;
+            foreach (var control in _controls)
+            {
+                if (!control.Visible) continue;
+                if (i >= 4) break;
+
+                var column = i % 2;
+                var row = i / 2;
+                control.CurrentSize = RibbonGroupSize.Medium;
+                control.Size = new Size(cellWidth, buttonHeight);
+                control.Location = new Point(x + column * cellWidth, y + row * (buttonHeight + buttonGap));
+                i++;
+            }
+        }
+
+        /// <summary>
         /// Layout for N large buttons arranged horizontally side by side.
         /// Each button has full height with a 32x32 icon at top and text below.
         /// Used by ThreeLargeButtons (Insert) and TwoLargeButtons (Plugins).
@@ -1363,11 +1660,15 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
         {
             var x = PADDING;
             var y = PADDING;
-            var smallButtonSize = (int)(LayoutConstants.SmallButtonSize * 16.0 / 22.0); // compact size for paragraph toolbar
+            // Column pitch matching the native ribbon's SevenSmallButtons
+            // (~24px logical per column). The previous compact 16px pitch made
+            // the group too narrow, so the fourth button overhung the separator.
+            var smallButtonSize = SevenSmallButtonsCellSize;
 
-            // 2 rows, center vertically
+            // 2 rows, aligned to the top of the group like the native ribbon
+            // (previously vertically centered, which pushed the rows down)
             var totalHeight = smallButtonSize * 2;
-            var startY = y + Math.Max(0, (availableHeight - totalHeight) / 2);
+            var startY = y;
 
             var visibleButtons = new List<RibbonControlBase>();
             for (var i = 0; i < Math.Min(_controls.Count, 7); i++)
@@ -1453,8 +1754,11 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                 x += largeButton.Width + 1;
             }
             
-            // Controls 1 and 2: Small buttons stacked vertically on the right
+            // Controls 1 and 2: Small buttons stacked vertically on the right.
+            // Rendered as medium buttons (icon + text) to match the native
+            // ribbon's Cut/Copy buttons.
             var smallButtonSize = LayoutConstants.SmallButtonSize;
+            var smallButtonWidth = MeasureMediumButtonWidth();
             var totalSmallHeight = smallButtonSize * 2 + 1;
             var smallStartY = y + (availableHeight - totalSmallHeight) / 2;
 
@@ -1462,8 +1766,8 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             if (_controls.Count > 1)
             {
                 var smallButton1 = _controls[1];
-                smallButton1.CurrentSize = RibbonGroupSize.Small;
-                smallButton1.Size = new Size(smallButtonSize, smallButtonSize);
+                smallButton1.CurrentSize = RibbonGroupSize.Medium;
+                smallButton1.Size = new Size(smallButtonWidth, smallButtonSize);
                 smallButton1.Location = new Point(x, smallStartY);
                 smallButton1.BringToFront();
             }
@@ -1472,8 +1776,8 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             if (_controls.Count > 2)
             {
                 var smallButton2 = _controls[2];
-                smallButton2.CurrentSize = RibbonGroupSize.Small;
-                smallButton2.Size = new Size(smallButtonSize, smallButtonSize);
+                smallButton2.CurrentSize = RibbonGroupSize.Medium;
+                smallButton2.Size = new Size(smallButtonWidth, smallButtonSize);
                 smallButton2.Location = new Point(x, smallStartY + smallButtonSize + 1);
                 smallButton2.BringToFront();
             }
@@ -1632,6 +1936,13 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                     }
                 }
 
+                // Last resort (groups without buttons, e.g. HTML styles): the
+                // group's small icon, point-sampled up by DrawScaledImage.
+                if (image == null && groupCommand != null)
+                {
+                    image = groupCommand.SmallImage;
+                }
+
                 // Draw popup content: centered icon + small ▼ arrow
                 // Label is already rendered in the group label area by DrawGroup
                 // Use DPI-scaled icon size to match native ribbon popup appearance
@@ -1669,6 +1980,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
         {
             base.OnMouseClick(e);
 
+            System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] RibbonGroup.OnMouseClick: {_label} popupMode={_isPopupMode} button={e.Button}");
             if (_isPopupMode && e.Button == MouseButtons.Left)
             {
                 ShowPopup();
@@ -1677,28 +1989,112 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
 
         private void ShowPopup()
         {
+            // Host the group's content panel inside a persistent wrapper in the
+            // dropdown so the collapsed-group popup shows the group's controls
+            // exactly as they appear when the group is expanded (matching the
+            // native ribbon). The dropdown and wrapper live as long as the group;
+            // only the content panel moves between the group and the wrapper, so
+            // no ToolStripControlHost re-parenting or disposal quirks apply.
             if (_popupDropDown == null)
             {
                 _popupDropDown = new ToolStripDropDown
                 {
                     AutoSize = false,
-                    LayoutStyle = ToolStripLayoutStyle.VerticalStackWithOverflow,
-                    Padding = new Padding(4)
+                    Padding = Padding.Empty,
+                    // The popup hosts live controls whose own dropdowns (e.g.
+                    // Picture > From your computer) open beside it. AutoClose
+                    // would close the popup on any click outside it, swallowing
+                    // those menu clicks into the controls behind; the mouse hook
+                    // below closes it deliberately instead.
+                    AutoClose = false
                 };
-
-                // Add controls as popup menu items
-                foreach (var control in _controls)
+                _popupPanel = new Panel
                 {
-                    var host = new ToolStripControlHost(control)
-                    {
-                        AutoSize = false,
-                        Size = new Size(120, 28)
-                    };
-                    _popupDropDown.Items.Add(host);
-                }
+                    BackColor = RibbonColors.Current.GetOpaqueGroupBackground(),
+                    Margin = Padding.Empty,
+                    Padding = Padding.Empty
+                };
+                _popupHost = new ToolStripControlHost(_popupPanel)
+                {
+                    AutoSize = false,
+                    Margin = Padding.Empty,
+                    Padding = Padding.Empty
+                };
+                _popupDropDown.Items.Add(_popupHost);
+                _popupDropDown.Closed += PopupDropDown_Closed;
+            }
+
+            // Move the content panel into the hosted wrapper for display; the
+            // wrapper paints the opaque group background (transparency does not
+            // render inside a dropdown).
+            if (_contentPanel.Parent != _popupPanel)
+                _popupPanel.Controls.Add(_contentPanel);
+            _contentPanel.Dock = DockStyle.Fill;
+
+            var contentWidth = Math.Max(_expandedWidth, GetPreferredWidth());
+            var contentHeight = Height - LABEL_HEIGHT;
+            _popupPanel.Size = new Size(contentWidth, contentHeight);
+            _popupHost.Size = _popupPanel.Size;
+            _popupDropDown.Size = _popupPanel.Size;
+
+            // The collapsed transition hides the controls and leaves their sizes
+            // untouched, so restore visibility and lay out as if still expanded.
+            // LayoutControls branches on _currentSize, so temporarily present the
+            // pre-collapse size; no other group state changes (OnResize skips
+            // layout while _isPopupMode is set).
+            var popupLayoutSize = _currentSize;
+            _currentSize = _expandedSize;
+            try
+            {
+                foreach (var control in _controls)
+                    control.Visible = true;
+                _contentPanel.Visible = true;
+                LayoutControls();
+            }
+            finally
+            {
+                _currentSize = popupLayoutSize;
             }
 
             _popupDropDown.Show(this, new Point(0, Height));
+            DropDownMouseHook.RegisterVisibleDropDown(_popupDropDown);
+            if (_popupMouseHook == null)
+            {
+                _popupMouseHook = new DropDownMouseHook(
+                    this,
+                    () => _popupDropDown,
+                    () => _popupDropDown?.Close());
+            }
+            _popupMouseHook.Install();
+            System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] RibbonGroup.ShowPopup: {_label} shown size={_popupDropDown.Size.Width}x{_popupDropDown.Size.Height}");
+        }
+
+        private void PopupDropDown_Closed(object sender, ToolStripDropDownClosedEventArgs e)
+        {
+            _popupMouseHook?.Remove();
+            DropDownMouseHook.UnregisterVisibleDropDown(_popupDropDown);
+
+            // Move the content panel back into the group.
+            if (_contentPanel.Parent != this)
+            {
+                base.Controls.Add(_contentPanel);
+            }
+            _contentPanel.Dock = DockStyle.Fill;
+
+            if (_isPopupMode)
+            {
+                // Still collapsed: the popup button keeps the controls hidden.
+                foreach (var control in _controls)
+                    control.Visible = false;
+                _contentPanel.Visible = false;
+            }
+            else
+            {
+                foreach (var control in _controls)
+                    control.Visible = true;
+                _contentPanel.Visible = true;
+                LayoutControls();
+            }
         }
 
         protected override void OnResize(EventArgs e)

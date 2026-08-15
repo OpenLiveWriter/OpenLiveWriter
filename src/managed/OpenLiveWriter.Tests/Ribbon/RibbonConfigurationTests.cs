@@ -238,16 +238,17 @@ namespace OpenLiveWriter.Tests.Ribbon
         }
 
         [Test]
-        public void InsertTab_MediaGroup_HasSixControls()
+        public void InsertTab_MediaGroup_HasFiveControls()
         {
             var insertTab = _config.Tabs.First(t => t.CommandId == CommandId.InsertTab);
             var mediaGroup = insertTab.Groups.First(g => g.CommandId == CommandId.MediaGroup);
 
-            // InsertLink, InsertImageSplit, InsertVideoSplit, InsertMap, InsertTags, InsertEmoticon
-            Assert.That(mediaGroup.Controls.Count, Is.EqualTo(6));
+            // InsertLink, InsertImageSplit, InsertVideoSplit, InsertTags, InsertEmoticon
+            // (InsertMap was removed along with its deprecation modal)
+            Assert.That(mediaGroup.Controls.Count, Is.EqualTo(5));
 
             var map = mediaGroup.Controls.FirstOrDefault(c => c.CommandId == CommandId.InsertMap);
-            Assert.That(map, Is.Not.Null);
+            Assert.That(map, Is.Null, "InsertMap should no longer appear in the ribbon");
 
             var tags = mediaGroup.Controls.FirstOrDefault(c => c.CommandId == CommandId.InsertTags);
             Assert.That(tags, Is.Not.Null);

@@ -144,7 +144,11 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                      ControlStyles.OptimizedDoubleBuffer | ControlStyles.ResizeRedraw |
                      ControlStyles.SupportsTransparentBackColor, true);
 
-            BackColor = RibbonColors.Current.TabBackgroundSelected;
+            // The tab background shows through the gaps between groups and
+            // the unpainted right-edge column of each group. It must match the
+            // group background (245,246,247) or those gaps read as a white
+            // strip next to every group separator.
+            BackColor = RibbonColors.Current.RibbonBackground;
 
             // Use a TransparentPanel for proper transparent background support
             _contentPanel = new TransparentPanel

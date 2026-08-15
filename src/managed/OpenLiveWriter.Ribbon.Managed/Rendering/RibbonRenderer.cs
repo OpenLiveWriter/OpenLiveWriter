@@ -483,6 +483,17 @@ namespace OpenLiveWriter.Ribbon.Managed.Rendering
         /// </summary>
         public void DrawScaledImage(Graphics g, Image image, Rectangle bounds)
         {
+            DrawScaledImage(g, image, bounds, null);
+        }
+
+        /// <summary>
+        /// Draws an image scaled to the specified bounds, optionally with color attributes
+        /// (used for the disabled state). Integer-factor upscales (e.g. 32->64 on a 200%
+        /// display) are point-sampled like the native Windows ribbon, which keeps edges
+        /// crisp instead of bicubic-blurred; other scalings stay high-quality bicubic.
+        /// </summary>
+        public void DrawScaledImage(Graphics g, Image image, Rectangle bounds, System.Drawing.Imaging.ImageAttributes imageAttributes)
+        {
             if (image == null) return;
 
             // CRITICAL: Always use explicit source/destination rectangles with GraphicsUnit.Pixel.
@@ -496,9 +507,19 @@ namespace OpenLiveWriter.Ribbon.Managed.Rendering
             {
                 // 1:1 pixel mapping — draw with explicit pixel-level source/dest rectangles
                 // to avoid GDI+'s DPI-aware scaling that g.DrawImage(image, Point) applies
-                g.DrawImage(image, bounds, new Rectangle(0, 0, image.Width, image.Height), GraphicsUnit.Pixel);
+                if (imageAttributes != null)
+                    g.DrawImage(image, bounds, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, imageAttributes);
+                else
+                    g.DrawImage(image, bounds, new Rectangle(0, 0, image.Width, image.Height), GraphicsUnit.Pixel);
                 return;
             }
+
+            // Integer-factor upscale — the native ribbon point-samples bitmaps here, so
+            // a 32px icon on a 200% display renders as crisp doubled pixels rather than
+            // a bicubic blur. NearestNeighbor + PixelOffsetMode.Half reproduces that.
+            bool integerUpscale = image.Width > 0 && image.Height > 0 &&
+                bounds.Width % image.Width == 0 && bounds.Height % image.Height == 0 &&
+                bounds.Width / image.Width >= 2 && bounds.Height / image.Height >= 2;
 
             // Scaling needed — use high quality settings
             var oldInterpolationMode = g.InterpolationMode;
@@ -508,17 +529,32 @@ namespace OpenLiveWriter.Ribbon.Managed.Rendering
 
             try
             {
-                g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
-                g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
-                g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
-                g.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
+                if (integerUpscale)
+                {
+                    g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+                    g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Half;
+                }
+                else
+                {
+                    g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+                    g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+                    g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+                    g.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
+                }
 
-                using (var attributes = new System.Drawing.Imaging.ImageAttributes())
+                var disposeAttributes = imageAttributes == null;
+                var attributes = imageAttributes ?? new System.Drawing.Imaging.ImageAttributes();
+                try
                 {
                     // Prevent edge artifacts when scaling
                     attributes.SetWrapMode(System.Drawing.Drawing2D.WrapMode.TileFlipXY);
 
                     g.DrawImage(image, bounds, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, attributes);
+                }
+                finally
+                {
+                    if (disposeAttributes)
+                        attributes.Dispose();
                 }
             }
             finally
@@ -592,8 +628,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Rendering
                 matrix.Matrix20 = matrix.Matrix21 = matrix.Matrix22 = 0.33f;
 
                 attributes.SetColorMatrix(matrix);
-                g.DrawImage(image, bounds, 0, 0, image.Width, image.Height,
-                    GraphicsUnit.Pixel, attributes);
+                DrawScaledImage(g, image, bounds, attributes);
             }
         }
 

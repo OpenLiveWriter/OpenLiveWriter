@@ -105,6 +105,10 @@ propagate, so the harness is safe to use in scripts.
 - `run` needs a user logged in at the VM console and Parallels Tools able
   to authenticate as that user with your Mac credentials; otherwise there
   is no desktop session to show the window in and the launch fails.
+- Always kill running app instances before `build`: a running
+  OpenLiveWriter.exe locks the dlls in `bin\Debug`, and the build then
+  fails with MSB3021/MSB3027 copy errors (or worse, silently leaves stale
+  binaries that you end up testing by mistake).
 
 ## ARM64 Windows and x64 emulation
 

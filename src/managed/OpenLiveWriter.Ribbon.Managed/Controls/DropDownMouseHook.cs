@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
@@ -19,6 +20,44 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
         private const int WM_RBUTTONDOWN = 0x0204;
         private const int WM_MBUTTONDOWN = 0x0207;
         private const int WH_MOUSE_LL = 14;
+
+        // Registry of all currently visible dropdowns in the app. A click inside
+        // ANY of them counts as "inside", so nested dropdowns (e.g. a button
+        // dropdown opened from inside a collapsed group popup) do not close
+        // their parents and the click cannot fall through to controls behind.
+        private static readonly List<ToolStripDropDown> _visibleDropDowns = new List<ToolStripDropDown>();
+        private static readonly object _visibleDropDownsLock = new object();
+
+        internal static void RegisterVisibleDropDown(ToolStripDropDown dropDown)
+        {
+            if (dropDown == null) return;
+            lock (_visibleDropDownsLock)
+            {
+                if (!_visibleDropDowns.Contains(dropDown))
+                    _visibleDropDowns.Add(dropDown);
+            }
+        }
+
+        internal static void UnregisterVisibleDropDown(ToolStripDropDown dropDown)
+        {
+            lock (_visibleDropDownsLock)
+            {
+                _visibleDropDowns.Remove(dropDown);
+            }
+        }
+
+        internal static bool IsInsideAnyVisibleDropDown(Point clickPoint)
+        {
+            lock (_visibleDropDownsLock)
+            {
+                foreach (var dropDown in _visibleDropDowns)
+                {
+                    if (dropDown.Visible && GetPhysicalScreenRect(dropDown).Contains(clickPoint))
+                        return true;
+                }
+            }
+            return false;
+        }
 
         private readonly Control _owner;
         private readonly Func<ToolStripDropDown> _getDropDown;
@@ -60,6 +99,43 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             public IntPtr dwExtraInfo;
         }
 
+        [StructLayout(LayoutKind.Sequential)]
+        private struct RECT
+        {
+            public int Left;
+            public int Top;
+            public int Right;
+            public int Bottom;
+        }
+
+        [DllImport("user32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool GetWindowRect(IntPtr hWnd, out RECT lpRect);
+
+        [DllImport("user32.dll")]
+        private static extern uint GetDpiForWindow(IntPtr hwnd);
+
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool PhysicalToLogicalPointForPerMonitorDPI(IntPtr hwnd, ref POINT lpPoint);
+
+        /// <summary>
+        /// Returns the control's screen rectangle in physical pixels, the same
+        /// coordinate space as low-level mouse hook points. Control.Bounds can
+        /// be in scaled (logical) units on high-DPI displays, which made every
+        /// click read as "outside" and closed dropdowns under the mouse. The
+        /// Win32 call is guarded so this also works off Windows.
+        /// </summary>
+        private static Rectangle GetPhysicalScreenRect(Control control)
+        {
+            if (OperatingSystem.IsWindows() && control.IsHandleCreated &&
+                GetWindowRect(control.Handle, out RECT rect))
+            {
+                return Rectangle.FromLTRB(rect.Left, rect.Top, rect.Right, rect.Bottom);
+            }
+            return control.Bounds;
+        }
+
         /// <summary>
         /// Creates a new mouse hook for dropdown close detection.
         /// </summary>
@@ -77,9 +153,16 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
 
         /// <summary>
         /// Installs the low-level mouse hook.
+        /// No-op off Windows: the hook exists to close dropdowns when clicking
+        /// native child windows (WebView2/MSHTML) that WinForms message filters
+        /// do not reach; managed-only platforms get auto-close from the
+        /// ToolStrip's built-in behavior instead.
         /// </summary>
         public void Install()
         {
+            if (!OperatingSystem.IsWindows())
+                return;
+
             if (_hookId == IntPtr.Zero)
             {
                 using (var curProcess = System.Diagnostics.Process.GetCurrentProcess())
@@ -114,16 +197,29 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                     if (dropDown != null && dropDown.Visible)
                     {
                         var hookStruct = Marshal.PtrToStructure<MSLLHOOKSTRUCT>(lParam);
-                        var clickPoint = new Point(hookStruct.pt.x, hookStruct.pt.y);
 
-                        // Check if the click is inside the dropdown bounds
-                        var dropDownBounds = dropDown.Bounds;
-                        if (!dropDownBounds.Contains(clickPoint))
+                        // Low-level mouse hook points are physical device pixels,
+                        // but WinForms bounds are in scaled (logical) units on
+                        // high-DPI displays. Convert with the per-monitor API so
+                        // the comparison is valid; without it every click reads
+                        // as outside at 200% DPI.
+                        var pt = hookStruct.pt;
+                        var hwndForDpi = dropDown.IsHandleCreated ? dropDown.Handle : _owner.Handle;
+                        if (hwndForDpi != IntPtr.Zero)
+                            PhysicalToLogicalPointForPerMonitorDPI(hwndForDpi, ref pt);
+                        var clickPoint = new Point(pt.x, pt.y);
+
+                        // Check if the click is inside the dropdown bounds (in
+                        // physical pixels, matching the hook point's space)
+                        var dropDownBounds = GetPhysicalScreenRect(dropDown);
+                        if (!dropDownBounds.Contains(clickPoint) && !IsInsideAnyVisibleDropDown(clickPoint))
                         {
                             // Also check if click is on the owner control itself (to allow toggling)
-                            var ownerScreenBounds = _owner.RectangleToScreen(_owner.ClientRectangle);
+                            var ownerScreenBounds = GetPhysicalScreenRect(_owner);
                             if (!ownerScreenBounds.Contains(clickPoint))
                             {
+                                System.Diagnostics.Debug.WriteLine(
+                                    $"[OLW-DEBUG] DropDownMouseHook: closing dropdown; raw={hookStruct.pt.x},{hookStruct.pt.y} click={clickPoint.X},{clickPoint.Y} dropdown={dropDownBounds} owner={ownerScreenBounds} dpi={GetDpiForWindow(hwndForDpi)}");
                                 // Use BeginInvoke to close on the UI thread
                                 if (_owner.IsHandleCreated && !_owner.IsDisposed)
                                 {

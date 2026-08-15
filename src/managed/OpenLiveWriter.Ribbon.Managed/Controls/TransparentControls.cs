@@ -8,6 +8,20 @@ using OpenLiveWriter.Ribbon.Managed.Rendering;
 namespace OpenLiveWriter.Ribbon.Managed.Controls
 {
     /// <summary>
+    /// A Panel with double buffering enabled so custom-painted content (like the
+    /// application menu items) does not flicker on hover-driven repaints.
+    /// </summary>
+    internal class BufferedPanel : Panel
+    {
+        public BufferedPanel()
+        {
+            SetStyle(ControlStyles.UserPaint |
+                     ControlStyles.OptimizedDoubleBuffer |
+                     ControlStyles.AllPaintingInWmPaint, true);
+        }
+    }
+
+    /// <summary>
     /// A Panel that properly supports transparent background.
     /// Standard Panel doesn't have SupportsTransparentBackColor style set,
     /// which can cause rendering issues with transparent backgrounds.

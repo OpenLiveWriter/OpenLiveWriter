@@ -436,6 +436,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                     Invalidate();
                     // Remove mouse hook when dropdown closes
                     _mouseHook?.Remove();
+                    DropDownMouseHook.UnregisterVisibleDropDown(_dropDownMenu);
                 };
 
                 foreach (var item in _menuItems)
@@ -478,6 +479,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             }
             _mouseHook.Install();
 
+            DropDownMouseHook.RegisterVisibleDropDown(_dropDownMenu);
             _dropDownMenu.Show(this, new Point(0, Height));
         }
 

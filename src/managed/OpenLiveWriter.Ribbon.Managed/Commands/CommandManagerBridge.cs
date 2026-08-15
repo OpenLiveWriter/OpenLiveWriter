@@ -109,6 +109,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Commands
         private readonly CommandId _commandId;
         private readonly object _existingCommandManager;
         private object _sourceCommand;
+        private bool _loggedMissingSource;
 
         private bool _enabled = true;
         private bool _visible = true;
@@ -168,6 +169,32 @@ namespace OpenLiveWriter.Ribbon.Managed.Commands
             get => _selectedColor;
             set => _selectedColor = value;
         }
+
+        /// <summary>
+        /// Gets the source command's current selected color (for color picker
+        /// commands), reflected lazily from the source command's SelectedColor
+        /// property. Null when the source command has no such property.
+        /// </summary>
+        public Color? SourceSelectedColor
+        {
+            get
+            {
+                if (!_sourceSelectedColorLoaded)
+                {
+                    _sourceSelectedColorLoaded = true;
+                    try
+                    {
+                        var prop = _sourceCommand?.GetType().GetProperty("SelectedColor");
+                        if (prop?.GetValue(_sourceCommand) is Color c)
+                            _sourceSelectedColor = c;
+                    }
+                    catch { }
+                }
+                return _sourceSelectedColor;
+            }
+        }
+        private Color? _sourceSelectedColor;
+        private bool _sourceSelectedColorLoaded;
 
         public bool Enabled
         {
@@ -294,6 +321,13 @@ namespace OpenLiveWriter.Ribbon.Managed.Commands
             var source = GetSourceCommand();
             if (source == null)
             {
+                // Log once per command: a ribbon command with no source command is a
+                // silent no-op when clicked, which is almost always a wiring bug.
+                if (!_loggedMissingSource)
+                {
+                    _loggedMissingSource = true;
+                    System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] BridgedCommand: no source command for {_commandId}");
+                }
                 // Use command ID as fallback label
                 _label = _commandId.ToString();
                 _tooltip = _commandId.ToString();
@@ -603,7 +637,11 @@ namespace OpenLiveWriter.Ribbon.Managed.Commands
 
         /// <summary>
         /// Extracts a Bitmap from a property that may return either LazyLoader&lt;Bitmap&gt; or Bitmap directly.
-        /// Also filters out placeholder images (MissingLarge/MissingSmall).
+        /// <summary>
+        /// Extracts a bitmap from a command property, unwrapping LazyLoader.
+        /// Also filters out placeholder images (MissingLarge/MissingSmall) so
+        /// commands without artwork render text-only and icon fallbacks (such as
+        /// the collapsed group popup using a child button's icon) can kick in.
         /// </summary>
         private static Image ExtractBitmapFromProperty(PropertyInfo property, object source)
         {
@@ -691,7 +729,9 @@ namespace OpenLiveWriter.Ribbon.Managed.Commands
         }
 
         /// <summary>
-        /// Scales an image to the specified size with high quality interpolation.
+        /// Scales an image to the specified size. Integer-factor upscales (e.g. 16->32)
+        /// are point-sampled like the native Windows ribbon so doubled pixels stay
+        /// crisp; other scalings use high quality bicubic interpolation.
         /// </summary>
         private static Image ScaleImage(Image source, int width, int height)
         {
@@ -703,13 +743,25 @@ namespace OpenLiveWriter.Ribbon.Managed.Commands
 
             destImage.SetResolution(source.HorizontalResolution, source.VerticalResolution);
 
+            bool integerUpscale = source.Width > 0 && source.Height > 0 &&
+                width % source.Width == 0 && height % source.Height == 0 &&
+                width / source.Width >= 2 && height / source.Height >= 2;
+
             using (var graphics = Graphics.FromImage(destImage))
             {
                 graphics.CompositingMode = System.Drawing.Drawing2D.CompositingMode.SourceCopy;
-                graphics.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
-                graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
-                graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
-                graphics.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+                if (integerUpscale)
+                {
+                    graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+                    graphics.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Half;
+                }
+                else
+                {
+                    graphics.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
+                    graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+                    graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+                    graphics.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+                }
 
                 using (var wrapMode = new System.Drawing.Imaging.ImageAttributes())
                 {

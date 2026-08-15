@@ -200,10 +200,13 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
 
             // Content panel - uses Dock=Fill to take remaining space after tab header
             // Tab header panel (added second) will dock to Top first, leaving remaining space for content
+            // Background matches the native ribbon's group background (245,246,247)
+            // so the empty area after the last group and the gaps around group
+            // separators are not a lighter color than the groups.
             _contentPanel = new Panel
             {
                 Dock = DockStyle.Fill,
-                BackColor = RibbonColors.Current.TabBackgroundSelected
+                BackColor = RibbonColors.Current.RibbonBackground
             };
             _contentPanel.Paint += ContentPanel_Paint;
             Controls.Add(_contentPanel);
@@ -689,7 +692,9 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
         private void TabHeaderPanel_Paint(object sender, PaintEventArgs e)
         {
             var g = e.Graphics;
-            g.Clear(RibbonColors.Current.TabBackground);
+            // The tab strip uses the same gray as the ribbon body so the whole
+            // top chrome reads as one continuous colour when maximized.
+            g.Clear(RibbonColors.Current.TabStripBackground);
 
             // Draw app menu button (File button) - full height minus small top margin - DPI-scaled
             var appButtonMarginX = DisplayHelper.ScaleXCeil(2);

@@ -416,13 +416,26 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                 // Use MinColumnsLarge for explicit width control if set
                 var effectiveColumns = _minColumnsLarge > 0 ? _minColumnsLarge : _columns;
 
-                // For TextPosition.Right, use a fixed width for icon + text
+                // For TextPosition.Right, size for icon + text
                 var effectiveItemWidth = _itemWidth;
                 if (_textPosition == RibbonTextPosition.Right)
                 {
-                    // Icon (16px) + padding (4px) + text space
-                    // Use a narrower width (110px) for compact list-style galleries
+                    // Icon (16px) + padding (4px) + text space. Measure the
+                    // longest item label so text is not cut off, with a floor
+                    // of 110px (compact) and a cap so long names do not
+                    // balloon the group.
                     effectiveItemWidth = 110;
+                    using (var g = CreateGraphics())
+                    {
+                        foreach (var item in _items)
+                        {
+                            if (!string.IsNullOrEmpty(item?.Label))
+                            {
+                                var textWidth = TextRenderer.MeasureText(g, item.Label, SystemFonts.MenuFont).Width;
+                                effectiveItemWidth = Math.Min(Math.Max(effectiveItemWidth, 16 + 4 + textWidth + 8), 260);
+                            }
+                        }
+                    }
                 }
 
                 return effectiveColumns * effectiveItemWidth + SCROLL_BUTTON_WIDTH + BORDER_WIDTH * 2;
@@ -1134,6 +1147,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             AddMessageFilter();
             
             _dropDown.Show(this, new Point(0, Height));
+            DropDownMouseHook.RegisterVisibleDropDown(_dropDown);
         }
 
         protected override void OnMouseWheel(MouseEventArgs e)
@@ -1205,6 +1219,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
         private void RemoveMessageFilter()
         {
             _mouseHook?.Remove();
+            DropDownMouseHook.UnregisterVisibleDropDown(_dropDown);
         }
 
         protected override void Dispose(bool disposing)

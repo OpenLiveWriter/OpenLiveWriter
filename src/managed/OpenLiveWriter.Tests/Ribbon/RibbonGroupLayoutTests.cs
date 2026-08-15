@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using NUnit.Framework;
 using OpenLiveWriter.Localization;
 using OpenLiveWriter.Ribbon.Managed;
@@ -209,6 +210,40 @@ namespace OpenLiveWriter.Tests.Ribbon
         }
 
         [Test]
+        public void SevenSmallButtons_RowsAlignToTopNotCentered()
+        {
+            // Regression: the Paragraph group's button rows were vertically
+            // centered in the group, leaving a gap above them at tall group
+            // heights. The native ribbon aligns them to the top.
+            using var group = new RibbonGroup();
+            group.Label = "Paragraph";
+            group.Size = new Size(120, 200); // tall group: centering would push rows down
+            group.SizeDefinition = "SevenSmallButtons";
+
+            var buttons = new List<RibbonButton>();
+            for (var i = 0; i < 7; i++)
+            {
+                var button = new RibbonButton { CurrentSize = RibbonGroupSize.Small };
+                buttons.Add(button);
+                group.AddControl(button);
+            }
+
+            try
+            {
+                var topY = buttons.Min(b => b.Location.Y);
+                Assert.That(topY, Is.LessThanOrEqualTo(12),
+                    "paragraph button rows must align to the top of the group, not center vertically");
+            }
+            finally
+            {
+                foreach (var button in buttons)
+                {
+                    button.Dispose();
+                }
+            }
+        }
+
+        [Test]
         public void SevenSmallButtons_SplitsThreeTopFourBottom()
         {
             // Matches the native ribbon's SevenSmallButtons SizeDefinition
@@ -250,6 +285,129 @@ namespace OpenLiveWriter.Tests.Ribbon
                     button.Dispose();
                 }
             }
+        }
+
+        #endregion
+
+        #region Debug Tab SizeDefinition Tests
+
+        private static List<RibbonButton> AddButtons(RibbonGroup group, int count)
+        {
+            var buttons = new List<RibbonButton>();
+            for (var i = 0; i < count; i++)
+            {
+                var button = new RibbonButton { CurrentSize = RibbonGroupSize.Medium };
+                buttons.Add(button);
+                group.AddControl(button);
+            }
+            return buttons;
+        }
+
+        [Test]
+        public void GalleryAndTwoButtons_ButtonsFitInsideGroup()
+        {
+            // The Plug-ins group (GalleryAndTwoButtons) must place the Add
+            // plug-in and Plug-in options buttons fully inside the group,
+            // clear of the separator margin.
+            using var group = new RibbonGroup { Label = "Plug-ins", SizeDefinition = "GalleryAndTwoButtons" };
+            var gallery = new RibbonGallery { GalleryType = RibbonGalleryType.InRibbon };
+            gallery.AddItem(new RibbonGalleryItem("Test plug-in", null));
+            gallery.AddItem(new RibbonGalleryItem("Another plug-in", null));
+            var buttons = new List<RibbonButton>();
+            group.AddControl(gallery);
+            foreach (var label in new[] { "Add plug-in", "Plug-in options" })
+            {
+                var button = new RibbonButton { CurrentSize = RibbonGroupSize.Medium };
+                buttons.Add(button);
+                group.AddControl(button);
+            }
+
+            group.Size = new Size(group.GetPreferredWidth(), 70);
+            try
+            {
+                foreach (var button in buttons)
+                {
+                    Assert.LessOrEqual(button.Location.X + button.Width,
+                        group.GetPreferredWidth() - LayoutConstants.GroupSeparatorMargin,
+                        "button overhangs the group's right edge");
+                }
+            }
+            finally
+            {
+                gallery.Dispose();
+                buttons.ForEach(b => b.Dispose());
+            }
+        }
+
+        [Test]
+        public void ThreeButtons_SingleColumnOfThree()
+        {
+            // Native WRF ThreeButtons: one column of three medium buttons.
+            using var group = new RibbonGroup { Label = "Validate", SizeDefinition = "ThreeButtons" };
+            group.Size = new Size(120, 70);
+            var buttons = AddButtons(group, 3);
+            try
+            {
+                Assert.That(buttons[1].Location.X, Is.EqualTo(buttons[0].Location.X));
+                Assert.That(buttons[2].Location.X, Is.EqualTo(buttons[0].Location.X));
+                Assert.That(buttons[1].Location.Y, Is.GreaterThan(buttons[0].Location.Y));
+                Assert.That(buttons[2].Location.Y, Is.GreaterThan(buttons[1].Location.Y));
+            }
+            finally { buttons.ForEach(b => b.Dispose()); }
+        }
+
+        [Test]
+        public void FiveButtons_GridThreePlusTwo()
+        {
+            // Native WRF FiveButtons: 3 buttons in the first column, 2 in the second.
+            using var group = new RibbonGroup { Label = "General", SizeDefinition = "FiveButtons" };
+            group.Size = new Size(200, 70);
+            var buttons = AddButtons(group, 5);
+            try
+            {
+                for (var i = 0; i < 3; i++)
+                    Assert.That(buttons[i].Location.X, Is.EqualTo(buttons[0].Location.X), "first column X");
+                for (var i = 3; i < 5; i++)
+                    Assert.That(buttons[i].Location.X, Is.EqualTo(buttons[3].Location.X), "second column X");
+                Assert.That(buttons[3].Location.X, Is.GreaterThan(buttons[0].Location.X));
+                Assert.That(buttons[4].Location.Y, Is.GreaterThan(buttons[3].Location.Y));
+            }
+            finally { buttons.ForEach(b => b.Dispose()); }
+        }
+
+        [Test]
+        public void EightButtons_GridThreeThreeTwo()
+        {
+            // Native WRF EightButtons: 3+3+2 columns.
+            using var group = new RibbonGroup { Label = "Dialog", SizeDefinition = "EightButtons" };
+            group.Size = new Size(280, 70);
+            var buttons = AddButtons(group, 8);
+            try
+            {
+                for (var i = 0; i < 3; i++)
+                    Assert.That(buttons[i].Location.X, Is.EqualTo(buttons[0].Location.X), "column 0");
+                for (var i = 3; i < 6; i++)
+                    Assert.That(buttons[i].Location.X, Is.EqualTo(buttons[3].Location.X), "column 1");
+                for (var i = 6; i < 8; i++)
+                    Assert.That(buttons[i].Location.X, Is.EqualTo(buttons[6].Location.X), "column 2");
+                Assert.That(buttons[3].Location.X, Is.GreaterThan(buttons[0].Location.X));
+                Assert.That(buttons[6].Location.X, Is.GreaterThan(buttons[3].Location.X));
+            }
+            finally { buttons.ForEach(b => b.Dispose()); }
+        }
+
+        [Test]
+        public void OneButton_RendersSingleLargeButton()
+        {
+            // Native WRF OneButton: one large button.
+            using var group = new RibbonGroup { Label = "Text", SizeDefinition = "OneButton" };
+            group.Size = new Size(120, 70);
+            var buttons = AddButtons(group, 1);
+            try
+            {
+                Assert.That(buttons[0].CurrentSize, Is.EqualTo(RibbonGroupSize.Large));
+            }
+            finally { buttons.ForEach(b => b.Dispose()); }
         }
 
         #endregion

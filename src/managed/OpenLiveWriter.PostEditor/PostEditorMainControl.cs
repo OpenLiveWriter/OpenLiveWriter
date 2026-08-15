@@ -247,6 +247,7 @@ namespace OpenLiveWriter.PostEditor
                 _htmlEditor.CommandManager.Add(CommandId.ShowErrorDialog, new EventHandler(commandErrorDialog_Execute));
                 _htmlEditor.CommandManager.Add(CommandId.BlogClientOptions, new EventHandler(commandBlogClientOptions_Execute));
                 _htmlEditor.CommandManager.Add(CommandId.ShowDisplayMessageTestForm, new EventHandler(commandShowDisplayMessageTestForm_Execute));
+                _htmlEditor.CommandManager.Add(CommandId.ShowUpdateMessage, new EventHandler(commandShowUpdateMessage_Execute));
                 _htmlEditor.CommandManager.Add(CommandId.ShowSupportingFilesForm, new EventHandler(commandShowSupportingFilesForm_Execute));
                 _htmlEditor.CommandManager.Add(CommandId.InsertLoremIpsum, new EventHandler(commandInsertLoremIpsum_Execute));
                 _htmlEditor.CommandManager.Add(CommandId.ValidateHtml, new EventHandler(commandValidateHtml_Execute));
@@ -485,39 +486,20 @@ namespace OpenLiveWriter.PostEditor
         {
             try
             {
-                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] {DateTime.Now:HH:mm:ss.fff} InitializeRibbon - Starting managed ribbon initialization");
-
-                // Initialize the RibbonControl for command management
+                // Initialize the RibbonControl for command management (both ribbons need it)
                 ribbonControl = new RibbonControl(_htmlEditor.IHtmlEditorComponentContext, _htmlEditor);
                 System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] {DateTime.Now:HH:mm:ss.fff} InitializeRibbon - RibbonControl created");
 
-                // Create the managed ribbon panel
-                _managedRibbon = new RibbonPanel();
-                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] {DateTime.Now:HH:mm:ss.fff} InitializeRibbon - RibbonPanel created");
-
-                // Create the command manager bridge to connect with existing CommandManager
-                _commandManagerBridge = new CommandManagerBridge(_htmlEditor.CommandManager);
-                _managedRibbon.CommandManager = _commandManagerBridge.RibbonCommandManager;
-                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] {DateTime.Now:HH:mm:ss.fff} InitializeRibbon - CommandManager bridge created");
-
-                // Build the ribbon from the default configuration
-                var config = DefaultRibbonConfiguration.Create();
-                _managedRibbon.BuildFromConfiguration(config);
-                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] {DateTime.Now:HH:mm:ss.fff} InitializeRibbon - Ribbon built from configuration");
-
-                // Add the ribbon to the form
-                Controls.Add(_managedRibbon);
-                _managedRibbon.BringToFront();
-
-                // Update editor panel padding to account for ribbon height
-                if (_mainEditorPanel != null)
+                // Labs setting: use the classic native Windows ribbon when requested.
+                // Falls back to the managed ribbon if the native one cannot initialize.
+                if (PostEditorSettings.UseNativeRibbon && TryInitializeNativeRibbon())
                 {
-                    _mainEditorPanel.DockPadding.Top = _managedRibbon.RibbonHeight;
+                    System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] {DateTime.Now:HH:mm:ss.fff} InitializeRibbon - Using native ribbon");
                 }
-                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] {DateTime.Now:HH:mm:ss.fff} InitializeRibbon - Ribbon added to form");
-
-                // Set initial mode
-                UpdateManagedRibbonMode();
+                else
+                {
+                    InitializeManagedRibbon();
+                }
 
                 CommandManager.Invalidate(CommandId.MRUList);
                 CommandManager.Invalidate(CommandId.OpenDraftSplit);
@@ -539,6 +521,87 @@ namespace OpenLiveWriter.PostEditor
                 ribbonControl = null;
                 _managedRibbon = null;
             }
+        }
+
+        /// <summary>
+        /// Initializes the classic Windows Ribbon Framework ribbon (as in 0.6.2).
+        /// Returns false (so the caller falls back to the managed ribbon) when the
+        /// framework or the compiled markup DLL is unavailable.
+        /// </summary>
+        private bool TryInitializeNativeRibbon()
+        {
+            try
+            {
+                IUIFramework framework = (IUIFramework)Activator.CreateInstance<Framework>();
+                if (framework == null)
+                    return false;
+
+                int initializeResult = framework.Initialize(_mainFrameWindow.Handle, this);
+                if (initializeResult != HRESULT.S_OK)
+                {
+                    Trace.TraceWarning("Native ribbon framework failed to initialize: " + initializeResult);
+                    return false;
+                }
+
+                string nativeResourceDLL = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\OpenLiveWriter.Ribbon.dll";
+                IntPtr hMod = Kernel32.LoadLibrary(nativeResourceDLL);
+                if (hMod == IntPtr.Zero)
+                {
+                    Trace.TraceWarning("OpenLiveWriter.Ribbon.dll not found; falling back to the managed ribbon.");
+                    return false;
+                }
+
+                int loadResult = framework.LoadUI(hMod, "RIBBON_RIBBON");
+                if (loadResult != HRESULT.S_OK)
+                {
+                    Trace.TraceWarning("Native ribbon failed to load: " + loadResult + "; falling back to the managed ribbon.");
+                    return false;
+                }
+
+                _framework = framework;
+                _framework.SetModes(mode);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Trace.TraceWarning("Native ribbon initialization failed, falling back to the managed ribbon: " + ex.Message);
+                return false;
+            }
+        }
+
+        private void InitializeManagedRibbon()
+        {
+            System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] {DateTime.Now:HH:mm:ss.fff} InitializeManagedRibbon - Starting");
+
+            // Create the managed ribbon panel
+            _managedRibbon = new RibbonPanel();
+
+            // Create the command manager bridge to connect with existing CommandManager
+            _commandManagerBridge = new CommandManagerBridge(_htmlEditor.CommandManager);
+            _managedRibbon.CommandManager = _commandManagerBridge.RibbonCommandManager;
+
+            // Build the ribbon from the default configuration
+            var config = DefaultRibbonConfiguration.Create();
+            _managedRibbon.BuildFromConfiguration(config);
+
+            // Add the ribbon to the form
+            Controls.Add(_managedRibbon);
+            _managedRibbon.BringToFront();
+
+            // Force an immediate synchronous paint: the init sequence blocks the
+            // message loop, so without this the just-created ribbon sits
+            // unpainted and transparent until the loop unblocks.
+            _managedRibbon.Update();
+
+            // Update editor panel padding to account for ribbon height
+            if (_mainEditorPanel != null)
+            {
+                _mainEditorPanel.DockPadding.Top = _managedRibbon.RibbonHeight;
+            }
+
+            // Set initial mode
+            UpdateManagedRibbonMode();
+            System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] {DateTime.Now:HH:mm:ss.fff} InitializeManagedRibbon - Complete");
         }
 
         private void UpdateManagedRibbonMode()
@@ -569,9 +632,16 @@ namespace OpenLiveWriter.PostEditor
         {
             base.OnSizeChanged(e);
 
-            if (_mainEditorPanel != null && _managedRibbon != null)
+            if (_mainEditorPanel != null)
             {
-                _mainEditorPanel.DockPadding.Top = _managedRibbon.RibbonHeight;
+                if (_managedRibbon != null)
+                {
+                    _mainEditorPanel.DockPadding.Top = _managedRibbon.RibbonHeight;
+                }
+                else if (ribbon != null && ComHelper.SUCCEEDED(ribbon.GetHeight(out uint ribbonHeight)))
+                {
+                    _mainEditorPanel.DockPadding.Top = (int)ribbonHeight;
+                }
             }
 
             Invalidate(false);
@@ -821,6 +891,15 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
+        private void commandShowUpdateMessage_Execute(object sender, EventArgs e)
+        {
+            // Debug aid: kick off an update check and point at the diagnostics
+            // log for the outcome (the check itself is silent by design).
+            Updates.UpdateManager.CheckforUpdates(forceCheck: true);
+            MessageBox.Show(this, "Update check started. See the diagnostics log for the result.",
+                "Update Check", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
         private void commandShowSupportingFilesForm_Execute(object sender, EventArgs e)
         {
             SupportingFilesForm.ShowForm(_mainFrameWindow as Form, BlogPostEditingManager);
@@ -857,64 +936,36 @@ namespace OpenLiveWriter.PostEditor
 
         private void ValidateHtml(bool xhtml)
         {
-            const string XHTML_DOCTYPE =
-                @"<!DOCTYPE html PUBLIC ""-//W3C//DTD XHTML 1.0 Transitional//EN"" ""http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"">";
-            const string HTML_DOCTYPE =
-                @"<!DOCTYPE HTML PUBLIC ""-//W3C//DTD HTML 4.01 Transitional//EN"">";
-            const string HTML_TEMPLATE = "<html><head><title>Untitled</title></head><body>{0}</body></html>";
-            const string XHTML_TEMPLATE = "<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\"><head><title>Untitled</title></head><body>{0}</body></html>";
-            const string VALIDATOR_URL = "http://validator.w3.org/";
+            const string HTML_TEMPLATE = "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\"><title>Untitled</title></head><body>{0}</body></html>";
+            const string XHTML_TEMPLATE = "<!DOCTYPE html><html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\"><head><title>Untitled</title></head><body>{0}</body></html>";
 
-            HtmlForm form;
-            FormData data;
-            Uri validatorBaseUri;
+            // The old flow GET'd validator.w3.org and scraped the third form on
+            // the page for its textarea. That page is now a 301 to https and no
+            // longer has that layout, so the scrape threw before validating
+            // anything. The Nu checker takes the document as the request body,
+            // which needs no scraping and no DTD-era doctypes.
+            const string VALIDATOR_URL = "https://validator.w3.org/nu/?out=html";
+            const string VALIDATOR_BASE = "https://validator.w3.org/nu/";
 
             string html = string.Format(CultureInfo.InvariantCulture, xhtml ? XHTML_TEMPLATE : HTML_TEMPLATE, _htmlEditor.Body);
-            if (xhtml)
-                html = XHTML_DOCTYPE + html;
-            else
-                html = HTML_DOCTYPE + html;
+            string contentType = xhtml ? "application/xhtml+xml; charset=utf-8" : "text/html; charset=utf-8";
 
-            // Get the validator page using HttpClient
-            using (Stream s = HttpRequestHelper.GetResponseStream(VALIDATOR_URL, out validatorBaseUri))
+            using (Stream resultsStream = HttpRequestHelper.PostFormStream(
+                VALIDATOR_URL, Encoding.UTF8.GetBytes(html), out _, contentType))
             {
-                FormFactory formFactory = new FormFactory(s);
-                formFactory.NextForm();
-                formFactory.NextForm();
-                form = formFactory.NextForm();
-                Textarea textarea = form.GetElementByIndex(0) as Textarea;
-                if (textarea == null)
-                    throw new ArgumentException("Unexpected HTML: textarea element not found");
-                textarea.Value = html;
-                data = form.Submit(null);
-            }
+                string resultsHtml = StreamHelper.AsString(resultsStream, Encoding.UTF8);
+                // The results page references its stylesheet and icon relatively.
+                resultsHtml = resultsHtml.Replace("<head>",
+                                                  string.Format(CultureInfo.InvariantCulture, "<head><base href=\"{0}\"/>",
+                                                                HtmlUtils.EscapeEntities(VALIDATOR_BASE)));
 
-            // Submit the form using HttpClient
-            string submitUrl = UrlHelper.EscapeRelativeURL(UrlHelper.SafeToAbsoluteUri(validatorBaseUri), form.Action);
-            using (Stream formDataStream = data.ToStream())
-            {
-                byte[] formBytes;
-                using (var ms = new MemoryStream())
+                string tempFile = TempFileManager.Instance.CreateTempFile("results.htm");
+                using (Stream fileStream = new FileStream(tempFile, FileMode.Create, FileAccess.Write))
                 {
-                    formDataStream.CopyTo(ms);
-                    formBytes = ms.ToArray();
+                    byte[] bytes = Encoding.UTF8.GetBytes(resultsHtml);
+                    fileStream.Write(bytes, 0, bytes.Length);
                 }
-
-                using (Stream resultsStream = HttpRequestHelper.PostFormStream(submitUrl, formBytes, out Uri responseUri))
-                {
-                    string resultsHtml = StreamHelper.AsString(resultsStream, Encoding.UTF8);
-                    resultsHtml = resultsHtml.Replace("<head>",
-                                                      string.Format(CultureInfo.InvariantCulture, "<head><base href=\"{0}\"/>",
-                                                                    HtmlUtils.EscapeEntities(UrlHelper.SafeToAbsoluteUri(responseUri))));
-
-                    string tempFile = TempFileManager.Instance.CreateTempFile("results.htm");
-                    using (Stream fileStream = new FileStream(tempFile, FileMode.Create, FileAccess.Write))
-                    {
-                        byte[] bytes = Encoding.UTF8.GetBytes(resultsHtml);
-                        fileStream.Write(bytes, 0, bytes.Length);
-                    }
-                    ShellHelper.LaunchUrl(tempFile);
-                }
+                ShellHelper.LaunchUrl(tempFile);
             }
         }
 
